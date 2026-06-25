@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SearchMed — Case Study · David Silverlight</title>
+<style>
+  :root{--navy:#10405e; --teal:#1597a6; --aqua:#4fd0d6; --mint:#43c59e; --ink:#142a32; --muted:#56707a; --paper:#eaf3f5; --card:#fff; --line:#d6e7ea;}
+  *{box-sizing:border-box;} html{scroll-behavior:smooth;}
+  body{margin:0; font-family:"Segoe UI",Calibri,Arial,sans-serif; color:var(--ink); background:var(--paper); line-height:1.55;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 26px;}
+  .topbar{position:sticky; top:0; z-index:40; background:rgba(16,64,94,.96); backdrop-filter:blur(8px); border-bottom:1px solid rgba(79,208,214,.3);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:56px;}
+  .back{display:inline-flex; gap:8px; text-decoration:none; color:var(--navy); font-weight:800; font-size:14px; background:var(--aqua); padding:9px 16px; border-radius:30px;}
+  .topbar .who{color:#bfe6ea; font-size:13px; font-weight:700;} .topbar .who b{color:#fff;}
+  .hero{position:relative; overflow:hidden; color:#fff; background:radial-gradient(900px 440px at 84% -10%, rgba(79,208,214,.32), transparent 56%), linear-gradient(160deg,#0c3146,#1597a6 62%,#10405e);}
+  .hero::before{content:"＋"; position:absolute; inset:0; color:rgba(255,255,255,.05); font-size:40px; line-height:60px; letter-spacing:30px; overflow:hidden; pointer-events:none;}
+  .hero .wrap{position:relative; z-index:3; padding:52px 26px 40px;}
+  .eyebrow{display:inline-flex; gap:8px; font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:#aef0f3; background:rgba(79,208,214,.16); border:1px solid rgba(79,208,214,.45); padding:6px 13px; border-radius:30px;}
+  .hero h1{margin:16px 0 6px; font-size:clamp(34px,6vw,60px); line-height:1;}
+  .hero h1 span{background:linear-gradient(90deg,#7fe3e0,#bfe6ff); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero .lead{max-width:640px; font-size:18px; color:#d3eaee;}
+  .tags{margin-top:16px; display:flex; flex-wrap:wrap; gap:8px;}
+  .tags span{font-size:12px; font-weight:700; color:#e3f6f7; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.18); padding:5px 12px; border-radius:20px;}
+  .stats{display:flex; flex-wrap:wrap; gap:14px; margin:26px 0 4px;}
+  .stat{flex:1; min-width:150px; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.14); border-radius:14px; padding:16px 18px;}
+  .stat .n{font-size:34px; font-weight:800; line-height:1; color:#fff;} .stat .n small{font-size:18px; color:#7fe3e0; font-weight:800;}
+  .stat .l{margin-top:6px; font-size:12.5px; color:#bcd6da;}
+  .stat.mint{background:linear-gradient(160deg, rgba(67,197,158,.28), rgba(67,197,158,.1)); border-color:rgba(120,230,190,.5);} .stat.mint .n{color:#9af0cf;}
+  .cascade{position:relative; z-index:3; margin-top:30px; display:flex; align-items:flex-end; justify-content:center; flex-wrap:wrap; gap:clamp(6px,1.4vw,16px);}
+  .phone{transform:translateY(var(--ty,0)); transition:transform .25s ease;}
+  .phone img{display:block; width:clamp(84px,9.5vw,128px); border-radius:14px; box-shadow:0 20px 38px rgba(0,20,25,.5); cursor:zoom-in;}
+  .phone:hover{transform:translateY(-9px) scale(1.04); z-index:9;}
+  section{padding:50px 0;}
+  .kicker{font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--teal);}
+  h2.sec{font-size:clamp(24px,3.4vw,32px); margin:8px 0 6px; color:var(--navy);}
+  .sec-sub{color:var(--muted); max-width:720px; font-size:16px; margin:0 0 24px;}
+  .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  .card2{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px; position:relative; overflow:hidden; box-shadow:0 1px 3px rgba(15,60,70,.06); transition:transform .2s, box-shadow .2s;}
+  .card2:hover{transform:translateY(-4px); box-shadow:0 14px 30px rgba(15,90,100,.15);}
+  .card2::before{content:""; position:absolute; left:0; top:0; right:0; height:5px; background:linear-gradient(90deg,var(--teal),var(--mint));}
+  .card2 .ico{font-size:30px;} .card2 h3{margin:8px 0 6px; font-size:17px; color:var(--navy);} .card2 p{margin:0; font-size:14px; color:#46606a;}
+  .screen{margin:0; background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden; box-shadow:0 12px 28px rgba(15,60,70,.13); transition:transform .2s, box-shadow .2s;}
+  .screen:hover{transform:translateY(-5px); box-shadow:0 20px 40px rgba(15,90,100,.2);}
+  .screen .shotwrap{background:linear-gradient(160deg,#eaf5f7,#dcefF2); background:linear-gradient(160deg,#eaf5f7,#dceff2); display:flex; align-items:center; justify-content:center; padding:18px;}
+  .screen .shotwrap img{width:58%; border-radius:14px; box-shadow:0 12px 24px rgba(15,60,70,.25); cursor:zoom-in;}
+  .screen figcaption{padding:12px 15px 15px; font-size:13px; color:var(--muted);} .screen figcaption b{color:var(--ink); display:block; font-size:14px; margin-bottom:2px;}
+  .band{background:linear-gradient(160deg,#0c3146,#08293a); color:#fff;}
+  .band h2{color:#fff;} .band .kicker{color:var(--aqua);} .band .sec-sub{color:#bfd6da;}
+  .stack{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;}
+  .stack span{font-size:13px; font-weight:700; color:#e3f6f7; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16); padding:8px 15px; border-radius:30px;}
+  footer{padding:30px 0 50px; text-align:center; color:var(--muted); font-size:13px;} footer a{color:var(--teal); text-decoration:none; font-weight:800;}
+  #lb{display:none; position:fixed; inset:0; z-index:9999; background:rgba(6,24,30,.93); align-items:flex-start; justify-content:center; overflow:auto; cursor:zoom-out; padding:24px;}
+  #lb img{max-width:none; border-radius:10px; box-shadow:0 16px 60px rgba(0,0,0,.6);} #lb .x{position:fixed; top:16px; right:22px; color:#fff; font-size:38px; cursor:pointer;}
+  @media (max-width:820px){ .grid3{grid-template-columns:1fr 1fr;} }
+  @media (max-width:520px){ .grid3{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap"><a class="back" href="David Silverlight Portfolio.html">&larr; Back to portfolio</a><span class="who">Case Study · <b>David Silverlight</b></span></div></div>
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">▲ .NET MAUI · Healthcare Search</span>
+    <h1>Search<span>Med</span></h1>
+    <p class="lead">Find the right medical professional, fast. SearchMed lets people search providers by need and location — with results on a list and a map — and I made it noticeably quicker.</p>
+    <div class="tags"><span>Provider Search</span><span>Maps</span><span>Firebase</span><span>Performance</span><span>.NET MAUI</span></div>
+    <div class="stats">
+      <div class="stat mint"><div class="n">Firebase</div><div class="l">Real-time cloud backend</div></div>
+      <div class="stat"><div class="n">List + Map</div><div class="l">Dual result views</div></div>
+      <div class="stat mint"><div class="n">iOS + Android</div><div class="l">One cross-platform app</div></div>
+    </div>
+    <div class="cascade">
+      <div class="phone" style="--ty:40px;"><img src="images/SearchMed/SearchFields.png" alt="SearchMed search"></div>
+      <div class="phone" style="--ty:18px;"><img src="images/SearchMed/SearchList.png" alt="SearchMed list"></div>
+      <div class="phone" style="--ty:0;"><img src="images/SearchMed/SearchMap.png" alt="SearchMed map"></div>
+      <div class="phone" style="--ty:0;"><img src="images/SearchMed/SearchResults.png" alt="SearchMed results"></div>
+      <div class="phone" style="--ty:18px;"><img src="images/SearchMed/SearchDetails.png" alt="SearchMed details"></div>
+      <div class="phone" style="--ty:40px;"><img src="images/SearchMed/UpdateSearch.png" alt="SearchMed update search"></div>
+    </div>
+  </div>
+</header>
+<section>
+  <div class="wrap">
+    <span class="kicker">What it does</span>
+    <h2 class="sec">The right provider, the fast way</h2>
+    <p class="sec-sub">A focused search experience that respects people's time — especially when they're looking for care.</p>
+    <div class="grid3">
+      <div class="card2"><div class="ico">🔎</div><h3>Search providers</h3><p>Filter and search medical professionals by the criteria that matter.</p></div>
+      <div class="card2"><div class="ico">🗺️</div><h3>List &amp; map results</h3><p>See results as a scannable list or pinned on a map for location context.</p></div>
+      <div class="card2"><div class="ico">⚡</div><h3>Faster everywhere</h3><p>Performance work cut load times roughly in half and lifted overall responsiveness ~30%.</p></div>
+    </div>
+  </div>
+</section>
+<section style="background:#e1eef0;">
+  <div class="wrap">
+    <span class="kicker">The app</span>
+    <h2 class="sec">Search, see, decide</h2>
+    <p class="sec-sub">Click any screen to enlarge.</p>
+    <div class="grid3">
+      <figure class="screen"><div class="shotwrap"><img src="images/SearchMed/SearchFields.png" alt="SearchMed search" onerror="this.closest('.screen').style.display='none'"></div><figcaption><b>Search</b>Set your criteria.</figcaption></figure>
+      <figure class="screen"><div class="shotwrap"><img src="images/SearchMed/SearchList.png" alt="SearchMed list" onerror="this.closest('.screen').style.display='none'"></div><figcaption><b>List results</b>Scan matching providers.</figcaption></figure>
+      <figure class="screen"><div class="shotwrap"><img src="images/SearchMed/SearchMap.png" alt="SearchMed map" onerror="this.closest('.screen').style.display='none'"></div><figcaption><b>Map view</b>Results in context.</figcaption></figure>
+      <figure class="screen"><div class="shotwrap"><img src="images/SearchMed/SearchResults.png" alt="SearchMed results" onerror="this.closest('.screen').style.display='none'"></div><figcaption><b>Results</b>Compare options.</figcaption></figure>
+      <figure class="screen"><div class="shotwrap"><img src="images/SearchMed/SearchDetails.png" alt="SearchMed details" onerror="this.closest('.screen').style.display='none'"></div><figcaption><b>Provider detail</b>The full picture.</figcaption></figure>
+      <figure class="screen"><div class="shotwrap"><img src="images/SearchMed/UpdateSearch.png" alt="SearchMed update search" onerror="this.closest('.screen').style.display='none'"></div><figcaption><b>Refine</b>Adjust and re-search.</figcaption></figure>
+    </div>
+  </div>
+</section>
+<section class="band">
+  <div class="wrap">
+    <span class="kicker">Architecture &amp; stack</span>
+    <h2 class="sec">Cloud-backed and tuned</h2>
+    <p class="sec-sub">A Firebase-backed .NET MAUI app, profiled and optimized for speed.</p>
+    <div class="stack"><span>.NET MAUI</span><span>Firebase</span><span>MVVM</span><span>CommunityToolkit.MVVM</span><span>CommunityToolkit.Maui</span><span>SQLite</span></div>
+  </div>
+</section>
+<footer>SearchMed · Medical-Provider Search · .NET MAUI &nbsp;·&nbsp; <a href="David Silverlight Portfolio.html">← Back to portfolio</a> &nbsp;·&nbsp; <a href="https://DavidSilverlight.com" target="_blank">DavidSilverlight.com</a></footer>
+<div id="lb"><span class="x">&times;</span><img alt="enlarged screenshot"></div>
+<script>(function(){document.querySelectorAll('.stat .n[data-to]').forEach(function(el){var to=+el.getAttribute('data-to'),suf=el.getAttribute('data-suffix')||'',pre=el.getAttribute('data-prefix')||'',t0=null;function step(ts){if(!t0)t0=ts;var p=Math.min((ts-t0)/1100,1);var v=Math.round((1-Math.pow(1-p,3))*to);el.innerHTML=pre+v+(suf?'<small>'+suf+'</small>':'');if(p<1)requestAnimationFrame(step);}requestAnimationFrame(step);});var lb=document.getElementById('lb'),im=lb.querySelector('img');document.querySelectorAll('.cascade img,.shotwrap img').forEach(function(g){g.addEventListener('click',function(e){e.stopPropagation();im.src=g.src;lb.style.display='flex';});});lb.addEventListener('click',function(){lb.style.display='none';im.src='';});document.addEventListener('keydown',function(e){if(e.key==='Escape'){lb.style.display='none';im.src='';}});})();</script>
+</body>
+</html>

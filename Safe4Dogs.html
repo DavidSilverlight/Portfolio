@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Safe4Dogs — Case Study · David Silverlight</title>
+<style>
+  :root{--sky:#4fb3e0; --sky2:#9bdcf3; --grass:#57b24b; --grass2:#7ed957; --sun:#ffd34e; --coral:#ff7a59; --berry:#e84d6b;
+    --bone:#fff6e3; --brown:#8a5a2b; --ink:#2b2733; --muted:#7c7488; --paper:#fef6e9; --card:#fff; --line:#f0e6d4;}
+  *{box-sizing:border-box;} html{scroll-behavior:smooth;}
+  body{margin:0; font-family:"Segoe UI",Calibri,Arial,sans-serif; color:var(--ink); background:var(--paper); line-height:1.55;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 26px;}
+  .topbar{position:sticky; top:0; z-index:40; background:rgba(40,80,55,.95); backdrop-filter:blur(8px); border-bottom:1px solid rgba(255,211,78,.4);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:56px;}
+  .back{display:inline-flex; gap:8px; text-decoration:none; color:#2f5a36; font-weight:800; font-size:14px; background:var(--sun); padding:9px 16px; border-radius:30px; box-shadow:0 3px 10px rgba(0,0,0,.2);}
+  .back:hover{transform:translateY(-1px) rotate(-1deg);}
+  .topbar .who{color:#dff3e2; font-size:13px; font-weight:700;} .topbar .who b{color:#fff;}
+
+  /* HERO */
+  .hero{position:relative; overflow:hidden; color:#fff; text-align:center;
+    background:radial-gradient(700px 360px at 50% -6%, #ffe27a, transparent 60%), linear-gradient(180deg,#5fc2e8,#4fb3e0 55%,#7ed957);}
+  .hero::after{content:""; position:absolute; left:0; right:0; bottom:-2px; height:70px; background:#57b24b; border-radius:50% 50% 0 0/100% 100% 0 0;}
+  .hero .clouds{position:absolute; inset:0; pointer-events:none; opacity:.9;
+    background:radial-gradient(40px 22px at 18% 26%, #fff 60%, transparent 62%), radial-gradient(56px 28px at 24% 30%, #fff 60%, transparent 62%),
+    radial-gradient(40px 22px at 80% 20%, #fff 60%, transparent 62%), radial-gradient(60px 30px at 86% 24%, #fff 60%, transparent 62%); opacity:.55;}
+  .hero .float{position:absolute; z-index:2; font-size:30px; animation:bob 4s ease-in-out infinite; filter:drop-shadow(0 4px 5px rgba(0,0,0,.18));}
+  @keyframes bob{0%,100%{transform:translateY(0) rotate(var(--r,0deg));}50%{transform:translateY(-14px) rotate(var(--r,0deg));}}
+  .hero .wrap{position:relative; z-index:3; padding:46px 26px 70px;}
+  .eyebrow{display:inline-flex; gap:8px; font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:#2f5a36; background:#fff; border:2px solid #ffd34e; padding:6px 14px; border-radius:30px; box-shadow:0 4px 0 rgba(0,0,0,.08);}
+  .dog{font-size:74px; line-height:1; margin:14px 0 2px; display:inline-block; transform-origin:80% 90%; animation:wag 1.4s ease-in-out infinite;}
+  @keyframes wag{0%,100%{transform:rotate(-5deg);}50%{transform:rotate(5deg);}}
+  .hero h1{margin:6px auto 6px; max-width:820px; font-size:clamp(34px,6.4vw,64px); line-height:1.02; color:#fff; text-shadow:0 3px 0 #2f5a36, 0 6px 16px rgba(0,40,20,.3);}
+  .hero h1 span{color:#fff3b0;}
+  .hero .lead{max-width:560px; margin:10px auto 0; font-size:19px; font-weight:600; color:#f3fbef;}
+  .hero .cta{margin-top:20px; display:inline-flex; gap:10px; flex-wrap:wrap; justify-content:center;}
+  .hero .cta a{text-decoration:none; font-weight:800; font-size:15px; padding:12px 22px; border-radius:30px; box-shadow:0 6px 16px rgba(0,30,15,.25); transition:transform .15s;}
+  .hero .cta a:hover{transform:translateY(-2px) scale(1.03);}
+  .cta .a1{background:var(--sun); color:#2f5a36;} .cta .a2{background:rgba(255,255,255,.18); color:#fff; border:1px solid rgba(255,255,255,.5);}
+
+  /* paw trail */
+  .pawtrail{position:relative; z-index:5; margin:-34px auto 0; display:flex; justify-content:center; gap:26px; max-width:560px;}
+  .pawtrail span{font-size:26px; opacity:0; animation:step 3s ease-in-out infinite;}
+  .pawtrail span:nth-child(1){animation-delay:0s;} .pawtrail span:nth-child(2){animation-delay:.3s;} .pawtrail span:nth-child(3){animation-delay:.6s;}
+  .pawtrail span:nth-child(4){animation-delay:.9s;} .pawtrail span:nth-child(5){animation-delay:1.2s;}
+  @keyframes step{0%,70%,100%{opacity:0;}10%,60%{opacity:.5;}}
+
+  /* phones */
+  .cascade{position:relative; z-index:5; margin:18px auto 0; display:flex; align-items:flex-end; justify-content:center; flex-wrap:wrap; gap:clamp(8px,1.8vw,22px);}
+  .phone{transform:translateY(var(--ty,0)) rotate(var(--rot,0deg)); transition:transform .25s ease;}
+  .phone img{display:block; width:clamp(112px,13vw,168px); border-radius:20px; box-shadow:0 20px 38px rgba(40,30,0,.28); cursor:zoom-in; border:5px solid #fff;}
+  .phone:hover{transform:translateY(-12px) rotate(0deg) scale(1.04); z-index:9;}
+
+  section{padding:54px 0;}
+  .kicker{display:inline-block; font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:#fff; background:var(--coral); padding:5px 12px; border-radius:20px; transform:rotate(-1.5deg);}
+  h2.sec{font-size:clamp(26px,3.8vw,38px); margin:12px 0 6px; color:#2f5a36;}
+  .sec-sub{color:var(--muted); max-width:680px; font-size:16px; margin:0 0 26px;}
+
+  /* SAFE OR NOT */
+  .twoboards{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  .board{border-radius:20px; padding:22px; border:3px solid;}
+  .board.safe{background:#eafbe6; border-color:var(--grass2);}
+  .board.nope{background:#ffeceb; border-color:#ffb3a8;}
+  .board h3{margin:0 0 14px; font-size:20px; display:flex; align-items:center; gap:8px;}
+  .board.safe h3{color:#2f7a32;} .board.nope h3{color:#c0392b;}
+  .chips{display:flex; flex-wrap:wrap; gap:10px;}
+  .chip{display:flex; align-items:center; gap:8px; background:#fff; border-radius:30px; padding:8px 14px; font-weight:700; font-size:14px; box-shadow:0 2px 5px rgba(0,0,0,.06);}
+  .chip .tag{margin-left:2px; font-size:13px;}
+  .board.safe .chip .tag{color:var(--grass);} .board.nope .chip .tag{color:var(--berry);}
+  .disc{margin-top:14px; font-size:12.5px; color:var(--muted); font-style:italic;}
+
+  /* dog-parent benefits */
+  .benes{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  .bene{background:var(--card); border:2px solid var(--line); border-radius:18px; padding:22px; text-align:center; transition:transform .2s;}
+  .bene:hover{transform:translateY(-5px) rotate(-1deg);}
+  .bene .ico{font-size:40px;} .bene h4{margin:8px 0 6px; font-size:17px; color:#2f5a36;} .bene p{margin:0; font-size:14px; color:#5a6a55;}
+
+  /* TEACHING — the classroom */
+  .classroom{background:linear-gradient(160deg,#2f3a66,#4a3f86); color:#fff; border-radius:24px; padding:34px; position:relative; overflow:hidden;}
+  .classroom::before{content:"</>"; position:absolute; right:18px; top:6px; font-size:120px; font-weight:800; color:rgba(255,255,255,.06); font-family:Consolas,monospace;}
+  .classroom .kicker{background:var(--sun); color:#2f3a66;}
+  .classroom h2{color:#fff; margin:12px 0 6px; font-size:clamp(24px,3.4vw,34px);}
+  .classroom .sub{color:#d8d3f0; max-width:720px; font-size:16px; margin:0 0 6px;}
+  .lessons{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:22px;}
+  .lesson{background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16); border-radius:14px; padding:16px; transition:transform .2s, background .2s;}
+  .lesson:hover{transform:translateY(-4px); background:rgba(255,255,255,.14);}
+  .lesson .no{font-family:Consolas,monospace; font-size:12px; font-weight:800; color:#ffd34e; letter-spacing:1px;}
+  .lesson h4{margin:4px 0 5px; font-size:15.5px; color:#fff;} .lesson p{margin:0; font-size:12.5px; color:#cfc9ea; line-height:1.45;}
+  .mentor-note{display:flex; align-items:center; gap:12px; margin-top:22px; background:rgba(255,211,78,.14); border:1px solid rgba(255,211,78,.4); border-radius:14px; padding:14px 18px; font-size:14.5px; color:#fff6dc;}
+  .mentor-note b{color:#ffe9a8;}
+
+  /* screenshots */
+  .grid4{display:grid; grid-template-columns:repeat(4,1fr); gap:18px;}
+  .screen{margin:0; background:var(--card); border:2px solid var(--line); border-radius:16px; overflow:hidden; box-shadow:0 10px 24px rgba(60,50,20,.12); transition:transform .2s;}
+  .screen:hover{transform:translateY(-5px) rotate(-1deg);}
+  .screen .shotwrap{background:linear-gradient(160deg,#eafbe6,#fff6e3); display:flex; align-items:center; justify-content:center; padding:16px;}
+  .screen .shotwrap img{width:80%; border-radius:14px; box-shadow:0 10px 20px rgba(40,30,0,.2); cursor:zoom-in;}
+  .screen figcaption{padding:11px 14px 14px; font-size:13px; color:var(--muted); text-align:center; font-weight:600;}
+
+  .band{background:linear-gradient(160deg,#2f5a36,#234227); color:#fff;}
+  .band h2{color:#fff;} .band .kicker{background:var(--sun); color:#2f5a36;} .band .sec-sub{color:#cfe6cf;}
+  .stack{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;}
+  .stack span{font-size:13px; font-weight:700; color:#eef7e3; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16); padding:8px 15px; border-radius:30px;}
+
+  footer{padding:30px 0 50px; text-align:center; color:var(--muted); font-size:13px;} footer a{color:#2f7a32; text-decoration:none; font-weight:800;}
+
+  #lb{display:none; position:fixed; inset:0; z-index:9999; background:rgba(20,30,15,.92); align-items:flex-start; justify-content:center; overflow:auto; cursor:zoom-out; padding:24px;}
+  #lb img{max-width:none; border-radius:12px; box-shadow:0 16px 60px rgba(0,0,0,.6);} #lb .x{position:fixed; top:16px; right:22px; color:#fff; font-size:38px; cursor:pointer;}
+
+  @media (max-width:860px){ .lessons{grid-template-columns:1fr 1fr;} .benes{grid-template-columns:1fr;} .grid4{grid-template-columns:1fr 1fr;} }
+  @media (max-width:560px){ .twoboards{grid-template-columns:1fr;} .grid4{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap"><a class="back" href="David Silverlight Portfolio.html">&larr; Back to portfolio</a><span class="who">Case Study · <b>David Silverlight</b></span></div></div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="clouds"></div>
+  <span class="float" style="left:9%; top:24%; --r:-12deg;">🦴</span>
+  <span class="float" style="left:88%; top:22%; --r:10deg; animation-delay:.6s;">🦴</span>
+  <span class="float" style="left:16%; top:60%; --r:8deg; animation-delay:1.1s;">🐾</span>
+  <span class="float" style="left:82%; top:58%; --r:-8deg; animation-delay:.3s;">❤️</span>
+  <div class="wrap">
+    <span class="eyebrow">🐶 .NET MAUI · For Dog People</span>
+    <div class="dog">🐕</div>
+    <h1>Can my dog <span>eat that?</span></h1>
+    <p class="lead">Safe4Dogs answers in one happy tap — so you can treat your best friend without the worry.</p>
+    <div class="cta"><a class="a1" href="#safe">🐾 See what's safe</a><a class="a2" href="#classroom">👩‍🏫 It's also a classroom</a></div>
+    <div class="cascade">
+      <div class="phone" style="--ty:30px; --rot:-4deg;"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/667f3111-9899-4829-8ede-78f0291abbcb_rw_600.png?h=d75c4b02ca3ed4f4ff51695266cdc39a" alt="Safe4Dogs 1"></div>
+      <div class="phone" style="--ty:4px; --rot:2deg;"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/3c2f12f5-80fc-4e53-9809-8200b790dd26_rw_600.png?h=ef945fa1d0edd3e1e95fe7341152894c" alt="Safe4Dogs 2"></div>
+      <div class="phone" style="--ty:4px; --rot:-2deg;"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/729a70b6-a34f-4304-9619-80bb2790dfbe_rw_600.png?h=361af31a1085f766478e08ca287e18b7" alt="Safe4Dogs 3"></div>
+      <div class="phone" style="--ty:30px; --rot:4deg;"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/14492ea7-333a-4fb5-9777-d785f0fae974_rw_600.png?h=594125f6631867f287e0adb4caff7dc8" alt="Safe4Dogs 4"></div>
+    </div>
+  </div>
+</header>
+<div class="pawtrail"><span>🐾</span><span>🐾</span><span>🐾</span><span>🐾</span><span>🐾</span></div>
+
+<!-- SAFE OR NOT -->
+<section id="safe">
+  <div class="wrap">
+    <span class="kicker">Treat or no-treat?</span>
+    <h2 class="sec">Know before you share 🐾</h2>
+    <p class="sec-sub">Dogs beg for everything — but not everything loves them back. Safe4Dogs gives a clear, instant yes-or-no for the foods on your plate.</p>
+    <div class="twoboards">
+      <div class="board safe">
+        <h3>✅ Safe to share</h3>
+        <div class="chips">
+          <span class="chip">🥕 Carrots <span class="tag">✓</span></span>
+          <span class="chip">🍎 Apples <span class="tag">✓</span></span>
+          <span class="chip">🫐 Blueberries <span class="tag">✓</span></span>
+          <span class="chip">🎃 Pumpkin <span class="tag">✓</span></span>
+          <span class="chip">🍌 Banana <span class="tag">✓</span></span>
+          <span class="chip">🥜 Peanut Butter* <span class="tag">✓</span></span>
+        </div>
+        <p class="disc">*Plain &amp; xylitol-free, in moderation.</p>
+      </div>
+      <div class="board nope">
+        <h3>🚫 Paws off!</h3>
+        <div class="chips">
+          <span class="chip">🍫 Chocolate <span class="tag">✕</span></span>
+          <span class="chip">🍇 Grapes <span class="tag">✕</span></span>
+          <span class="chip">🧅 Onions <span class="tag">✕</span></span>
+          <span class="chip">🥑 Avocado <span class="tag">✕</span></span>
+          <span class="chip">☕ Coffee <span class="tag">✕</span></span>
+          <span class="chip">🍬 Xylitol <span class="tag">✕</span></span>
+        </div>
+        <p class="disc">The app carries the full list — these are just a few favorites.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOG PARENT BENEFITS -->
+<section style="background:#eafbe6;">
+  <div class="wrap">
+    <span class="kicker">For the humans who love them</span>
+    <h2 class="sec">Peace of mind, one paw at a time</h2>
+    <p class="sec-sub">Built for the people who'd do anything for their pup.</p>
+    <div class="benes">
+      <div class="bene"><div class="ico">⚡</div><h4>Instant answers</h4><p>No frantic Googling at dinnertime — just search the food and get a clear answer.</p></div>
+      <div class="bene"><div class="ico">💚</div><h4>Worry less, love more</h4><p>Share snacks with confidence and keep your best friend happy and healthy.</p></div>
+      <div class="bene"><div class="ico">📵</div><h4>Always handy</h4><p>Right in your pocket on iOS and Android, wherever the begging happens.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CLASSROOM -->
+<section id="classroom">
+  <div class="wrap">
+    <div class="classroom">
+      <span class="kicker">👩‍🏫 Also a teaching tool</span>
+      <h2>A classroom disguised as a dog app</h2>
+      <p class="sub">Safe4Dogs is open source on purpose. I built it as a hands-on mentoring tool for <b>new .NET MAUI developers</b> — a friendly, real-world codebase where every feature doubles as a clean, readable lesson in how the framework's core pieces fit together.</p>
+      <div class="lessons">
+        <div class="lesson"><div class="no">LESSON 01</div><h4>MVVM</h4><p>Separate UI from logic with bindable, testable view models.</p></div>
+        <div class="lesson"><div class="no">LESSON 02</div><h4>Shell &amp; Navigation</h4><p>Structure the app and move between pages the MAUI way.</p></div>
+        <div class="lesson"><div class="no">LESSON 03</div><h4>Handlers</h4><p>Customize native controls through the handler architecture.</p></div>
+        <div class="lesson"><div class="no">LESSON 04</div><h4>Dependency Injection</h4><p>Wire up services cleanly and keep code testable.</p></div>
+        <div class="lesson"><div class="no">LESSON 05</div><h4>Value Converters</h4><p>Shape data for the UI without polluting your models.</p></div>
+        <div class="lesson"><div class="no">LESSON 06</div><h4>Behaviors</h4><p>Attach reusable UI logic without code-behind.</p></div>
+        <div class="lesson"><div class="no">LESSON 07</div><h4>Localization</h4><p>Speak every dog-parent's language.</p></div>
+        <div class="lesson"><div class="no">LESSON 08</div><h4>Read the source</h4><p>Open, commented and approachable — learn by exploring real code.</p></div>
+      </div>
+      <div class="mentor-note">🦴 <span>Used to mentor junior developers — <b>learn .NET MAUI fundamentals by building something genuinely lovable.</b></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SCREENS -->
+<section style="background:#fff6e3;">
+  <div class="wrap">
+    <span class="kicker">The app</span>
+    <h2 class="sec">Simple, sweet, and solid 🐶</h2>
+    <p class="sec-sub">Friendly on the surface, exemplary underneath. Click any screen to enlarge.</p>
+    <div class="grid4">
+      <figure class="screen"><div class="shotwrap"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/667f3111-9899-4829-8ede-78f0291abbcb_rw_600.png?h=d75c4b02ca3ed4f4ff51695266cdc39a" alt="Safe4Dogs 1"></div><figcaption>🐕 Browse foods</figcaption></figure>
+      <figure class="screen"><div class="shotwrap"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/3c2f12f5-80fc-4e53-9809-8200b790dd26_rw_600.png?h=ef945fa1d0edd3e1e95fe7341152894c" alt="Safe4Dogs 2"></div><figcaption>✅ Safety detail</figcaption></figure>
+      <figure class="screen"><div class="shotwrap"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/729a70b6-a34f-4304-9619-80bb2790dfbe_rw_600.png?h=361af31a1085f766478e08ca287e18b7" alt="Safe4Dogs 3"></div><figcaption>🔎 Quick search</figcaption></figure>
+      <figure class="screen"><div class="shotwrap"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/14492ea7-333a-4fb5-9777-d785f0fae974_rw_600.png?h=594125f6631867f287e0adb4caff7dc8" alt="Safe4Dogs 4"></div><figcaption>📋 Details</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- TECH -->
+<section class="band">
+  <div class="wrap">
+    <span class="kicker">Architecture &amp; stack</span>
+    <h2 class="sec">A reference-quality .NET MAUI build</h2>
+    <p class="sec-sub">Made to be read as much as run — community toolkits, local storage and REST, wired up the right way for learners to follow.</p>
+    <div class="stack"><span>.NET MAUI</span><span>MVVM</span><span>Shell</span><span>Dependency Injection</span><span>SQLite</span><span>REST</span><span>CommunityToolkit.Maui</span><span>CommunityToolkit.Mvvm</span></div>
+  </div>
+</section>
+
+<footer>Safe4Dogs · A treat-checker for dog lovers &amp; a .NET MAUI teaching tool &nbsp;·&nbsp; <a href="David Silverlight Portfolio.html">← Back to portfolio</a> &nbsp;·&nbsp; <a href="https://DavidSilverlight.com" target="_blank">DavidSilverlight.com</a></footer>
+<div id="lb"><span class="x">&times;</span><img alt="enlarged screenshot"></div>
+<script>(function(){var lb=document.getElementById('lb'),im=lb.querySelector('img');document.querySelectorAll('.cascade img,.shotwrap img').forEach(function(g){g.addEventListener('click',function(e){e.stopPropagation();im.src=g.src;lb.style.display='flex';});});lb.addEventListener('click',function(){lb.style.display='none';im.src='';});document.addEventListener('keydown',function(e){if(e.key==='Escape'){lb.style.display='none';im.src='';}});})();</script>
+</body>
+</html>

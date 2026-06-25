@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>POS Prototype — Case Study · David Silverlight</title>
+<style>
+  :root{--ink:#13241c; --pine:#0f3a2b; --green:#1f8a5b; --lime:#5fd29a; --gold:#f2c14e; --muted:#566b60; --paper:#edf4ef; --card:#fff; --line:#d9e7df;}
+  *{box-sizing:border-box;} html{scroll-behavior:smooth;}
+  body{margin:0; font-family:"Segoe UI",Calibri,Arial,sans-serif; color:var(--ink); background:var(--paper); line-height:1.55;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 26px;}
+  .topbar{position:sticky; top:0; z-index:40; background:rgba(15,58,43,.96); backdrop-filter:blur(8px); border-bottom:1px solid rgba(95,210,154,.3);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:56px;}
+  .back{display:inline-flex; gap:8px; text-decoration:none; color:var(--pine); font-weight:800; font-size:14px; background:var(--lime); padding:9px 16px; border-radius:30px;}
+  .topbar .who{color:#bfe6d2; font-size:13px; font-weight:700;} .topbar .who b{color:#fff;}
+  .hero{position:relative; overflow:hidden; color:#fff; background:radial-gradient(900px 440px at 84% -10%, rgba(242,193,78,.22), transparent 56%), linear-gradient(160deg,#0c3326,#1f8a5b 64%,#0f3a2b);}
+  .hero .em{position:absolute; font-size:30px; opacity:.5; animation:fl 5s ease-in-out infinite;}
+  @keyframes fl{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
+  .hero .wrap{position:relative; z-index:3; padding:52px 26px 40px;}
+  .eyebrow{display:inline-flex; gap:8px; font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:#c9f3df; background:rgba(95,210,154,.16); border:1px solid rgba(95,210,154,.45); padding:6px 13px; border-radius:30px;}
+  .hero h1{margin:16px 0 6px; font-size:clamp(34px,6vw,60px); line-height:1;}
+  .hero h1 span{background:linear-gradient(90deg,#7fe8b8,#ffe1a0); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero .lead{max-width:660px; font-size:18px; color:#d6ece0;}
+  .tags{margin-top:16px; display:flex; flex-wrap:wrap; gap:8px;}
+  .tags span{font-size:12px; font-weight:700; color:#e7f6ee; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.18); padding:5px 12px; border-radius:20px;}
+  .winshot{position:relative; z-index:3; margin-top:28px; background:#0c2a20; border:1px solid rgba(255,255,255,.12); border-radius:14px 14px 12px 12px; overflow:hidden; box-shadow:0 26px 54px rgba(0,20,12,.5);}
+  .winshot .bar{display:flex; align-items:center; gap:7px; padding:9px 13px; background:#0a2018;}
+  .winshot .bar i{width:11px; height:11px; border-radius:50%;} .winshot .bar i:nth-child(1){background:#ff5f57;} .winshot .bar i:nth-child(2){background:#febc2e;} .winshot .bar i:nth-child(3){background:#28c840;}
+  .winshot .bar span{margin-left:8px; font-size:12px; color:#9fc4b4;}
+  .winshot img{display:block; width:100%; cursor:zoom-in;}
+  section{padding:50px 0;}
+  .kicker{font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--green);}
+  h2.sec{font-size:clamp(24px,3.4vw,32px); margin:8px 0 6px; color:var(--pine);}
+  .sec-sub{color:var(--muted); max-width:720px; font-size:16px; margin:0 0 24px;}
+  .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  .card2{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px; position:relative; overflow:hidden; box-shadow:0 1px 3px rgba(15,60,40,.06); transition:transform .2s, box-shadow .2s;}
+  .card2:hover{transform:translateY(-4px); box-shadow:0 14px 30px rgba(15,90,60,.15);}
+  .card2::before{content:""; position:absolute; left:0; top:0; right:0; height:5px; background:linear-gradient(90deg,var(--green),var(--gold));}
+  .card2 .ico{font-size:30px;} .card2 h3{margin:8px 0 6px; font-size:17px; color:var(--pine);} .card2 p{margin:0; font-size:14px; color:#47584f;}
+  .gallery{display:grid; grid-template-columns:repeat(2,1fr); gap:18px;}
+  .screen{margin:0; background:#0c2a20; border:1px solid var(--line); border-radius:12px; overflow:hidden; box-shadow:0 12px 28px rgba(15,60,40,.16); transition:transform .2s, box-shadow .2s;}
+  .screen:hover{transform:translateY(-5px); box-shadow:0 20px 40px rgba(15,90,60,.24);}
+  .screen .bar{display:flex; align-items:center; gap:6px; padding:8px 12px; background:#0a2018;}
+  .screen .bar i{width:10px; height:10px; border-radius:50%; background:#3a5a4c;}
+  .screen img{display:block; width:100%; cursor:zoom-in;}
+  .band{background:linear-gradient(160deg,#0c3326,#08251b); color:#fff;}
+  .band h2{color:#fff;} .band .kicker{color:var(--lime);} .band .sec-sub{color:#bfd6c9;}
+  .stack{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;}
+  .stack span{font-size:13px; font-weight:700; color:#e7f6ee; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16); padding:8px 15px; border-radius:30px;}
+  footer{padding:30px 0 50px; text-align:center; color:var(--muted); font-size:13px;} footer a{color:var(--green); text-decoration:none; font-weight:800;}
+  #lb{display:none; position:fixed; inset:0; z-index:9999; background:rgba(6,24,18,.93); align-items:flex-start; justify-content:center; overflow:auto; cursor:zoom-out; padding:24px;}
+  #lb img{max-width:none; border-radius:10px; box-shadow:0 16px 60px rgba(0,0,0,.6);} #lb .x{position:fixed; top:16px; right:22px; color:#fff; font-size:38px; cursor:pointer;}
+  @media (max-width:820px){ .grid3,.gallery{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap"><a class="back" href="David Silverlight Portfolio.html">&larr; Back to portfolio</a><span class="who">Case Study · <b>David Silverlight</b></span></div></div>
+<header class="hero">
+  <span class="em" style="left:8%; top:28%;">🧾</span><span class="em" style="left:90%; top:34%; animation-delay:.6s;">💳</span><span class="em" style="left:15%; top:72%; animation-delay:1.1s;">🛒</span>
+  <div class="wrap">
+    <span class="eyebrow">▲ .NET MAUI · Windows · Retail</span>
+    <h1>POS <span>Prototype</span></h1>
+    <p class="lead">A Windows point-of-sale prototype built in .NET MAUI — login, catalog, swipe navigation, purchasing and discounts, with configurable payment, receipt and order settings.</p>
+    <div class="tags"><span>Point of Sale</span><span>Windows</span><span>In-App Billing</span><span>Configurable</span><span>.NET MAUI</span></div>
+    <div class="winshot">
+      <div class="bar"><i></i><i></i><i></i><span>POS Prototype — Windows</span></div>
+      <img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/00e068a4-e969-42f1-9025-117fcc921492_rw_1920.PNG?h=e03d0ad18414ed236c4f748fe4021feb" alt="POS Prototype main">
+    </div>
+  </div>
+</header>
+<section>
+  <div class="wrap">
+    <span class="kicker">What it demonstrates</span>
+    <h2 class="sec">A configurable register, end to end</h2>
+    <p class="sec-sub">The prototype walks the full retail flow and shows how flexibly it can be configured.</p>
+    <div class="grid3">
+      <div class="card2"><div class="ico">🔐</div><h3>User &amp; admin login</h3><p>Separate user and admin roles, each with the right capabilities.</p></div>
+      <div class="card2"><div class="ico">🛒</div><h3>Catalog &amp; checkout</h3><p>Category and product display, swipe navigation, purchasing and discounts.</p></div>
+      <div class="card2"><div class="ico">⚙️</div><h3>Configurable settings</h3><p>Payment, receipt and order behavior — all adjustable to the store's needs.</p></div>
+    </div>
+  </div>
+</section>
+<section style="background:#e2ede7;">
+  <div class="wrap">
+    <span class="kicker">The prototype</span>
+    <h2 class="sec">Screens from the register</h2>
+    <p class="sec-sub">Click any screen to enlarge.</p>
+    <div class="gallery">
+      <figure class="screen"><div class="bar"><i></i><i></i><i></i></div><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/00e068a4-e969-42f1-9025-117fcc921492_rw_1920.PNG?h=e03d0ad18414ed236c4f748fe4021feb" alt="POS 1"></figure>
+      <figure class="screen"><div class="bar"><i></i><i></i><i></i></div><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/a7e551e7-b36b-4e92-a6bf-84b7e7b57fc0_rw_1920.png?h=f488490ebb84229dd255e5d970dd7c8f" alt="POS 2"></figure>
+      <figure class="screen"><div class="bar"><i></i><i></i><i></i></div><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/69a624da-38a5-46d0-8e04-417beca80ebf_rw_1920.png?h=e1b029715b48df845f60ab324acdf9a6" alt="POS 3"></figure>
+      <figure class="screen"><div class="bar"><i></i><i></i><i></i></div><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/ad366a46-7d17-4341-87dc-8ea63e43e4cf_rw_1920.PNG?h=ed51baaa9a764735d47068c3d534b504" alt="POS 4"></figure>
+    </div>
+  </div>
+</section>
+<section class="band">
+  <div class="wrap">
+    <span class="kicker">Architecture &amp; stack</span>
+    <h2 class="sec">.NET MAUI on the desktop</h2>
+    <p class="sec-sub">A Windows-targeted .NET MAUI build with rich UI, billing and production telemetry.</p>
+    <div class="stack"><span>.NET MAUI</span><span>MVVM</span><span>CommunityToolkit.Maui</span><span>CommunityToolkit.Mvvm</span><span>InAppBilling</span><span>Telerik</span><span>Sentry</span></div>
+  </div>
+</section>
+<footer>POS Prototype · Windows Point-of-Sale · .NET MAUI &nbsp;·&nbsp; <a href="David Silverlight Portfolio.html">← Back to portfolio</a> &nbsp;·&nbsp; <a href="https://DavidSilverlight.com" target="_blank">DavidSilverlight.com</a></footer>
+<div id="lb"><span class="x">&times;</span><img alt="enlarged screenshot"></div>
+<script>(function(){var lb=document.getElementById('lb'),im=lb.querySelector('img');document.querySelectorAll('.winshot img,.screen img').forEach(function(g){g.addEventListener('click',function(e){e.stopPropagation();im.src=g.src;lb.style.display='flex';});});lb.addEventListener('click',function(){lb.style.display='none';im.src='';});document.addEventListener('keydown',function(e){if(e.key==='Escape'){lb.style.display='none';im.src='';}});})();</script>
+</body>
+</html>

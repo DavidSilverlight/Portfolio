@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moultrie Mobile — Case Study · David Silverlight</title>
+<style>
+  :root{--pine:#152110; --green:#2f4d1c; --moss:#6b8f3a; --amber:#e8a33d; --ink:#1b2413; --muted:#5d6b4e; --paper:#eef2e8; --card:#fff; --line:#dde6d2;}
+  *{box-sizing:border-box;} html{scroll-behavior:smooth;}
+  body{margin:0; font-family:"Segoe UI",Calibri,Arial,sans-serif; color:var(--ink); background:var(--paper); line-height:1.55;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 26px;}
+  .topbar{position:sticky; top:0; z-index:40; background:rgba(15,22,10,.96); backdrop-filter:blur(8px); border-bottom:1px solid rgba(232,163,61,.3);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:56px;}
+  .back{display:inline-flex; gap:8px; text-decoration:none; color:var(--pine); font-weight:800; font-size:14px; background:var(--amber); padding:9px 16px; border-radius:30px;}
+  .topbar .who{color:#cdd9bc; font-size:13px; font-weight:700;} .topbar .who b{color:#fff;}
+  .hero{position:relative; overflow:hidden; color:#fff;
+    background:radial-gradient(800px 360px at 82% 14%, rgba(232,163,61,.22), transparent 60%),
+      repeating-radial-gradient(circle at 26% 40%, transparent 0 22px, rgba(120,150,90,.10) 22px 23px),
+      linear-gradient(160deg,#10160d,#243016 60%,#141b0f);}
+  .hero .paw{position:absolute; font-size:26px; opacity:.4;}
+  .hero .wrap{position:relative; z-index:3; padding:52px 26px 40px;}
+  .eyebrow{display:inline-flex; gap:8px; font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:#ffe0a8; background:rgba(232,163,61,.18); border:1px solid rgba(232,163,61,.45); padding:6px 13px; border-radius:30px;}
+  .hero h1{margin:16px 0 6px; font-size:clamp(34px,6vw,58px); line-height:1;}
+  .hero h1 span{color:var(--amber);}
+  .hero .lead{max-width:640px; font-size:18px; color:#dde7cf;}
+  .tags{margin-top:16px; display:flex; flex-wrap:wrap; gap:8px;}
+  .tags span{font-size:12px; font-weight:700; color:#eef6df; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.18); padding:5px 12px; border-radius:20px;}
+  .cascade{position:relative; z-index:3; margin-top:30px; display:flex; align-items:flex-end; justify-content:center; flex-wrap:wrap; gap:clamp(6px,1.4vw,16px);}
+  .phone{transform:translateY(var(--ty,0)); transition:transform .25s ease;}
+  .phone img{display:block; width:clamp(84px,9.5vw,128px); border-radius:14px; box-shadow:0 20px 38px rgba(0,10,0,.55); cursor:zoom-in;}
+  .phone:hover{transform:translateY(-9px) scale(1.04); z-index:9;}
+  section{padding:50px 0;}
+  .kicker{font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--green);}
+  h2.sec{font-size:clamp(24px,3.4vw,32px); margin:8px 0 6px; color:var(--pine);}
+  .sec-sub{color:var(--muted); max-width:720px; font-size:16px; margin:0 0 24px;}
+  .grid{display:grid; grid-template-columns:repeat(2,1fr); gap:18px;}
+  .card2{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px; position:relative; overflow:hidden; box-shadow:0 1px 3px rgba(20,40,10,.06); transition:transform .2s, box-shadow .2s;}
+  .card2:hover{transform:translateY(-4px); box-shadow:0 14px 30px rgba(30,70,20,.15);}
+  .card2::before{content:""; position:absolute; left:0; top:0; bottom:0; width:5px; background:linear-gradient(180deg,var(--green),var(--amber));}
+  .card2 .ico{font-size:30px;} .card2 h3{margin:8px 0 6px; font-size:17px; color:var(--pine);} .card2 p{margin:0; font-size:14px; color:#4c5a3e;}
+  .mig{display:inline-flex; align-items:center; gap:12px; background:linear-gradient(90deg,#6b7280,#2f4d1c); color:#fff; font-weight:800; padding:10px 18px; border-radius:30px; font-size:15px; margin-top:6px;}
+  .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  .screen{margin:0; background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden; box-shadow:0 12px 28px rgba(20,50,10,.13); transition:transform .2s, box-shadow .2s;}
+  .screen:hover{transform:translateY(-5px); box-shadow:0 20px 40px rgba(30,70,20,.2);}
+  .screen .shotwrap{background:linear-gradient(160deg,#1a2412,#0f160b); display:flex; align-items:center; justify-content:center; padding:18px;}
+  .screen .shotwrap img{width:58%; border-radius:14px; box-shadow:0 12px 24px rgba(0,0,0,.4); cursor:zoom-in;}
+  .screen figcaption{padding:12px 15px 15px; font-size:13px; color:var(--muted);} .screen figcaption b{color:var(--ink); display:block; font-size:14px; margin-bottom:2px;}
+  .band{background:linear-gradient(160deg,#10160d,#0c120a); color:#fff;}
+  .band h2{color:#fff;} .band .kicker{color:var(--amber);} .band .sec-sub{color:#cdd9bc;}
+  .stack{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;}
+  .stack span{font-size:13px; font-weight:700; color:#eef6df; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16); padding:8px 15px; border-radius:30px;}
+  footer{padding:30px 0 50px; text-align:center; color:var(--muted); font-size:13px;} footer a{color:var(--green); text-decoration:none; font-weight:800;}
+  #lb{display:none; position:fixed; inset:0; z-index:9999; background:rgba(8,14,6,.93); align-items:flex-start; justify-content:center; overflow:auto; cursor:zoom-out; padding:24px;}
+  #lb img{max-width:none; border-radius:10px; box-shadow:0 16px 60px rgba(0,0,0,.6);} #lb .x{position:fixed; top:16px; right:22px; color:#fff; font-size:38px; cursor:pointer;}
+  @media (max-width:820px){ .grid{grid-template-columns:1fr;} .grid3{grid-template-columns:1fr 1fr;} }
+  @media (max-width:520px){ .grid3{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap"><a class="back" href="David Silverlight Portfolio.html">&larr; Back to portfolio</a><span class="who">Case Study · <b>David Silverlight</b></span></div></div>
+<header class="hero">
+  <span class="paw" style="left:8%; top:30%;">🐾</span><span class="paw" style="left:90%; top:60%;">🐾</span><span class="paw" style="left:16%; top:74%;">🦌</span>
+  <div class="wrap">
+    <span class="eyebrow">▲ .NET MAUI · Outdoor / Trail Camera</span>
+    <h1>Moultrie <span>Mobile</span></h1>
+    <p class="lead">The trail-camera companion that brings the back-forty to your pocket — remote camera images, property monitoring and on-the-ground navigation for hunters and land managers.</p>
+    <div class="tags"><span>Trail Cameras</span><span>Property Monitoring</span><span>Maps &amp; Navigation</span><span>Xamarin.Forms → .NET MAUI</span></div>
+    <div class="cascade">
+      <div class="phone" style="--ty:40px;"><img src="images/Moultrie/IMG_4518.PNG" alt="Moultrie login"></div>
+      <div class="phone" style="--ty:18px;"><img src="images/Moultrie/IMG_4526.PNG" alt="Moultrie map"></div>
+      <div class="phone" style="--ty:0;"><img src="images/Moultrie/IMG_4527.PNG" alt="Moultrie satellite"></div>
+      <div class="phone" style="--ty:0;"><img src="images/Moultrie/IMG_4525.PNG" alt="Moultrie layers"></div>
+      <div class="phone" style="--ty:18px;"><img src="images/Moultrie/IMG_4521.PNG" alt="Moultrie account"></div>
+      <div class="phone" style="--ty:40px;"><img src="images/Moultrie/IMG_4522.PNG" alt="Moultrie notifications"></div>
+    </div>
+  </div>
+</header>
+<section>
+  <div class="wrap">
+    <span class="kicker">What it does</span>
+    <h2 class="sec">Your property, scouted from anywhere</h2>
+    <p class="sec-sub">Moultrie Mobile keeps hunters connected to their cameras and land — wherever they are.</p>
+    <div class="grid">
+      <div class="card2"><div class="ico">📷</div><h3>Remote camera images</h3><p>Pull the latest photos from cellular trail cameras in the field, on demand.</p></div>
+      <div class="card2"><div class="ico">🗺️</div><h3>Property monitoring</h3><p>Keep eyes on your property with map and satellite views and camera placement.</p></div>
+      <div class="card2"><div class="ico">🧭</div><h3>Navigation tools</h3><p>Location and navigation tools to find your way to stands, cameras and access points.</p></div>
+      <div class="card2"><div class="ico">🔔</div><h3>Alerts &amp; account</h3><p>Notification settings and account management baked into the mobile experience.</p></div>
+    </div>
+    <div style="margin-top:22px;"><span class="mig">🔄 Migrated from Xamarin.Forms to .NET MAUI</span></div>
+  </div>
+</section>
+<section style="background:#e6ecdd;">
+  <div class="wrap">
+    <span class="kicker">The app</span>
+    <h2 class="sec">Field-ready screens</h2>
+    <p class="sec-sub">Click any screen to enlarge.</p>
+    <div class="grid3">
+      <figure class="screen"><div class="shotwrap"><img src="images/Moultrie/IMG_4526.PNG" alt="Moultrie map" onerror="this.closest('.screen').style.display='none'"></div><figcaption><b>Camera map</b>World map with camera pins.</figcaption></figure>
+      <figure class="screen"><div class="shotwrap"><img src="images/Moultrie/IMG_4525.PNG" alt="Moultrie layers" onerror="this.closest('.screen').style.display='none'"></div><figcaption><b>Map layers</b>Switch terrain and overlays.</figcaption></figure>
+      <figure class="screen"><div class="shotwrap"><img src="images/Moultrie/IMG_4527.PNG" alt="Moultrie satellite" onerror="this.closest('.screen').style.display='none'"></div><figcaption><b>Satellite</b>Property at a glance.</figcaption></figure>
+      <figure class="screen"><div class="shotwrap"><img src="images/Moultrie/IMG_4518.PNG" alt="Moultrie login" onerror="this.closest('.screen').style.display='none'"></div><figcaption><b>Sign-in</b>Quick, secure access.</figcaption></figure>
+      <figure class="screen"><div class="shotwrap"><img src="images/Moultrie/IMG_4521.PNG" alt="Moultrie account" onerror="this.closest('.screen').style.display='none'"></div><figcaption><b>Account</b>Manage your setup.</figcaption></figure>
+      <figure class="screen"><div class="shotwrap"><img src="images/Moultrie/IMG_4522.PNG" alt="Moultrie notifications" onerror="this.closest('.screen').style.display='none'"></div><figcaption><b>Notifications</b>Tune your alerts.</figcaption></figure>
+    </div>
+  </div>
+</section>
+<section class="band">
+  <div class="wrap">
+    <span class="kicker">Architecture &amp; stack</span>
+    <h2 class="sec">Carried into .NET MAUI</h2>
+    <p class="sec-sub">Modernized from a Xamarin.Forms codebase to .NET MAUI, preserving features while moving onto the current platform.</p>
+    <div class="stack"><span>.NET MAUI</span><span>Xamarin.Forms</span><span>Maps</span><span>MVVM</span></div>
+  </div>
+</section>
+<footer>Moultrie Mobile · Trail-Camera App · .NET MAUI &nbsp;·&nbsp; <a href="David Silverlight Portfolio.html">← Back to portfolio</a> &nbsp;·&nbsp; <a href="https://DavidSilverlight.com" target="_blank">DavidSilverlight.com</a></footer>
+<div id="lb"><span class="x">&times;</span><img alt="enlarged screenshot"></div>
+<script>(function(){var lb=document.getElementById('lb'),im=lb.querySelector('img');document.querySelectorAll('.cascade img,.shotwrap img').forEach(function(g){g.addEventListener('click',function(e){e.stopPropagation();im.src=g.src;lb.style.display='flex';});});lb.addEventListener('click',function(){lb.style.display='none';im.src='';});document.addEventListener('keydown',function(e){if(e.key==='Escape'){lb.style.display='none';im.src='';}});})();</script>
+</body>
+</html>

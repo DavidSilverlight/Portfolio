@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Midmark DECO IoT — Case Study · David Silverlight</title>
+<style>
+  :root{--deep:#0b2530; --teal:#0f7d8c; --cyan:#56ccd6; --mint:#7fe3d0; --ink:#13262b; --muted:#5a7077; --paper:#eaf2f4; --card:#fff; --line:#d6e6e8;}
+  *{box-sizing:border-box;} html{scroll-behavior:smooth;}
+  body{margin:0; font-family:"Segoe UI",Calibri,Arial,sans-serif; color:var(--ink); background:var(--paper); line-height:1.55;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 26px;}
+  .topbar{position:sticky; top:0; z-index:40; background:rgba(11,37,48,.96); backdrop-filter:blur(8px); border-bottom:1px solid rgba(86,204,214,.3);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:56px;}
+  .back{display:inline-flex; gap:8px; text-decoration:none; color:var(--deep); font-weight:800; font-size:14px; background:var(--cyan); padding:9px 16px; border-radius:30px;}
+  .topbar .who{color:#bfe3e7; font-size:13px; font-weight:700;} .topbar .who b{color:#fff;}
+  .hero{position:relative; overflow:hidden; color:#fff; background:radial-gradient(circle at 50% 120%, rgba(86,204,214,.28), transparent 60%), linear-gradient(160deg,#0a2230,#103c4e 60%,#0b2530);}
+  .hero .radar{position:absolute; left:50%; top:60%; width:600px; height:600px; margin-left:-300px; border-radius:50%; z-index:1; pointer-events:none;
+    background:repeating-radial-gradient(circle, rgba(86,204,214,.14) 0 1.5px, transparent 1.5px 44px); opacity:.6;}
+  .hero .ping{position:absolute; left:50%; top:60%; width:14px; height:14px; margin:-7px; border-radius:50%; background:#7fe3d0; z-index:2; animation:ping 2.6s ease-out infinite;}
+  @keyframes ping{0%{box-shadow:0 0 0 0 rgba(127,227,208,.5);}100%{box-shadow:0 0 0 60px rgba(127,227,208,0);}}
+  .hero .wrap{position:relative; z-index:3; padding:52px 26px 40px;}
+  .eyebrow{display:inline-flex; gap:8px; font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:#aef0f2; background:rgba(86,204,214,.16); border:1px solid rgba(86,204,214,.45); padding:6px 13px; border-radius:30px;}
+  .hero h1{margin:16px 0 6px; font-size:clamp(32px,5.4vw,56px); line-height:1.02;}
+  .hero h1 span{background:linear-gradient(90deg,#7fe3d0,#bfe6ff); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero .lead{max-width:640px; font-size:18px; color:#cfe6ea;}
+  .tags{margin-top:16px; display:flex; flex-wrap:wrap; gap:8px;}
+  .tags span{font-size:12px; font-weight:700; color:#e3f5f7; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.18); padding:5px 12px; border-radius:20px;}
+  .cascade{position:relative; z-index:3; margin-top:30px; display:flex; align-items:flex-end; justify-content:center; flex-wrap:wrap; gap:clamp(10px,2vw,26px);}
+  .phone{transform:translateY(var(--ty,0)); transition:transform .25s ease;}
+  .phone img{display:block; width:clamp(120px,15vw,190px); border-radius:18px; box-shadow:0 22px 42px rgba(0,15,20,.55); cursor:zoom-in;}
+  .phone:hover{transform:translateY(-10px) scale(1.03); z-index:9;}
+  section{padding:50px 0;}
+  .kicker{font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--teal);}
+  h2.sec{font-size:clamp(24px,3.4vw,32px); margin:8px 0 6px; color:var(--deep);}
+  .sec-sub{color:var(--muted); max-width:720px; font-size:16px; margin:0 0 24px;}
+  .flow{position:relative; display:flex; align-items:flex-start; justify-content:space-between; gap:6px; margin-top:8px;}
+  .flow::before{content:""; position:absolute; left:6%; right:6%; top:26px; height:4px; border-radius:4px; background:linear-gradient(90deg,var(--teal),var(--cyan));}
+  .fnode{position:relative; z-index:2; flex:1; display:flex; flex-direction:column; align-items:center; text-align:center; gap:8px;}
+  .fnode .dot{width:54px; height:54px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:23px; color:#fff; background:linear-gradient(160deg,var(--teal),var(--deep)); box-shadow:0 8px 18px rgba(15,60,70,.3);}
+  .fnode .lbl{font-size:12.5px; font-weight:700; color:var(--ink);}
+  .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:8px;}
+  .card2{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px; position:relative; overflow:hidden; box-shadow:0 1px 3px rgba(15,60,70,.06); transition:transform .2s, box-shadow .2s;}
+  .card2:hover{transform:translateY(-4px); box-shadow:0 14px 30px rgba(15,90,100,.15);}
+  .card2::before{content:""; position:absolute; left:0; top:0; right:0; height:5px; background:linear-gradient(90deg,var(--teal),var(--cyan));}
+  .card2 .ico{font-size:30px;} .card2 h3{margin:8px 0 6px; font-size:17px; color:var(--deep);} .card2 p{margin:0; font-size:14px; color:#46606a;}
+  .screens{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  .screen{margin:0; background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden; box-shadow:0 12px 28px rgba(15,60,70,.13); transition:transform .2s, box-shadow .2s;}
+  .screen:hover{transform:translateY(-5px); box-shadow:0 20px 40px rgba(15,90,100,.2);}
+  .screen .shotwrap{background:radial-gradient(circle at 50% 30%, #14506a, #0b2530); display:flex; align-items:center; justify-content:center; padding:18px;}
+  .screen .shotwrap img{width:58%; border-radius:14px; box-shadow:0 12px 24px rgba(0,10,20,.45); cursor:zoom-in;}
+  .screen figcaption{padding:12px 15px 15px; font-size:13px; color:var(--muted);} .screen figcaption b{color:var(--ink); display:block; font-size:14px; margin-bottom:2px;}
+  .band{background:linear-gradient(160deg,#0a2230,#081a24); color:#fff;}
+  .band h2{color:#fff;} .band .kicker{color:var(--cyan);} .band .sec-sub{color:#bfd6db;}
+  .stack{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;}
+  .stack span{font-size:13px; font-weight:700; color:#e3f5f7; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16); padding:8px 15px; border-radius:30px;}
+  footer{padding:30px 0 50px; text-align:center; color:var(--muted); font-size:13px;} footer a{color:var(--teal); text-decoration:none; font-weight:800;}
+  #lb{display:none; position:fixed; inset:0; z-index:9999; background:rgba(6,20,26,.93); align-items:flex-start; justify-content:center; overflow:auto; cursor:zoom-out; padding:24px;}
+  #lb img{max-width:none; border-radius:10px; box-shadow:0 16px 60px rgba(0,0,0,.6);} #lb .x{position:fixed; top:16px; right:22px; color:#fff; font-size:38px; cursor:pointer;}
+  @media (max-width:820px){ .grid3,.screens{grid-template-columns:1fr;} .flow{overflow-x:auto;} .fnode{min-width:90px;} }
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap"><a class="back" href="David Silverlight Portfolio.html">&larr; Back to portfolio</a><span class="who">Case Study · <b>David Silverlight</b></span></div></div>
+<header class="hero">
+  <div class="radar"></div><div class="ping"></div>
+  <div class="wrap">
+    <span class="eyebrow">▲ .NET MAUI · Medical IoT</span>
+    <h1>Midmark <span>DECO IoT</span></h1>
+    <p class="lead">A first-generation toolset for Midmark's medical smart devices — registering, connecting, installing and configuring connected equipment through a custom REST API.</p>
+    <div class="tags"><span>IoT</span><span>Medical Devices</span><span>Device Setup</span><span>REST API</span><span>.NET MAUI</span></div>
+    <div class="cascade">
+      <div class="phone" style="--ty:30px;"><img src="images/Midmark/Splash.png" alt="Midmark sign in"></div>
+      <div class="phone" style="--ty:0;"><img src="images/Midmark/AddProduct.png" alt="Midmark add product"></div>
+      <div class="phone" style="--ty:30px;"><img src="images/Midmark/Products.png" alt="Midmark products"></div>
+    </div>
+  </div>
+</header>
+<section>
+  <div class="wrap">
+    <span class="kicker">The setup journey</span>
+    <h2 class="sec">From box to connected device</h2>
+    <p class="sec-sub">DECO guides technicians through bringing a medical smart device online — every step backed by a custom REST API.</p>
+    <div class="flow">
+      <div class="fnode"><div class="dot">🔐</div><div class="lbl">Register</div></div>
+      <div class="fnode"><div class="dot">📶</div><div class="lbl">Connect</div></div>
+      <div class="fnode"><div class="dot">🛠️</div><div class="lbl">Install</div></div>
+      <div class="fnode"><div class="dot">⚙️</div><div class="lbl">Configure</div></div>
+    </div>
+    <div class="grid3">
+      <div class="card2"><div class="ico">🩺</div><h3>Built for medical devices</h3><p>A purpose-built toolset for Midmark's connected medical equipment.</p></div>
+      <div class="card2"><div class="ico">🔌</div><h3>Custom REST API</h3><p>Device registration, connection and setup all flow through a tailored REST backend.</p></div>
+      <div class="card2"><div class="ico">✨</div><h3>Polished UX</h3><p>Lottie animations and a clean MVVM architecture, validated with xUnit tests.</p></div>
+    </div>
+  </div>
+</section>
+<section style="background:#e1edef;">
+  <div class="wrap">
+    <span class="kicker">The app</span>
+    <h2 class="sec">A clean device-management experience</h2>
+    <p class="sec-sub">Click any screen to enlarge.</p>
+    <div class="screens">
+      <figure class="screen"><div class="shotwrap"><img src="images/Midmark/Splash.png" alt="Midmark splash / sign in" onerror="this.closest('.screen').style.display='none'"></div><figcaption><b>Sign in</b>Branded entry point.</figcaption></figure>
+      <figure class="screen"><div class="shotwrap"><img src="images/Midmark/AddProduct.png" alt="Midmark add product" onerror="this.closest('.screen').style.display='none'"></div><figcaption><b>Add product</b>Register a new device.</figcaption></figure>
+      <figure class="screen"><div class="shotwrap"><img src="images/Midmark/Products.png" alt="Midmark products" onerror="this.closest('.screen').style.display='none'"></div><figcaption><b>Products</b>Manage connected equipment.</figcaption></figure>
+    </div>
+  </div>
+</section>
+<section class="band">
+  <div class="wrap">
+    <span class="kicker">Architecture &amp; stack</span>
+    <h2 class="sec">Connected, tested, modern</h2>
+    <p class="sec-sub">A .NET MAUI foundation with REST connectivity, delightful motion, and a tested core.</p>
+    <div class="stack"><span>.NET MAUI</span><span>MAUI Essentials</span><span>CommunityToolkit.MVVM</span><span>SQLite</span><span>REST</span><span>Lottie</span><span>xUnit</span></div>
+  </div>
+</section>
+<footer>Midmark DECO IoT · Medical Smart-Device Toolset · .NET MAUI &nbsp;·&nbsp; <a href="David Silverlight Portfolio.html">← Back to portfolio</a> &nbsp;·&nbsp; <a href="https://DavidSilverlight.com" target="_blank">DavidSilverlight.com</a></footer>
+<div id="lb"><span class="x">&times;</span><img alt="enlarged screenshot"></div>
+<script>(function(){var lb=document.getElementById('lb'),im=lb.querySelector('img');document.querySelectorAll('.cascade img,.shotwrap img').forEach(function(g){g.addEventListener('click',function(e){e.stopPropagation();im.src=g.src;lb.style.display='flex';});});lb.addEventListener('click',function(){lb.style.display='none';im.src='';});document.addEventListener('keydown',function(e){if(e.key==='Escape'){lb.style.display='none';im.src='';}});})();</script>
+</body>
+</html>
