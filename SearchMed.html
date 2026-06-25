@@ -57,7 +57,7 @@
 </style>
 </head>
 <body>
-<div class="topbar"><div class="wrap"><a class="back" href="David Silverlight Portfolio.html">&larr; Back to portfolio</a><span class="who">Case Study · <b>David Silverlight</b></span></div></div>
+<div class="topbar"><div class="wrap"><a class="back" href="David Silverlight Portfolio.html" onclick="if(history.length>1){history.back();return false;}">&larr; Back to portfolio</a><span class="who">Case Study · <b>David Silverlight</b></span></div></div>
 <header class="hero">
   <div class="wrap">
     <span class="eyebrow">▲ .NET MAUI · Healthcare Search</span>
@@ -114,7 +114,7 @@
     <div class="stack"><span>.NET MAUI</span><span>Firebase</span><span>MVVM</span><span>CommunityToolkit.MVVM</span><span>CommunityToolkit.Maui</span><span>SQLite</span></div>
   </div>
 </section>
-<footer>SearchMed · Medical-Provider Search · .NET MAUI &nbsp;·&nbsp; <a href="David Silverlight Portfolio.html">← Back to portfolio</a> &nbsp;·&nbsp; <a href="https://DavidSilverlight.com" target="_blank">DavidSilverlight.com</a></footer>
+<footer>SearchMed · Medical-Provider Search · .NET MAUI &nbsp;·&nbsp; <a href="David Silverlight Portfolio.html" onclick="if(history.length>1){history.back();return false;}">← Back to portfolio</a> &nbsp;·&nbsp; <a href="https://DavidSilverlight.com" target="_blank">DavidSilverlight.com</a></footer>
 <div id="lb"><span class="x">&times;</span><img alt="enlarged screenshot"></div>
 <script>(function(){document.querySelectorAll('.stat .n[data-to]').forEach(function(el){var to=+el.getAttribute('data-to'),suf=el.getAttribute('data-suffix')||'',pre=el.getAttribute('data-prefix')||'',t0=null;function step(ts){if(!t0)t0=ts;var p=Math.min((ts-t0)/1100,1);var v=Math.round((1-Math.pow(1-p,3))*to);el.innerHTML=pre+v+(suf?'<small>'+suf+'</small>':'');if(p<1)requestAnimationFrame(step);}requestAnimationFrame(step);});var lb=document.getElementById('lb'),im=lb.querySelector('img');document.querySelectorAll('.cascade img,.shotwrap img').forEach(function(g){g.addEventListener('click',function(e){e.stopPropagation();im.src=g.src;lb.style.display='flex';});});lb.addEventListener('click',function(){lb.style.display='none';im.src='';});document.addEventListener('keydown',function(e){if(e.key==='Escape'){lb.style.display='none';im.src='';}});})();</script>
 </body>

@@ -47,7 +47,7 @@
   /* phones */
   .cascade{position:relative; z-index:5; margin:18px auto 0; display:flex; align-items:flex-end; justify-content:center; flex-wrap:wrap; gap:clamp(8px,1.8vw,22px);}
   .phone{transform:translateY(var(--ty,0)) rotate(var(--rot,0deg)); transition:transform .25s ease;}
-  .phone img{display:block; width:clamp(112px,13vw,168px); border-radius:20px; box-shadow:0 20px 38px rgba(40,30,0,.28); cursor:zoom-in; border:5px solid #fff;}
+  .phone img{display:block; width:clamp(112px,13vw,168px); border-radius:20px; cursor:zoom-in;}
   .phone:hover{transform:translateY(-12px) rotate(0deg) scale(1.04); z-index:9;}
 
   section{padding:54px 0;}
@@ -93,7 +93,7 @@
   .screen{margin:0; background:var(--card); border:2px solid var(--line); border-radius:16px; overflow:hidden; box-shadow:0 10px 24px rgba(60,50,20,.12); transition:transform .2s;}
   .screen:hover{transform:translateY(-5px) rotate(-1deg);}
   .screen .shotwrap{background:linear-gradient(160deg,#eafbe6,#fff6e3); display:flex; align-items:center; justify-content:center; padding:16px;}
-  .screen .shotwrap img{width:80%; border-radius:14px; box-shadow:0 10px 20px rgba(40,30,0,.2); cursor:zoom-in;}
+  .screen .shotwrap img{width:80%; border-radius:14px; cursor:zoom-in;}
   .screen figcaption{padding:11px 14px 14px; font-size:13px; color:var(--muted); text-align:center; font-weight:600;}
 
   .band{background:linear-gradient(160deg,#2f5a36,#234227); color:#fff;}
@@ -111,7 +111,7 @@
 </style>
 </head>
 <body>
-<div class="topbar"><div class="wrap"><a class="back" href="David Silverlight Portfolio.html">&larr; Back to portfolio</a><span class="who">Case Study · <b>David Silverlight</b></span></div></div>
+<div class="topbar"><div class="wrap"><a class="back" href="David Silverlight Portfolio.html" onclick="if(history.length>1){history.back();return false;}">&larr; Back to portfolio</a><span class="who">Case Study · <b>David Silverlight</b></span></div></div>
 
 <!-- HERO -->
 <header class="hero">
@@ -232,7 +232,7 @@
   </div>
 </section>
 
-<footer>Safe4Dogs · A treat-checker for dog lovers &amp; a .NET MAUI teaching tool &nbsp;·&nbsp; <a href="David Silverlight Portfolio.html">← Back to portfolio</a> &nbsp;·&nbsp; <a href="https://DavidSilverlight.com" target="_blank">DavidSilverlight.com</a></footer>
+<footer>Safe4Dogs · A treat-checker for dog lovers &amp; a .NET MAUI teaching tool &nbsp;·&nbsp; <a href="David Silverlight Portfolio.html" onclick="if(history.length>1){history.back();return false;}">← Back to portfolio</a> &nbsp;·&nbsp; <a href="https://DavidSilverlight.com" target="_blank">DavidSilverlight.com</a></footer>
 <div id="lb"><span class="x">&times;</span><img alt="enlarged screenshot"></div>
 <script>(function(){var lb=document.getElementById('lb'),im=lb.querySelector('img');document.querySelectorAll('.cascade img,.shotwrap img').forEach(function(g){g.addEventListener('click',function(e){e.stopPropagation();im.src=g.src;lb.style.display='flex';});});lb.addEventListener('click',function(){lb.style.display='none';im.src='';});document.addEventListener('keydown',function(e){if(e.key==='Escape'){lb.style.display='none';im.src='';}});})();</script>
 </body>

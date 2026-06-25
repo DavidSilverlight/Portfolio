@@ -4,15 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>David Silverlight — Project Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
     --ink:#1a1a1a; --muted:#5a6573; --accent:#15457a; --accent2:#2c7a7b;
     --rule:#dfe5ec; --card:#ffffff; --bg:#eef1f5; --pill:#eaf1f8;
   }
   *{box-sizing:border-box;}
-  body{font-family:Calibri,"Segoe UI",Arial,sans-serif; color:var(--ink); background:var(--bg); margin:0; line-height:1.4; font-size:14px;}
+  body{font-family:"Mulish","Segoe UI",Helvetica,Arial,sans-serif; color:var(--ink); background:var(--bg); margin:0; line-height:1.55; font-size:14.5px; font-weight:400; -webkit-font-smoothing:antialiased;}
   .wrap{max-width:1180px; margin:0 auto; padding:32px 28px 56px;}
-  h1{font-size:30px; margin:0; color:var(--accent); letter-spacing:.5px;}
+  h1{font-size:clamp(34px,7.2vw,76px); line-height:1.04; margin:0; color:var(--accent); letter-spacing:.3px; font-weight:300;}
   .sub{font-size:15px; font-weight:600; margin:2px 0 6px;}
   .meta{color:var(--muted); font-size:13px;}
   .meta a{color:var(--accent); text-decoration:none; font-weight:600;}
@@ -309,6 +312,9 @@
   .panel a{color:var(--accent); text-decoration:none; font-weight:600;}
   .panel .promo{background:var(--pill); border-left:4px solid var(--accent2); padding:12px 14px; border-radius:6px;}
   .panel .contact{font-weight:600; color:var(--accent); font-size:14px;}
+  .aboutme{max-width:880px; margin:6px 0 26px; font-size:17px; line-height:1.6; color:#3a4655;}
+  .aboutme .hi{font-size:20px; font-weight:800; color:var(--accent); margin-right:6px;}
+  .aboutme b{color:var(--accent2); font-weight:700;}
   .artgrid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:16px;}
   .art{display:flex; flex-direction:column; gap:9px; background:var(--card); border:1px solid var(--rule); border-radius:10px;
     padding:12px; cursor:zoom-in; box-shadow:0 1px 3px rgba(20,40,80,.06);
@@ -355,6 +361,46 @@
   .grid.compact .card.fullrow .shot.collage img{width:23%; max-height:186px;}
   @media (max-width:1024px){ .grid.compact{grid-template-columns:repeat(2,1fr);} }
   @media (max-width:600px){ .grid.compact{grid-template-columns:1fr;} }
+  /* ===== Creative "Silverlight glass" treatment for the Silverlight cards ===== */
+  .grid.slv .card{transition:transform .28s cubic-bezier(.2,.7,.2,1), box-shadow .28s ease;}
+  .grid.slv .card:hover{transform:translateY(-7px); box-shadow:0 20px 40px rgba(20,40,80,.20);}
+  .grid.slv .shot{position:relative; overflow:hidden; box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);}
+  /* glossy corner sheen */
+  .grid.slv .ph{position:relative; overflow:hidden;}
+  .grid.slv .ph::before{content:""; position:absolute; inset:0; pointer-events:none; z-index:1;
+    background:linear-gradient(135deg, rgba(255,255,255,.30) 0%, rgba(255,255,255,.06) 28%, transparent 52%);}
+  /* fine dot texture */
+  .grid.slv .ph::after{content:""; position:absolute; inset:0; pointer-events:none; z-index:1; opacity:.35; mix-blend-mode:overlay;
+    background-image:radial-gradient(rgba(255,255,255,.7) 1px, transparent 1.5px); background-size:13px 13px;}
+  .grid.slv .ph .big, .grid.slv .ph .note{position:relative; z-index:2;}
+  .grid.slv .ph .big{text-shadow:0 2px 8px rgba(0,0,0,.28);}
+  /* glass-pill subtitle */
+  .grid.slv .ph .note{display:inline-block; margin-top:9px; padding:3px 11px; border-radius:20px;
+    background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.30); backdrop-filter:blur(2px); opacity:1;}
+  /* light-sweep shine on hover (works over any scene: ph, collage, video poster) */
+  .grid.slv .shot::after{content:""; position:absolute; top:-40%; left:-75%; width:55%; height:190%; z-index:3; pointer-events:none;
+    background:linear-gradient(100deg, transparent, rgba(255,255,255,.45), transparent); transform:skewX(-18deg); transition:left .65s ease;}
+  .grid.slv .card:hover .shot::after{left:135%;}
+  /* ===== Per-card themed decorations (2 elements each, echoing the case-study page) ===== */
+  .grid.compact .dco{position:absolute; z-index:2; pointer-events:none; line-height:1; font-size:23px; opacity:.92; filter:drop-shadow(0 2px 5px rgba(0,0,0,.4));}
+  .grid.compact .dco.tl{top:9px; left:11px;} .grid.compact .dco.tr{top:9px; right:11px;}
+  .grid.compact .dco.bl{bottom:9px; left:11px;} .grid.compact .dco.br{bottom:9px; right:11px;}
+  .grid.compact .dco.float{animation:slvfloat 4s ease-in-out infinite;}
+  @keyframes slvfloat{0%,100%{transform:translateY(0) rotate(var(--r,0deg));}50%{transform:translateY(-7px) rotate(var(--r,0deg));}}
+  .grid.compact .dco.tw{animation:slvtw 2.6s ease-in-out infinite;}
+  @keyframes slvtw{0%,100%{opacity:.55; transform:scale(1);}50%{opacity:1; transform:scale(1.3);}}
+  /* National Workflow — flowing pipeline line */
+  .grid.compact .dco.nwline{left:9%; right:9%; bottom:13px; height:3px; border-radius:3px; opacity:.9; filter:none;
+    background:repeating-linear-gradient(90deg,#7fe3d0 0 8px, transparent 8px 16px); background-size:16px 100%; animation:nwflow 1s linear infinite;}
+  @keyframes nwflow{to{background-position:16px 0;}}
+  /* Polaris — starfield */
+  .grid.compact .dco.stars{inset:0; opacity:.55; filter:none;
+    background:radial-gradient(1.5px 1.5px at 18% 28%,#fff 50%,transparent),radial-gradient(1.5px 1.5px at 64% 18%,#cffaff 50%,transparent),radial-gradient(1.5px 1.5px at 82% 58%,#fff 50%,transparent),radial-gradient(1.5px 1.5px at 38% 68%,#fff 50%,transparent),radial-gradient(2px 2px at 52% 42%,#fff 50%,transparent);}
+  /* Materials Database — element tiles */
+  .grid.compact .dco.eltile{width:30px; height:30px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:800; color:#bdf0fa; background:rgba(57,192,216,.20); border:1px solid rgba(86,204,214,.55); filter:none;}
+  /* Starter Kit — blinking caret */
+  .grid.compact .dco.caret{width:9px; height:20px; background:#4be2a6; border-radius:1px; filter:none; animation:slvblink 1.1s step-end infinite;}
+  @keyframes slvblink{50%{opacity:0;}}
   /* ===== Full-screen single-item detail view (ATrack style, for every item) ===== */
   #detail{position:fixed; inset:0; z-index:1200; display:none; overflow-y:auto; background:#e7eff7;}
   #detail.open{display:block;}
@@ -431,7 +477,7 @@
     <a class="brand" href="#top">David Silverlight<small>Senior .NET MAUI Developer</small></a>
     <hr class="navsep">
 
-    <a class="navtop" href="#overview">Overview</a>
+    <a class="navtop" href="#overview">Shameless Self-Promotion</a>
     <hr class="navsep">
 
     <a class="cat" href="#maui">.NET MAUI Apps</a>
@@ -496,19 +542,18 @@
 <div class="wrap" id="top">
 
   <header class="top">
-    <h1>David Silverlight</h1>
-    <p class="sub">Senior .NET MAUI Developer — Project Portfolio</p>
-    <p class="meta">Miami, FL &nbsp;|&nbsp; 561-212-5707 &nbsp;|&nbsp; <a href="mailto:DavidSilverlight@gmail.com">DavidSilverlight@gmail.com</a> &nbsp;|&nbsp; <a href="https://linkedin.com/in/MauiGeek">linkedin.com/in/MauiGeek</a> &nbsp;|&nbsp; <a href="https://DavidSilverlight.com">DavidSilverlight.com</a></p>
-    <p class="intro">A selection of shipped .NET MAUI and Xamarin.Forms applications spanning enterprise, consumer, and field/clinical tools. Each project links to its full write-up with additional screenshots at DavidSilverlight.com.</p>
-    <p class="tip">Tip: click any portfolio item to open it full screen, or click a screenshot to enlarge it.</p>
+    <h1>Portfolio of David Silverlight</h1>
+    <p class="meta">📍 Miami, FL &nbsp;|&nbsp; 📱 561-212-5707 &nbsp;|&nbsp; ✉️ <a href="mailto:DavidSilverlight@gmail.com">DavidSilverlight@gmail.com</a> &nbsp;|&nbsp; 🔗 <a href="https://linkedin.com/in/MauiGeek">linkedin.com/in/MauiGeek</a> &nbsp;|&nbsp; 📄 <a href="David Silverlight Resume.html">Resume</a></p>
   </header>
 
+  <section class="prose" id="about">
+    <p class="aboutme"><span class="hi">👋 Hi, I'm David —</span> a developer who genuinely loves this stuff. I've spent years happily building apps across a parade of technologies — spent some time authoring a <b>monthly Q&amp;A column for <i>XML Journal</i></b> back in my XML-geek days, through Silverlight and Xamarin.Forms, to <b>.Net MAUI</b> as an early adopter where I have been laser focused from day one. I'm endlessly curious, love to learn and lately I'm having a blast exploring how <b>AI</b> can help me build better and faster.</p>
+  </section>
+
   <section class="prose" id="overview">
-    <h2 class="section">Overview</h2>
+    <h2 class="section">Shameless Self-Promotion</h2>
     <div class="panel">
-      <p>This site showcases some of my proudest accomplishments as a computer geek, ranging from the .NET MAUI and Xamarin mobile apps I have built recently, back to my monthly XML Q&amp;A column in <i>XML Journal</i>. My focus today is on developing cross-platform mobile applications with .NET MAUI — the evolution of Xamarin.Forms.</p>
-      <p class="promo"><b>Shameless self-promotion:</b> Today I focus 100% of my time as a consultant developing mobile apps. I am always looking to take on new projects, so if you need somebody to help your team meet a tight deadline, or would like to hand off your mission-critical deliverables to somebody who can see the project through from start to finish, please do not hesitate to contact me.</p>
-      <p class="contact">📱 561-212-5707 &nbsp;·&nbsp; ✉️ <a href="mailto:DavidSilverlight@gmail.com">DavidSilverlight@gmail.com</a> &nbsp;·&nbsp; 🔗 <a href="https://linkedin.com/in/MauiGeek" target="_blank">linkedin.com/in/MauiGeek</a></p>
+      <p>Here I can showcase some of my proudest accomplishments as a computer geek, showing mobile and web apps in various technologies and a few articles from a monthly column I used to write, as well as apps that I have created for the development community and for fun. I'm always interested in new projects. Whether you need help meeting a tight deadline or a dependable hand to carry a mission-critical deliverable from start to finish, I'd welcome the conversation.</p>
     </div>
   </section>
 
@@ -919,10 +964,11 @@
   </section>
 
   <h2 class="section" id="silverlight">Silverlight Applications</h2>
-  <div class="grid compact">
+  <div class="grid compact slv">
 
-    <div class="card fullrow" id="sl-nationalworkflow">
+    <div class="card" id="sl-nationalworkflow">
       <div class="shot collage">
+        <span class="dco tl float" style="--r:-6deg;">🔀</span><span class="dco nwline"></span>
         <img src="images/NationalWorkflow/workflow-work-order-status.png" alt="National Workflow — Work Order Status" onerror="this.style.display='none'">
         <img src="images/NationalWorkflow/workflow-attachment-review.png" alt="National Workflow — Attachment Review Queue" onerror="this.style.display='none'">
         <img src="images/NationalWorkflow/workflow-service-call-lookup.png" alt="National Workflow — Service Call Lookup" onerror="this.style.display='none'">
@@ -938,7 +984,7 @@
     </div>
 
     <div class="card" id="sl-crescendo">
-      <div class="shot vidposter" style="background-image:url('https://img.youtube.com/vi/PJWZKYPaT2c/hqdefault.jpg');"><span class="playbtn">&#9654;</span></div>
+      <div class="shot vidposter" style="background-image:url('https://img.youtube.com/vi/PJWZKYPaT2c/hqdefault.jpg');"><span class="dco tl tw">❤️</span><span class="dco br float">🎵</span><span class="playbtn">&#9654;</span></div>
       <div class="body">
         <p class="name">Crescendo Patient CRM</p>
         <span class="pill sl">Silverlight · Video</span>
@@ -949,7 +995,7 @@
     </div>
 
     <div class="card" id="sl-unbeatablegeek">
-      <div class="shot"><div class="ph ug"><span class="big">🤓⚡ Unbeatable Geek</span><span class="note">Geek Sport · 2009</span></div></div>
+      <div class="shot"><div class="ph ug"><span class="dco tl float" style="--r:-10deg;">⚡</span><span class="dco br float">🤓</span><span class="big">🤓⚡ Unbeatable Geek</span><span class="note">Geek Sport · 2009</span></div></div>
       <div class="body">
         <p class="name">UnbeatableGeek.com</p>
         <span class="pill sl">Silverlight · Featured</span>
@@ -960,7 +1006,7 @@
     </div>
 
     <div class="card" id="sl-hostinguniversity">
-      <div class="shot"><div class="ph mhu"><span class="big">🎓 Hosting University</span><span class="note">Est. 2009 · Award Winner</span></div></div>
+      <div class="shot"><div class="ph mhu"><span class="dco tl">🎓</span><span class="dco br tw">🏆</span><span class="big">🎓 Hosting University</span><span class="note">Est. 2009 · Award Winner</span></div></div>
       <div class="body">
         <p class="name">Microsoft Hosting University</p>
         <span class="pill sl">Silverlight · Featured</span>
@@ -971,7 +1017,7 @@
     </div>
 
     <div class="card" id="sl-propertytax1">
-      <div class="shot"><div class="ph pts"><span class="big">⚖️ Property Tax System</span><span class="note">Assessment &amp; Appeals</span></div></div>
+      <div class="shot"><div class="ph pts"><span class="dco tl">⚖️</span><span class="dco br float">📊</span><span class="big">⚖️ Property Tax System</span><span class="note">Assessment &amp; Appeals</span></div></div>
       <div class="body">
         <p class="name">Property Tax System</p>
         <span class="pill sl">Silverlight · Featured</span>
@@ -982,7 +1028,7 @@
     </div>
 
     <div class="card" id="sl-starterkit">
-      <div class="shot"><div class="ph kit"><span class="big">&lt;/&gt; SL Starter Kit</span><span class="note">MVVM · RIA Services</span></div></div>
+      <div class="shot"><div class="ph kit"><span class="dco tl float">🧩</span><span class="dco br caret"></span><span class="big">&lt;/&gt; SL Starter Kit</span><span class="note">MVVM · RIA Services</span></div></div>
       <div class="body">
         <p class="name">Silverlight User Group Starter Kit</p>
         <span class="pill sl">Silverlight · Featured</span>
@@ -993,7 +1039,7 @@
     </div>
 
     <div class="card" id="sl-propertytax2">
-      <div class="shot"><div class="ph pts"><span class="big">⚖️ Property Tax System</span><span class="note">Silverlight 5 · RIA</span></div></div>
+      <div class="shot"><div class="ph pts"><span class="dco tl">📈</span><span class="dco br float">🧾</span><span class="big">⚖️ Property Tax System</span><span class="note">Silverlight 5 · RIA</span></div></div>
       <div class="body">
         <p class="name">Property Tax System <span class="yr">SL5</span></p>
         <span class="pill sl">Silverlight 5 · Featured</span>
@@ -1004,7 +1050,7 @@
     </div>
 
     <div class="card" id="sl-christmascatalog">
-      <div class="shot"><div class="ph xmas"><span class="big">🎄 My Christmas Catalog</span><span class="note">Holiday Commerce</span></div></div>
+      <div class="shot"><div class="ph xmas"><span class="dco tl tw">❄️</span><span class="dco br float">🎁</span><span class="big">🎄 My Christmas Catalog</span><span class="note">Holiday Commerce</span></div></div>
       <div class="body">
         <p class="name">My Christmas Catalog</p>
         <span class="pill sl">Silverlight · Featured</span>
@@ -1015,7 +1061,7 @@
     </div>
 
     <div class="card" id="sl-polaris">
-      <div class="shot"><div class="ph polaris"><span class="big">✦ Polaris</span><span class="note">Telecom LOB</span></div></div>
+      <div class="shot"><div class="ph polaris"><span class="dco stars"></span><span class="dco tr tw">✦</span><span class="big">✦ Polaris</span><span class="note">Telecom LOB</span></div></div>
       <div class="body">
         <p class="name">Polaris</p>
         <span class="pill sl">Silverlight · Featured</span>
@@ -1026,7 +1072,7 @@
     </div>
 
     <div class="card" id="sl-egghead">
-      <div class="shot"><div class="ph egg"><span class="big">☕ Egghead Cafe</span><span class="note">Navigation &amp; Forum UI</span></div></div>
+      <div class="shot"><div class="ph egg"><span class="dco tl float">☕</span><span class="dco br float">🥚</span><span class="big">☕ Egghead Cafe</span><span class="note">Navigation &amp; Forum UI</span></div></div>
       <div class="body">
         <p class="name">Egghead Cafe — Silverlight Navigation</p>
         <span class="pill sl">Silverlight · Featured</span>
@@ -1037,7 +1083,7 @@
     </div>
 
     <div class="card" id="sl-materialsdb">
-      <div class="shot"><div class="ph md"><span class="big">⚛ Materials Database</span><span class="note">Engineering · Silverlight</span></div></div>
+      <div class="shot"><div class="ph md"><span class="dco tl eltile">ρ</span><span class="dco br eltile">E</span><span class="big">⚛ Materials Database</span><span class="note">Engineering · Silverlight</span></div></div>
       <div class="body">
         <p class="name">Materials Database Application</p>
         <span class="pill sl">Silverlight · Featured</span>
@@ -1053,12 +1099,13 @@
   <div class="grid compact">
 
     <div class="card" id="web-nonprofitways">
-      <div class="shot"><div class="ph web"><span class="big">NonProfitWays</span><span class="note">ASP.NET · Community</span></div></div>
+      <div class="shot"><div class="ph web"><span class="dco tl float">🤝</span><span class="dco br float">❤️</span><span class="big">🙌 NonProfitWays</span><span class="note">Community for Good</span></div></div>
       <div class="body">
         <p class="name">NonProfitWays</p>
-        <span class="pill web">ASP.NET</span>
+        <span class="pill web">ASP.NET · Featured</span>
         <p class="desc">A community site I created pairing new ASP.NET developers with seasoned mentors to build websites for not-for-profit organizations — hands-on experience for newcomers and a high-quality site at no cost for nonprofits.</p>
         <p class="tech"><b>Tech:</b> ASP.NET, .NET</p>
+        <p class="lnk"><a href="NonProfitWays.html">✦ View the full case study &rarr;</a></p>
       </div>
     </div>
 
@@ -1235,7 +1282,11 @@
     'sl-christmascatalog':'My Christmas Catalog.html',
     'sl-polaris':'Polaris.html',
     'sl-egghead':'Egghead Cafe.html',
-    'sl-materialsdb':'Materials Database.html'
+    'sl-materialsdb':'Materials Database.html',
+    'web-nonprofitways':'NonProfitWays.html',
+    'web-communitycredit':'Community-Credit.com.html',
+    'web-xmlpitstop':'XMLPitstop.com.html',
+    'web-ineta':'Ineta.org.html'
   };
 
   function buildDetail(id){

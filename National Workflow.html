@@ -74,18 +74,14 @@
 
   /* ---------- screenshot showcase ---------- */
   .screens{display:grid; grid-template-columns:repeat(2,1fr); gap:26px;}
-  .screen{margin:0; background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden;
-    box-shadow:0 14px 34px rgba(20,50,90,.12); transition:transform .25s ease, box-shadow .25s ease; transform:rotate(var(--r,0deg));}
-  .screen:hover{transform:rotate(0deg) translateY(-6px); box-shadow:0 22px 48px rgba(20,50,90,.22);}
+  .screen{margin:0; background:transparent; border:0; box-shadow:none; transition:transform .25s ease; transform:rotate(var(--r,0deg));}
+  .screen:hover{transform:rotate(0deg) translateY(-6px);}
   .screen:nth-child(1){--r:-1.4deg;} .screen:nth-child(2){--r:1.4deg;}
   .screen:nth-child(3){--r:1.2deg;} .screen:nth-child(4){--r:-1.2deg;}
-  .chrome{display:flex; align-items:center; gap:7px; padding:9px 13px; background:linear-gradient(180deg,#f3f6fa,#e7edf4); border-bottom:1px solid var(--line);}
-  .chrome .dot{width:11px; height:11px; border-radius:50%;}
-  .chrome .dot.r{background:#ff5f57;} .chrome .dot.y{background:#febc2e;} .chrome .dot.g{background:#28c840;}
-  .chrome .tab{margin-left:10px; font-size:12px; font-weight:700; color:#46566a; background:#fff; border:1px solid var(--line); padding:3px 12px; border-radius:8px;}
-  .screenimg{position:relative; min-height:150px; display:flex; align-items:center; justify-content:center; background:#f6f9fc;}
+  .chrome{display:none;}
+  .screenimg{position:relative; min-height:90px; display:flex; align-items:center; justify-content:center; background:transparent; border-radius:10px; overflow:hidden;}
   .screenimg .ph{position:absolute; font-size:14px; font-weight:700; color:#9fb0c4; letter-spacing:.5px;}
-  .screenimg img{position:relative; width:100%; display:block; cursor:zoom-in; background:#f6f9fc;}
+  .screenimg img{position:relative; width:100%; display:block; cursor:zoom-in; border-radius:10px; box-shadow:0 12px 26px rgba(20,50,90,.18);}
   .screen figcaption{padding:13px 16px 15px; font-size:13.5px; color:var(--muted);}
   .screen figcaption b{color:var(--ink);}
 
@@ -131,7 +127,7 @@
 
 <div class="topbar">
   <div class="wrap">
-    <a class="back" href="David Silverlight Portfolio.html">&larr; Back to portfolio</a>
+    <a class="back" href="David Silverlight Portfolio.html" onclick="if(history.length>1){history.back();return false;}">&larr; Back to portfolio</a>
     <span class="who">Case Study · <b>David Silverlight</b></span>
   </div>
 </div>
@@ -239,7 +235,7 @@
 
 <footer>
   National Workflow · Silverlight Line-of-Business Platform &nbsp;·&nbsp;
-  <a href="David Silverlight Portfolio.html">← Back to portfolio</a> &nbsp;·&nbsp;
+  <a href="David Silverlight Portfolio.html" onclick="if(history.length>1){history.back();return false;}">← Back to portfolio</a> &nbsp;·&nbsp;
   <a href="https://DavidSilverlight.com" target="_blank">DavidSilverlight.com</a>
 </footer>
 
