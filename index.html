@@ -228,7 +228,10 @@
   /* lightbox */
   #lb{display:none; position:fixed; inset:0; background:rgba(10,15,25,.9); z-index:9999; align-items:center; justify-content:center; cursor:zoom-out; padding:24px;}
   #lb img{max-width:92vw; max-height:92vh; box-shadow:0 12px 50px rgba(0,0,0,.65); border-radius:6px;}
-  #lb .x{position:fixed; top:18px; right:26px; color:#fff; font-size:34px; font-weight:300; cursor:pointer; line-height:1;}
+  /* full-size mode: show the image at native resolution, scrollable */
+  #lb.full{align-items:flex-start; justify-content:center; overflow:auto; cursor:default; padding:24px;}
+  #lb.full img{max-width:none; max-height:none; width:auto; height:auto; border-radius:4px;}
+  #lb .x{position:fixed; top:18px; right:26px; color:#fff; font-size:34px; font-weight:300; cursor:pointer; line-height:1; z-index:2;}
   @media print{
     @page{ margin:0.4in; }
     *{ -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
@@ -295,6 +298,53 @@
     body.nav-open::after{content:""; position:fixed; inset:0; background:rgba(10,15,25,.45); z-index:998;}
     .layout .wrap{max-width:none; padding-top:60px;}
   }
+  .sidenav .navtop{display:block; font-size:14px; font-weight:700; color:var(--accent); text-decoration:none; padding:7px 10px; border-radius:5px; margin:2px 2px; border-left:3px solid transparent;}
+  .sidenav .navtop:hover{background:var(--pill);}
+  .sidenav .navtop.active{background:var(--pill); border-left-color:var(--accent2);}
+  /* ===== Overview & XML Journal text sections ===== */
+  .prose{scroll-margin-top:16px;}
+  .panel{background:var(--card); border:1px solid var(--rule); border-radius:10px; padding:18px 22px;
+    box-shadow:0 1px 3px rgba(20,40,80,.06); font-size:14.5px; color:#33404f; line-height:1.6;}
+  .panel p{margin:0 0 12px;} .panel p:last-child{margin-bottom:0;}
+  .panel a{color:var(--accent); text-decoration:none; font-weight:600;}
+  .panel .promo{background:var(--pill); border-left:4px solid var(--accent2); padding:12px 14px; border-radius:6px;}
+  .panel .contact{font-weight:600; color:var(--accent); font-size:14px;}
+  .artgrid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:16px;}
+  .art{display:flex; flex-direction:column; gap:9px; background:var(--card); border:1px solid var(--rule); border-radius:10px;
+    padding:12px; cursor:zoom-in; box-shadow:0 1px 3px rgba(20,40,80,.06);
+    transition:transform .15s, box-shadow .15s, border-color .15s;}
+  .art:hover{transform:translateY(-3px); box-shadow:0 8px 20px rgba(20,40,80,.14); border-color:var(--accent2);}
+  .artthumb{width:100%; aspect-ratio:17/22; overflow:hidden; border-radius:6px; border:1px solid var(--rule); background:#fff;
+    display:flex; align-items:center; justify-content:center; box-shadow:inset 0 0 0 1px rgba(20,40,80,.03);}
+  .artthumb img{max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; display:block;}
+  .artbody{display:flex; flex-direction:column; gap:5px; min-width:0;}
+  .art .artdate{font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.6px; color:var(--accent2);}
+  .art .arttitle{font-size:13.5px; font-weight:700; color:var(--ink); line-height:1.3;}
+  @media (max-width:1024px){ .artgrid{grid-template-columns:repeat(3,1fr);} }
+  @media (max-width:760px){ .artgrid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:480px){ .artgrid{grid-template-columns:1fr;} }
+  /* ===== Legacy sections: Silverlight Applications & .NET Websites (compact 3-up) ===== */
+  .pill.sl{background:#5b3fa3;}
+  .pill.web{background:#2f8f6b;}
+  .grid.compact{grid-template-columns:repeat(3,1fr);}
+  .grid.compact .shot{height:118px;}
+  .grid.compact .ph .big{font-size:21px; letter-spacing:.5px;}
+  .grid.compact .ph .note{font-size:10.5px; margin-top:4px;}
+  .grid.compact .name{font-size:15px;}
+  .ph.sl{background:linear-gradient(135deg,#352a66,#5b3fa3);}
+  .ph.web{background:linear-gradient(135deg,#1f6f57,#2f9e74);}
+  .ph.ug{background:radial-gradient(120px 80px at 50% 0%, #ffb066, transparent 70%), linear-gradient(135deg,#ff7a2e,#ef5a1a 60%,#d2470f);}
+  .shot.vidposter{background-size:cover; background-position:center top; position:relative;}
+  .shot.vidposter::after{content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(12,58,66,.10), rgba(12,58,66,.48));}
+  .shot.vidposter .playbtn{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:2; width:62px; height:44px;
+    border-radius:12px; background:rgba(226,72,59,.92); color:#fff; display:flex; align-items:center; justify-content:center; font-size:20px;
+    box-shadow:0 6px 18px rgba(0,0,0,.4); transition:transform .2s, background .2s;}
+  .card:hover .shot.vidposter .playbtn{transform:translate(-50%,-50%) scale(1.08); background:#e2483b;}
+  .grid.compact .card.fullrow{grid-column:1 / -1;}
+  .grid.compact .card.fullrow .shot{height:210px;}
+  .grid.compact .card.fullrow .shot.collage img{width:23%; max-height:186px;}
+  @media (max-width:1024px){ .grid.compact{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:600px){ .grid.compact{grid-template-columns:1fr;} }
   /* ===== Full-screen single-item detail view (ATrack style, for every item) ===== */
   #detail{position:fixed; inset:0; z-index:1200; display:none; overflow-y:auto; background:#e7eff7;}
   #detail.open{display:block;}
@@ -315,6 +365,16 @@
   .dhead h1{margin:0; font-size:clamp(28px,4.4vw,50px); color:var(--accent); letter-spacing:.4px;}
   .dhead .yr{float:none; font-size:.5em; color:var(--muted); font-weight:600; margin-left:10px; vertical-align:middle;}
   .dhead .pill{display:inline-block; margin:10px 0 0;}
+  .dvideo{position:relative; z-index:6; width:100%; max-width:860px; margin:14px auto 0; padding:0 24px;}
+  .ytscreen{position:relative; width:100%; padding-bottom:56.25%; border-radius:14px; overflow:hidden; background:#000; cursor:pointer;
+    box-shadow:0 24px 54px rgba(0,0,0,.42); border:1px solid rgba(255,255,255,.14);}
+  .ytscreen iframe{position:absolute; inset:0; width:100%; height:100%; border:0;}
+  .ytscreen .ytposter{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
+  .ytscreen .ytplay{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:88px; height:62px; border-radius:15px;
+    background:rgba(226,72,59,.92); box-shadow:0 10px 26px rgba(0,0,0,.45); transition:background .2s, transform .2s;}
+  .ytscreen .ytplay::after{content:""; position:absolute; left:50%; top:50%; transform:translate(-40%,-50%);
+    border-style:solid; border-width:14px 0 14px 23px; border-color:transparent transparent transparent #fff;}
+  .ytscreen:hover .ytplay{background:#e2483b; transform:translate(-50%,-50%) scale(1.07);}
   .dgallery{position:relative; z-index:5; flex:1; display:flex; align-items:center; justify-content:center;
     flex-wrap:wrap; gap:clamp(12px,2.2vw,40px); padding:26px clamp(18px,5vw,80px) 10px;}
   .dgallery .frame{position:relative; transform:translateY(var(--ty,0)); transition:transform .25s ease;}
@@ -361,6 +421,10 @@
     <a class="brand" href="#top">David Silverlight<small>Senior .NET MAUI Developer</small></a>
     <hr class="navsep">
 
+    <a class="navtop" href="#overview">Overview</a>
+    <a class="navtop" href="#xmljournal">XML Journal</a>
+    <hr class="navsep">
+
     <a class="cat" href="#maui">.NET MAUI Apps</a>
     <ul>
       <li><a href="#atrack">ATrack Mobile</a></li>
@@ -387,6 +451,30 @@
       <li><a href="#stagepro">StagePro</a></li>
     </ul>
 
+    <a class="cat" href="#silverlight">Silverlight Applications</a>
+    <ul>
+      <li><a href="#sl-nationalworkflow">National WorkFlow</a></li>
+      <li><a href="#sl-crescendo">Crescendo Patient CRM</a></li>
+      <li><a href="#sl-unbeatablegeek">UnbeatableGeek.com</a></li>
+      <li><a href="#sl-hostinguniversity">Microsoft Hosting University</a></li>
+      <li><a href="#sl-propertytax1">Property Tax System</a></li>
+      <li><a href="#sl-starterkit">Silverlight User Group Starter Kit</a></li>
+      <li><a href="#sl-propertytax2">Property Tax System (SL5)</a></li>
+      <li><a href="#sl-christmascatalog">My Christmas Catalog</a></li>
+      <li><a href="#sl-polaris">Polaris</a></li>
+      <li><a href="#sl-egghead">Egghead Cafe Navigation</a></li>
+      <li><a href="#sl-materialsdb">Materials Database</a></li>
+    </ul>
+
+    <a class="cat" href="#dotnetweb">.NET Websites</a>
+    <ul>
+      <li><a href="#web-nonprofitways">NonProfitWays</a></li>
+      <li><a href="#web-communitycredit">Community-Credit.com</a></li>
+      <li><a href="#web-xmlpitstop">XMLPitstop.com</a></li>
+      <li><a href="#web-ineta">Ineta.org</a></li>
+      <li><a href="#web-realtechheroes">RealTechnologyHeroes.com</a></li>
+    </ul>
+
     <div class="ext">
       <a href="https://DavidSilverlight.com" target="_blank">DavidSilverlight.com &rarr;</a>
       <a href="https://linkedin.com/in/MauiGeek" target="_blank">LinkedIn &rarr;</a>
@@ -400,8 +488,82 @@
     <p class="sub">Senior .NET MAUI Developer — Project Portfolio</p>
     <p class="meta">Miami, FL &nbsp;|&nbsp; 561-212-5707 &nbsp;|&nbsp; <a href="mailto:DavidSilverlight@gmail.com">DavidSilverlight@gmail.com</a> &nbsp;|&nbsp; <a href="https://linkedin.com/in/MauiGeek">linkedin.com/in/MauiGeek</a> &nbsp;|&nbsp; <a href="https://DavidSilverlight.com">DavidSilverlight.com</a></p>
     <p class="intro">A selection of shipped .NET MAUI and Xamarin.Forms applications spanning enterprise, consumer, and field/clinical tools. Each project links to its full write-up with additional screenshots at DavidSilverlight.com.</p>
-    <p class="tip">Tip: click any screenshot to view it full size.</p>
+    <p class="tip">Tip: click any portfolio item to open it full screen, or click a screenshot to enlarge it.</p>
   </header>
+
+  <section class="prose" id="overview">
+    <h2 class="section">Overview</h2>
+    <div class="panel">
+      <p>This site showcases some of my proudest accomplishments as a computer geek, ranging from the .NET MAUI and Xamarin mobile apps I have built recently, back to my monthly XML Q&amp;A column in <i>XML Journal</i>. My focus today is on developing cross-platform mobile applications with .NET MAUI — the evolution of Xamarin.Forms.</p>
+      <p class="promo"><b>Shameless self-promotion:</b> Today I focus 100% of my time as a consultant developing mobile apps. I am always looking to take on new projects, so if you need somebody to help your team meet a tight deadline, or would like to hand off your mission-critical deliverables to somebody who can see the project through from start to finish, please do not hesitate to contact me.</p>
+      <p class="contact">📱 561-212-5707 &nbsp;·&nbsp; ✉️ <a href="mailto:David@XamGeek.com">David@XamGeek.com</a> &nbsp;·&nbsp; 🔗 <a href="https://linkedin.com/in/MauiGeek" target="_blank">linkedin.com/in/MauiGeek</a></p>
+    </div>
+  </section>
+
+  <section class="prose" id="xmljournal">
+    <h2 class="section">XML Journal</h2>
+    <div class="panel">
+      <p>The following articles are from a monthly Q&amp;A column titled <i>"Shedding a little Light on XML,"</i> which I authored for <i>XML Journal</i> back when I was a hardcore XML geek. You can read them below, or view them on my website, XMLPitstop.com. While the site is no longer actively maintained, it is still live and displaying the articles on my HeadGeek Articles page.</p>
+    </div>
+    <div class="artgrid">
+      <div class="art" data-full="images/XMLJournal/june2001-accelerate-innovation.png">
+        <div class="artthumb"><img src="images/XMLJournal/june2001-accelerate-innovation.png" alt="Accelerate Innovation in the World of Distributed Computing — XML Journal, June 2001" onerror="this.closest('.artthumb').style.display='none'"></div>
+        <div class="artbody">
+          <span class="artdate">XML Journal · June 2001</span>
+          <span class="arttitle">Accelerate Innovation in the World of Distributed Computing</span>
+        </div>
+      </div>
+      <div class="art" data-full="images/XMLJournal/july2001-your-own-brain.png">
+        <div class="artthumb"><img src="images/XMLJournal/july2001-your-own-brain.png" alt="When Your Own Brain Isn't Enough — XML Journal, July 2001" onerror="this.closest('.artthumb').style.display='none'"></div>
+        <div class="artbody">
+          <span class="artdate">XML Journal · July 2001</span>
+          <span class="arttitle">When Your Own Brain Isn't Enough</span>
+        </div>
+      </div>
+      <div class="art" data-full="images/XMLJournal/august2001-dates.png">
+        <div class="artthumb"><img src="images/XMLJournal/august2001-dates.png" alt="Dates Are an Important Area in Any Database Application — XML Journal, August 2001" onerror="this.closest('.artthumb').style.display='none'"></div>
+        <div class="artbody">
+          <span class="artdate">XML Journal · August 2001</span>
+          <span class="arttitle">Dates Are an Important Area in Any Database Application</span>
+        </div>
+      </div>
+      <div class="art" data-full="images/XMLJournal/september2001-why-johnny.png">
+        <div class="artthumb"><img src="images/XMLJournal/september2001-why-johnny.png" alt="Why Johnny Can't Read XML — XML Journal, September 2001" onerror="this.closest('.artthumb').style.display='none'"></div>
+        <div class="artbody">
+          <span class="artdate">XML Journal · September 2001</span>
+          <span class="arttitle">Why Johnny Can't Read XML</span>
+        </div>
+      </div>
+      <div class="art" data-full="images/XMLJournal/october2001-world-wide.png">
+        <div class="artthumb"><img src="images/XMLJournal/october2001-world-wide.png" alt="Getting Ready for When the Internet Becomes World-Wide — XML Journal, October 2001" onerror="this.closest('.artthumb').style.display='none'"></div>
+        <div class="artbody">
+          <span class="artdate">XML Journal · October 2001</span>
+          <span class="arttitle">Getting Ready for When the Internet Becomes World-Wide</span>
+        </div>
+      </div>
+      <div class="art" data-full="images/XMLJournal/november2001-recursion.png">
+        <div class="artthumb"><img src="images/XMLJournal/november2001-recursion.png" alt="Recursion Reminds Me of …. Recursion — XML Journal, November 2001" onerror="this.closest('.artthumb').style.display='none'"></div>
+        <div class="artbody">
+          <span class="artdate">XML Journal · November 2001</span>
+          <span class="arttitle">Recursion Reminds Me of …. Recursion</span>
+        </div>
+      </div>
+      <div class="art" data-full="images/XMLJournal/december2001-silverlight-technique.png">
+        <div class="artthumb"><img src="images/XMLJournal/december2001-silverlight-technique.png" alt="The Silverlight Technique, or Ode to Steve Muench — XML Journal, December 2001" onerror="this.closest('.artthumb').style.display='none'"></div>
+        <div class="artbody">
+          <span class="artdate">XML Journal · December 2001</span>
+          <span class="arttitle">"The Silverlight Technique," or Ode to Steve Muench</span>
+        </div>
+      </div>
+      <div class="art" data-full="images/XMLJournal/january2002-miss-cleo.png">
+        <div class="artthumb"><img src="images/XMLJournal/january2002-miss-cleo.png" alt="Miss Cleo — Is Your XML Processor Psychic? — XML Journal, January 2002" onerror="this.closest('.artthumb').style.display='none'"></div>
+        <div class="artbody">
+          <span class="artdate">XML Journal · January 2002</span>
+          <span class="arttitle">Miss Cleo — Is Your XML Processor Psychic?</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <h2 class="section" id="maui">.NET MAUI Applications</h2>
   <div class="grid">
@@ -613,7 +775,7 @@
         <p class="tech"><b>Tech:</b> Xamarin.Forms, MVVMCross, Google Maps SDK, REST, Xamarin.Essentials</p>      </div>
     </div>
 
-    <div class="card" id="marcel">
+    <div class="card" id="marcel" data-video="eid8C_dTVvo">
       <div class="shot ai">
         <span class="deco tr dk">🤖</span><span class="deco bl dk">✨</span>
         <img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/0e271187-c87f-4f43-9987-40a96d719e48_rw_600.png?h=15cf3b81af0ed0c54e3600935365cbc0" alt="Marcel 2">
@@ -627,7 +789,6 @@
         <p class="desc">As a badged Microsoft contractor on the Microsoft campus, helped build the initial release of Marcel — an AI-powered platform connecting 20,000+ employees to find collaborators, schedule meetings, and track deliverables.</p>
         <p class="tech"><b>Tech:</b> Xamarin.Forms, Microsoft AI, Prism, REST · with Publicis.Sapient</p>
         <p class="lnk">
-          <a class="vid" href="https://www.youtube.com/watch?v=eid8C_dTVvo" target="_blank">▶ Watch the video</a> &nbsp;·&nbsp;
           <a href="https://www.fastcompany.com/40577293/publicis-unveils-long-awaited-details-on-new-ai-platform-marcel" target="_blank">Fast Company article →</a>
         </p>
       </div>
@@ -650,7 +811,7 @@
         <p class="tech"><b>Tech:</b> Xamarin.Forms, MVVM, REST, Microsoft SSO, BarcodeScanner, SimpleAudioPlayer</p>      </div>
     </div>
 
-    <div class="card" id="uas">
+    <div class="card" id="uas" data-video="eid8C_dTVvo">
       <div class="shot sky">
         <span class="deco bl">🚁</span><span class="deco mr">📡</span>
         <div class="wp" style="left:4%; top:40px;"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/847971f2-5714-4e10-904d-9c6e0715d2ae_rw_1200.png?h=9f35bf8c0bfb7870c12abeebf5b76b26" alt="UAS Trakker 1"></div>
@@ -663,9 +824,6 @@
         <span class="pill xam">Xamarin.Forms · Drone/GIS</span>
         <p class="desc">Empowers custom Unmanned Aerial Systems to locate, track, and follow radio-frequency personal locator beacons attached to people engaged in risk-prone activities.</p>
         <p class="tech"><b>Tech:</b> Xamarin.Forms, Google Maps SDK, Microsoft Azure Cloud Services</p>
-        <p class="lnk">
-          <a class="vid" href="https://www.youtube.com/watch?v=eid8C_dTVvo" target="_blank">▶ Watch the video</a>
-        </p>
       </div>
     </div>
 
@@ -730,6 +888,184 @@
 
   </div>
 
+  <h2 class="section" id="silverlight">Silverlight Applications</h2>
+  <div class="grid compact">
+
+    <div class="card fullrow" id="sl-nationalworkflow">
+      <div class="shot collage">
+        <img src="images/NationalWorkflow/workflow-work-order-status.png" alt="National Workflow — Work Order Status" onerror="this.style.display='none'">
+        <img src="images/NationalWorkflow/workflow-attachment-review.png" alt="National Workflow — Attachment Review Queue" onerror="this.style.display='none'">
+        <img src="images/NationalWorkflow/workflow-service-call-lookup.png" alt="National Workflow — Service Call Lookup" onerror="this.style.display='none'">
+        <img src="images/NationalWorkflow/workflow-home.png" alt="National Workflow — Home Queues" onerror="this.style.display='none'">
+      </div>
+      <div class="body">
+        <p class="name">National WorkFlow</p>
+        <span class="pill sl">Silverlight · Featured</span>
+        <p class="desc">Mission-critical workflow services used in both daily and month-end processing.</p>
+        <p class="tech"><b>Focus:</b> Architecture, UI/UX, Information Architecture</p>
+        <p class="lnk"><a href="National Workflow.html">✦ View the full case study &rarr;</a></p>
+      </div>
+    </div>
+
+    <div class="card" id="sl-crescendo">
+      <div class="shot vidposter" style="background-image:url('https://img.youtube.com/vi/PJWZKYPaT2c/hqdefault.jpg');"><span class="playbtn">&#9654;</span></div>
+      <div class="body">
+        <p class="name">Crescendo Patient CRM</p>
+        <span class="pill sl">Silverlight · Video</span>
+        <p class="desc">Home-healthcare customer relationship management (CRM) platform.</p>
+        <p class="tech"><b>Focus:</b> Engineering, Visual Effects, Web Development</p>
+        <p class="lnk"><a href="Crescendo.html">✦ View the case study &amp; video &rarr;</a></p>
+      </div>
+    </div>
+
+    <div class="card" id="sl-unbeatablegeek">
+      <div class="shot"><div class="ph ug"><span class="big">🤓⚡ Unbeatable Geek</span><span class="note">Geek Sport · 2009</span></div></div>
+      <div class="body">
+        <p class="name">UnbeatableGeek.com</p>
+        <span class="pill sl">Silverlight · Featured</span>
+        <p class="desc">Geeky competition website for organizing fun events at developer conferences.</p>
+        <p class="tech"><b>Focus:</b> Interaction Design, Web Design, Web Development</p>
+        <p class="lnk"><a href="UnbeatableGeek.html">✦ View the full case study &rarr;</a></p>
+      </div>
+    </div>
+
+    <div class="card" id="sl-hostinguniversity">
+      <div class="shot"><div class="ph sl"><span class="big">Microsoft Hosting University</span><span class="note">Silverlight · Award Winner</span></div></div>
+      <div class="body">
+        <p class="name">Microsoft Hosting University</p>
+        <span class="pill sl">Silverlight</span>
+        <p class="desc">Built the Silverlight user experience for the award-winning Microsoft Hosting University with Merit Mile — rich-media presentations and custom video delivering a self-guided tour of the Microsoft Dynamic Data Center Toolkit (DDCTK). Winner of 3 coveted 2010 Communicator Awards.</p>
+        <p class="tech"><b>Focus:</b> Advertising, Web Design, Web Development</p>
+      </div>
+    </div>
+
+    <div class="card" id="sl-propertytax1">
+      <div class="shot"><div class="ph sl"><span class="big">Property Tax System</span><span class="note">Silverlight</span></div></div>
+      <div class="body">
+        <p class="name">Property Tax System</p>
+        <span class="pill sl">Silverlight</span>
+        <p class="desc">Property tax assessment system developed in Microsoft Silverlight.</p>
+        <p class="tech"><b>Focus:</b> Interaction Design, UI/UX, Web Development</p>
+      </div>
+    </div>
+
+    <div class="card" id="sl-starterkit">
+      <div class="shot"><div class="ph sl"><span class="big">SL User Group Starter Kit</span><span class="note">MVVM · RIA Services</span></div></div>
+      <div class="body">
+        <p class="name">Silverlight User Group Starter Kit</p>
+        <span class="pill sl">Silverlight · Open Source</span>
+        <p class="desc">A solid, reusable codebase for Silverlight User Group websites — a fast head start and a reference implementation for how Silverlight, MVVM and RIA Services work together.</p>
+        <p class="tech"><b>Tech:</b> Silverlight, MVVM, RIA Services</p>
+      </div>
+    </div>
+
+    <div class="card" id="sl-propertytax2">
+      <div class="shot"><div class="ph sl"><span class="big">Property Tax System</span><span class="note">Silverlight 5</span></div></div>
+      <div class="body">
+        <p class="name">Property Tax System <span class="yr">SL5</span></p>
+        <span class="pill sl">Silverlight 5</span>
+        <p class="desc">Tax assessment system built in Silverlight 5, RIA Services, MVVM, .NET and SQL.</p>
+        <p class="tech"><b>Tech:</b> Silverlight 5, RIA Services, MVVM, .NET, SQL Server</p>
+      </div>
+    </div>
+
+    <div class="card" id="sl-christmascatalog">
+      <div class="shot"><div class="ph sl"><span class="big">My Christmas Catalog</span><span class="note">Silverlight</span></div></div>
+      <div class="body">
+        <p class="name">My Christmas Catalog</p>
+        <span class="pill sl">Silverlight</span>
+        <p class="desc">Advised and consulted for Catalog Enterprises to optimize the installation/deployment experience and user tracking for this visually engaging site.</p>
+        <p class="tech"><b>Focus:</b> Web Design, Web Development</p>
+      </div>
+    </div>
+
+    <div class="card" id="sl-polaris">
+      <div class="shot"><div class="ph sl"><span class="big">Polaris</span><span class="note">Silverlight LOB</span></div></div>
+      <div class="body">
+        <p class="name">Polaris</p>
+        <span class="pill sl">Silverlight · LOB</span>
+        <p class="desc">Large-scale Silverlight line-of-business (LOB) application for the telecom leasing industry, tracking every aspect of cell-tower ownership across modules with dozens of screens. Owned the Site Administration application.</p>
+        <p class="tech"><b>Tech:</b> Silverlight, RIA Services, MVVM, Blend, SQL Server, ADO.NET EF, LINQ</p>
+      </div>
+    </div>
+
+    <div class="card" id="sl-egghead">
+      <div class="shot"><div class="ph sl"><span class="big">Egghead Cafe</span><span class="note">Silverlight Navigation</span></div></div>
+      <div class="body">
+        <p class="name">Egghead Cafe — Silverlight Navigation</p>
+        <span class="pill sl">Silverlight</span>
+        <p class="desc">A unique, immersive interface for the Silverlight version of EggheadCafe.com — built the new navigation system and the Forum-section UI.</p>
+        <p class="tech"><b>Focus:</b> Web Design, Web Development</p>
+      </div>
+    </div>
+
+    <div class="card" id="sl-materialsdb">
+      <div class="shot"><div class="ph sl"><span class="big">Materials Database</span><span class="note">Silverlight</span></div></div>
+      <div class="body">
+        <p class="name">Materials Database Application</p>
+        <span class="pill sl">Silverlight</span>
+        <p class="desc">Tracks materials, inventory and scheduling for materials used in mobile devices — schedule requests, search materials, define output templates and customize material details.</p>
+        <p class="tech"><b>Tech:</b> Silverlight, MVVM, RIA Services</p>
+      </div>
+    </div>
+
+  </div>
+
+  <h2 class="section" id="dotnetweb">.NET Websites</h2>
+  <div class="grid compact">
+
+    <div class="card" id="web-nonprofitways">
+      <div class="shot"><div class="ph web"><span class="big">NonProfitWays</span><span class="note">ASP.NET · Community</span></div></div>
+      <div class="body">
+        <p class="name">NonProfitWays</p>
+        <span class="pill web">ASP.NET</span>
+        <p class="desc">A community site I created pairing new ASP.NET developers with seasoned mentors to build websites for not-for-profit organizations — hands-on experience for newcomers and a high-quality site at no cost for nonprofits.</p>
+        <p class="tech"><b>Tech:</b> ASP.NET, .NET</p>
+      </div>
+    </div>
+
+    <div class="card" id="web-communitycredit">
+      <div class="shot"><div class="ph web"><span class="big">Community-Credit</span><span class="note">.com</span></div></div>
+      <div class="body">
+        <p class="name">Community-Credit.com</p>
+        <span class="pill web">.NET</span>
+        <p class="desc">A community reward system — "We give stupid prices to smart people" — where users log community work (blogging, speaking, mentoring) to earn points, and top earners win geeky prizes.</p>
+        <p class="tech"><b>Focus:</b> Interaction Design, Web Design</p>
+      </div>
+    </div>
+
+    <div class="card" id="web-xmlpitstop">
+      <div class="shot"><div class="ph web"><span class="big">XMLPitstop.com</span><span class="note">XML Resources</span></div></div>
+      <div class="body">
+        <p class="name">XMLPitstop.com</p>
+        <span class="pill web">.NET · XML</span>
+        <p class="desc">Once the largest source of XML-related resources on the web.</p>
+        <p class="tech"><b>Focus:</b> Web Development, Writing</p>
+      </div>
+    </div>
+
+    <div class="card" id="web-ineta">
+      <div class="shot"><div class="ph web"><span class="big">Ineta.org</span><span class="note">.NET Community</span></div></div>
+      <div class="body">
+        <p class="name">Ineta.org</p>
+        <span class="pill web">.NET</span>
+        <p class="desc">International .NET Association — a Microsoft-sponsored organization of top speakers and thought leaders supporting the .NET and developer community.</p>
+        <p class="tech"><b>Focus:</b> Web Development</p>
+      </div>
+    </div>
+
+    <div class="card" id="web-realtechheroes">
+      <div class="shot"><div class="ph web"><span class="big">RealTechnologyHeroes</span><span class="note">.com</span></div></div>
+      <div class="body">
+        <p class="name">RealTechnologyHeroes.com</p>
+        <span class="pill web">.NET · Humor</span>
+        <p class="desc">A humor site poking fun at fellow computer geeks, modeled on the "Real American Heroes" Bud Light commercials.</p>
+        <p class="tech"><b>Focus:</b> Web Development</p>
+      </div>
+    </div>
+
+  </div>
+
   <footer>
     Full portfolio with additional screenshots and write-ups at <a href="https://DavidSilverlight.com" style="color:var(--accent);">DavidSilverlight.com</a> &nbsp;·&nbsp; David Silverlight &nbsp;·&nbsp; 561-212-5707
   </footer>
@@ -755,6 +1091,7 @@
         <span class="pill" id="dPill"></span>
       </div>
     </div>
+    <div class="dvideo" id="dVideo" style="display:none;"></div>
     <div class="dgallery" id="dGallery"></div>
     <div class="dinfo">
       <p class="desc" id="dDesc"></p>
@@ -768,8 +1105,8 @@
 <script>
 (function(){
   var lb=document.getElementById('lb'), im=lb.querySelector('img');
-  function openLightbox(src){ im.src=src; lb.style.display='flex'; }
-  function closeLightbox(){ lb.style.display='none'; im.src=''; }
+  function openLightbox(src, full){ im.src=src; lb.classList.toggle('full', !!full); lb.style.display='flex'; }
+  function closeLightbox(){ lb.style.display='none'; lb.classList.remove('full'); im.src=''; }
   document.querySelectorAll('.shot img').forEach(function(g){
     g.addEventListener('click', function(e){ e.stopPropagation(); openLightbox(g.src); });
   });
@@ -812,10 +1149,34 @@
       dBg=document.getElementById('dBg'), dTitle=document.getElementById('dTitle'),
       dPill=document.getElementById('dPill'), dGallery=document.getElementById('dGallery'),
       dDesc=document.getElementById('dDesc'), dTech=document.getElementById('dTech'),
-      dLinks=document.getElementById('dLinks'), dCount=document.getElementById('dCount');
+      dLinks=document.getElementById('dLinks'), dCount=document.getElementById('dCount'),
+      dVideo=document.getElementById('dVideo');
+
+  // click-to-play YouTube facade (shows poster first, loads player on click — avoids file:// embed errors)
+  function ytFacade(container, vid){
+    container.innerHTML='';
+    var box=document.createElement('div');
+    box.className='ytscreen'; box.setAttribute('role','button'); box.setAttribute('tabindex','0'); box.setAttribute('aria-label','Play video');
+    box.innerHTML='<img class="ytposter" src="https://img.youtube.com/vi/'+vid+'/maxresdefault.jpg" alt="Video thumbnail"'
+      +' onerror="this.onerror=null;this.src=\'https://img.youtube.com/vi/'+vid+'/hqdefault.jpg\'"><span class="ytplay"></span>';
+    function load(){
+      if(box.classList.contains('loaded')) return;
+      var ifr=document.createElement('iframe');
+      ifr.src='https://www.youtube.com/embed/'+vid+'?autoplay=1&rel=0&wmode=transparent';
+      ifr.title='Video walkthrough';
+      ifr.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      ifr.setAttribute('allowfullscreen','');
+      box.innerHTML=''; box.appendChild(ifr); box.classList.add('loaded');
+    }
+    box.addEventListener('click', function(e){ e.stopPropagation(); load(); });
+    box.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); load(); } });
+    container.appendChild(box);
+  }
   var appLinks=Array.prototype.slice.call(side.querySelectorAll('li a[href^="#"]'));
   var order=appLinks.map(function(a){ return a.getAttribute('href').slice(1); });
   var curIndex=0;
+  // items with a bespoke standalone case-study page instead of the generic overlay
+  var SPECIAL={ 'sl-nationalworkflow':'National Workflow.html', 'sl-crescendo':'Crescendo.html', 'sl-unbeatablegeek':'UnbeatableGeek.html' };
 
   function buildDetail(id){
     var card=document.getElementById(id); if(!card) return;
@@ -845,6 +1206,10 @@
       gi.addEventListener('click', function(e){ e.stopPropagation(); openLightbox(gi.src); });
       f.appendChild(gi); dGallery.appendChild(f);
     });
+    // video (click-to-play poster) when the card declares one
+    var vid=card.getAttribute('data-video');
+    if(vid){ dVideo.style.display='block'; ytFacade(dVideo, vid); }
+    else { dVideo.style.display='none'; dVideo.innerHTML=''; }
     // info
     dDesc.innerHTML=desc?desc.innerHTML:'';
     dTech.innerHTML=tech?tech.innerHTML:'';
@@ -868,7 +1233,18 @@
     a.addEventListener('click', function(e){
       e.preventDefault();
       document.body.classList.remove('nav-open');
-      openDetail(a.getAttribute('href').slice(1));
+      var id=a.getAttribute('href').slice(1);
+      if(SPECIAL[id]){ window.location.href=SPECIAL[id]; return; }
+      openDetail(id);
+    });
+  });
+
+  // clicking an XML Journal article opens its full-size magazine scan;
+  // the PDF link keeps its own behavior
+  document.querySelectorAll('#xmljournal .art').forEach(function(art){
+    art.addEventListener('click', function(){
+      var full=art.getAttribute('data-full');
+      if(full) openLightbox(full, true);
     });
   });
 
@@ -879,6 +1255,7 @@
     card.addEventListener('click', function(e){
       if(e.target.closest('a')) return;          // let video/article links work
       if(e.target.closest('.shot img')) return;  // thumbnails use the lightbox
+      if(SPECIAL[card.id]){ window.location.href=SPECIAL[card.id]; return; }
       openDetail(card.id);
     });
   });

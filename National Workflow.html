@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>National Workflow — Case Study · David Silverlight</title>
+<style>
+  :root{
+    --ink:#16202c; --muted:#5d6b7a; --navy:#15457a; --teal:#2c7a7b;
+    --paper:#eef2f7; --card:#ffffff; --line:#e1e8f0;
+    --amber:#f2c14e; --red:#e2483b; --green:#2f9e74; --blue:#3f7fd0;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; font-family:Calibri,"Segoe UI",Arial,sans-serif; color:var(--ink); background:var(--paper); line-height:1.5;}
+  a{color:inherit;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 26px;}
+
+  /* ---------- top bar ---------- */
+  .topbar{position:sticky; top:0; z-index:40; background:rgba(13,28,46,.92); backdrop-filter:blur(8px); border-bottom:1px solid rgba(255,255,255,.08);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:58px;}
+  .back{display:inline-flex; align-items:center; gap:8px; text-decoration:none; color:#fff; font-weight:700; font-size:14px;
+    background:linear-gradient(90deg,var(--navy),var(--teal)); padding:9px 16px; border-radius:30px; box-shadow:0 3px 12px rgba(0,0,0,.3);}
+  .back:hover{filter:brightness(1.1);}
+  .topbar .who{color:#cdd8e6; font-size:13px; font-weight:600;}
+  .topbar .who b{color:#fff;}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative; overflow:hidden; color:#fff;
+    background:radial-gradient(1200px 500px at 80% -10%, rgba(44,122,123,.55), transparent 60%),
+               radial-gradient(900px 500px at 0% 120%, rgba(63,127,208,.40), transparent 55%),
+               linear-gradient(160deg,#0c1c2e,#123257 60%,#0d2740);}
+  .hero::before{content:""; position:absolute; inset:0; opacity:.5; pointer-events:none;
+    background:linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+    background-size:42px 42px;}
+  .hero .wrap{position:relative; padding:54px 26px 30px;}
+  .eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase;
+    color:#bfe3e4; background:rgba(44,122,123,.25); border:1px solid rgba(95,212,221,.35); padding:6px 13px; border-radius:30px;}
+  .hero h1{margin:16px 0 6px; font-size:clamp(34px,6vw,62px); line-height:1.02; letter-spacing:.5px;}
+  .hero h1 span{background:linear-gradient(90deg,#7fe3e9,#cfe6ff); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero .lead{max-width:660px; font-size:18px; color:#d7e2ee;}
+  .hero .tags{margin-top:16px; display:flex; flex-wrap:wrap; gap:8px;}
+  .hero .tags span{font-size:12px; font-weight:700; color:#dff0ff; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.16); padding:5px 12px; border-radius:20px;}
+
+  /* ---------- stat counters ---------- */
+  .stats{display:flex; flex-wrap:wrap; gap:14px; margin:26px 0 8px;}
+  .stat{flex:1; min-width:150px; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.14); border-radius:14px; padding:16px 18px;}
+  .stat .n{font-size:34px; font-weight:800; line-height:1; color:#fff;}
+  .stat .n small{font-size:18px; color:#8fd5da; font-weight:800;}
+  .stat .l{margin-top:6px; font-size:12.5px; color:#bccadb; letter-spacing:.3px;}
+
+  /* ---------- pipeline ---------- */
+  .pipe-wrap{position:relative; margin:30px 0 6px; padding:24px 0 6px;}
+  .pipe-title{font-size:12px; letter-spacing:2px; text-transform:uppercase; color:#9fd2d6; font-weight:800; margin-bottom:16px;}
+  .pipeline{position:relative; display:flex; align-items:flex-start; justify-content:space-between; gap:6px;}
+  .pipeline::before{content:""; position:absolute; left:3%; right:3%; top:24px; height:4px; border-radius:4px;
+    background:repeating-linear-gradient(90deg,#5fd4dd 0 12px, transparent 12px 26px), rgba(255,255,255,.14);
+    background-size:26px 100%, 100% 100%; animation:flow 1.1s linear infinite;}
+  @keyframes flow{to{background-position:26px 0, 0 0;}}
+  .node{position:relative; z-index:2; flex:1; display:flex; flex-direction:column; align-items:center; text-align:center; gap:8px;}
+  .node .dot{width:50px; height:50px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:22px;
+    background:linear-gradient(160deg,#16456f,#1d6f72); border:2px solid rgba(127,227,233,.5); box-shadow:0 8px 18px rgba(0,0,0,.35);}
+  .node .lbl{font-size:11.5px; font-weight:700; color:#dbe7f3; max-width:96px; line-height:1.25;}
+  .node.exc .dot{background:linear-gradient(160deg,#7a1f1f,#c0392b); border-color:rgba(255,170,150,.6);}
+  .node.alive .dot{animation:pulse 2s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{box-shadow:0 8px 18px rgba(0,0,0,.35), 0 0 0 0 rgba(95,212,221,.5);}50%{box-shadow:0 8px 18px rgba(0,0,0,.35), 0 0 0 12px rgba(95,212,221,0);}}
+
+  /* ---------- sections ---------- */
+  section{padding:54px 0;}
+  .kicker{font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--teal);}
+  h2.sec{font-size:clamp(24px,3.4vw,34px); margin:8px 0 6px; color:var(--navy); letter-spacing:.3px;}
+  .sec-sub{color:var(--muted); max-width:680px; font-size:16px; margin:0 0 26px;}
+
+  /* ---------- screenshot showcase ---------- */
+  .screens{display:grid; grid-template-columns:repeat(2,1fr); gap:26px;}
+  .screen{margin:0; background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden;
+    box-shadow:0 14px 34px rgba(20,50,90,.12); transition:transform .25s ease, box-shadow .25s ease; transform:rotate(var(--r,0deg));}
+  .screen:hover{transform:rotate(0deg) translateY(-6px); box-shadow:0 22px 48px rgba(20,50,90,.22);}
+  .screen:nth-child(1){--r:-1.4deg;} .screen:nth-child(2){--r:1.4deg;}
+  .screen:nth-child(3){--r:1.2deg;} .screen:nth-child(4){--r:-1.2deg;}
+  .chrome{display:flex; align-items:center; gap:7px; padding:9px 13px; background:linear-gradient(180deg,#f3f6fa,#e7edf4); border-bottom:1px solid var(--line);}
+  .chrome .dot{width:11px; height:11px; border-radius:50%;}
+  .chrome .dot.r{background:#ff5f57;} .chrome .dot.y{background:#febc2e;} .chrome .dot.g{background:#28c840;}
+  .chrome .tab{margin-left:10px; font-size:12px; font-weight:700; color:#46566a; background:#fff; border:1px solid var(--line); padding:3px 12px; border-radius:8px;}
+  .screenimg{position:relative; min-height:150px; display:flex; align-items:center; justify-content:center; background:#f6f9fc;}
+  .screenimg .ph{position:absolute; font-size:14px; font-weight:700; color:#9fb0c4; letter-spacing:.5px;}
+  .screenimg img{position:relative; width:100%; display:block; cursor:zoom-in; background:#f6f9fc;}
+  .screen figcaption{padding:13px 16px 15px; font-size:13.5px; color:var(--muted);}
+  .screen figcaption b{color:var(--ink);}
+
+  /* ---------- feature grid ---------- */
+  .features{display:grid; grid-template-columns:repeat(2,1fr); gap:18px;}
+  .feat{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px 22px; position:relative; overflow:hidden;
+    box-shadow:0 1px 3px rgba(20,40,80,.06); transition:transform .2s, box-shadow .2s;}
+  .feat:hover{transform:translateY(-4px); box-shadow:0 14px 30px rgba(20,50,90,.12);}
+  .feat::before{content:""; position:absolute; left:0; top:0; bottom:0; width:5px; background:linear-gradient(180deg,var(--navy),var(--teal));}
+  .feat .ico{width:44px; height:44px; border-radius:11px; display:flex; align-items:center; justify-content:center; font-size:22px;
+    background:linear-gradient(160deg,#eaf2f7,#dceaf0); border:1px solid var(--line); margin-bottom:12px;}
+  .feat h3{margin:0 0 6px; font-size:17px; color:var(--navy);}
+  .feat p{margin:0; font-size:14px; color:#46566a;}
+
+  /* ---------- status legend ---------- */
+  .legend{display:flex; flex-wrap:wrap; gap:14px; margin-top:8px;}
+  .chip{display:flex; align-items:center; gap:10px; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px 16px; font-size:14px; font-weight:600; color:#46566a;}
+  .chip i{width:26px; height:18px; border-radius:5px; display:inline-block; border:1px solid rgba(0,0,0,.12);}
+  .sw-red{background:var(--red);} .sw-amber{background:var(--amber);} .sw-blue{background:#dbe8fb;}
+
+  /* ---------- tech band ---------- */
+  .band{background:linear-gradient(160deg,#0c1c2e,#123257); color:#fff;}
+  .band h2{color:#fff;} .band .kicker{color:#8fd5da;}
+  .stack{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;}
+  .stack span{font-size:13px; font-weight:700; color:#e6f1ff; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16); padding:8px 15px; border-radius:30px;}
+
+  footer{padding:34px 0 50px; text-align:center; color:var(--muted); font-size:13px;}
+  footer a{color:var(--navy); text-decoration:none; font-weight:700;}
+
+  /* ---------- lightbox ---------- */
+  #lb{display:none; position:fixed; inset:0; z-index:9999; background:rgba(8,14,22,.93); align-items:flex-start; justify-content:center; overflow:auto; cursor:zoom-out; padding:24px;}
+  #lb img{max-width:none; border-radius:8px; box-shadow:0 16px 60px rgba(0,0,0,.6);}
+  #lb .x{position:fixed; top:16px; right:22px; color:#fff; font-size:38px; line-height:1; cursor:pointer;}
+
+  @media (max-width:780px){
+    .screens,.features{grid-template-columns:1fr;}
+    .pipeline{overflow-x:auto; gap:18px;} .node{min-width:84px;}
+    .screen{transform:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <a class="back" href="David Silverlight Portfolio.html">&larr; Back to portfolio</a>
+    <span class="who">Case Study · <b>David Silverlight</b></span>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">◆ Silverlight Line-of-Business Platform</span>
+    <h1>National <span>Workflow</span></h1>
+    <p class="lead">A mission-critical work-order lifecycle platform that moves thousands of fire-protection service orders through every stage of processing — from field completion to final invoice — across daily and month-end operations.</p>
+    <div class="tags">
+      <span>Enterprise LOB</span><span>Process Automation</span><span>Exception Management</span><span>Information Architecture</span>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="n" data-to="474"></div><div class="l">Open work orders in flight</div></div>
+      <div class="stat"><div class="n" data-to="7"></div><div class="l">Lifecycle processing stages</div></div>
+      <div class="stat"><div class="n" data-to="100" data-suffix="%"></div><div class="l">Paper-to-digital tracking</div></div>
+      <div class="stat"><div class="n" data-to="24" data-suffix="/7"></div><div class="l">Daily &amp; month-end runs</div></div>
+    </div>
+
+    <div class="pipe-wrap">
+      <div class="pipe-title">The work-order pipeline</div>
+      <div class="pipeline">
+        <div class="node alive"><div class="dot">📋</div><div class="lbl">Open Work Orders</div></div>
+        <div class="node"><div class="dot">📨</div><div class="lbl">Paper Received</div></div>
+        <div class="node"><div class="dot">📎</div><div class="lbl">Attachments</div></div>
+        <div class="node"><div class="dot">🧮</div><div class="lbl">Costing</div></div>
+        <div class="node"><div class="dot">✅</div><div class="lbl">Mgr Review &amp; Markup</div></div>
+        <div class="node"><div class="dot">💵</div><div class="lbl">Billing</div></div>
+        <div class="node"><div class="dot">📦</div><div class="lbl">Customer Packs</div></div>
+        <div class="node exc"><div class="dot">⚠️</div><div class="lbl">Exception Mgmt</div></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ SCREENSHOTS ============ -->
+<section>
+  <div class="wrap">
+    <span class="kicker">The interface</span>
+    <h2 class="sec">Built for people who move work, fast</h2>
+    <p class="sec-sub">Dense, color-coded grids surface exactly what needs attention now — overdue items in red, due-today in amber — while review queues, attachments and service-call lookups keep every order moving toward invoice. Click any screen to enlarge.</p>
+    <div class="screens">
+      <figure class="screen">
+        <div class="chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tab">Work Order Status</span></div>
+        <div class="screenimg"><span class="ph">Work Order Status</span><img src="images/NationalWorkflow/workflow-work-order-status.png" alt="Work Order Status — open work orders grid with due-date color coding" onerror="this.style.display='none'"></div>
+        <figcaption><b>Open Work Orders.</b> Real-time status search with due-date row coloring, account-manager filtering and inline work-order notes.</figcaption>
+      </figure>
+      <figure class="screen">
+        <div class="chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tab">Attachment Review</span></div>
+        <div class="screenimg"><span class="ph">Attachment Review Queue</span><img src="images/NationalWorkflow/workflow-attachment-review.png" alt="Attachment Review Queue — Step A document review" onerror="this.style.display='none'"></div>
+        <figcaption><b>Step A — Attachment Review.</b> A guided queue for verifying documents, categories and costs before an order advances.</figcaption>
+      </figure>
+      <figure class="screen">
+        <div class="chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tab">Service Call Lookup</span></div>
+        <div class="screenimg"><span class="ph">Service Call Lookup</span><img src="images/NationalWorkflow/workflow-service-call-lookup.png" alt="Service Call Lookup — per-order audit of steps and exceptions" onerror="this.style.display='none'"></div>
+        <figcaption><b>Service Call Lookup.</b> Drill into any order to audit every step, who opened/closed it, and its exception history.</figcaption>
+      </figure>
+      <figure class="screen">
+        <div class="chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tab">Home · Queues</span></div>
+        <div class="screenimg"><span class="ph">Queue Dashboard</span><img src="images/NationalWorkflow/workflow-home.png" alt="Home dashboard — per-customer queue totals across stages" onerror="this.style.display='none'"></div>
+        <figcaption><b>Queue Dashboard.</b> Per-customer totals across every stage, so account managers always know where the work is piling up.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+<section style="background:#e7eef5;">
+  <div class="wrap">
+    <span class="kicker">Inside the platform</span>
+    <h2 class="sec">A workflow engine, not just a list</h2>
+    <p class="sec-sub">Every order travels a defined path with hand-offs, sign-offs and a safety net for the ones that go sideways.</p>
+    <div class="features">
+      <div class="feat"><div class="ico">🔀</div><h3>Stage-based lifecycle</h3><p>Orders advance through seven clearly defined stages — each a focused queue with its own rules, owners and completion criteria.</p></div>
+      <div class="feat"><div class="ico">⚠️</div><h3>Exception management</h3><p>Anything that breaks the happy path is flagged, routed and tracked until resolved — with full on/off exception history per order.</p></div>
+      <div class="feat"><div class="ico">📊</div><h3>Live queue visibility</h3><p>Roll-up dashboards show open volume by customer and by stage, turning a 474-order backlog into an actionable picture.</p></div>
+      <div class="feat"><div class="ico">🗓️</div><h3>Daily &amp; month-end runs</h3><p>The same engine powers fast daily processing and heavy month-end closes without changing how the team works.</p></div>
+    </div>
+
+    <div style="margin-top:30px;">
+      <span class="kicker">Status at a glance</span>
+      <div class="legend">
+        <div class="chip"><i class="sw-red"></i> Due date is older than today</div>
+        <div class="chip"><i class="sw-amber"></i> Due date is tomorrow</div>
+        <div class="chip"><i class="sw-blue"></i> Due date is in the future</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TECH ============ -->
+<section class="band">
+  <div class="wrap">
+    <span class="kicker">Architecture &amp; role</span>
+    <h2 class="sec">My favorite Silverlight stack, end to end</h2>
+    <p class="sec-sub" style="color:#c4d4e6;">I owned the architecture, UI/UX and information architecture — building the Site Administration experience on the combination of Silverlight technologies I trust most for line-of-business apps.</p>
+    <div class="stack">
+      <span>Microsoft Silverlight</span><span>WCF RIA Services</span><span>MVVM</span><span>Expression Blend</span>
+      <span>SQL Server</span><span>ADO.NET Entity Framework</span><span>LINQ</span><span>.NET</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  National Workflow · Silverlight Line-of-Business Platform &nbsp;·&nbsp;
+  <a href="David Silverlight Portfolio.html">← Back to portfolio</a> &nbsp;·&nbsp;
+  <a href="https://DavidSilverlight.com" target="_blank">DavidSilverlight.com</a>
+</footer>
+
+<div id="lb"><span class="x">&times;</span><img alt="enlarged screenshot"></div>
+<script>
+(function(){
+  // count-up stats
+  document.querySelectorAll('.stat .n[data-to]').forEach(function(el){
+    var to=+el.getAttribute('data-to'), suf=el.getAttribute('data-suffix')||'', t0=null;
+    function step(ts){ if(!t0)t0=ts; var p=Math.min((ts-t0)/1100,1);
+      var v=Math.round((1-Math.pow(1-p,3))*to);
+      el.innerHTML = v + (suf?'<small>'+suf+'</small>':'');
+      if(p<1) requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+  });
+  // lightbox
+  var lb=document.getElementById('lb'), im=lb.querySelector('img');
+  document.querySelectorAll('.screenimg img').forEach(function(g){
+    g.addEventListener('click', function(e){ e.stopPropagation(); im.src=g.src; lb.style.display='flex'; });
+  });
+  lb.addEventListener('click', function(){ lb.style.display='none'; im.src=''; });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ lb.style.display='none'; im.src=''; } });
+})();
+</script>
+</body>
+</html>

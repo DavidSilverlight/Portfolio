@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UnbeatableGeek.com — Case Study · David Silverlight</title>
+<style>
+  :root{
+    --orange:#ef5a1a; --orange2:#ff9244; --deep:#c8410f; --sun:#ffb347;
+    --red:#c62828; --ink:#3a2415; --muted:#7a5c45; --cream:#fff7f0; --card:#ffffff; --line:#f1ddca;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; font-family:"Segoe UI",Calibri,Arial,sans-serif; color:var(--ink); background:var(--cream); line-height:1.5;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 26px;}
+  .disp{font-family:"Arial Black","Segoe UI",Arial,sans-serif; font-weight:900; letter-spacing:.5px; text-transform:uppercase;}
+
+  /* ---------- top bar ---------- */
+  .topbar{position:sticky; top:0; z-index:40; background:rgba(120,45,15,.95); backdrop-filter:blur(8px); border-bottom:2px solid rgba(255,255,255,.15);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:56px;}
+  .back{display:inline-flex; align-items:center; gap:8px; text-decoration:none; color:var(--deep); font-weight:800; font-size:14px;
+    background:#fff; padding:9px 16px; border-radius:30px; box-shadow:0 3px 10px rgba(0,0,0,.25);}
+  .back:hover{transform:translateY(-1px);}
+  .topbar .who{color:#ffe7d6; font-size:13px; font-weight:700;}
+  .topbar .who b{color:#fff;}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative; overflow:hidden; color:#fff; text-align:center;
+    background:radial-gradient(800px 400px at 50% -20%, #ffb066, transparent 60%), linear-gradient(170deg,#ff7a2e,#ef5a1a 55%,#d2470f);}
+  .hero::after{content:""; position:absolute; left:0; right:0; bottom:-1px; height:40px; background:var(--cream);
+    border-radius:50% 50% 0 0 / 100% 100% 0 0;}
+  .hero .wrap{position:relative; z-index:3; padding:46px 26px 56px;}
+  .badge{display:inline-flex; align-items:center; gap:8px; font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase;
+    color:#fff; background:rgba(0,0,0,.18); border:2px dashed rgba(255,255,255,.55); padding:6px 14px; border-radius:30px;}
+  .mascot{font-size:64px; line-height:1; margin:14px 0 2px; filter:drop-shadow(0 6px 10px rgba(120,40,10,.4));}
+  .hero h1{margin:6px auto 4px; max-width:880px; font-size:clamp(30px,6vw,58px); line-height:1; color:#fff;
+    text-shadow:0 3px 0 var(--deep), 0 6px 14px rgba(80,25,0,.35);}
+  .hero h1 .pop{color:#fff2b0;}
+  .hero .tag{font-size:18px; font-weight:700; color:#ffe9d6; max-width:620px; margin:12px auto 0;}
+  .event{display:inline-flex; flex-wrap:wrap; justify-content:center; gap:8px; margin-top:18px;}
+  .event span{font-size:12.5px; font-weight:800; color:#fff; background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.35); padding:6px 13px; border-radius:20px;}
+  /* floating playful icons */
+  .float{position:absolute; z-index:1; font-size:30px; opacity:.85; animation:bob 4s ease-in-out infinite; pointer-events:none;}
+  @keyframes bob{0%,100%{transform:translateY(0) rotate(var(--rot,0deg));}50%{transform:translateY(-14px) rotate(var(--rot,0deg));}}
+
+  /* ---------- sections ---------- */
+  section{padding:50px 0;}
+  .kicker{display:inline-block; font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:#fff;
+    background:var(--orange); padding:5px 12px; border-radius:20px; transform:rotate(-1.5deg);}
+  h2.sec{font-size:clamp(24px,3.6vw,36px); margin:12px 0 6px; color:var(--deep);}
+  .sec-sub{color:var(--muted); max-width:680px; font-size:16px; margin:0 0 26px;}
+
+  /* ---------- screenshot showcase ---------- */
+  .screens{display:grid; grid-template-columns:repeat(2,1fr); gap:26px;}
+  .screen{margin:0; background:#fff; border:1px solid var(--line); border-radius:14px; overflow:hidden; transform:rotate(var(--r,0deg));
+    box-shadow:0 14px 30px rgba(150,70,20,.16); transition:transform .25s ease, box-shadow .25s ease;}
+  .screen:nth-child(1){--r:-1.6deg;} .screen:nth-child(2){--r:1.6deg;} .screen:nth-child(3){--r:1.3deg;} .screen:nth-child(4){--r:-1.3deg;}
+  .screen:hover{transform:rotate(0deg) translateY(-6px) scale(1.02); box-shadow:0 22px 44px rgba(150,70,20,.26); z-index:2;}
+  .chrome{display:flex; align-items:center; gap:7px; padding:9px 13px; background:linear-gradient(180deg,#fff,#fdeee2); border-bottom:1px solid var(--line);}
+  .chrome .dot{width:11px; height:11px; border-radius:50%;}
+  .chrome .dot.r{background:#ff5f57;} .chrome .dot.y{background:#febc2e;} .chrome .dot.g{background:#28c840;}
+  .chrome .tab{margin-left:8px; font-size:12px; font-weight:800; color:var(--orange); background:#fff; border:1px solid var(--line); padding:3px 12px; border-radius:8px;}
+  .screenimg{position:relative; min-height:150px; display:flex; align-items:center; justify-content:center; background:#fff6ee;}
+  .screenimg .ph{position:absolute; font-size:14px; font-weight:800; color:#e0a877; letter-spacing:.5px;}
+  .screenimg img{position:relative; width:100%; display:block; cursor:zoom-in;}
+  .screen figcaption{padding:12px 16px 15px; font-size:13.5px; color:var(--muted);}
+  .screen figcaption b{color:var(--ink);}
+
+  /* ---------- challenges ---------- */
+  .chal-band{background:linear-gradient(180deg,#fff,#fff1e4);}
+  .chals{display:grid; grid-template-columns:repeat(2,1fr); gap:20px;}
+  .chal{position:relative; background:var(--card); border:2px solid var(--line); border-radius:18px; padding:22px 22px 18px;
+    box-shadow:0 8px 20px rgba(150,70,20,.10); transition:transform .2s;}
+  .chal:hover{transform:translateY(-4px) rotate(-.6deg);}
+  .chal .num{position:absolute; top:-16px; left:18px; font-size:13px; font-weight:900; color:#fff; background:var(--orange);
+    padding:5px 12px; border-radius:20px; box-shadow:0 4px 10px rgba(180,80,20,.3); transform:rotate(-3deg);}
+  .chal .ico{font-size:34px; line-height:1;}
+  .chal h3{margin:8px 0 6px; font-size:19px; color:var(--deep);}
+  .chal p{margin:0; font-size:14.5px; color:#5a4636;}
+  .chal .by{margin-top:10px; font-size:12.5px; font-weight:700; font-style:italic; color:var(--orange);}
+  .sugg{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:22px;}
+  .mini{background:#fff; border:1px dashed var(--orange2); border-radius:14px; padding:16px;}
+  .mini .ico{font-size:24px;} .mini h4{margin:6px 0 4px; font-size:15px; color:var(--deep);} .mini p{margin:0; font-size:13px; color:#6a5340;}
+
+  /* ---------- champions ---------- */
+  .champ-band{background:linear-gradient(170deg,#ef5a1a,#d2470f); color:#fff;}
+  .champ-band .kicker{background:#fff; color:var(--deep);}
+  .champ-band h2{color:#fff;} .champ-band .sec-sub{color:#ffe2d1;}
+  .podium{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; align-items:end;}
+  .place{background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25); border-radius:16px; padding:22px 18px; text-align:center; backdrop-filter:blur(4px);}
+  .place .medal{font-size:46px; line-height:1;}
+  .place .rank{font-weight:900; letter-spacing:1px; margin:8px 0 4px; text-transform:uppercase; font-size:13px; color:#ffe9b0;}
+  .place .who{font-size:16px; font-weight:700;}
+  .place.p1{transform:translateY(-14px); background:rgba(255,255,255,.2);}
+  .meta-line{margin-top:20px; text-align:center; font-size:14px; color:#ffe2d1; font-weight:600;}
+
+  /* ---------- footer ---------- */
+  footer{padding:30px 0 50px; text-align:center; color:var(--muted); font-size:13px;}
+  footer a{color:var(--deep); text-decoration:none; font-weight:800;}
+  .sgbadge{display:inline-block; margin-bottom:10px; font-size:12px; font-weight:800; color:#fff; background:var(--ink); padding:6px 14px; border-radius:20px;}
+
+  /* ---------- lightbox ---------- */
+  #lb{display:none; position:fixed; inset:0; z-index:9999; background:rgba(40,18,6,.92); align-items:flex-start; justify-content:center; overflow:auto; cursor:zoom-out; padding:24px;}
+  #lb img{max-width:none; border-radius:8px; box-shadow:0 16px 60px rgba(0,0,0,.6);}
+  #lb .x{position:fixed; top:16px; right:22px; color:#fff; font-size:38px; line-height:1; cursor:pointer;}
+
+  @media (max-width:780px){
+    .screens,.chals{grid-template-columns:1fr;}
+    .sugg,.podium{grid-template-columns:1fr;}
+    .place.p1{transform:none;}
+    .screen{transform:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <a class="back" href="David Silverlight Portfolio.html">&larr; Back to portfolio</a>
+    <span class="who">Case Study · <b>David Silverlight</b></span>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <span class="float" style="left:7%; top:24%; --rot:-12deg;">⚡</span>
+  <span class="float" style="left:88%; top:18%; --rot:10deg; animation-delay:.6s;">💡</span>
+  <span class="float" style="left:16%; top:66%; --rot:8deg; animation-delay:1.1s;">🍜</span>
+  <span class="float" style="left:82%; top:64%; --rot:-8deg; animation-delay:.3s;">🥤</span>
+  <span class="float" style="left:50%; top:8%; --rot:0deg; animation-delay:.9s;">🔥</span>
+  <div class="wrap">
+    <span class="badge">◆ Silverlight · Geek Sport</span>
+    <div class="mascot">🤓⚡</div>
+    <h1 class="disp">Will you be the <span class="pop">Unbeatable Geek?</span></h1>
+    <p class="tag">A gloriously nerdy competition site — built in Silverlight — for staging the most ridiculous developer challenges at tech conferences.</p>
+    <div class="event">
+      <span>🏆 The Unbeatable Banzuke</span><span>📍 South Florida CodeCamp 2009</span><span>🗓️ Feb 7, 2009 · Ft. Lauderdale</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============ WHAT IS IT ============ -->
+<section>
+  <div class="wrap">
+    <span class="kicker">What is it?</span>
+    <h2 class="sec">Competitive coding, with a sense of humor</h2>
+    <p class="sec-sub">UnbeatableGeek.com gave developer conferences a playful main event: teams faced off in absurd, skill-and-silliness challenges. The site handled sign-ups, the challenge roster, winners and a rich Silverlight photo gallery — all wrapped in a bold, cartoon-fun brand. Click any screen to enlarge.</p>
+    <div class="screens">
+      <figure class="screen">
+        <div class="chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tab">Home</span></div>
+        <div class="screenimg"><span class="ph">Home · Radial Menu</span><img src="images/UnbeatableGeek/ug-home.png" alt="Home — radial menu around the iGeek mascot" onerror="this.style.display='none'"></div>
+        <figcaption><b>Home.</b> A playful radial menu orbits the flaming-haired iGeek mascot — pure Silverlight animation and personality.</figcaption>
+      </figure>
+      <figure class="screen">
+        <div class="chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tab">Pictures</span></div>
+        <div class="screenimg"><span class="ph">Pictures · 3D Coverflow</span><img src="images/UnbeatableGeek/ug-pictures.png" alt="Pictures — 3D coverflow photo gallery from the event" onerror="this.style.display='none'"></div>
+        <figcaption><b>Pictures.</b> A 3D coverflow gallery of the first Unbeatable Banzuke — Silverlight's perspective &amp; reflection effects on full display.</figcaption>
+      </figure>
+      <figure class="screen">
+        <div class="chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tab">Challenges</span></div>
+        <div class="screenimg"><span class="ph">Challenges</span><img src="images/UnbeatableGeek/ug-challenges.png" alt="Challenges — the official and suggested challenges" onerror="this.style.display='none'"></div>
+        <figcaption><b>Challenges.</b> The official roster plus community-suggested events — submitted by real conference speakers.</figcaption>
+      </figure>
+      <figure class="screen">
+        <div class="chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tab">Winners</span></div>
+        <div class="screenimg"><span class="ph">Winners</span><img src="images/UnbeatableGeek/ug-winners.png" alt="Winners — podium results from Unbeatable Geek #1" onerror="this.style.display='none'"></div>
+        <figcaption><b>Winners.</b> Bragging rights, immortalized — the champions of Unbeatable Geek #1.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHALLENGES ============ -->
+<section class="chal-band">
+  <div class="wrap">
+    <span class="kicker">The challenges</span>
+    <h2 class="sec">Equal parts skill and absurdity</h2>
+    <p class="sec-sub">The actual events from South Florida CodeCamp — yes, these really happened.</p>
+    <div class="chals">
+      <div class="chal">
+        <span class="num">Challenge #1</span>
+        <div class="ico">🍜🥤</div>
+        <h3>Coding &amp; Eating</h3>
+        <p>Code something (add 2 numbers together) with one hand, while eating with the other. The code and the food must finish at the exact same time. The food of choice? Spam, Nerds and Red Bull.</p>
+        <p class="by">Submitted by Zain Naboulsi</p>
+      </div>
+      <div class="chal">
+        <span class="num">Challenge #2</span>
+        <div class="ico">🙈⌨️</div>
+        <h3>Broken Arm Programming</h3>
+        <p>One person codes blindfolded; the other gives directions while eating Saltine crackers — and may only describe what to do, never helping directly. Communication is everything.</p>
+        <p class="by">Submitted by Daniel Egan &amp; Todd Anglin</p>
+      </div>
+    </div>
+
+    <h3 class="disp" style="margin:30px 0 0; color:var(--orange); font-size:16px; letter-spacing:1px;">Suggested Challenges</h3>
+    <div class="sugg">
+      <div class="mini"><div class="ico">⚡</div><h4>CRUD Crunch</h4><p>Build a CRUD screen in .NET in under 10 minutes. Bonus points for filtering and sorting.</p></div>
+      <div class="mini"><div class="ico">🧱</div><h4>Jenga Mountain</h4><p>Move a Jenga set brick-by-brick from A to B — normal Jenga rules, 2-minute limit.</p></div>
+      <div class="mini"><div class="ico">📱</div><h4>Team Texting</h4><p>Two people text a full document — one reading, one typing — against a steep clock.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHAMPIONS ============ -->
+<section class="champ-band">
+  <div class="wrap">
+    <span class="kicker">Hall of fame</span>
+    <h2 class="sec">Champions of Unbeatable Geek #1</h2>
+    <p class="sec-sub">The first-ever Unbeatable Geek crowned its legends.</p>
+    <div class="podium">
+      <div class="place"><div class="medal">🥈</div><div class="rank">2nd Prize</div><div class="who">Chris Stweard &amp; Shiram Sabramariam</div></div>
+      <div class="place p1"><div class="medal">🥇</div><div class="rank">1st Prize</div><div class="who">Jasefi D. &amp; Ivan A.</div></div>
+      <div class="place"><div class="medal">🥉</div><div class="rank">3rd Prize</div><div class="who">Judy Gambino</div></div>
+    </div>
+    <p class="meta-line">🗓️ February 7, 2009 &nbsp;·&nbsp; 📍 Ft. Lauderdale, Florida</p>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <span class="sgbadge">Built in Microsoft Silverlight · The Silverlight Group · 2009</span><br>
+    Interaction Design · Web Design · Web Development &nbsp;·&nbsp;
+    <a href="David Silverlight Portfolio.html">← Back to portfolio</a> &nbsp;·&nbsp;
+    <a href="https://DavidSilverlight.com" target="_blank">DavidSilverlight.com</a>
+  </div>
+</footer>
+
+<div id="lb"><span class="x">&times;</span><img alt="enlarged screenshot"></div>
+<script>
+(function(){
+  var lb=document.getElementById('lb'), im=lb.querySelector('img');
+  document.querySelectorAll('.screenimg img').forEach(function(g){
+    g.addEventListener('click', function(e){ e.stopPropagation(); im.src=g.src; lb.style.display='flex'; });
+  });
+  lb.addEventListener('click', function(){ lb.style.display='none'; im.src=''; });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ lb.style.display='none'; im.src=''; } });
+})();
+</script>
+</body>
+</html>

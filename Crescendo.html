@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crescendo Patient CRM — Case Study · David Silverlight</title>
+<style>
+  :root{
+    --ink:#16232b; --muted:#5a6b6a; --teal:#12998c; --deep:#0c3a42; --aqua:#5fd4c4;
+    --rose:#ff6f91; --gold:#ffd166; --paper:#eef4f3; --card:#ffffff; --line:#dde8e6;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; font-family:Calibri,"Segoe UI",Arial,sans-serif; color:var(--ink); background:var(--paper); line-height:1.5;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 26px;}
+
+  /* ---------- top bar ---------- */
+  .topbar{position:sticky; top:0; z-index:40; background:rgba(8,40,46,.92); backdrop-filter:blur(8px); border-bottom:1px solid rgba(255,255,255,.08);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:58px;}
+  .back{display:inline-flex; align-items:center; gap:8px; text-decoration:none; color:#fff; font-weight:700; font-size:14px;
+    background:linear-gradient(90deg,var(--deep),var(--teal)); padding:9px 16px; border-radius:30px; box-shadow:0 3px 12px rgba(0,0,0,.3);}
+  .back:hover{filter:brightness(1.12);}
+  .topbar .who{color:#cfe6e2; font-size:13px; font-weight:600;}
+  .topbar .who b{color:#fff;}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative; overflow:hidden; color:#fff;
+    background:radial-gradient(1100px 520px at 82% -15%, rgba(255,111,145,.45), transparent 58%),
+               radial-gradient(900px 520px at 5% 120%, rgba(95,212,196,.40), transparent 55%),
+               linear-gradient(160deg,#0a2f37,#0f5a59 58%,#0c3a42);}
+  .hero .wrap{position:relative; z-index:3; padding:54px 26px 40px;}
+  .eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase;
+    color:#bdeee6; background:rgba(18,153,140,.25); border:1px solid rgba(95,212,196,.4); padding:6px 13px; border-radius:30px;}
+  .hero h1{margin:16px 0 4px; font-size:clamp(38px,7vw,72px); line-height:1; letter-spacing:.5px; font-weight:800;}
+  .hero h1 span{background:linear-gradient(90deg,#7fe7d8,#ff9bb1); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero .sub{font-size:19px; font-weight:700; color:#dbeeea; margin:2px 0 10px;}
+  .hero .lead{max-width:600px; font-size:17px; color:#cfe6e2;}
+  .hero .chips{margin-top:18px; display:flex; flex-wrap:wrap; gap:9px;}
+  .hero .chips span{font-size:12.5px; font-weight:700; color:#eafbf7; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.18); padding:6px 14px; border-radius:20px;}
+  .scrollcue{margin-top:22px; display:inline-flex; align-items:center; gap:9px; text-decoration:none; color:#0c3a42; font-weight:800; font-size:14px;
+    background:linear-gradient(90deg,#7fe7d8,#5fd4c4); padding:11px 20px; border-radius:30px; box-shadow:0 8px 22px rgba(0,0,0,.28);}
+  .scrollcue:hover{filter:brightness(1.06);}
+
+  /* crescendo equalizer motif */
+  .eq{position:absolute; left:0; right:0; bottom:0; height:170px; z-index:1; display:flex; align-items:flex-end; gap:6px; padding:0 4%; opacity:.5;}
+  .eq i{flex:1; background:linear-gradient(180deg,rgba(127,231,216,.85),rgba(255,111,145,.25)); border-radius:5px 5px 0 0; animation:bar 2.6s ease-in-out infinite;}
+  @keyframes bar{0%,100%{height:14%;}50%{height:var(--h,60%);}}
+  /* ecg pulse line */
+  .ecg{position:absolute; left:0; right:0; top:42%; z-index:2; opacity:.6; pointer-events:none;}
+  .ecg path{fill:none; stroke:#aef3e8; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round;
+    stroke-dasharray:1400; stroke-dashoffset:1400; animation:draw 4s ease-in-out infinite;}
+  @keyframes draw{0%{stroke-dashoffset:1400;}55%,100%{stroke-dashoffset:0;}}
+
+  /* ---------- video stage ---------- */
+  .stage{padding:54px 0 30px;}
+  .kicker{font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--teal);}
+  h2.sec{font-size:clamp(24px,3.4vw,34px); margin:8px 0 6px; color:var(--deep); letter-spacing:.3px;}
+  .sec-sub{color:var(--muted); max-width:680px; font-size:16px; margin:0 0 26px;}
+  .monitor{position:relative; background:linear-gradient(160deg,#10222a,#0c343b); border-radius:18px; padding:16px 16px 22px;
+    box-shadow:0 30px 70px rgba(10,40,45,.35), inset 0 0 0 1px rgba(255,255,255,.05);}
+  .monitor::before{content:""; position:absolute; top:9px; left:50%; transform:translateX(-50%); width:64px; height:5px; border-radius:5px; background:rgba(255,255,255,.18);}
+  .screen{position:relative; width:100%; padding-bottom:56.25%; margin-top:8px; border-radius:10px; overflow:hidden; background:#000; box-shadow:0 0 0 1px rgba(255,255,255,.06);}
+  .screen iframe{position:absolute; inset:0; width:100%; height:100%; border:0;}
+  .ytfacade{cursor:pointer;}
+  .ytposter{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
+  .ytplay{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:88px; height:62px; border-radius:15px;
+    background:rgba(226,72,59,.92); box-shadow:0 10px 26px rgba(0,0,0,.45); transition:background .2s, transform .2s;}
+  .ytplay::after{content:""; position:absolute; left:50%; top:50%; transform:translate(-40%,-50%);
+    border-style:solid; border-width:14px 0 14px 23px; border-color:transparent transparent transparent #fff;}
+  .ytfacade:hover .ytplay{background:#e2483b; transform:translate(-50%,-50%) scale(1.07);}
+  .monitor .stand{margin:14px auto 0; width:120px; height:10px; border-radius:0 0 12px 12px; background:rgba(255,255,255,.10);}
+  .vidnote{text-align:center; color:var(--muted); font-size:13px; margin-top:14px;}
+  .vidnote a{color:var(--teal); font-weight:700; text-decoration:none;}
+
+  /* ---------- features ---------- */
+  section.feats{padding:54px 0; background:#e6efed;}
+  .features{display:grid; grid-template-columns:repeat(2,1fr); gap:18px;}
+  .feat{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px; position:relative; overflow:hidden;
+    box-shadow:0 1px 3px rgba(20,50,45,.06); transition:transform .2s, box-shadow .2s;}
+  .feat:hover{transform:translateY(-4px); box-shadow:0 14px 30px rgba(15,70,65,.13);}
+  .feat::before{content:""; position:absolute; left:0; top:0; bottom:0; width:5px; background:linear-gradient(180deg,var(--teal),var(--rose));}
+  .feat .ico{width:44px; height:44px; border-radius:11px; display:flex; align-items:center; justify-content:center; font-size:22px;
+    background:linear-gradient(160deg,#e7f4f1,#f3e9ee); border:1px solid var(--line); margin-bottom:12px;}
+  .feat h3{margin:0 0 6px; font-size:17px; color:var(--deep);}
+  .feat p{margin:0; font-size:14px; color:#46565a;}
+
+  /* ---------- tech band ---------- */
+  .band{background:linear-gradient(160deg,#0a2f37,#0f5a59); color:#fff; padding:54px 0;}
+  .band h2{color:#fff;} .band .kicker{color:#8fe6da;} .band .sec-sub{color:#bfe0db;}
+  .stack{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;}
+  .stack span{font-size:13px; font-weight:700; color:#eafbf7; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16); padding:8px 15px; border-radius:30px;}
+
+  footer{padding:34px 0 50px; text-align:center; color:var(--muted); font-size:13px;}
+  footer a{color:var(--deep); text-decoration:none; font-weight:700;}
+
+  @media (max-width:780px){ .features{grid-template-columns:1fr;} .eq{height:120px;} }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <a class="back" href="David Silverlight Portfolio.html">&larr; Back to portfolio</a>
+    <span class="who">Case Study · <b>David Silverlight</b></span>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <svg class="ecg" viewBox="0 0 1400 120" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,60 L420,60 L450,60 L470,20 L500,100 L530,38 L560,60 L980,60 L1010,60 L1030,24 L1058,96 L1086,60 L1400,60"/>
+  </svg>
+  <div class="eq" aria-hidden="true">
+    <i style="--h:40%"></i><i style="--h:62%"></i><i style="--h:48%"></i><i style="--h:78%"></i><i style="--h:55%"></i>
+    <i style="--h:88%"></i><i style="--h:60%"></i><i style="--h:96%"></i><i style="--h:70%"></i><i style="--h:100%"></i>
+    <i style="--h:64%"></i><i style="--h:84%"></i><i style="--h:52%"></i><i style="--h:72%"></i><i style="--h:44%"></i>
+    <i style="--h:90%"></i><i style="--h:58%"></i><i style="--h:80%"></i><i style="--h:50%"></i><i style="--h:68%"></i>
+  </div>
+  <div class="wrap">
+    <span class="eyebrow">♥ Silverlight · Home Healthcare CRM</span>
+    <h1>Cre<span>scendo</span></h1>
+    <p class="sub">Patient Customer Relationship Management</p>
+    <p class="lead">A rich, visually engaging Silverlight platform that puts patients at the center of home-healthcare operations — connecting people, care history and coordination in one polished experience.</p>
+    <div class="chips"><span>Home Healthcare</span><span>Patient CRM</span><span>Rich Visual UX</span><span>Engineered End-to-End</span></div>
+    <a class="scrollcue" href="#video">▶ &nbsp;Watch it in action</a>
+  </div>
+</header>
+
+<!-- ============ VIDEO STAGE ============ -->
+<section class="stage" id="video">
+  <div class="wrap">
+    <span class="kicker">See it live</span>
+    <h2 class="sec">Crescendo, in motion</h2>
+    <p class="sec-sub">Rather than static screens, here's the real product walkthrough — the animated Silverlight interface, patient views and visual effects, exactly as they were delivered.</p>
+    <div class="monitor">
+      <div class="screen ytfacade" id="ytFacade" data-id="PJWZKYPaT2c" role="button" tabindex="0" aria-label="Play Crescendo walkthrough">
+        <img class="ytposter" src="https://img.youtube.com/vi/PJWZKYPaT2c/maxresdefault.jpg" alt="Crescendo Patient CRM walkthrough"
+          onerror="this.onerror=null;this.src='https://img.youtube.com/vi/PJWZKYPaT2c/hqdefault.jpg'">
+        <span class="ytplay" aria-hidden="true"></span>
+      </div>
+      <div class="stand"></div>
+    </div>
+    <p class="vidnote">Trouble viewing? <a href="https://www.youtube.com/watch?v=PJWZKYPaT2c" target="_blank">Watch on YouTube &rarr;</a></p>
+  </div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+<section class="feats">
+  <div class="wrap">
+    <span class="kicker">What it does</span>
+    <h2 class="sec">A CRM built around the patient</h2>
+    <p class="sec-sub">Home healthcare lives or dies on coordination. Crescendo brings the people and the history together in one place.</p>
+    <div class="features">
+      <div class="feat"><div class="ico">♥</div><h3>Patient at the center</h3><p>A relationship management system purpose-built for home healthcare — keeping patients, caregivers and care history connected.</p></div>
+      <div class="feat"><div class="ico">🤝</div><h3>Care coordination</h3><p>Streamlines the people, touchpoints and follow-through involved in delivering quality care in the home.</p></div>
+      <div class="feat"><div class="ico">✨</div><h3>Rich visual experience</h3><p>A polished, animated Silverlight UI with custom visual effects that make complex patient data approachable and engaging.</p></div>
+      <div class="feat"><div class="ico">🛠️</div><h3>Engineered end-to-end</h3><p>I led the engineering, visual effects and web development, bringing the full experience to life on the Silverlight platform.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TECH ============ -->
+<section class="band">
+  <div class="wrap">
+    <span class="kicker">Architecture &amp; role</span>
+    <h2 class="sec">Silverlight craftsmanship</h2>
+    <p class="sec-sub">Engineering · Visual Effects · Web Development — delivered on a modern Silverlight line-of-business stack.</p>
+    <div class="stack">
+      <span>Microsoft Silverlight</span><span>WCF RIA Services</span><span>MVVM</span><span>Expression Blend</span>
+      <span>Visual Effects &amp; Animation</span><span>SQL Server</span><span>.NET</span>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var f=document.getElementById('ytFacade');
+  if(!f) return;
+  function loadYT(){
+    if(f.classList.contains('loaded')) return;
+    var id=f.getAttribute('data-id');
+    var ifr=document.createElement('iframe');
+    ifr.src='https://www.youtube.com/embed/'+id+'?autoplay=1&rel=0&wmode=transparent';
+    ifr.title='Crescendo Patient CRM walkthrough';
+    ifr.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+    ifr.setAttribute('allowfullscreen','');
+    f.innerHTML='';
+    f.appendChild(ifr);
+    f.classList.add('loaded');
+  }
+  f.addEventListener('click', loadYT);
+  f.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); loadYT(); } });
+})();
+</script>
+
+<footer>
+  Crescendo · Home Healthcare Patient CRM &nbsp;·&nbsp;
+  <a href="David Silverlight Portfolio.html">← Back to portfolio</a> &nbsp;·&nbsp;
+  <a href="https://DavidSilverlight.com" target="_blank">DavidSilverlight.com</a>
+</footer>
+
+</body>
+</html>
