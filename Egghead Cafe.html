@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Egghead Cafe — Case Study · David Silverlight</title>
+<style>
+  :root{--espresso:#3e2a20; --espresso2:#5a3d2e; --cream:#f6ecd9; --crema:#d9a866; --teal:#2f9e8f; --ink:#2a2018; --muted:#7a6353; --paper:#f6efe6; --card:#fff; --line:#e8ddcb;}
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; font-family:"Segoe UI",Calibri,Arial,sans-serif; color:var(--ink); background:var(--paper); line-height:1.55;}
+  .wrap{max-width:1040px; margin:0 auto; padding:0 26px;}
+  .topbar{position:sticky; top:0; z-index:40; background:rgba(40,25,18,.95); backdrop-filter:blur(8px); border-bottom:1px solid rgba(217,168,102,.35);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:56px;}
+  .back{display:inline-flex; gap:8px; text-decoration:none; color:var(--espresso); font-weight:800; font-size:14px; background:var(--crema); padding:9px 16px; border-radius:30px;}
+  .topbar .who{color:#e8d4bf; font-size:13px; font-weight:700;} .topbar .who b{color:#fff;}
+  .hero{position:relative; overflow:hidden; color:#fff;
+    background:radial-gradient(900px 460px at 80% -15%, rgba(217,168,102,.3), transparent 58%), linear-gradient(160deg,#33231b,#5a3d2e 60%,#2c1d16);}
+  .hero .beans{position:absolute; font-size:30px; opacity:.85; animation:rise 5s ease-in-out infinite;}
+  @keyframes rise{0%,100%{transform:translateY(0) rotate(-6deg);}50%{transform:translateY(-12px) rotate(6deg);}}
+  .hero .steam{position:absolute; left:9%; top:40px; font-size:48px; opacity:.9;}
+  .hero .wrap{position:relative; z-index:3; padding:54px 26px 46px;}
+  .eyebrow{display:inline-flex; gap:8px; font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:#f3dcbb; background:rgba(217,168,102,.2); border:1px solid rgba(217,168,102,.5); padding:6px 13px; border-radius:30px;}
+  .hero h1{margin:14px 0 6px; font-size:clamp(32px,5.4vw,56px); line-height:1.03;}
+  .hero h1 span{color:var(--crema);}
+  .hero .lead{max-width:660px; font-size:18px; color:#ecdcc9;}
+  .tags{margin-top:16px; display:flex; flex-wrap:wrap; gap:8px;}
+  .tags span{font-size:12px; font-weight:700; color:#f6ecd9; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.2); padding:5px 12px; border-radius:20px;}
+  section{padding:52px 0;}
+  .kicker{font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--teal);}
+  h2.sec{font-size:clamp(24px,3.4vw,32px); margin:8px 0 6px; color:var(--espresso);}
+  .sec-sub{color:var(--muted); max-width:700px; font-size:16px; margin:0 0 24px;}
+  .grid{display:grid; grid-template-columns:repeat(2,1fr); gap:18px;}
+  .card2{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px; position:relative; overflow:hidden; box-shadow:0 1px 3px rgba(80,50,30,.08); transition:transform .2s, box-shadow .2s;}
+  .card2:hover{transform:translateY(-4px); box-shadow:0 14px 30px rgba(90,61,46,.16);}
+  .card2::before{content:""; position:absolute; left:0; top:0; bottom:0; width:5px; background:linear-gradient(180deg,var(--espresso2),var(--crema));}
+  .card2 .ico{font-size:30px;} .card2 h3{margin:8px 0 6px; font-size:17px; color:var(--espresso);} .card2 p{margin:0; font-size:14px; color:#5b4a3c;}
+  .band{background:linear-gradient(160deg,#33231b,#2c1d16); color:#fff;}
+  .band h2{color:#fff;} .band .kicker{color:var(--crema);} .band .sec-sub{color:#e8d4bf;}
+  .stack{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;}
+  .stack span{font-size:13px; font-weight:700; color:#f6ecd9; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16); padding:8px 15px; border-radius:30px;}
+  .screens{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  .screen{margin:0; background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden; box-shadow:0 12px 28px rgba(90,61,46,.16); transition:transform .25s, box-shadow .25s; transform:rotate(var(--r,0deg));}
+  .screen:nth-child(1){--r:-1.4deg;} .screen:nth-child(2){--r:1.2deg;} .screen:nth-child(3){--r:-1deg;}
+  .screen:hover{transform:rotate(0deg) translateY(-6px); box-shadow:0 20px 42px rgba(90,61,46,.26); z-index:2;}
+  .chrome{display:flex; align-items:center; gap:7px; padding:9px 13px; background:linear-gradient(180deg,#fff,#f6ede0); border-bottom:1px solid var(--line);}
+  .chrome .dot{width:11px; height:11px; border-radius:50%;} .chrome .dot.r{background:#ff5f57;} .chrome .dot.y{background:#febc2e;} .chrome .dot.g{background:#28c840;}
+  .chrome .tab{margin-left:8px; font-size:12px; font-weight:800; color:var(--espresso); background:#fff; border:1px solid var(--line); padding:3px 12px; border-radius:8px;}
+  .screenimg{position:relative; min-height:120px; display:flex; align-items:center; justify-content:center; background:#f6efe4;}
+  .screenimg .ph{position:absolute; font-size:13px; font-weight:800; color:#c7ac8b;}
+  .screenimg img{position:relative; width:100%; display:block; cursor:zoom-in;}
+  .screen figcaption{padding:11px 14px 14px; font-size:13px; color:var(--muted);} .screen figcaption b{color:var(--ink);}
+  #lb{display:none; position:fixed; inset:0; z-index:9999; background:rgba(30,18,10,.93); align-items:flex-start; justify-content:center; overflow:auto; cursor:zoom-out; padding:24px;}
+  #lb img{max-width:none; border-radius:8px; box-shadow:0 16px 60px rgba(0,0,0,.6);}
+  #lb .x{position:fixed; top:16px; right:22px; color:#fff; font-size:38px; line-height:1; cursor:pointer;}
+  footer{padding:30px 0 50px; text-align:center; color:var(--muted); font-size:13px;} footer a{color:var(--espresso); text-decoration:none; font-weight:800;}
+  @media (max-width:720px){ .grid{grid-template-columns:1fr;} .screens{grid-template-columns:1fr;} .screen{transform:none !important;} }
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap"><a class="back" href="David Silverlight Portfolio.html">&larr; Back to portfolio</a><span class="who">Case Study · <b>David Silverlight</b></span></div></div>
+
+<header class="hero">
+  <span class="steam">☕</span>
+  <span class="beans" style="right:12%; top:60px;">🥚</span>
+  <span class="beans" style="right:24%; top:130px; animation-delay:.7s;">🧠</span>
+  <div class="wrap">
+    <span class="eyebrow">☕ Silverlight · Developer Community</span>
+    <h1>Egghead <span>Cafe</span></h1>
+    <p class="lead">A unique, immersive interface for the Silverlight edition of EggheadCafe.com — a popular developer community — where I built a fresh navigation system and reimagined the Forum experience.</p>
+    <div class="tags"><span>Immersive UI</span><span>Navigation System</span><span>Forum Experience</span><span>Expression Blend</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <span class="kicker">What I built</span>
+    <h2 class="sec">A more interactive way in</h2>
+    <p class="sec-sub">EggheadCafe wanted a Silverlight experience that felt more immersive and interactive than a typical web page. My work centered on how people moved through the site and how they engaged in the forums.</p>
+    <div class="grid">
+      <div class="card2"><div class="ico">🧭</div><h3>New navigation system</h3><p>Designed and developed the navigation for the Silverlight version of the site — fluid, interactive and distinctly un-webpage-like.</p></div>
+      <div class="card2"><div class="ico">💬</div><h3>Forum UI</h3><p>Reimagined the user interface for the Forum section, a core part of the EggheadCafe community.</p></div>
+      <div class="card2"><div class="ico">✨</div><h3>Immersive &amp; interactive</h3><p>Leaned into Silverlight's strengths to deliver a richer, more engaging experience for visitors.</p></div>
+      <div class="card2"><div class="ico">👍</div><h3>Well received</h3><p>The interface was well received — even referenced and linked from the bottom of the EggheadCafe website.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#fdf8f0;">
+  <div class="wrap">
+    <span class="kicker">A look inside</span>
+    <h2 class="sec">Crack open a topic</h2>
+    <p class="sec-sub">The Silverlight experience reimagined how developers browsed the site — starting with a playful, interactive "egghead" navigation. Click any screen to enlarge.</p>
+    <div class="screens">
+      <figure class="screen">
+        <div class="chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tab">Topic Areas</span></div>
+        <div class="screenimg"><span class="ph">Egg Navigation</span><img src="images/EggheadCafe/egg-topics.png" alt="Topic Areas — egg-shaped interactive topic navigation" onerror="this.style.display='none'"></div>
+        <figcaption><b>The egg navigation.</b> The signature interface — topics as cracked eggs you open to explore, the playful heart of the experience.</figcaption>
+      </figure>
+      <figure class="screen">
+        <div class="chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tab">Forum Watch</span></div>
+        <div class="screenimg"><span class="ph">Forum Watch</span><img src="images/EggheadCafe/egg-forumwatch.png" alt="Forum Watch — live panels of recent activity and unanswered posts" onerror="this.style.display='none'"></div>
+        <figcaption><b>Forum Watch.</b> Live panels of recent activity and unanswered posts across C#, JavaScript and Xml/Xslt, alongside an FAQ feed.</figcaption>
+      </figure>
+      <figure class="screen">
+        <div class="chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tab">Watch Options</span></div>
+        <div class="screenimg"><span class="ph">Topic Picker</span><img src="images/EggheadCafe/egg-options.png" alt="Forum Watch options — topic selection grid and refresh settings" onerror="this.style.display='none'"></div>
+        <figcaption><b>Personalize it.</b> A rich topic-selection grid with refresh intervals and filters, so each developer tunes their own watch.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <span class="kicker">Role &amp; tech</span>
+    <h2 class="sec">Crafted in Silverlight &amp; Blend</h2>
+    <p class="sec-sub">Web design and web development for a high-traffic developer community's Silverlight experience.</p>
+    <div class="stack"><span>Microsoft Silverlight</span><span>Expression Blend</span><span>Navigation UX</span><span>Web Design</span><span>Web Development</span></div>
+  </div>
+</section>
+
+<footer>
+  Egghead Cafe · Silverlight Navigation &amp; Forum UI &nbsp;·&nbsp;
+  <a href="David Silverlight Portfolio.html">← Back to portfolio</a> &nbsp;·&nbsp;
+  <a href="https://davidsilverlight.com/egghead-cafe-silverlight-navigation" target="_blank">Original write-up ↗</a>
+</footer>
+
+<div id="lb"><span class="x">&times;</span><img alt="enlarged screenshot"></div>
+<script>
+(function(){
+  var lb=document.getElementById('lb'), im=lb.querySelector('img');
+  document.querySelectorAll('.screenimg img').forEach(function(g){
+    g.addEventListener('click', function(e){ e.stopPropagation(); im.src=g.src; lb.style.display='flex'; });
+  });
+  lb.addEventListener('click', function(){ lb.style.display='none'; im.src=''; });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ lb.style.display='none'; im.src=''; } });
+})();
+</script>
+</body>
+</html>

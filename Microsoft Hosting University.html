@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Microsoft Hosting University — Case Study · David Silverlight</title>
+<style>
+  :root{
+    --green:#16564a; --green2:#1c6f5e; --deep:#0e4036; --night:#0a2f29;
+    --gold:#e7c982; --gold2:#f3e3b6; --cream:#f6eccf; --ink:#16302a; --muted:#5b7068;
+    --paper:#eef2ec; --card:#ffffff; --line:#dde6dd;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; font-family:"Segoe UI",Calibri,Arial,sans-serif; color:var(--ink); background:var(--paper); line-height:1.55;}
+  .serif{font-family:Georgia,"Times New Roman",serif;}
+  .wrap{max-width:1100px; margin:0 auto; padding:0 26px;}
+
+  /* ---------- top bar ---------- */
+  .topbar{position:sticky; top:0; z-index:40; background:rgba(10,47,41,.95); backdrop-filter:blur(8px); border-bottom:1px solid rgba(231,201,130,.25);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:56px;}
+  .back{display:inline-flex; align-items:center; gap:8px; text-decoration:none; color:var(--deep); font-weight:800; font-size:14px;
+    background:var(--gold2); padding:9px 16px; border-radius:30px; box-shadow:0 3px 10px rgba(0,0,0,.25);}
+  .back:hover{filter:brightness(1.05);}
+  .topbar .who{color:#cfe6dd; font-size:13px; font-weight:700;}
+  .topbar .who b{color:#fff;}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative; overflow:hidden; color:#fff;
+    background:radial-gradient(900px 460px at 82% -20%, rgba(231,201,130,.18), transparent 60%),
+               linear-gradient(160deg,#0e4036,#16564a 55%,#0a2f29);}
+  .hero::before{content:""; position:absolute; inset:0; opacity:.5; pointer-events:none;
+    background:radial-gradient(circle at 50% 50%, transparent 60%, rgba(0,0,0,.25));}
+  .hero .wrap{position:relative; z-index:3; padding:50px 26px 44px; display:grid; grid-template-columns:300px 1fr; gap:36px; align-items:center;}
+  .seal{position:relative; text-align:center;}
+  .seal img{width:100%; max-width:280px; filter:drop-shadow(0 14px 30px rgba(0,0,0,.45));}
+  .seal .sealfallback{display:none; width:230px; height:230px; margin:0 auto; border-radius:50%; border:3px double var(--gold);
+    background:var(--night); color:var(--gold2); align-items:center; justify-content:center; flex-direction:column;}
+  .seal .sealfallback .u{font-size:96px; font-weight:800; line-height:.9; font-family:Georgia,serif; color:var(--gold2);}
+  .seal .sealfallback .t{font-size:10px; letter-spacing:2px; margin-top:6px;}
+  .eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase;
+    color:var(--gold2); background:rgba(231,201,130,.14); border:1px solid rgba(231,201,130,.45); padding:6px 13px; border-radius:30px;}
+  .hero h1{margin:14px 0 6px; font-size:clamp(30px,4.6vw,50px); line-height:1.05; color:#fff;}
+  .hero h1 .g{color:var(--gold2);}
+  .hero .lead{max-width:560px; font-size:17px; color:#d6e6df;}
+  .awards{display:flex; flex-wrap:wrap; gap:10px; margin-top:18px;}
+  .awards .aw{display:flex; align-items:center; gap:9px; font-size:13px; font-weight:700; color:#fff;
+    background:rgba(231,201,130,.14); border:1px solid rgba(231,201,130,.4); padding:8px 14px; border-radius:30px;}
+  .awards .aw b{color:var(--gold2);}
+
+  /* curriculum meter */
+  .curr{margin-top:22px; max-width:520px;}
+  .curr .lbl{font-size:11px; letter-spacing:2px; text-transform:uppercase; color:#a9c8bf; font-weight:800; margin-bottom:8px;}
+  .meter{display:flex; gap:6px;}
+  .meter span{flex:1; text-align:center; font-size:12px; font-weight:800; padding:7px 4px; border-radius:8px; color:#bfe0d6; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.12);}
+  .meter span.on{color:var(--night); background:linear-gradient(180deg,var(--gold2),var(--gold)); border-color:var(--gold);}
+
+  /* ---------- sections ---------- */
+  section{padding:52px 0;}
+  .kicker{font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--green2);}
+  h2.sec{font-size:clamp(24px,3.4vw,34px); margin:8px 0 6px; color:var(--deep);}
+  .sec-sub{color:var(--muted); max-width:700px; font-size:16px; margin:0 0 26px;}
+
+  /* ---------- curriculum cards ---------- */
+  .courses{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  .course{position:relative; background:var(--card); border:1px solid var(--line); border-radius:14px; padding:24px 22px; overflow:hidden;
+    box-shadow:0 1px 3px rgba(20,50,40,.06); transition:transform .2s, box-shadow .2s;}
+  .course:hover{transform:translateY(-5px); box-shadow:0 16px 34px rgba(15,64,54,.16);}
+  .course::before{content:""; position:absolute; left:0; top:0; right:0; height:5px; background:linear-gradient(90deg,var(--green2),var(--gold));}
+  .course .ico{font-size:32px;}
+  .course .step{font-size:11px; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; color:var(--green2); margin-top:10px;}
+  .course h3{margin:3px 0 6px; font-size:20px; color:var(--deep);}
+  .course p{margin:0; font-size:14px; color:#48564f;}
+
+  /* ---------- screenshot showcase ---------- */
+  .screens{display:grid; grid-template-columns:repeat(2,1fr); gap:26px;}
+  .screen{margin:0; background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden;
+    box-shadow:0 14px 32px rgba(15,64,54,.14); transition:transform .25s, box-shadow .25s; transform:rotate(var(--r,0deg));}
+  .screen:nth-child(1){--r:-1.3deg;} .screen:nth-child(2){--r:1.3deg;}
+  .screen:hover{transform:rotate(0deg) translateY(-6px); box-shadow:0 22px 46px rgba(15,64,54,.24); z-index:2;}
+  .chrome{display:flex; align-items:center; gap:7px; padding:9px 13px; background:linear-gradient(180deg,#f2f6f1,#e7efe6); border-bottom:1px solid var(--line);}
+  .chrome .dot{width:11px; height:11px; border-radius:50%;}
+  .chrome .dot.r{background:#ff5f57;} .chrome .dot.y{background:#febc2e;} .chrome .dot.g{background:#28c840;}
+  .chrome .tab{margin-left:8px; font-size:12px; font-weight:800; color:var(--green2); background:#fff; border:1px solid var(--line); padding:3px 12px; border-radius:8px;}
+  .screenimg{position:relative; min-height:150px; display:flex; align-items:center; justify-content:center; background:#eef4ef;}
+  .screenimg .ph{position:absolute; font-size:14px; font-weight:800; color:#9bb6ab; letter-spacing:.5px;}
+  .screenimg img{position:relative; width:100%; display:block; cursor:zoom-in;}
+  .screen figcaption{padding:12px 16px 15px; font-size:13.5px; color:var(--muted);}
+  .screen figcaption b{color:var(--ink);}
+
+  /* ---------- product catalog chips ---------- */
+  .catalog{display:flex; flex-wrap:wrap; gap:10px; margin-top:6px;}
+  .catalog span{font-size:13px; font-weight:700; color:var(--deep); background:#fff; border:1px solid var(--line); padding:8px 14px; border-radius:10px; box-shadow:0 1px 2px rgba(20,50,40,.05);}
+  .catalog span i{font-style:normal; color:var(--green2); margin-right:6px;}
+
+  /* ---------- award band ---------- */
+  .band{background:linear-gradient(160deg,#0e4036,#0a2f29); color:#fff; text-align:center;}
+  .band .kicker{color:var(--gold2);}
+  .band h2{color:#fff;}
+  .trophies{display:flex; justify-content:center; gap:14px; margin:10px 0 6px; font-size:46px;}
+  .band .sub{color:#cfe6dd; max-width:640px; margin:0 auto;}
+  .band .award-link{display:inline-block; margin-top:18px; color:var(--night); background:var(--gold2); font-weight:800; text-decoration:none; padding:11px 20px; border-radius:30px;}
+  .band .award-link:hover{filter:brightness(1.05);}
+
+  /* ---------- tech ---------- */
+  .stack{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px;}
+  .stack span{font-size:13px; font-weight:700; color:var(--deep); background:#fff; border:1px solid var(--line); padding:8px 15px; border-radius:30px;}
+
+  footer{padding:30px 0 50px; text-align:center; color:var(--muted); font-size:13px;}
+  footer a{color:var(--deep); text-decoration:none; font-weight:800;}
+
+  /* ---------- lightbox ---------- */
+  #lb{display:none; position:fixed; inset:0; z-index:9999; background:rgba(6,24,20,.93); align-items:flex-start; justify-content:center; overflow:auto; cursor:zoom-out; padding:24px;}
+  #lb img{max-width:none; border-radius:8px; box-shadow:0 16px 60px rgba(0,0,0,.6);}
+  #lb .x{position:fixed; top:16px; right:22px; color:#fff; font-size:38px; line-height:1; cursor:pointer;}
+
+  @media (max-width:820px){
+    .hero .wrap{grid-template-columns:1fr; text-align:center;}
+    .seal img{max-width:210px;}
+    .awards,.meter{justify-content:center;}
+  }
+  @media (max-width:720px){ .courses,.screens{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <a class="back" href="David Silverlight Portfolio.html">&larr; Back to portfolio</a>
+    <span class="who">Case Study · <b>David Silverlight</b></span>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="wrap">
+    <div class="seal">
+      <img src="images/MicrosoftHostingU/mhu-seal.png" alt="Microsoft Hosting University seal — Est. 2009"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="sealfallback"><span class="u serif">U</span><span class="t">MICROSOFT HOSTING UNIVERSITY · EST. 2009</span></div>
+    </div>
+    <div>
+      <span class="eyebrow">🎓 Silverlight · Award-Winning Experience</span>
+      <h1 class="serif">Microsoft <span class="g">Hosting University</span></h1>
+      <p class="lead">An interactive Silverlight "campus" that turns the Microsoft hosting stack into a guided curriculum — engaging service providers with rich media, technical video, and a self-guided tour that ultimately qualifies and captures leads.</p>
+      <div class="awards">
+        <div class="aw">🏆 <b>3×</b> 2010 Communicator Awards</div>
+        <div class="aw">🥇 <b>Gold</b> Award of Excellence</div>
+        <div class="aw">📅 Est. <b>2009</b></div>
+      </div>
+      <div class="curr">
+        <div class="lbl">Curriculum level</div>
+        <div class="meter"><span class="on">Beginner</span><span>Intermediate</span><span class="on">Advanced</span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ CURRICULUM ============ -->
+<section>
+  <div class="wrap">
+    <span class="kicker">The curriculum</span>
+    <h2 class="sec serif">One campus, three lesson plans</h2>
+    <p class="sec-sub">Hosting University framed Microsoft's platform as a learning path. Service providers chose a track and followed it from fundamentals to advanced — Build, Manage, Scale.</p>
+    <div class="courses">
+      <div class="course"><div class="ico">🔧</div><div class="step">Lesson Plan 01</div><h3>Build</h3><p>Developer &amp; hosting tools — choose the Microsoft servers and dev tools for flexible, manageable, efficient environments.</p></div>
+      <div class="course"><div class="ico">🗂️</div><div class="step">Lesson Plan 02</div><h3>Manage</h3><p>Server management — operate and maintain hosting infrastructure with confidence and control.</p></div>
+      <div class="course"><div class="ico">☁️</div><div class="step">Lesson Plan 03</div><h3>Scale</h3><p>Cloud computing — grow from a single machine to multi-OS, cloud-scale deployments.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCREENSHOTS ============ -->
+<section style="background:#e6efe9;">
+  <div class="wrap">
+    <span class="kicker">The experience</span>
+    <h2 class="sec serif">A Silverlight campus to explore</h2>
+    <p class="sec-sub">Bold, immersive screens built entirely in Silverlight — rich media presentation layers, animated product showcases and a self-guided tour. Click any screen to enlarge.</p>
+    <div class="screens">
+      <figure class="screen">
+        <div class="chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tab">Home · Lesson Plans</span></div>
+        <div class="screenimg"><span class="ph">Choose a Lesson Plan</span><img src="images/MicrosoftHostingU/mhu-home.png" alt="Home — Choose a Lesson Plan (Build / Manage / Scale)" onerror="this.style.display='none'"></div>
+        <figcaption><b>Welcome &amp; lesson plans.</b> The campus entry point — pick Build, Manage or Scale and set your curriculum level.</figcaption>
+      </figure>
+      <figure class="screen">
+        <div class="chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tab">Build · Product Tour</span></div>
+        <div class="screenimg"><span class="ph">Select a Product</span><img src="images/MicrosoftHostingU/mhu-build.png" alt="Build — select a Microsoft product to learn more" onerror="this.style.display='none'"></div>
+        <figcaption><b>Build track.</b> An animated product showcase — select a Microsoft server or tool to dive into a self-guided lesson.</figcaption>
+      </figure>
+    </div>
+
+    <div style="margin-top:28px;">
+      <span class="kicker">Inside the Build track</span>
+      <div class="catalog">
+        <span><i>▣</i>System Center</span><span><i>▣</i>SQL Server Web</span><span><i>▣</i>Windows Server 2008 R2 Hyper-V</span>
+        <span><i>▣</i>Windows Server 2008</span><span><i>▣</i>Expression Studio 4</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AWARDS ============ -->
+<section class="band">
+  <div class="wrap">
+    <span class="kicker">Recognition</span>
+    <div class="trophies">🏆🥇🏆</div>
+    <h2 class="sec serif">Winner of 3 coveted 2010 Communicator Awards</h2>
+    <p class="sub">Developed with the team at Merit Mile, Microsoft Hosting University took home the <b>Gold Award of Excellence</b> in the highly contested <i>Websites — Computer / IT: Software</i> category, chosen from a field of <b>over 7,000 entries</b> from across the US and around the world.</p>
+    <a class="award-link" href="http://www.meritmile.com/news/merit-mile-communications-shines-golden-as-the-winner-of-3-coveted-2010-communicator-awards/" target="_blank">Read the recognition &rarr;</a>
+  </div>
+</section>
+
+<!-- ============ ABOUT / TECH ============ -->
+<section>
+  <div class="wrap">
+    <span class="kicker">About &amp; role</span>
+    <h2 class="sec serif">Rich media, real results</h2>
+    <p class="sec-sub">Microsoft Hosting University provided a self-guided tour of the Microsoft Dynamic Data Center Toolkit (DDCTK) — using rich-media presentation layers and custom video production to engage viewers with technical content and, ultimately, qualify and capture DDCTK leads. I developed the Silverlight user experience.</p>
+    <div class="stack">
+      <span>Microsoft Silverlight</span><span>Expression Blend</span><span>Rich Media / Deep Zoom</span>
+      <span>Custom Video Production</span><span>Lead Capture</span><span>Advertising · Web Design · Web Development</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Microsoft Hosting University · Silverlight Experience · with Merit Mile &nbsp;·&nbsp;
+  <a href="David Silverlight Portfolio.html">← Back to portfolio</a> &nbsp;·&nbsp;
+  <a href="https://DavidSilverlight.com" target="_blank">DavidSilverlight.com</a>
+</footer>
+
+<div id="lb"><span class="x">&times;</span><img alt="enlarged screenshot"></div>
+<script>
+(function(){
+  var lb=document.getElementById('lb'), im=lb.querySelector('img');
+  document.querySelectorAll('.screenimg img').forEach(function(g){
+    g.addEventListener('click', function(e){ e.stopPropagation(); im.src=g.src; lb.style.display='flex'; });
+  });
+  lb.addEventListener('click', function(){ lb.style.display='none'; im.src=''; });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ lb.style.display='none'; im.src=''; } });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ATrack Mobile — Case Study · David Silverlight</title>
+<style>
+  :root{--navy:#15457a; --teal:#2c7a7b; --sky:#4d9fd6; --mint:#34b88a; --ink:#15242e; --muted:#586a78; --paper:#eef3f7; --card:#fff; --line:#dde6ee;}
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; font-family:"Segoe UI",Calibri,Arial,sans-serif; color:var(--ink); background:var(--paper); line-height:1.55;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 26px;}
+  .topbar{position:sticky; top:0; z-index:40; background:rgba(14,40,64,.95); backdrop-filter:blur(8px); border-bottom:1px solid rgba(95,200,210,.25);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:56px;}
+  .back{display:inline-flex; gap:8px; text-decoration:none; color:#fff; font-weight:800; font-size:14px; background:linear-gradient(90deg,var(--navy),var(--teal)); padding:9px 16px; border-radius:30px; box-shadow:0 3px 10px rgba(0,0,0,.25);}
+  .back:hover{filter:brightness(1.08);}
+  .topbar .who{color:#c4dae6; font-size:13px; font-weight:700;} .topbar .who b{color:#fff;}
+
+  /* hero */
+  .hero{position:relative; overflow:hidden; color:#fff;
+    background:radial-gradient(1000px 480px at 84% -12%, rgba(77,159,214,.4), transparent 58%),
+      radial-gradient(800px 420px at 6% 120%, rgba(52,184,138,.28), transparent 55%),
+      linear-gradient(160deg,#103456,#15457a 52%,#1d6a6a);}
+  .hero::before{content:""; position:absolute; inset:0; opacity:.5; pointer-events:none;
+    background:linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px); background-size:40px 40px;}
+  /* ascending progress line motif */
+  .hero .chart{position:absolute; left:0; right:0; bottom:0; height:60%; z-index:1; opacity:.55; pointer-events:none;}
+  .hero .chart path{fill:none; stroke:#7fe3d0; stroke-width:3; stroke-linecap:round; stroke-dasharray:1600; stroke-dashoffset:1600; animation:draw 3.5s ease-out forwards;}
+  @keyframes draw{to{stroke-dashoffset:0;}}
+  .hero .chart circle{fill:#aef3e6; opacity:0; animation:pop .4s ease-out forwards;}
+  .hero .chart circle:nth-of-type(1){animation-delay:.6s;} .hero .chart circle:nth-of-type(2){animation-delay:1.1s;}
+  .hero .chart circle:nth-of-type(3){animation-delay:1.6s;} .hero .chart circle:nth-of-type(4){animation-delay:2.1s;}
+  .hero .chart circle:nth-of-type(5){animation-delay:2.6s;} .hero .chart circle:nth-of-type(6){animation-delay:3.1s;}
+  @keyframes pop{from{opacity:0; r:0;} to{opacity:1; r:6;}}
+  .hero .wrap{position:relative; z-index:3; padding:52px 26px 40px;}
+  .eyebrow{display:inline-flex; gap:8px; font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:#bfeae6; background:rgba(95,200,210,.16); border:1px solid rgba(95,200,210,.45); padding:6px 13px; border-radius:30px;}
+  .hero h1{margin:16px 0 6px; font-size:clamp(34px,6vw,62px); line-height:1;}
+  .hero h1 span{background:linear-gradient(90deg,#7fe3d0,#bfe0ff); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero .lead{max-width:640px; font-size:18px; color:#d6e6ee;}
+  .tags{margin-top:16px; display:flex; flex-wrap:wrap; gap:8px;}
+  .tags span{font-size:12px; font-weight:700; color:#e7f1fb; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.18); padding:5px 12px; border-radius:20px;}
+
+  /* phone cascade */
+  .cascade{position:relative; z-index:3; margin-top:30px; display:flex; align-items:flex-end; justify-content:center; flex-wrap:wrap; gap:clamp(8px,1.6vw,20px);}
+  .phone{position:relative; transform:translateY(var(--ty,0)); transition:transform .25s ease;}
+  .phone img{display:block; width:clamp(96px,11vw,150px); border-radius:16px; box-shadow:0 22px 40px rgba(0,10,25,.5); cursor:zoom-in;}
+  .phone:hover{transform:translateY(-10px) scale(1.03); z-index:9;}
+
+  /* sections */
+  section{padding:52px 0;}
+  .kicker{font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--teal);}
+  h2.sec{font-size:clamp(24px,3.4vw,34px); margin:8px 0 6px; color:var(--navy);}
+  .sec-sub{color:var(--muted); max-width:720px; font-size:16px; margin:0 0 26px;}
+
+  /* ABA flow */
+  .flow{position:relative; display:flex; align-items:flex-start; justify-content:space-between; gap:6px; margin-top:8px;}
+  .flow::before{content:""; position:absolute; left:5%; right:5%; top:26px; height:4px; border-radius:4px; background:linear-gradient(90deg,var(--navy),var(--mint));}
+  .fnode{position:relative; z-index:2; flex:1; display:flex; flex-direction:column; align-items:center; text-align:center; gap:8px;}
+  .fnode .dot{width:54px; height:54px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:24px; color:#fff; background:linear-gradient(160deg,var(--navy),var(--teal)); box-shadow:0 8px 18px rgba(20,50,80,.25);}
+  .fnode .lbl{font-size:12.5px; font-weight:700; color:var(--ink); max-width:120px;}
+  .fnode .sub{font-size:11.5px; color:var(--muted);}
+
+  /* impact cards */
+  section.impact{background:#e7eef4;}
+  .cards{display:grid; grid-template-columns:repeat(2,1fr); gap:18px;}
+  .imp{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px; position:relative; overflow:hidden; box-shadow:0 1px 3px rgba(20,40,80,.06); transition:transform .2s, box-shadow .2s;}
+  .imp:hover{transform:translateY(-4px); box-shadow:0 14px 30px rgba(20,50,90,.14);}
+  .imp::before{content:""; position:absolute; left:0; top:0; bottom:0; width:5px; background:linear-gradient(180deg,var(--teal),var(--mint));}
+  .imp .ico{width:46px; height:46px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:23px; background:linear-gradient(160deg,#e7f0f6,#ddeaf2); border:1px solid var(--line); margin-bottom:12px;}
+  .imp h3{margin:0 0 6px; font-size:17px; color:var(--navy);} .imp p{margin:0; font-size:14px; color:#46566a;}
+
+  /* screenshot grid (full gallery) */
+  .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  .screen{margin:0; background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden; box-shadow:0 12px 28px rgba(20,50,90,.13); transition:transform .2s, box-shadow .2s;}
+  .screen:hover{transform:translateY(-5px); box-shadow:0 20px 40px rgba(20,50,90,.2);}
+  .screen .shotwrap{background:linear-gradient(160deg,#eef4f9,#e2edf4); display:flex; align-items:center; justify-content:center; padding:18px;}
+  .screen .shotwrap img{width:62%; border-radius:14px; box-shadow:0 12px 24px rgba(10,30,60,.3); cursor:zoom-in;}
+  .screen figcaption{padding:12px 16px 15px; font-size:13px; color:var(--muted);} .screen figcaption b{color:var(--ink); display:block; font-size:14px; margin-bottom:2px;}
+
+  /* tech band */
+  .band{background:linear-gradient(160deg,#103456,#0e2c2c); color:#fff;}
+  .band h2{color:#fff;} .band .kicker{color:#7fe3d0;} .band .sec-sub{color:#c2d6e0;}
+  .stack{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;}
+  .stack span{font-size:13px; font-weight:700; color:#e6f4ff; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16); padding:8px 15px; border-radius:30px;}
+
+  footer{padding:30px 0 50px; text-align:center; color:var(--muted); font-size:13px;} footer a{color:var(--navy); text-decoration:none; font-weight:800;}
+
+  #lb{display:none; position:fixed; inset:0; z-index:9999; background:rgba(8,20,34,.93); align-items:flex-start; justify-content:center; overflow:auto; cursor:zoom-out; padding:24px;}
+  #lb img{max-width:none; max-height:none; border-radius:10px; box-shadow:0 16px 60px rgba(0,0,0,.6);}
+  #lb .x{position:fixed; top:16px; right:22px; color:#fff; font-size:38px; line-height:1; cursor:pointer;}
+
+  @media (max-width:820px){ .cards{grid-template-columns:1fr;} .grid3{grid-template-columns:1fr 1fr;} .flow{overflow-x:auto;} .fnode{min-width:96px;} }
+  @media (max-width:560px){ .grid3{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap"><a class="back" href="David Silverlight Portfolio.html">&larr; Back to portfolio</a><span class="who">Case Study · <b>David Silverlight</b></span></div></div>
+
+<!-- HERO -->
+<header class="hero">
+  <svg class="chart" viewBox="0 0 1200 300" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,270 L200,232 L400,250 L600,170 L800,120 L1000,70 L1200,30"/>
+    <circle cx="200" cy="232" r="6"/><circle cx="400" cy="250" r="6"/><circle cx="600" cy="170" r="6"/>
+    <circle cx="800" cy="120" r="6"/><circle cx="1000" cy="70" r="6"/><circle cx="1200" cy="30" r="6"/>
+  </svg>
+  <div class="wrap">
+    <span class="eyebrow">▲ .NET MAUI · Clinical / Healthcare</span>
+    <h1>ATrack <span>Mobile</span></h1>
+    <p class="lead">An all-in-one data-collection and clinical-practice platform for Applied Behavior Analysis (ABA) therapy and autism providers — turning every therapy session into clean, trackable progress.</p>
+    <div class="tags"><span>ABA Therapy</span><span>Data Collection</span><span>iOS &amp; Android</span><span>Crash &amp; Analytics</span><span>.NET MAUI</span></div>
+    <div class="cascade">
+      <div class="phone" style="--ty:64px;"><img src="images/Atrack/LoginScreen.png" alt="ATrack login"></div>
+      <div class="phone" style="--ty:36px;"><img src="images/Atrack/HomeScreen.png" alt="ATrack home"></div>
+      <div class="phone" style="--ty:12px;"><img src="images/Atrack/CasesScreen.png" alt="ATrack cases"></div>
+      <div class="phone" style="--ty:12px;"><img src="images/Atrack/ViewProgram.png" alt="ATrack program"></div>
+      <div class="phone" style="--ty:36px;"><img src="images/Atrack/Targets3Screen.png" alt="ATrack session trial"></div>
+      <div class="phone" style="--ty:64px;"><img src="images/Atrack/ChatWithSupport.png" alt="ATrack support chat"></div>
+    </div>
+  </div>
+</header>
+
+<!-- ABA WORKFLOW -->
+<section>
+  <div class="wrap">
+    <span class="kicker">How clinicians work</span>
+    <h2 class="sec">From session to measurable progress</h2>
+    <p class="sec-sub">ATrack mirrors the real ABA workflow — a therapist opens a client's case, runs their programs, collects target-by-target trial data in the moment, and watches progress accrue.</p>
+    <div class="flow">
+      <div class="fnode"><div class="dot">🧑</div><div class="lbl">Case</div><div class="sub">Open a client</div></div>
+      <div class="fnode"><div class="dot">📋</div><div class="lbl">Program</div><div class="sub">Their plan</div></div>
+      <div class="fnode"><div class="dot">🎯</div><div class="lbl">Targets</div><div class="sub">What to teach</div></div>
+      <div class="fnode"><div class="dot">✍️</div><div class="lbl">Session Trials</div><div class="sub">Collect data</div></div>
+      <div class="fnode"><div class="dot">📈</div><div class="lbl">Progress</div><div class="sub">Track outcomes</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section class="impact">
+  <div class="wrap">
+    <span class="kicker">My engagement</span>
+    <h2 class="sec">Stabilize, ship, and see inside</h2>
+    <p class="sec-sub">I joined an in-flight .NET MAUI product and focused on making it dependable, more capable, and observable in production.</p>
+    <div class="cards">
+      <div class="imp"><div class="ico">🐛</div><h3>Cleared a large defect backlog</h3><p>Worked through a substantial backlog of defects to stabilize the app and lift everyday reliability for clinicians.</p></div>
+      <div class="imp"><div class="ico">🚀</div><h3>Shipped new features</h3><p>Delivered new capabilities into the data-collection and clinical-practice workflows that providers rely on.</p></div>
+      <div class="imp"><div class="ico">🔧</div><h3>Fixed migration defects</h3><p>Hunted down and resolved defects introduced during the platform's migration to .NET MAUI.</p></div>
+      <div class="imp"><div class="ico">📊</div><h3>Crash &amp; analytics layer</h3><p>Designed a configurable Sentry/UXCam crash-and-analytics layer — production visibility into errors and real user behavior.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SCREENS -->
+<section>
+  <div class="wrap">
+    <span class="kicker">The app</span>
+    <h2 class="sec">Built for clinicians in the moment</h2>
+    <p class="sec-sub">A focused, fast mobile experience for collecting therapy data on iOS and Android. Click any screen to enlarge.</p>
+    <div class="grid3">
+      <figure class="screen"><div class="shotwrap"><img src="images/Atrack/LoginScreen.png" alt="ATrack login" onerror="this.closest('.screen').style.display='none'"></div><figcaption><b>Secure sign-in</b>Role-based access for therapists and supervisors.</figcaption></figure>
+      <figure class="screen"><div class="shotwrap"><img src="images/Atrack/HomeScreen.png" alt="ATrack home" onerror="this.closest('.screen').style.display='none'"></div><figcaption><b>Home</b>A clinician's day at a glance.</figcaption></figure>
+      <figure class="screen"><div class="shotwrap"><img src="images/Atrack/CasesScreen.png" alt="ATrack cases" onerror="this.closest('.screen').style.display='none'"></div><figcaption><b>Cases</b>Clients and their active programs.</figcaption></figure>
+      <figure class="screen"><div class="shotwrap"><img src="images/Atrack/ViewProgram.png" alt="ATrack program" onerror="this.closest('.screen').style.display='none'"></div><figcaption><b>Program detail</b>Goals, targets and configuration.</figcaption></figure>
+      <figure class="screen"><div class="shotwrap"><img src="images/Atrack/Targets3Screen.png" alt="ATrack session trial" onerror="this.closest('.screen').style.display='none'"></div><figcaption><b>Session trials</b>Fast, target-by-target data entry.</figcaption></figure>
+      <figure class="screen"><div class="shotwrap"><img src="images/Atrack/ChatWithSupport.png" alt="ATrack support chat" onerror="this.closest('.screen').style.display='none'"></div><figcaption><b>In-app support</b>Help without leaving the workflow.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- TECH -->
+<section class="band">
+  <div class="wrap">
+    <span class="kicker">Architecture &amp; stack</span>
+    <h2 class="sec">A modern .NET MAUI toolchain</h2>
+    <p class="sec-sub">Production-grade libraries for navigation, UI, local data, and observability — the building blocks of a dependable clinical app.</p>
+    <div class="stack"><span>.NET MAUI</span><span>Prism.Maui</span><span>CommunityToolkit.Maui</span><span>DevExpress</span><span>Sharpnado</span><span>SQLite</span><span>Sentry.Maui</span><span>UXCam</span></div>
+  </div>
+</section>
+
+<footer>
+  ATrack Mobile · ABA Therapy Data-Collection Platform · .NET MAUI &nbsp;·&nbsp;
+  <a href="David Silverlight Portfolio.html">← Back to portfolio</a> &nbsp;·&nbsp;
+  <a href="https://DavidSilverlight.com" target="_blank">DavidSilverlight.com</a>
+</footer>
+
+<div id="lb"><span class="x">&times;</span><img alt="enlarged screenshot"></div>
+<script>
+(function(){
+  var lb=document.getElementById('lb'), im=lb.querySelector('img');
+  document.querySelectorAll('.cascade img, .shotwrap img').forEach(function(g){
+    g.addEventListener('click', function(e){ e.stopPropagation(); im.src=g.src; lb.style.display='flex'; });
+  });
+  lb.addEventListener('click', function(){ lb.style.display='none'; im.src=''; });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ lb.style.display='none'; im.src=''; } });
+})();
+</script>
+</body>
+</html>

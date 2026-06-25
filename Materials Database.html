@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Materials Database — Case Study · David Silverlight</title>
+<style>
+  :root{
+    --navy:#13224d; --blue:#2f6fed; --blue2:#5b8ef5; --cyan:#39c0d8; --copper:#e0954a;
+    --ink:#172033; --muted:#5c6b86; --paper:#eef1f7; --card:#ffffff; --line:#dde3ee;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; font-family:"Segoe UI",Calibri,Arial,sans-serif; color:var(--ink); background:var(--paper); line-height:1.55;}
+  .wrap{max-width:1100px; margin:0 auto; padding:0 26px;}
+  .mono{font-family:"Consolas","SF Mono",Menlo,monospace;}
+
+  /* ---------- top bar ---------- */
+  .topbar{position:sticky; top:0; z-index:40; background:rgba(12,22,52,.95); backdrop-filter:blur(8px); border-bottom:1px solid rgba(57,192,216,.25);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:56px;}
+  .back{display:inline-flex; align-items:center; gap:8px; text-decoration:none; color:var(--navy); font-weight:800; font-size:14px;
+    background:#fff; padding:9px 16px; border-radius:30px; box-shadow:0 3px 10px rgba(0,0,0,.25);}
+  .back:hover{transform:translateY(-1px);}
+  .topbar .who{color:#bcd0f2; font-size:13px; font-weight:700;}
+  .topbar .who b{color:#fff;}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative; overflow:hidden; color:#fff;
+    background:radial-gradient(1000px 480px at 82% -15%, rgba(57,192,216,.35), transparent 58%),
+               radial-gradient(800px 420px at 8% 120%, rgba(47,111,237,.4), transparent 55%),
+               linear-gradient(160deg,#0e1b3e,#13224d 55%,#0c1733);}
+  .hero::before{content:""; position:absolute; inset:0; opacity:.55; pointer-events:none;
+    background:linear-gradient(rgba(120,170,255,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(120,170,255,.07) 1px, transparent 1px);
+    background-size:38px 38px;}
+  .hero .wrap{position:relative; z-index:3; padding:52px 26px 38px;}
+  .eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase;
+    color:#a7e6f1; background:rgba(57,192,216,.16); border:1px solid rgba(57,192,216,.45); padding:6px 13px; border-radius:30px;}
+  .hero h1{margin:16px 0 6px; font-size:clamp(32px,5.4vw,58px); line-height:1.03;}
+  .hero h1 span{background:linear-gradient(90deg,#7fd6e6,#9ec2ff); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero .lead{max-width:660px; font-size:18px; color:#cdd8ef;}
+  .hero .tags{margin-top:16px; display:flex; flex-wrap:wrap; gap:8px;}
+  .hero .tags span{font-size:12px; font-weight:700; color:#e6eefb; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.18); padding:5px 12px; border-radius:20px;}
+
+  /* stats */
+  .stats{display:flex; flex-wrap:wrap; gap:14px; margin:26px 0 8px;}
+  .stat{flex:1; min-width:150px; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.14); border-radius:14px; padding:16px 18px;}
+  .stat .n{font-size:30px; font-weight:800; line-height:1; color:#fff;}
+  .stat .n small{font-size:16px; color:#7fd6e6; font-weight:800;}
+  .stat .l{margin-top:6px; font-size:12.5px; color:#b9c6dd;}
+
+  /* element tiles */
+  .elwrap{margin-top:26px;}
+  .eltitle{font-size:12px; letter-spacing:2px; text-transform:uppercase; color:#8fdce8; font-weight:800; margin-bottom:12px;}
+  .els{display:flex; flex-wrap:wrap; gap:10px;}
+  .el{width:92px; height:92px; border-radius:12px; padding:8px 10px; position:relative; color:#eaf6ff;
+    background:linear-gradient(160deg,#1b3168,#16264f); border:1px solid rgba(120,170,255,.3); box-shadow:0 8px 16px rgba(0,0,0,.25);}
+  .el .sym{font-size:26px; font-weight:800; line-height:1; color:#fff;}
+  .el .nm{position:absolute; bottom:8px; left:10px; right:8px; font-size:10.5px; color:#a9c4ee; line-height:1.15;}
+  .el .no{position:absolute; top:7px; right:9px; font-size:10px; color:#6f8dc4;}
+
+  /* sections */
+  section{padding:52px 0;}
+  .kicker{font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--blue);}
+  h2.sec{font-size:clamp(24px,3.4vw,34px); margin:8px 0 6px; color:var(--navy);}
+  .sec-sub{color:var(--muted); max-width:700px; font-size:16px; margin:0 0 26px;}
+
+  /* discipline cards */
+  .disc{display:grid; grid-template-columns:repeat(4,1fr); gap:16px;}
+  .dcard{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px; position:relative; overflow:hidden;
+    box-shadow:0 1px 3px rgba(20,40,80,.06); transition:transform .2s, box-shadow .2s;}
+  .dcard:hover{transform:translateY(-4px); box-shadow:0 14px 30px rgba(20,50,90,.14);}
+  .dcard::before{content:""; position:absolute; left:0; top:0; right:0; height:5px; background:linear-gradient(90deg,var(--blue),var(--cyan));}
+  .dcard .ico{font-size:30px;} .dcard h3{margin:8px 0 8px; font-size:17px; color:var(--navy);}
+  .dcard ul{margin:0; padding:0; list-style:none;}
+  .dcard li{font-size:12.5px; color:#52617c; padding:3px 0 3px 16px; position:relative;}
+  .dcard li::before{content:"▸"; position:absolute; left:0; color:var(--cyan);}
+
+  /* screenshots */
+  .screens{display:grid; grid-template-columns:repeat(2,1fr); gap:24px;}
+  .screen{margin:0; background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden;
+    box-shadow:0 14px 32px rgba(20,40,90,.13); transition:transform .25s, box-shadow .25s; transform:rotate(var(--r,0deg));}
+  .screen:nth-child(1){--r:-1.2deg;} .screen:nth-child(2){--r:1.2deg;} .screen:nth-child(3){--r:1deg;}
+  .screen.wide{grid-column:1 / -1;}
+  .screen:hover{transform:rotate(0deg) translateY(-6px); box-shadow:0 22px 46px rgba(20,40,90,.22); z-index:2;}
+  .chrome{display:flex; align-items:center; gap:7px; padding:9px 13px; background:linear-gradient(180deg,#f2f6fc,#e6eef8); border-bottom:1px solid var(--line);}
+  .chrome .dot{width:11px; height:11px; border-radius:50%;}
+  .chrome .dot.r{background:#ff5f57;} .chrome .dot.y{background:#febc2e;} .chrome .dot.g{background:#28c840;}
+  .chrome .tab{margin-left:8px; font-size:12px; font-weight:800; color:var(--blue); background:#fff; border:1px solid var(--line); padding:3px 12px; border-radius:8px;}
+  .screenimg{position:relative; min-height:150px; display:flex; align-items:center; justify-content:center; background:#eef3fb;}
+  .screenimg .ph{position:absolute; font-size:14px; font-weight:800; color:#9fb3d4; letter-spacing:.5px;}
+  .screenimg img{position:relative; width:100%; display:block; cursor:zoom-in;}
+  .screen figcaption{padding:12px 16px 15px; font-size:13.5px; color:var(--muted);}
+  .screen figcaption b{color:var(--ink);}
+
+  /* features */
+  section.feats{background:#e7ecf6;}
+  .features{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  .feat{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px; position:relative; overflow:hidden;
+    box-shadow:0 1px 3px rgba(20,40,80,.06); transition:transform .2s, box-shadow .2s;}
+  .feat:hover{transform:translateY(-4px); box-shadow:0 14px 30px rgba(20,50,90,.14);}
+  .feat::before{content:""; position:absolute; left:0; top:0; bottom:0; width:5px; background:linear-gradient(180deg,var(--blue),var(--cyan));}
+  .feat .ico{width:44px; height:44px; border-radius:11px; display:flex; align-items:center; justify-content:center; font-size:22px;
+    background:linear-gradient(160deg,#e9f0fb,#dde8f7); border:1px solid var(--line); margin-bottom:12px;}
+  .feat h3{margin:0 0 6px; font-size:16.5px; color:var(--navy);}
+  .feat p{margin:0; font-size:14px; color:#46566e;}
+
+  /* tech band */
+  .band{background:linear-gradient(160deg,#0e1b3e,#0c1733); color:#fff;}
+  .band h2{color:#fff;} .band .kicker{color:#7fd6e6;} .band .sec-sub{color:#c2d2ee;}
+  .stack{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;}
+  .stack span{font-size:13px; font-weight:700; color:#e6f0ff; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16); padding:8px 15px; border-radius:30px;}
+
+  footer{padding:30px 0 50px; text-align:center; color:var(--muted); font-size:13px;}
+  footer a{color:var(--navy); text-decoration:none; font-weight:800;}
+
+  /* lightbox */
+  #lb{display:none; position:fixed; inset:0; z-index:9999; background:rgba(6,14,30,.93); align-items:flex-start; justify-content:center; overflow:auto; cursor:zoom-out; padding:24px;}
+  #lb img{max-width:none; border-radius:8px; box-shadow:0 16px 60px rgba(0,0,0,.6);}
+  #lb .x{position:fixed; top:16px; right:22px; color:#fff; font-size:38px; line-height:1; cursor:pointer;}
+
+  @media (max-width:860px){ .disc{grid-template-columns:repeat(2,1fr);} .features{grid-template-columns:1fr;} }
+  @media (max-width:720px){ .screens{grid-template-columns:1fr;} .screen{transform:none !important;} }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <a class="back" href="David Silverlight Portfolio.html">&larr; Back to portfolio</a>
+    <span class="who">Case Study · <b>David Silverlight</b></span>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">⚛ Silverlight · Engineering LOB</span>
+    <h1>Materials <span>Database</span></h1>
+    <p class="lead">An engineering materials &amp; component library for Motorola's mobile-device teams — a single source of truth for tracking materials, inventory and scheduling, with deep physical properties across every engineering discipline.</p>
+    <div class="tags"><span>Materials Engineering</span><span>Component Library</span><span>Customizable Fields</span><span>RIA Services + MVVM</span></div>
+
+    <div class="stats">
+      <div class="stat"><div class="n" data-to="4"></div><div class="l">Engineering discipline tabs</div></div>
+      <div class="stat"><div class="n">P/N</div><div class="l">Component-level part detail</div></div>
+      <div class="stat"><div class="n">Drag&nbsp;&amp;&nbsp;drop</div><div class="l">User-customizable display</div></div>
+      <div class="stat"><div class="n">RIA</div><div class="l">Silverlight data layer</div></div>
+    </div>
+
+    <div class="elwrap">
+      <div class="eltitle">Properties under management</div>
+      <div class="els">
+        <div class="el"><span class="no">01</span><span class="sym">ρ</span><span class="nm">Density</span></div>
+        <div class="el"><span class="no">02</span><span class="sym">E</span><span class="nm">Elastic Modulus</span></div>
+        <div class="el"><span class="no">03</span><span class="sym">σ</span><span class="nm">Tensile Strength</span></div>
+        <div class="el"><span class="no">04</span><span class="sym">ν</span><span class="nm">Poisson Ratio</span></div>
+        <div class="el"><span class="no">05</span><span class="sym">λ</span><span class="nm">Thermal</span></div>
+        <div class="el"><span class="no">06</span><span class="sym">Ra</span><span class="nm">Roughness</span></div>
+        <div class="el"><span class="no">07</span><span class="sym">ε</span><span class="nm">Surface Emissivity</span></div>
+        <div class="el"><span class="no">08</span><span class="sym">📡</span><span class="nm">Antenna</span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ DISCIPLINES ============ -->
+<section>
+  <div class="wrap">
+    <span class="kicker">One material, every discipline</span>
+    <h2 class="sec">A multi-discipline material model</h2>
+    <p class="sec-sub">Each material is described across four engineering disciplines — so structural, thermal and antenna engineers all work from the same record, each seeing the properties that matter to them.</p>
+    <div class="disc">
+      <div class="dcard"><div class="ico">🧩</div><h3>General</h3><ul><li>Material class &amp; name</li><li>Identifier &amp; process</li><li>Part number &amp; notes</li><li>Density &amp; roughness</li></ul></div>
+      <div class="dcard"><div class="ico">🏗️</div><h3>Structural</h3><ul><li>Elastic modulus</li><li>Tensile strength</li><li>Poisson ratio</li><li>Yield strength</li></ul></div>
+      <div class="dcard"><div class="ico">🌡️</div><h3>Thermal</h3><ul><li>Fluid mol weight</li><li>Surface emissivity</li><li>Thermal behavior</li></ul></div>
+      <div class="dcard"><div class="ico">📡</div><h3>Antenna</h3><ul><li>RF / antenna traits</li><li>Discipline completion</li><li>Access-controlled data</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCREENSHOTS ============ -->
+<section style="background:#e7ecf6;">
+  <div class="wrap">
+    <span class="kicker">The application</span>
+    <h2 class="sec">Search it, edit it, shape it to fit you</h2>
+    <p class="sec-sub">From a powerful material search to a tabbed editor and a drag-and-drop display designer, the app put engineers in control of their own data views. Click any screen to enlarge.</p>
+    <div class="screens">
+      <figure class="screen wide">
+        <div class="chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tab">Edit Material</span></div>
+        <div class="screenimg"><span class="ph">Edit Material · General / Structural / Antenna / Thermal</span><img src="images/MaterialsDatabase/md-edit.png" alt="Edit Material — tabbed editor with general values, document and supplier links" onerror="this.style.display='none'"></div>
+        <figcaption><b>Tabbed material editor.</b> Capture general values, per-discipline properties, access level, plus linked document and supplier URLs — all on one screen.</figcaption>
+      </figure>
+      <figure class="screen">
+        <div class="chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tab">Material Search</span></div>
+        <div class="screenimg"><span class="ph">Material Search</span><img src="images/MaterialsDatabase/md-search.png" alt="Material Search — criteria, results grid and output options" onerror="this.style.display='none'"></div>
+        <figcaption><b>Powerful search.</b> Filter by class, identifier, security level, program and completeness, then print, edit, copy or export results.</figcaption>
+      </figure>
+      <figure class="screen">
+        <div class="chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="tab">Customize Display</span></div>
+        <div class="screenimg"><span class="ph">Customize Display</span><img src="images/MaterialsDatabase/md-customize.png" alt="Customize Display — drag fields from the library into user field groups" onerror="this.style.display='none'"></div>
+        <figcaption><b>Drag-and-drop views.</b> Build personal field groups by dragging from the field library — save, reuse and share custom layouts.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+<section class="feats" style="background:#fff;">
+  <div class="wrap">
+    <span class="kicker">Capabilities</span>
+    <h2 class="sec">More than a table of parts</h2>
+    <p class="sec-sub">A real engineering tool — request, search, customize, template and govern.</p>
+    <div class="features">
+      <div class="feat"><div class="ico">🔎</div><h3>Material search</h3><p>Rich, multi-field search across class, identifier, program and security level with sortable, exportable results.</p></div>
+      <div class="feat"><div class="ico">📝</div><h3>New-material requests</h3><p>A request queue lets engineers submit new materials for review and entry into the shared library.</p></div>
+      <div class="feat"><div class="ico">🎛️</div><h3>Customizable display</h3><p>Drag-and-drop field groups let each user shape the data view to their discipline and workflow.</p></div>
+      <div class="feat"><div class="ico">🧾</div><h3>Output templates</h3><p>Define and apply output templates — including scientific-notation formatting — for clean, consistent reports.</p></div>
+      <div class="feat"><div class="ico">🔗</div><h3>Document &amp; supplier links</h3><p>Attach document and supplier URLs to any material, keeping spec sheets and sourcing a click away.</p></div>
+      <div class="feat"><div class="ico">🔐</div><h3>Access &amp; security</h3><p>Per-material access levels and security keep sensitive engineering data with the right people.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TECH ============ -->
+<section class="band">
+  <div class="wrap">
+    <span class="kicker">Architecture &amp; role</span>
+    <h2 class="sec">Built on the Silverlight LOB stack</h2>
+    <p class="sec-sub">I delivered the UI/UX and web development — a responsive, highly interactive engineering tool with drag-and-drop customization on a clean data layer.</p>
+    <div class="stack">
+      <span>Microsoft Silverlight</span><span>MVVM</span><span>WCF RIA Services</span><span>Drag-and-Drop UI</span>
+      <span>SQL Server</span><span>.NET</span><span>UI/UX · Web Design · Web Development</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Materials Database · Silverlight Engineering Platform · for Motorola &nbsp;·&nbsp;
+  <a href="David Silverlight Portfolio.html">← Back to portfolio</a> &nbsp;·&nbsp;
+  <a href="https://DavidSilverlight.com" target="_blank">DavidSilverlight.com</a>
+</footer>
+
+<div id="lb"><span class="x">&times;</span><img alt="enlarged screenshot"></div>
+<script>
+(function(){
+  document.querySelectorAll('.stat .n[data-to]').forEach(function(el){
+    var to=+el.getAttribute('data-to'), suf=el.getAttribute('data-suffix')||'', pre=el.getAttribute('data-prefix')||'', t0=null;
+    function step(ts){ if(!t0)t0=ts; var p=Math.min((ts-t0)/1100,1); var v=Math.round((1-Math.pow(1-p,3))*to);
+      el.innerHTML=pre+v+(suf?'<small>'+suf+'</small>':''); if(p<1) requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+  });
+  var lb=document.getElementById('lb'), im=lb.querySelector('img');
+  document.querySelectorAll('.screenimg img').forEach(function(g){
+    g.addEventListener('click', function(e){ e.stopPropagation(); im.src=g.src; lb.style.display='flex'; });
+  });
+  lb.addEventListener('click', function(){ lb.style.display='none'; im.src=''; });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ lb.style.display='none'; im.src=''; } });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPS Mobile Delivery — Case Study · David Silverlight</title>
+<style>
+  :root{--brown:#4b2e0e; --brown2:#6b4318; --tan:#8a5a22; --gold:#ffb500; --gold2:#ffd166; --cream:#fbf3e4;
+    --ink:#2a1d0d; --muted:#7a6750; --paper:#f4 efe6; --paper:#f5efe5; --card:#fff; --line:#e9dcc6;}
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; font-family:"Segoe UI",Calibri,Arial,sans-serif; color:var(--ink); background:var(--paper); line-height:1.55;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 26px;}
+  .topbar{position:sticky; top:0; z-index:40; background:rgba(43,29,13,.96); backdrop-filter:blur(8px); border-bottom:1px solid rgba(255,181,0,.35);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:56px;}
+  .back{display:inline-flex; gap:8px; text-decoration:none; color:var(--brown); font-weight:800; font-size:14px; background:var(--gold); padding:9px 16px; border-radius:30px; box-shadow:0 3px 10px rgba(0,0,0,.25);}
+  .back:hover{filter:brightness(1.05);}
+  .topbar .who{color:#e9d4ac; font-size:13px; font-weight:700;} .topbar .who b{color:#fff;}
+
+  /* hero */
+  .hero{position:relative; overflow:hidden; color:#fff;
+    background:radial-gradient(900px 460px at 84% -12%, rgba(255,181,0,.28), transparent 56%), linear-gradient(160deg,#3a2309,#4b2e0e 55%,#2e1c08);}
+  /* delivery road */
+  .hero .road{position:absolute; left:-6%; right:-6%; top:46%; height:34px; z-index:1; transform:rotate(-7deg);
+    background:repeating-linear-gradient(90deg,#ffd166 0 22px, transparent 22px 46px), #6b4318; border-top:4px solid #2e1c08; border-bottom:4px solid #2e1c08; opacity:.5;}
+  .hero .truck{position:absolute; left:7%; top:calc(46% - 34px); font-size:38px; z-index:2; animation:drive 9s linear infinite; filter:drop-shadow(0 4px 6px rgba(0,0,0,.4));}
+  @keyframes drive{0%{left:-8%;}100%{left:104%;}}
+  .hero .wrap{position:relative; z-index:3; padding:52px 26px 40px;}
+  .eyebrow{display:inline-flex; gap:8px; font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:#ffe0a3; background:rgba(255,181,0,.18); border:1px solid rgba(255,181,0,.5); padding:6px 13px; border-radius:30px;}
+  .hero h1{margin:16px 0 6px; font-size:clamp(32px,5.6vw,58px); line-height:1.02;}
+  .hero h1 span{color:var(--gold2);}
+  .hero .lead{max-width:660px; font-size:18px; color:#ecdcc2;}
+  .tags{margin-top:16px; display:flex; flex-wrap:wrap; gap:8px;}
+  .tags span{font-size:12px; font-weight:700; color:#fbeed3; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.18); padding:5px 12px; border-radius:20px;}
+
+  .stats{display:flex; flex-wrap:wrap; gap:14px; margin:26px 0 4px;}
+  .stat{flex:1; min-width:150px; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.14); border-radius:14px; padding:16px 18px;}
+  .stat .n{font-size:26px; font-weight:800; line-height:1.05; color:#fff;}
+  .stat .l{margin-top:6px; font-size:12.5px; color:#dcc9a8;}
+  .stat.gold{background:linear-gradient(160deg, rgba(255,181,0,.26), rgba(255,181,0,.1)); border-color:rgba(255,209,102,.5);} .stat.gold .n{color:#ffd166;}
+
+  /* phone cascade */
+  .cascade{position:relative; z-index:3; margin-top:30px; display:flex; align-items:flex-end; justify-content:center; flex-wrap:wrap; gap:clamp(8px,1.8vw,22px);}
+  .phone{transform:translateY(var(--ty,0)); transition:transform .25s ease;}
+  .phone img{display:block; width:clamp(110px,13vw,176px); border-radius:18px; box-shadow:0 22px 42px rgba(20,10,0,.5); cursor:zoom-in;}
+  .phone:hover{transform:translateY(-10px) scale(1.03); z-index:9;}
+
+  section{padding:52px 0;}
+  .kicker{font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--tan);}
+  h2.sec{font-size:clamp(24px,3.4vw,34px); margin:8px 0 6px; color:var(--brown);}
+  .sec-sub{color:var(--muted); max-width:720px; font-size:16px; margin:0 0 26px;}
+
+  /* spike proof points */
+  .proofs{display:grid; grid-template-columns:repeat(2,1fr); gap:18px;}
+  .proof{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px; position:relative; overflow:hidden; box-shadow:0 1px 3px rgba(60,40,10,.07); transition:transform .2s, box-shadow .2s;}
+  .proof:hover{transform:translateY(-4px); box-shadow:0 14px 30px rgba(75,46,14,.16);}
+  .proof::before{content:""; position:absolute; left:0; top:0; bottom:0; width:5px; background:linear-gradient(180deg,var(--brown2),var(--gold));}
+  .proof .ico{width:46px; height:46px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:23px; background:linear-gradient(160deg,#f6ecd8,#efe1c6); border:1px solid var(--line); margin-bottom:12px;}
+  .proof h3{margin:0 0 6px; font-size:17px; color:var(--brown);} .proof p{margin:0; font-size:14px; color:#5b4a32;}
+  .proof .chk{position:absolute; top:18px; right:18px; font-size:18px; color:#2f9e74; font-weight:900;}
+
+  /* device callout */
+  .diad{background:linear-gradient(160deg,#3a2309,#2e1c08); color:#fff; border-radius:18px; padding:30px; display:flex; gap:24px; align-items:center; flex-wrap:wrap;}
+  .diad .badge{flex:0 0 auto; width:92px; height:92px; border-radius:18px; display:flex; align-items:center; justify-content:center; font-size:44px; background:rgba(255,181,0,.16); border:1px solid rgba(255,209,102,.4);}
+  .diad .txt{flex:1; min-width:240px;}
+  .diad .kicker{color:#ffd166;} .diad h2{color:#fff; margin:6px 0 8px; font-size:clamp(20px,2.6vw,26px);} .diad p{margin:0; color:#e6d6bb; font-size:15px; max-width:640px;}
+
+  /* screenshots */
+  .grid4{display:grid; grid-template-columns:repeat(4,1fr); gap:18px;}
+  .screen{margin:0; background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden; box-shadow:0 12px 28px rgba(75,46,14,.13); transition:transform .2s, box-shadow .2s;}
+  .screen:hover{transform:translateY(-5px); box-shadow:0 20px 40px rgba(75,46,14,.2);}
+  .screen .shotwrap{background:linear-gradient(160deg,#f6efe3,# efe2cc); background:linear-gradient(160deg,#f6efe3,#efe2cc); display:flex; align-items:center; justify-content:center; padding:16px;}
+  .screen .shotwrap img{width:84%; border-radius:14px; box-shadow:0 12px 24px rgba(60,40,10,.28); cursor:zoom-in;}
+  .screen figcaption{padding:12px 15px 15px; font-size:13px; color:var(--muted);} .screen figcaption b{color:var(--ink); display:block; font-size:14px; margin-bottom:2px;}
+
+  .band{background:linear-gradient(160deg,#3a2309,#2a1808); color:#fff;}
+  .band h2{color:#fff;} .band .kicker{color:#ffd166;} .band .sec-sub{color:#dcc9a8;}
+  .stack{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;}
+  .stack span{font-size:13px; font-weight:700; color:#fbeed3; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16); padding:8px 15px; border-radius:30px;}
+
+  footer{padding:30px 0 50px; text-align:center; color:var(--muted); font-size:13px;} footer a{color:var(--brown); text-decoration:none; font-weight:800;}
+
+  #lb{display:none; position:fixed; inset:0; z-index:9999; background:rgba(28,16,4,.93); align-items:flex-start; justify-content:center; overflow:auto; cursor:zoom-out; padding:24px;}
+  #lb img{max-width:none; border-radius:10px; box-shadow:0 16px 60px rgba(0,0,0,.6);}
+  #lb .x{position:fixed; top:16px; right:22px; color:#fff; font-size:38px; line-height:1; cursor:pointer;}
+
+  @media (max-width:860px){ .proofs{grid-template-columns:1fr;} .grid4{grid-template-columns:1fr 1fr;} }
+  @media (max-width:520px){ .grid4{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap"><a class="back" href="David Silverlight Portfolio.html">&larr; Back to portfolio</a><span class="who">Case Study · <b>David Silverlight</b></span></div></div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="road"></div>
+  <span class="truck">🚚</span>
+  <div class="wrap">
+    <span class="eyebrow">▲ .NET MAUI · Enterprise · Feasibility Spike</span>
+    <h1>UPS <span>Mobile Delivery</span></h1>
+    <p class="lead">A .NET MAUI feasibility spike for the UPS driver application on the rugged DIAD 6 handheld — proving out the platform's readiness for one of logistics' most demanding mobile workloads.</p>
+    <div class="tags"><span>UPS Driver App</span><span>DIAD 6 Handheld</span><span>Trimble Maps</span><span>Barcode Scanning</span><span>.NET MAUI</span></div>
+
+    <div class="stats">
+      <div class="stat gold"><div class="n">Trimble Maps</div><div class="l">Validated under .NET MAUI</div></div>
+      <div class="stat gold"><div class="n">Barcode Scan</div><div class="l">Validated on-device</div></div>
+      <div class="stat"><div class="n">Component Lib</div><div class="l">Rebuilt in-house</div></div>
+      <div class="stat"><div class="n">Prism →&nbsp;out</div><div class="l">Removed per licensing</div></div>
+    </div>
+
+    <div class="cascade">
+      <div class="phone" style="--ty:48px;"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/9a928d8d-b597-4a56-9254-b93dc3a3b48a_rw_600.png?h=0698c6d7c2482039755b702598550a10" alt="UPS 1"></div>
+      <div class="phone" style="--ty:16px;"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/36fe62db-18f1-4d7e-afc5-1b71ce2780af_rw_600.png?h=d6f96e9e52eaec89d46e78519fae2d36" alt="UPS 2"></div>
+      <div class="phone" style="--ty:16px;"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/ed27b6d9-b183-43ec-901d-6ccdcfd6ab13_rw_600.png?h=854c16685abc60436ed213ae9d615a00" alt="UPS 3"></div>
+      <div class="phone" style="--ty:48px;"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/09ca7012-d190-4432-a6f2-b498dd9f8a4c_rw_600.png?h=5ad06f44069b78c2267966f5aac06a27" alt="UPS 4"></div>
+    </div>
+  </div>
+</header>
+
+<!-- DIAD CONTEXT -->
+<section>
+  <div class="wrap">
+    <div class="diad">
+      <div class="badge">📟</div>
+      <div class="txt">
+        <span class="kicker">The target device</span>
+        <h2>Engineered for the DIAD 6</h2>
+        <p>The spike targeted UPS's purpose-built DIAD 6 handheld — the device every driver carries on every stop. Proving .NET MAUI here meant proving it against real, rugged, high-volume field hardware.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF POINTS -->
+<section style="background:#efe6d6;">
+  <div class="wrap">
+    <span class="kicker">What the spike proved</span>
+    <h2 class="sec">De-risking .NET MAUI for the driver app</h2>
+    <p class="sec-sub">A feasibility spike exists to answer hard questions early. This one answered the ones that mattered most for going all-in on .NET MAUI.</p>
+    <div class="proofs">
+      <div class="proof"><span class="chk">✓</span><div class="ico">🗺️</div><h3>Trimble Maps validated</h3><p>Proved that Trimble Maps — core to routing and delivery — integrates and performs under .NET MAUI.</p></div>
+      <div class="proof"><span class="chk">✓</span><div class="ico">📦</div><h3>Barcode scanning validated</h3><p>Confirmed reliable barcode/parcel scanning on-device, the heartbeat of every delivery scan.</p></div>
+      <div class="proof"><span class="chk">✓</span><div class="ico">🧩</div><h3>Component library rebuilt</h3><p>Rebuilt the in-house component library for .NET MAUI, giving the app a consistent, reusable UI foundation.</p></div>
+      <div class="proof"><span class="chk">✓</span><div class="ico">⚖️</div><h3>Prism removed</h3><p>Responded to licensing changes by removing the Prism dependency — re-architecting navigation accordingly.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SCREENS -->
+<section>
+  <div class="wrap">
+    <span class="kicker">The prototype</span>
+    <h2 class="sec">The driver experience, in .NET MAUI</h2>
+    <p class="sec-sub">Screens from the feasibility build. Click any to enlarge.</p>
+    <div class="grid4">
+      <figure class="screen"><div class="shotwrap"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/9a928d8d-b597-4a56-9254-b93dc3a3b48a_rw_600.png?h=0698c6d7c2482039755b702598550a10" alt="UPS screen 1"></div><figcaption><b>Delivery flow</b>Driver workflow on the DIAD 6.</figcaption></figure>
+      <figure class="screen"><div class="shotwrap"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/36fe62db-18f1-4d7e-afc5-1b71ce2780af_rw_600.png?h=d6f96e9e52eaec89d46e78519fae2d36" alt="UPS screen 2"></div><figcaption><b>Scanning</b>Barcode capture validated on-device.</figcaption></figure>
+      <figure class="screen"><div class="shotwrap"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/ed27b6d9-b183-43ec-901d-6ccdcfd6ab13_rw_600.png?h=854c16685abc60436ed213ae9d615a00" alt="UPS screen 3"></div><figcaption><b>Mapping</b>Trimble Maps under .NET MAUI.</figcaption></figure>
+      <figure class="screen"><div class="shotwrap"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/09ca7012-d190-4432-a6f2-b498dd9f8a4c_rw_600.png?h=5ad06f44069b78c2267966f5aac06a27" alt="UPS screen 4"></div><figcaption><b>Component UI</b>The rebuilt in-house component library.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- TECH -->
+<section class="band">
+  <div class="wrap">
+    <span class="kicker">Architecture &amp; stack</span>
+    <h2 class="sec">A lean, license-clean foundation</h2>
+    <p class="sec-sub">The spike deliberately favored a lightweight, dependency-conscious stack — proving the app could ship without heavyweight third-party framework lock-in.</p>
+    <div class="stack"><span>.NET MAUI</span><span>Trimble Maps</span><span>MAUI Essentials</span><span>CommunityToolkit.Mvvm</span><span>SQLite</span></div>
+  </div>
+</section>
+
+<footer>
+  UPS Mobile Delivery · .NET MAUI Feasibility Spike · DIAD 6 &nbsp;·&nbsp;
+  <a href="David Silverlight Portfolio.html">← Back to portfolio</a> &nbsp;·&nbsp;
+  <a href="https://DavidSilverlight.com" target="_blank">DavidSilverlight.com</a>
+</footer>
+
+<div id="lb"><span class="x">&times;</span><img alt="enlarged screenshot"></div>
+<script>
+(function(){
+  var lb=document.getElementById('lb'), im=lb.querySelector('img');
+  document.querySelectorAll('.cascade img, .shotwrap img').forEach(function(g){
+    g.addEventListener('click', function(e){ e.stopPropagation(); im.src=g.src; lb.style.display='flex'; });
+  });
+  lb.addEventListener('click', function(){ lb.style.display='none'; im.src=''; });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ lb.style.display='none'; im.src=''; } });
+})();
+</script>
+</body>
+</html>

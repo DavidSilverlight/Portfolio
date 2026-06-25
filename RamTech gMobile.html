@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RamTech gMobile — Case Study · David Silverlight</title>
+<style>
+  :root{--forest:#1f6e4a; --teal:#16604f; --moss:#2e9e6b; --slate:#10402f; --amber:#f2a541; --sky:#4db0c9;
+    --ink:#16241e; --muted:#566b60; --paper:#eef4ef; --card:#fff; --line:#dde8e0;}
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; font-family:"Segoe UI",Calibri,Arial,sans-serif; color:var(--ink); background:var(--paper); line-height:1.55;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 26px;}
+  .topbar{position:sticky; top:0; z-index:40; background:rgba(12,48,36,.95); backdrop-filter:blur(8px); border-bottom:1px solid rgba(46,158,107,.3);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:56px;}
+  .back{display:inline-flex; gap:8px; text-decoration:none; color:#fff; font-weight:800; font-size:14px; background:linear-gradient(90deg,var(--forest),var(--moss)); padding:9px 16px; border-radius:30px; box-shadow:0 3px 10px rgba(0,0,0,.25);}
+  .back:hover{filter:brightness(1.08);}
+  .topbar .who{color:#c4e6d4; font-size:13px; font-weight:700;} .topbar .who b{color:#fff;}
+
+  /* hero with topographic contour motif */
+  .hero{position:relative; overflow:hidden; color:#fff;
+    background:
+      repeating-radial-gradient(circle at 28% 38%, rgba(255,255,255,.06) 0 1px, transparent 1px 24px),
+      repeating-radial-gradient(circle at 78% 72%, rgba(255,255,255,.05) 0 1px, transparent 1px 30px),
+      radial-gradient(900px 460px at 84% -12%, rgba(242,165,65,.22), transparent 58%),
+      linear-gradient(160deg,#0e3a2b,#1f6e4a 55%,#103f34);}
+  .hero .route{position:absolute; left:0; right:0; top:0; bottom:0; z-index:1; opacity:.7; pointer-events:none;}
+  .hero .route path{fill:none; stroke:#bdebd3; stroke-width:2.5; stroke-dasharray:9 8; stroke-linecap:round; animation:dash 16s linear infinite;}
+  @keyframes dash{to{stroke-dashoffset:-340;}}
+  .hero .pin{position:absolute; right:13%; top:60px; font-size:36px; z-index:2; animation:bob 2.6s ease-in-out infinite; filter:drop-shadow(0 6px 10px rgba(0,0,0,.4));}
+  @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-9px);}}
+  .hero .wrap{position:relative; z-index:3; padding:52px 26px 40px;}
+  .eyebrow{display:inline-flex; gap:8px; font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:#bdebd3; background:rgba(46,158,107,.2); border:1px solid rgba(120,220,170,.4); padding:6px 13px; border-radius:30px;}
+  .hero h1{margin:16px 0 6px; font-size:clamp(34px,6vw,60px); line-height:1;}
+  .hero h1 span{background:linear-gradient(90deg,#9fe9c2,#ffd79a); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero .lead{max-width:660px; font-size:18px; color:#d6ece0;}
+  .tags{margin-top:16px; display:flex; flex-wrap:wrap; gap:8px;}
+  .tags span{font-size:12px; font-weight:700; color:#e7f6ee; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.18); padding:5px 12px; border-radius:20px;}
+
+  /* stats */
+  .stats{display:flex; flex-wrap:wrap; gap:14px; margin:26px 0 4px;}
+  .stat{flex:1; min-width:150px; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.14); border-radius:14px; padding:16px 18px;}
+  .stat .n{font-size:32px; font-weight:800; line-height:1; color:#fff;}
+  .stat .n small{font-size:17px; color:#9fe9c2; font-weight:800;}
+  .stat .l{margin-top:6px; font-size:12.5px; color:#bcd4c6;}
+  .stat.amber{background:linear-gradient(160deg, rgba(242,165,65,.28), rgba(242,165,65,.1)); border-color:rgba(245,200,130,.5);} .stat.amber .n{color:#ffd79a;}
+
+  /* phone cascade */
+  .cascade{position:relative; z-index:3; margin-top:30px; display:flex; align-items:flex-end; justify-content:center; flex-wrap:wrap; gap:clamp(8px,1.8vw,22px);}
+  .phone{transform:translateY(var(--ty,0)); transition:transform .25s ease;}
+  .phone img{display:block; width:clamp(110px,13vw,176px); border-radius:18px; box-shadow:0 22px 42px rgba(0,20,12,.5); cursor:zoom-in;}
+  .phone:hover{transform:translateY(-10px) scale(1.03); z-index:9;}
+
+  section{padding:52px 0;}
+  .kicker{font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--forest);}
+  h2.sec{font-size:clamp(24px,3.4vw,34px); margin:8px 0 6px; color:var(--slate);}
+  .sec-sub{color:var(--muted); max-width:720px; font-size:16px; margin:0 0 26px;}
+
+  /* inspection types */
+  .types{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  .type{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:24px 22px; position:relative; overflow:hidden; box-shadow:0 1px 3px rgba(20,60,40,.06); transition:transform .2s, box-shadow .2s;}
+  .type:hover{transform:translateY(-5px); box-shadow:0 16px 34px rgba(20,90,60,.16);}
+  .type::before{content:""; position:absolute; left:0; top:0; right:0; height:5px; background:linear-gradient(90deg,var(--forest),var(--amber));}
+  .type .ico{font-size:32px;} .type h3{margin:8px 0 6px; font-size:18px; color:var(--slate);} .type p{margin:0; font-size:14px; color:#48584f;}
+
+  /* vNext callout */
+  .vnext{background:linear-gradient(160deg,#0e3a2b,#103f34); color:#fff; border-radius:18px; padding:32px; position:relative; overflow:hidden;}
+  .vnext .kicker{color:#9fe9c2;} .vnext h2{color:#fff; margin:8px 0 10px; font-size:clamp(22px,3vw,30px);}
+  .vnext p{margin:0; max-width:760px; color:#d6ece0; font-size:16px;}
+  .vnext .wins{display:flex; flex-wrap:wrap; gap:12px; margin-top:18px;}
+  .vnext .win{display:flex; align-items:center; gap:9px; font-size:14px; font-weight:700; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2); padding:9px 15px; border-radius:30px;}
+  .vnext .win b{color:#ffd79a;}
+
+  /* screenshot showcase */
+  .grid4{display:grid; grid-template-columns:repeat(4,1fr); gap:18px;}
+  .screen{margin:0; background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden; box-shadow:0 12px 28px rgba(20,70,50,.13); transition:transform .2s, box-shadow .2s;}
+  .screen:hover{transform:translateY(-5px); box-shadow:0 20px 40px rgba(20,90,60,.2);}
+  .screen .shotwrap{background:linear-gradient(160deg,#eef5f0,#e1efe6); display:flex; align-items:center; justify-content:center; padding:16px;}
+  .screen .shotwrap img{width:80%; border-radius:14px; box-shadow:0 12px 24px rgba(15,60,40,.28); cursor:zoom-in;}
+  .screen figcaption{padding:12px 15px 15px; font-size:13px; color:var(--muted);} .screen figcaption b{color:var(--ink); display:block; font-size:14px; margin-bottom:2px;}
+
+  .band{background:linear-gradient(160deg,#0e3a2b,#0c2c24); color:#fff;}
+  .band h2{color:#fff;} .band .kicker{color:#9fe9c2;} .band .sec-sub{color:#c2d6c9;}
+  .stack{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;}
+  .stack span{font-size:13px; font-weight:700; color:#e6f6ee; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16); padding:8px 15px; border-radius:30px;}
+
+  footer{padding:30px 0 50px; text-align:center; color:var(--muted); font-size:13px;} footer a{color:var(--forest); text-decoration:none; font-weight:800;}
+
+  #lb{display:none; position:fixed; inset:0; z-index:9999; background:rgba(8,28,20,.93); align-items:flex-start; justify-content:center; overflow:auto; cursor:zoom-out; padding:24px;}
+  #lb img{max-width:none; border-radius:10px; box-shadow:0 16px 60px rgba(0,0,0,.6);}
+  #lb .x{position:fixed; top:16px; right:22px; color:#fff; font-size:38px; line-height:1; cursor:pointer;}
+
+  @media (max-width:860px){ .types{grid-template-columns:1fr;} .grid4{grid-template-columns:1fr 1fr;} }
+  @media (max-width:520px){ .grid4{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap"><a class="back" href="David Silverlight Portfolio.html">&larr; Back to portfolio</a><span class="who">Case Study · <b>David Silverlight</b></span></div></div>
+
+<!-- HERO -->
+<header class="hero">
+  <svg class="route" viewBox="0 0 1200 360" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M-20,300 C180,250 240,120 420,150 C600,180 640,300 820,250 C980,205 1060,90 1240,70"/>
+  </svg>
+  <span class="pin">📍</span>
+  <div class="wrap">
+    <span class="eyebrow">▲ .NET MAUI · Esri / GIS · Field</span>
+    <h1>RamTech <span>gMobile</span></h1>
+    <p class="lead">An Esri/ArcGIS field-inspection platform that puts the map at the center — equipping crews to run damage assessments, leak surveys and gas-insight inspections from the field, fast.</p>
+    <div class="tags"><span>ArcGIS Maps SDK</span><span>Field Inspections</span><span>Gas Utility</span><span>iOS &amp; Android</span><span>.NET MAUI</span></div>
+
+    <div class="stats">
+      <div class="stat amber"><div class="n" data-prefix="~" data-to="30" data-suffix="%"></div><div class="l">Fewer clicks per feature</div></div>
+      <div class="stat amber"><div class="n" data-prefix="~" data-to="20" data-suffix="s"></div><div class="l">Load-time inits eliminated</div></div>
+      <div class="stat"><div class="n" data-to="1"></div><div class="l">Centralized mapping surface</div></div>
+      <div class="stat"><div class="n" data-to="3"></div><div class="l">Inspection workflows</div></div>
+    </div>
+
+    <div class="cascade">
+      <div class="phone" style="--ty:40px;"><img src="images/gMobile/LeftMenu.png" alt="gMobile menu"></div>
+      <div class="phone" style="--ty:8px;"><img src="images/gMobile/MapTools.png" alt="gMobile map tools"></div>
+      <div class="phone" style="--ty:8px;"><img src="images/gMobile/DroppedPin.png" alt="gMobile dropped pin"></div>
+      <div class="phone" style="--ty:40px;"><img src="images/gMobile/Layers.png" alt="gMobile layers"></div>
+    </div>
+  </div>
+</header>
+
+<!-- INSPECTION TYPES -->
+<section>
+  <div class="wrap">
+    <span class="kicker">In the field</span>
+    <h2 class="sec">Three inspection workflows, one app</h2>
+    <p class="sec-sub">Crews use gMobile to capture exactly what they see on site — turning field observations into structured, location-aware data.</p>
+    <div class="types">
+      <div class="type"><div class="ico">🏚️</div><h3>Damage Assessment</h3><p>Document and locate damage in the field with map-anchored records for rapid response and reporting.</p></div>
+      <div class="type"><div class="ico">🔎</div><h3>Leak Survey</h3><p>Walk and log leak surveys against the live map — coverage and findings captured precisely where they occur.</p></div>
+      <div class="type"><div class="ico">🔥</div><h3>Gas-Insight Inspections</h3><p>Specialized gas-utility inspections, structured for the data the operation needs to act on.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- vNEXT -->
+<section style="background:#e6efe9;">
+  <div class="wrap">
+    <div class="vnext">
+      <span class="kicker">The vNext re-architecture</span>
+      <h2>One map to rule the workflow</h2>
+      <p>After an initial round of UX and performance work, I re-architected the inspection workflows into a vNext release built around a single, centralized mapping surface — collapsing scattered screens into one fluid, map-first experience.</p>
+      <div class="wins">
+        <div class="win">🖱️ <b>~30%</b> fewer clicks per feature</div>
+        <div class="win">⚡ <b>~20s</b> of load-time initializations eliminated</div>
+        <div class="win">🗺️ <b>1</b> centralized mapping surface</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCREENS -->
+<section>
+  <div class="wrap">
+    <span class="kicker">The app</span>
+    <h2 class="sec">Map-first, built for the field</h2>
+    <p class="sec-sub">Layers, tools and pins where field crews need them. Click any screen to enlarge.</p>
+    <div class="grid4">
+      <figure class="screen"><div class="shotwrap"><img src="images/gMobile/MapTools.png" alt="gMobile map tools" onerror="this.closest('.screen').style.display='none'"></div><figcaption><b>Map tools</b>The centralized mapping surface and toolset.</figcaption></figure>
+      <figure class="screen"><div class="shotwrap"><img src="images/gMobile/Layers.png" alt="gMobile layers" onerror="this.closest('.screen').style.display='none'"></div><figcaption><b>Layers</b>Toggle data layers for the job at hand.</figcaption></figure>
+      <figure class="screen"><div class="shotwrap"><img src="images/gMobile/DroppedPin.png" alt="gMobile dropped pin" onerror="this.closest('.screen').style.display='none'"></div><figcaption><b>Dropped pin</b>Anchor an inspection to a precise location.</figcaption></figure>
+      <figure class="screen"><div class="shotwrap"><img src="images/gMobile/LeftMenu.png" alt="gMobile menu" onerror="this.closest('.screen').style.display='none'"></div><figcaption><b>Navigation</b>A streamlined menu into every workflow.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- TECH -->
+<section class="band">
+  <div class="wrap">
+    <span class="kicker">Architecture &amp; stack</span>
+    <h2 class="sec">Enterprise GIS on .NET MAUI</h2>
+    <p class="sec-sub">A modern cross-platform stack pairing Esri's mapping power with a clean MVVM architecture and rich UI.</p>
+    <div class="stack"><span>.NET MAUI</span><span>Prism</span><span>Esri ArcGIS Maps SDK</span><span>Telerik UI for .NET MAUI</span><span>SQLite</span><span>MVVM</span></div>
+  </div>
+</section>
+
+<footer>
+  RamTech gMobile · Esri/ArcGIS Field-Inspection Platform · .NET MAUI &nbsp;·&nbsp;
+  <a href="David Silverlight Portfolio.html">← Back to portfolio</a> &nbsp;·&nbsp;
+  <a href="https://DavidSilverlight.com" target="_blank">DavidSilverlight.com</a>
+</footer>
+
+<div id="lb"><span class="x">&times;</span><img alt="enlarged screenshot"></div>
+<script>
+(function(){
+  document.querySelectorAll('.stat .n[data-to]').forEach(function(el){
+    var to=+el.getAttribute('data-to'), suf=el.getAttribute('data-suffix')||'', pre=el.getAttribute('data-prefix')||'', t0=null;
+    function step(ts){ if(!t0)t0=ts; var p=Math.min((ts-t0)/1100,1); var v=Math.round((1-Math.pow(1-p,3))*to);
+      el.innerHTML=pre+v+(suf?'<small>'+suf+'</small>':''); if(p<1) requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+  });
+  var lb=document.getElementById('lb'), im=lb.querySelector('img');
+  document.querySelectorAll('.cascade img, .shotwrap img').forEach(function(g){
+    g.addEventListener('click', function(e){ e.stopPropagation(); im.src=g.src; lb.style.display='flex'; });
+  });
+  lb.addEventListener('click', function(){ lb.style.display='none'; im.src=''; });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ lb.style.display='none'; im.src=''; } });
+})();
+</script>
+</body>
+</html>
