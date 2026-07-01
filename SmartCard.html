@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartCard — Case Study · David Silverlight</title>
+<style>
+  :root{--indigo:#4b3fd0; --violet:#7a6bff; --deep:#171238; --cyan:#3fd0d6; --gold:#ffd34e;
+    --ink:#1a1730; --muted:#6b6a86; --paper:#f2f1fa; --card:#fff; --line:#e6e3f4;}
+  *{box-sizing:border-box;} html{scroll-behavior:smooth;}
+  body{margin:0; font-family:"Segoe UI",Calibri,Arial,sans-serif; color:var(--ink); background:var(--paper); line-height:1.55;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 26px;}
+  .topbar{position:sticky; top:0; z-index:40; background:rgba(23,18,56,.96); backdrop-filter:blur(8px); border-bottom:1px solid rgba(122,107,255,.3);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:56px;}
+  .back{display:inline-flex; gap:8px; text-decoration:none; color:var(--deep); font-weight:800; font-size:14px; background:#cfd0ff; padding:9px 16px; border-radius:30px;}
+  .topbar .who{color:#cdc9f2; font-size:13px; font-weight:700;} .topbar .who b{color:#fff;}
+  .hero{position:relative; overflow:hidden; color:#fff;
+    background:radial-gradient(820px 420px at 82% -10%, rgba(63,208,214,.32), transparent 58%),
+      radial-gradient(700px 420px at 6% 120%, rgba(122,107,255,.4), transparent 55%),
+      linear-gradient(160deg,#171238,#2a2170 55%,#171238);}
+  .hero::before{content:""; position:absolute; inset:0; opacity:.5;
+    background:linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px); background-size:40px 40px;}
+  .hero .wrap{position:relative; z-index:3; display:grid; grid-template-columns:1.1fr .9fr; gap:40px; align-items:center; padding:56px 26px 60px;}
+  .eyebrow{display:inline-flex; gap:8px; font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:#bfeaf0; background:rgba(63,208,214,.16); border:1px solid rgba(63,208,214,.45); padding:6px 13px; border-radius:30px;}
+  .hero h1{margin:16px 0 6px; font-size:clamp(36px,5.6vw,60px); line-height:1.02;}
+  .hero h1 span{background:linear-gradient(90deg,#a6b0ff,#7fe3e6); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero .lead{max-width:560px; font-size:18px; color:#d6d3f2;}
+  .tags{margin-top:16px; display:flex; flex-wrap:wrap; gap:8px;}
+  .tags span{font-size:12px; font-weight:700; color:#eae8fb; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.18); padding:5px 12px; border-radius:20px;}
+  /* smart card graphic */
+  .cardart{position:relative; display:flex; align-items:center; justify-content:center;}
+  .scard{width:100%; max-width:380px; aspect-ratio:1.6/1; border-radius:22px; padding:22px; position:relative; color:#fff;
+    background:linear-gradient(140deg,#5b4fe6,#3a2fb0 60%,#241a70); box-shadow:0 30px 60px rgba(10,5,40,.5); border:1px solid rgba(255,255,255,.14); animation:tilt 6s ease-in-out infinite;}
+  @keyframes tilt{0%,100%{transform:rotate(-3deg) translateY(0);}50%{transform:rotate(-3deg) translateY(-10px);}}
+  .scard .chip{width:52px; height:38px; border-radius:8px; background:linear-gradient(135deg,#ffe08a,#e0a94a); position:relative;}
+  .scard .chip::after{content:""; position:absolute; inset:6px; border:1.5px solid rgba(120,80,10,.5); border-radius:4px;}
+  .scard .nfc{position:absolute; top:24px; right:22px; width:26px; height:26px;}
+  .scard .nfc i{position:absolute; right:0; top:50%; border:2px solid rgba(255,255,255,.7); border-left:0; border-radius:0 20px 20px 0; transform:translateY(-50%);}
+  .scard .nfc i:nth-child(1){width:8px; height:14px;} .scard .nfc i:nth-child(2){width:14px; height:24px; right:-6px;} .scard .nfc i:nth-child(3){width:20px; height:34px; right:-12px;}
+  .scard .nm{position:absolute; left:22px; bottom:44px; font-size:24px; font-weight:800; letter-spacing:.5px;}
+  .scard .sub{position:absolute; left:22px; bottom:20px; font-size:12.5px; color:#cdc9f2; letter-spacing:2px;}
+  .scard .dots{position:absolute; right:22px; bottom:22px; font-size:13px; letter-spacing:2px; color:#b9b2ee;}
+
+  section{padding:52px 0;}
+  .kicker{font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--indigo);}
+  h2.sec{font-size:clamp(24px,3.4vw,34px); margin:8px 0 6px; color:var(--deep);}
+  .sec-sub{color:var(--muted); max-width:720px; font-size:16px; margin:0 0 26px;}
+  .center{text-align:center;} .center .sec-sub{margin-left:auto;margin-right:auto;}
+  /* pillars */
+  .pillars{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  .pill3{background:var(--card); border:1px solid var(--line); border-radius:18px; padding:28px; text-align:center; box-shadow:0 2px 10px rgba(40,30,90,.05); transition:transform .2s, box-shadow .2s;}
+  .pill3:hover{transform:translateY(-6px); box-shadow:0 18px 36px rgba(60,40,160,.14);}
+  .pill3 .ic{width:60px; height:60px; border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:30px; margin:0 auto 12px; background:linear-gradient(150deg,#eceafd,#e1ddfb);}
+  .pill3 h3{margin:0 0 6px; font-size:19px; color:var(--deep);} .pill3 p{margin:0; color:#54527a; font-size:14.5px;}
+  /* role timeline */
+  .role{background:linear-gradient(160deg,#171238,#221a5a); color:#fff; border-radius:22px; padding:40px 34px;}
+  .role .kicker{color:#7fe3e6;} .role h2{color:#fff;} .role .sec-sub{color:#cbc7ee;}
+  .steps{display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-top:22px;}
+  .rstep{background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); border-radius:14px; padding:18px;}
+  .rstep .n{width:34px; height:34px; border-radius:50%; background:linear-gradient(140deg,var(--violet),var(--cyan)); color:#fff; font-weight:800; display:flex; align-items:center; justify-content:center; font-size:15px; margin-bottom:10px;}
+  .rstep h3{margin:0 0 5px; font-size:15px; color:#fff;} .rstep p{margin:0; font-size:12.5px; color:#c7c3ec; line-height:1.45;}
+  .velocity{display:inline-flex; align-items:center; gap:10px; margin-top:22px; background:rgba(63,208,214,.14); border:1px solid rgba(63,208,214,.4); border-radius:30px; padding:10px 18px; font-weight:700; font-size:14.5px; color:#eafbfc;}
+  /* gallery */
+  .gallery-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,168px)); gap:34px 26px; justify-content:center; align-items:start; margin-top:46px;}
+  .screen{margin:0;}
+  .screen .fr{position:relative; display:block; width:fit-content; margin:0 auto; line-height:0; background:transparent; transition:transform .28s cubic-bezier(.2,.7,.3,1);}
+  .screen .fr:hover{transform:translateY(-9px);}
+  .screen .fr img{width:100%; display:block; cursor:zoom-in;}
+  .band{background:linear-gradient(160deg,#171238,#120e2c); color:#fff;}
+  .band h2{color:#fff;} .band .kicker{color:#7fe3e6;} .band .sec-sub{color:#cbc7ee;}
+  .stack{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;}
+  .stack span{font-size:13px; font-weight:700; color:#eae8fb; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16); padding:8px 15px; border-radius:30px;}
+  footer{padding:30px 0 50px; text-align:center; color:var(--muted); font-size:13px;} footer a{color:var(--indigo); text-decoration:none; font-weight:800;}
+  #lb{display:none; position:fixed; inset:0; z-index:9999; background:rgba(14,10,32,.93); align-items:flex-start; justify-content:center; overflow:auto; cursor:zoom-out; padding:24px;}
+  #lb img{max-width:none; border-radius:10px; box-shadow:0 16px 60px rgba(0,0,0,.6);} #lb .x{position:fixed; top:16px; right:22px; color:#fff; font-size:38px; cursor:pointer;}
+  @media (max-width:900px){ .hero .wrap{grid-template-columns:1fr;} .pillars{grid-template-columns:1fr;} .steps{grid-template-columns:1fr 1fr;} }
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap"><a class="back" href="index.html" onclick="if(history.length>1){history.back();return false;}">&larr; Back to portfolio</a><span class="who">Case Study · <b>David Silverlight</b></span></div></div>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">▲ .NET MAUI · Cross-Platform</span>
+      <h1>Smart<span>Card</span></h1>
+      <p class="lead">One rich app that simplifies getting to the business, social and scheduling details you care about most — where I led the codebase transition, stood up the team's foundation, delivered the MVP, and architected for an ambitious roadmap.</p>
+      <div class="tags"><span>Business</span><span>Social</span><span>Scheduling</span><span>Team Leadership</span><span>.NET MAUI</span></div>
+    </div>
+    <div class="cardart">
+      <div class="scard">
+        <div class="chip"></div>
+        <div class="nfc"><i></i><i></i><i></i></div>
+        <div class="nm">SmartCard</div>
+        <div class="sub">BUSINESS · SOCIAL · SCHEDULE</div>
+        <div class="dots">•••• 2026</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- WHAT IT DOES -->
+<section>
+  <div class="wrap">
+    <div class="center"><span class="kicker">What it does</span><h2 class="sec">The details that matter, one tap away</h2><p class="sec-sub">SmartCard brings together the three things people reach for most — condensed into a fast, friendly cross-platform experience.</p></div>
+    <div class="pillars" style="margin-top:36px;">
+      <div class="pill3"><div class="ic">💼</div><h3>Business</h3><p>Your professional identity and business details, ready to share and access in an instant.</p></div>
+      <div class="pill3"><div class="ic">🌐</div><h3>Social</h3><p>Social connections and profiles brought together in one simple, unified place.</p></div>
+      <div class="pill3"><div class="ic">🗓️</div><h3>Scheduling</h3><p>The scheduling details you rely on, surfaced quickly so nothing gets lost.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- MY ROLE -->
+<section>
+  <div class="wrap">
+    <div class="role">
+      <span class="kicker">My role</span>
+      <h2 class="sec" style="font-size:clamp(24px,3.2vw,32px);">From inherited codebase to roadmap-ready product</h2>
+      <p class="sec-sub">I came into SmartCard to steady the foundation and drive it forward — establishing the practices and architecture that let the team ship, fast.</p>
+      <div class="steps">
+        <div class="rstep"><div class="n">1</div><h3>Transitioned &amp; reviewed</h3><p>Took on and audited the existing codebase to understand and stabilize it.</p></div>
+        <div class="rstep"><div class="n">2</div><h3>Built the foundation</h3><p>Stood up the infrastructure and practices new team members needed to contribute.</p></div>
+        <div class="rstep"><div class="n">3</div><h3>Delivered the MVP</h3><p>Developed the feature set defined by the MVP requirements, end to end.</p></div>
+        <div class="rstep"><div class="n">4</div><h3>Architected for growth</h3><p>Designed an architecture ready to accomplish future roadmap milestones.</p></div>
+        <div class="rstep"><div class="n">5</div><h3>Kept up the pace</h3><p>Advanced the codebase as development pushed forward at an impressive velocity.</p></div>
+      </div>
+      <div class="velocity">🚀 Shipping at an impressive velocity — MVP delivered, roadmap in motion.</div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section style="background:#e9e6fa;">
+  <div class="wrap">
+    <div class="center"><span class="kicker">The app</span><h2 class="sec">A look at SmartCard</h2><p class="sec-sub">A rich, streamlined .NET MAUI experience across iOS and Android. Click any screen to enlarge.</p></div>
+    <div class="gallery-grid">
+      <figure class="screen"><div class="fr"><img src="images/SmartCard/sc-1.png" alt="SmartCard Home screen"></div></figure>
+      <figure class="screen"><div class="fr"><img src="images/SmartCard/sc-2.png" alt="SmartCard Scheduling screen"></div></figure>
+      <figure class="screen"><div class="fr"><img src="images/SmartCard/sc-3.png" alt="SmartCard Social screen"></div></figure>
+      <figure class="screen"><div class="fr"><img src="images/SmartCard/sc-4.png" alt="SmartCard Details screen"></div></figure>
+      <figure class="screen"><div class="fr"><img src="images/SmartCard/sc-5.png" alt="SmartCard Business screen"></div></figure>
+      <figure class="screen"><div class="fr"><img src="images/SmartCard/sc-6.png" alt="SmartCard Feed screen"></div></figure>
+      <figure class="screen"><div class="fr"><img src="images/SmartCard/sc-7.png" alt="SmartCard Profile screen"></div></figure>
+      <figure class="screen"><div class="fr"><img src="images/SmartCard/sc-8.png" alt="SmartCard Settings screen"></div></figure>
+    </div>
+  </div>
+</section>
+
+<!-- TECH -->
+<section class="band">
+  <div class="wrap">
+    <span class="kicker">Architecture &amp; role</span>
+    <h2 class="sec">Engineered for the roadmap</h2>
+    <p class="sec-sub">A cross-platform .NET MAUI app built on a clean, extensible architecture — the kind that lets a team onboard quickly and keep shipping milestone after milestone.</p>
+    <div class="stack"><span>.NET MAUI</span><span>MVVM</span><span>Shell Navigation</span><span>Clean Architecture</span><span>iOS &amp; Android</span><span>Team Enablement</span></div>
+  </div>
+</section>
+
+<footer>SmartCard · .NET MAUI · Business · Social · Scheduling &nbsp;·&nbsp; <a href="index.html" onclick="if(history.length>1){history.back();return false;}">← Back to portfolio</a> &nbsp;·&nbsp; <a href="https://DavidSilverlight.com" target="_blank">DavidSilverlight.com</a></footer>
+<div id="lb"><span class="x">&times;</span><img alt="enlarged screenshot"></div>
+<script>(function(){var lb=document.getElementById('lb'),im=lb.querySelector('img');document.querySelectorAll('.fr img').forEach(function(g){g.addEventListener('click',function(e){e.stopPropagation();im.src=g.src;lb.style.display='flex';});});lb.addEventListener('click',function(){lb.style.display='none';im.src='';});document.addEventListener('keydown',function(e){if(e.key==='Escape'){lb.style.display='none';im.src='';}});})();</script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RealTechnologyHeroes.com — Case Study · David Silverlight</title>
+<style>
+  :root{--red:#c0392b; --red2:#e15545; --gold:#f4b400; --gold2:#ffd34e; --navy:#1b2a4a; --cream:#fff7e6;
+    --ink:#241a14; --muted:#7a6b5c; --paper:#fbf2e2; --card:#fff; --line:#ece0c8;}
+  *{box-sizing:border-box;} html{scroll-behavior:smooth;}
+  body{margin:0; font-family:"Segoe UI",Calibri,Arial,sans-serif; color:var(--ink); background:var(--paper); line-height:1.55;}
+  .wrap{max-width:1060px; margin:0 auto; padding:0 26px;}
+  .topbar{position:sticky; top:0; z-index:40; background:rgba(40,16,12,.96); backdrop-filter:blur(8px); border-bottom:1px solid rgba(244,180,0,.4);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:56px;}
+  .back{display:inline-flex; gap:8px; text-decoration:none; color:var(--red); font-weight:800; font-size:14px; background:var(--gold2); padding:9px 16px; border-radius:30px;}
+  .topbar .who{color:#f3d9b8; font-size:13px; font-weight:700;} .topbar .who b{color:#fff;}
+  .hero{position:relative; overflow:hidden; color:#fff; text-align:center;
+    background:radial-gradient(620px 320px at 50% -8%, #ffe07a, transparent 62%), linear-gradient(170deg,#7c1c14,#c0392b 58%,#5a140e);}
+  .hero .ray{position:absolute; left:50%; top:-30px; width:520px; height:420px; margin-left:-260px; z-index:1; pointer-events:none;
+    background:radial-gradient(ellipse at 50% 0%, rgba(255,224,122,.4) 0 26%, transparent 66%);}
+  .hero .star{position:absolute; font-size:24px; opacity:.85; animation:tw 2.6s ease-in-out infinite;}
+  @keyframes tw{0%,100%{opacity:.5; transform:scale(1);}50%{opacity:1; transform:scale(1.25);}}
+  .hero .wrap{position:relative; z-index:3; padding:48px 26px 44px;}
+  .eyebrow{display:inline-flex; gap:8px; font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--red); background:var(--gold2); padding:6px 14px; border-radius:30px;}
+  .mic{font-size:54px; line-height:1; margin:12px 0 0; display:inline-block; animation:swing 3s ease-in-out infinite;}
+  @keyframes swing{0%,100%{transform:rotate(-6deg);}50%{transform:rotate(6deg);}}
+  .hero h1{margin:4px auto 4px; max-width:780px; font-size:clamp(34px,6.4vw,62px); line-height:1.02; text-shadow:0 3px 0 #7c1c14, 0 6px 14px rgba(60,10,0,.4);}
+  .hero h1 span{color:var(--gold2);}
+  .hero .lead{max-width:560px; margin:8px auto 0; font-size:18px; font-weight:600; color:#ffe9cf;}
+  /* AUDIO */
+  .audio{position:relative; z-index:3; margin:24px auto 0; max-width:560px; background:rgba(0,0,0,.22); border:2px solid rgba(255,211,78,.5); border-radius:18px; padding:18px; backdrop-filter:blur(4px);}
+  .audio .now{font-size:11px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--gold2);}
+  .audio .ttl{font-size:19px; font-weight:800; color:#fff; margin:4px 0 12px;}
+  .playbtn{display:inline-flex; align-items:center; gap:12px; cursor:pointer; border:0; font-family:inherit; font-weight:800; font-size:15px;
+    color:var(--red); background:var(--gold2); padding:12px 22px; border-radius:30px; box-shadow:0 6px 16px rgba(0,0,0,.3); transition:transform .15s;}
+  .playbtn:hover{transform:translateY(-2px) scale(1.03);}
+  .playbtn .ico{width:34px; height:34px; border-radius:50%; background:var(--red); color:#fff; display:flex; align-items:center; justify-content:center; font-size:15px;}
+  .audio .bars{display:inline-flex; align-items:flex-end; gap:3px; height:20px; margin-left:10px; vertical-align:middle;}
+  .audio .bars i{width:4px; background:var(--gold2); border-radius:2px; animation:eq 1s ease-in-out infinite;}
+  .audio .bars i:nth-child(2){animation-delay:.2s;} .audio .bars i:nth-child(3){animation-delay:.4s;} .audio .bars i:nth-child(4){animation-delay:.1s;}
+  @keyframes eq{0%,100%{height:5px;}50%{height:20px;}}
+  #player iframe{width:100%; border:0; border-radius:10px; margin-top:14px; background:#bebebe;}
+  section{padding:50px 0;}
+  .kicker{display:inline-block; font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:#fff; background:var(--red); padding:5px 12px; border-radius:20px; transform:rotate(-1.5deg);}
+  h2.sec{font-size:clamp(24px,3.6vw,36px); margin:12px 0 6px; color:var(--red);}
+  .sec-sub{color:var(--muted); max-width:680px; font-size:16px; margin:0 0 26px;}
+  .heroes{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  .hcard{background:var(--card); border:2px solid var(--line); border-radius:18px; padding:22px; text-align:center; position:relative; overflow:hidden; box-shadow:0 6px 18px rgba(120,40,20,.08); transition:transform .2s;}
+  .hcard:hover{transform:translateY(-5px) rotate(-.6deg);}
+  .hcard::before{content:""; position:absolute; left:0; top:0; right:0; height:5px; background:linear-gradient(90deg,var(--red),var(--gold));}
+  .hcard .cape{font-size:40px;} .hcard h3{margin:8px 0 6px; font-size:16px; color:var(--red);} .hcard p{margin:0; font-size:13.5px; color:#5a4a3c; font-style:italic;}
+  .hcard .star{position:absolute; top:10px; right:12px; font-size:16px; opacity:.5;}
+  .winshot{margin-top:6px; background:#3a1610; border:1px solid rgba(255,211,78,.3); border-radius:14px; overflow:hidden; box-shadow:0 16px 36px rgba(80,20,10,.25);}
+  .winshot .bar{display:flex; align-items:center; gap:7px; padding:9px 13px; background:#2c100c;}
+  .winshot .bar i{width:11px; height:11px; border-radius:50%;} .winshot .bar i:nth-child(1){background:#ff5f57;} .winshot .bar i:nth-child(2){background:#febc2e;} .winshot .bar i:nth-child(3){background:#28c840;}
+  .winshot .bar span{margin-left:8px; font-size:12px; color:#e0b58f;}
+  .winshot img{display:block; width:100%; cursor:zoom-in;}
+  .winshot .ph{display:flex; align-items:center; justify-content:center; height:230px; color:#caa07f; font-weight:700;}
+  .band{background:linear-gradient(160deg,#7c1c14,#5a140e); color:#fff;}
+  .band h2{color:#fff;} .band .kicker{background:var(--gold2); color:var(--red);} .band .sec-sub{color:#f3d9b8;}
+  .stack{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;}
+  .stack span{font-size:13px; font-weight:700; color:#fff3df; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16); padding:8px 15px; border-radius:30px;}
+  footer{padding:30px 0 50px; text-align:center; color:var(--muted); font-size:13px;} footer a{color:var(--red); text-decoration:none; font-weight:800;}
+  #lb{display:none; position:fixed; inset:0; z-index:9999; background:rgba(40,12,6,.93); align-items:flex-start; justify-content:center; overflow:auto; cursor:zoom-out; padding:24px;}
+  #lb img{max-width:none; border-radius:10px; box-shadow:0 16px 60px rgba(0,0,0,.6);} #lb .x{position:fixed; top:16px; right:22px; color:#fff; font-size:38px; cursor:pointer;}
+  @media (max-width:820px){ .heroes{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap"><a class="back" href="David Silverlight Portfolio.html" onclick="if(history.length>1){history.back();return false;}">&larr; Back to portfolio</a><span class="who">Case Study · <b>David Silverlight</b></span></div></div>
+<header class="hero">
+  <div class="ray"></div>
+  <span class="star" style="left:12%; top:30%;">⭐</span><span class="star" style="left:86%; top:26%; animation-delay:.5s;">⭐</span><span class="star" style="left:20%; top:64%; animation-delay:1s;">✨</span>
+  <div class="wrap">
+    <span class="eyebrow">🎖️ .NET · Geek Humor</span>
+    <div class="mic">🎙️</div>
+    <h1>Real Technology <span>Heroes</span></h1>
+    <p class="lead">A loving tribute to the everyday legends of tech — in the spirit of those "Real American Heroes" radio ads, but for the people who keep our computers (sort of) running.</p>
+    <div class="audio">
+      <div class="now">🔊 Now playing</div>
+      <div class="ttl">"Mr. It Works On My Computer Guy"</div>
+      <button class="playbtn" id="playbtn"><span class="ico">▶</span> Play the salute
+        <span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      </button>
+      <div id="player"></div>
+    </div>
+  </div>
+</header>
+<section>
+  <div class="wrap">
+    <span class="kicker">The hall of (dubious) honor</span>
+    <h2 class="sec">We salute you 🍻</h2>
+    <p class="sec-sub">Raising a glass to the unsung — and occasionally unhelpful — heroes every developer knows and loves.</p>
+    <div class="heroes">
+      <div class="hcard"><span class="star">🌟</span><div class="cape">🦸‍♂️</div><h3>Mr. "It Works On My Computer" Guy</h3><p>"…so the bug must be on your end." The star of our featured salute.</p></div>
+      <div class="hcard"><span class="star">🌟</span><div class="cape">📧</div><h3>Mr. Reply-All To Everyone</h3><p>Five hundred coworkers, one "thanks!" — a true broadcaster of the human spirit.</p></div>
+      <div class="hcard"><span class="star">🌟</span><div class="cape">🚀</div><h3>Mr. Push-To-Prod On Friday</h3><p>Fearless, deadline-defying, and never around for the weekend rollback.</p></div>
+    </div>
+  </div>
+</section>
+<section style="background:#f4e6cf;">
+  <div class="wrap">
+    <span class="kicker">The site</span>
+    <h2 class="sec">A little fun for the dev community</h2>
+    <p class="sec-sub">RealTechnologyHeroes was pure, joyful side-project comedy — built to make fellow geeks laugh. Click to enlarge.</p>
+    <div class="winshot">
+      <div class="bar"><i></i><i></i><i></i><span>realtechnologyheroes.com</span></div>
+      <img src="images/RealTechHeroes/rth-home.png" alt="RealTechnologyHeroes.com" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="ph">🎙️ RealTechnologyHeroes.com</div>
+    </div>
+  </div>
+</section>
+<section class="band">
+  <div class="wrap">
+    <span class="kicker">Role &amp; tech</span>
+    <h2 class="sec">Built for laughs, shipped for real</h2>
+    <p class="sec-sub">A .NET web project with original audio production — proof that good engineering and a good sense of humor aren't mutually exclusive.</p>
+    <div class="stack"><span>.NET</span><span>ASP.NET</span><span>Audio Production</span><span>Web Development</span><span>Geek Comedy</span></div>
+  </div>
+</section>
+<footer>RealTechnologyHeroes.com · Geek humor &amp; original audio &nbsp;·&nbsp; <a href="David Silverlight Portfolio.html" onclick="if(history.length>1){history.back();return false;}">← Back to portfolio</a> &nbsp;·&nbsp; <a href="https://DavidSilverlight.com" target="_blank">DavidSilverlight.com</a></footer>
+<div id="lb"><span class="x">&times;</span><img alt="enlarged screenshot"></div>
+<script>(function(){
+  var btn=document.getElementById('playbtn'), pl=document.getElementById('player');
+  btn.addEventListener('click', function(){
+    var ifr=document.createElement('iframe');
+    ifr.src='https://www-ccv.adobe.io/v1/player/ccv/IBw5JwhPLIz/embed?bgcolor=%23bebebe&autohide=false&lazyLoading=true&maxframewidth=6400&maxframeheight=75&api_key=BehancePro2View';
+    ifr.height='75'; ifr.title='Mr. It Works On My Computer Guy'; ifr.allow='autoplay';
+    pl.innerHTML=''; pl.appendChild(ifr); btn.style.display='none';
+  });
+  var lb=document.getElementById('lb'),im=lb.querySelector('img');document.querySelectorAll('.winshot img').forEach(function(g){g.addEventListener('click',function(e){e.stopPropagation();im.src=g.src;lb.style.display='flex';});});lb.addEventListener('click',function(){lb.style.display='none';im.src='';});document.addEventListener('keydown',function(e){if(e.key==='Escape'){lb.style.display='none';im.src='';}});
+})();</script>
+</body>
+</html>
