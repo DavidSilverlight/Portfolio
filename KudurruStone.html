@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kudurru Stone — Case Study · David Silverlight</title>
+<style>
+  :root{--slate:#243038; --slate2:#2d3c46; --teal:#15a08a; --teal2:#3fd0b6; --purple:#5b3fd6; --gold:#f4b942;
+    --ink:#16242a; --muted:#586a72; --paper:#eef4f2; --card:#fff; --line:#dce8e4;}
+  *{box-sizing:border-box;} html{scroll-behavior:smooth;}
+  body{margin:0; font-family:"Segoe UI",Calibri,Arial,sans-serif; color:var(--ink); background:var(--paper); line-height:1.55;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 26px;}
+  .topbar{position:sticky; top:0; z-index:40; background:rgba(26,38,44,.96); backdrop-filter:blur(8px); border-bottom:1px solid rgba(63,208,182,.3);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:56px;}
+  .back{display:inline-flex; gap:8px; text-decoration:none; color:#10342e; font-weight:800; font-size:14px; background:var(--teal2); padding:9px 16px; border-radius:30px;}
+  .topbar .who{color:#bfe6dd; font-size:13px; font-weight:700;} .topbar .who b{color:#fff;}
+  .hero{position:relative; overflow:hidden; color:#fff;
+    background:radial-gradient(900px 460px at 84% -12%, rgba(21,160,138,.42), transparent 58%),
+      radial-gradient(700px 420px at 4% 120%, rgba(91,63,214,.26), transparent 55%),
+      linear-gradient(160deg,#1c2a31,#243038 52%,#15403b);}
+  .hero::before{content:""; position:absolute; inset:0; opacity:.5; background:repeating-radial-gradient(circle at 80% 14%, transparent 0 36px, rgba(255,255,255,.05) 36px 37px);}
+  .hero .wrap{position:relative; z-index:3; padding:52px 26px 40px;}
+  .eyebrow{display:inline-flex; gap:8px; font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:#bfeae3; background:rgba(63,208,182,.16); border:1px solid rgba(63,208,182,.45); padding:6px 13px; border-radius:30px;}
+  .hero h1{margin:16px 0 6px; font-size:clamp(34px,5.6vw,58px); line-height:1.02;}
+  .hero h1 span{background:linear-gradient(90deg,#7fe3d0,#cdbcff); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero .lead{max-width:640px; font-size:18px; color:#d3e4e0;}
+  .tags{margin-top:16px; display:flex; flex-wrap:wrap; gap:8px;}
+  .tags span{font-size:12px; font-weight:700; color:#e7f4f1; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.18); padding:5px 12px; border-radius:20px;}
+  .cascade{position:relative; z-index:3; margin-top:30px; display:flex; align-items:flex-end; justify-content:center; flex-wrap:wrap; gap:clamp(6px,1.4vw,16px);}
+  .phone{transform:translateY(var(--ty,0)); transition:transform .25s ease;}
+  .phone img{display:block; width:clamp(86px,9.8vw,132px); border-radius:16px; box-shadow:0 20px 38px rgba(0,15,12,.5); cursor:zoom-in; background:#fff;}
+  .phone .ph{display:none; width:clamp(86px,9.8vw,132px); aspect-ratio:9/19.5; border-radius:16px; background:#0e1c24; color:#5e8a93; align-items:center; justify-content:center; font-size:11px; font-weight:700;}
+  .phone:hover{transform:translateY(-9px) scale(1.04); z-index:9;}
+  section{padding:50px 0;}
+  .kicker{font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--teal);}
+  h2.sec{font-size:clamp(24px,3.4vw,34px); margin:8px 0 6px; color:var(--slate);}
+  .sec-sub{color:var(--muted); max-width:720px; font-size:16px; margin:0 0 26px;}
+  .center{text-align:center;} .center .sec-sub{margin-left:auto; margin-right:auto;}
+  /* brief + goals */
+  .brief{background:linear-gradient(160deg,#1c2a31,#15403b); color:#fff; border-radius:20px; padding:30px 32px;}
+  .brief .kicker{color:#7fe3d0;} .brief h2{color:#fff; margin:8px 0 8px;} .brief p{margin:0; max-width:760px; color:#d3e4e0; font-size:16.5px;}
+  .goals{display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:24px;}
+  .goal{background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); border-radius:14px; padding:20px;}
+  .goal .ic{font-size:28px;} .goal h3{margin:8px 0 5px; font-size:16px; color:#fff;} .goal p{font-size:13.5px; color:#bcd6d0;}
+  /* before/after compare */
+  .crow{display:grid; grid-template-columns:1fr 130px 1fr; gap:18px; align-items:center; margin-bottom:34px;}
+  .cside{text-align:center;}
+  .frame{display:inline-block; border-radius:18px; padding:10px; background:linear-gradient(160deg,#e7efec,#dceae5); box-shadow:0 10px 26px rgba(20,50,45,.12); transition:transform .2s, box-shadow .2s;}
+  .frame:hover{transform:translateY(-5px); box-shadow:0 20px 40px rgba(20,60,50,.2);}
+  .frame img{width:clamp(150px,20vw,210px); border-radius:12px; display:block; cursor:zoom-in;}
+  .frame .ph{width:clamp(150px,20vw,210px); aspect-ratio:9/19.5; border-radius:12px; background:#dfeae6; display:none; align-items:center; justify-content:center; color:#8aa39c; font-weight:700; font-size:13px;}
+  .frame.before{filter:saturate(.85);} .frame.after{outline:3px solid var(--teal2); outline-offset:2px;}
+  .tag{display:inline-block; font-size:11.5px; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:20px; margin-bottom:10px;}
+  .tag.before{color:#8a6a2a; background:#f6ecd3;} .tag.after{color:#0f5a4d; background:#cdeee6;}
+  .arrowc{text-align:center; color:var(--teal);} .arrowc .ar{font-size:30px; font-weight:800;} .arrowc .nm{font-family:"Segoe UI"; font-weight:800; color:var(--slate); font-size:15px; margin-top:4px;}
+  /* gallery */
+  .grid4{display:grid; grid-template-columns:repeat(4,1fr); gap:18px;}
+  .screen{margin:0; text-align:center;}
+  .screen .fr{background:linear-gradient(160deg,#e7efec,#dceae5); border-radius:18px; padding:12px; transition:transform .2s, box-shadow .2s; box-shadow:0 10px 24px rgba(20,50,45,.1);}
+  .screen .fr:hover{transform:translateY(-5px); box-shadow:0 20px 40px rgba(20,60,50,.18);}
+  .screen .fr img{width:100%; border-radius:12px; cursor:zoom-in; display:block;}
+  .screen .fr .ph{width:100%; aspect-ratio:9/19.5; border-radius:12px; background:#dfeae6; display:none; align-items:center; justify-content:center; color:#8aa39c; font-weight:700; font-size:12px;}
+  .screen figcaption{margin-top:10px; font-size:13px; color:var(--muted); font-weight:600;}
+  /* highlights */
+  .hl3{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  .hcard{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:24px; box-shadow:0 1px 3px rgba(20,50,45,.05); transition:transform .2s, box-shadow .2s;}
+  .hcard:hover{transform:translateY(-5px); box-shadow:0 16px 32px rgba(20,80,70,.13);}
+  .hcard .ic{width:52px; height:52px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:26px; background:linear-gradient(150deg,#e3f6f1,#d6efe8); margin-bottom:12px;}
+  .hcard h3{margin:0 0 6px; font-size:18px; color:var(--slate);} .hcard p{margin:0; color:#4d5b62; font-size:14.5px;}
+  .band{background:linear-gradient(160deg,#1c2a31,#13302c); color:#fff;}
+  .band h2{color:#fff;} .band .kicker{color:#7fe3d0;} .band .sec-sub{color:#bcd6d0;}
+  .stack{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;}
+  .stack span{font-size:13px; font-weight:700; color:#e7f4f1; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16); padding:8px 15px; border-radius:30px;}
+  footer{padding:30px 0 50px; text-align:center; color:var(--muted); font-size:13px;} footer a{color:var(--teal); text-decoration:none; font-weight:800;}
+  #lb{display:none; position:fixed; inset:0; z-index:9999; background:rgba(8,22,18,.93); align-items:flex-start; justify-content:center; overflow:auto; cursor:zoom-out; padding:24px;}
+  #lb img{max-width:none; border-radius:10px; box-shadow:0 16px 60px rgba(0,0,0,.6);} #lb .x{position:fixed; top:16px; right:22px; color:#fff; font-size:38px; cursor:pointer;}
+  @media (max-width:900px){ .goals,.grid4{grid-template-columns:1fr 1fr;} .hl3{grid-template-columns:1fr;} .crow{grid-template-columns:1fr; gap:8px;} .arrowc .ar{transform:rotate(90deg); display:inline-block;} }
+  @media (max-width:560px){ .grid4{grid-template-columns:1fr 1fr;} }
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap"><a class="back" href="David Silverlight Portfolio.html" onclick="if(history.length>1){history.back();return false;}">&larr; Back to portfolio</a><span class="who">Case Study · <b>David Silverlight</b></span></div></div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">▲ .NET MAUI · UX Refresh · Before → After</span>
+    <h1>Kudurru <span>Stone</span></h1>
+    <p class="lead">A mobile UX refresh for the Kudurru Stone field app — a modernized, streamlined navigation experience that takes survey crews from a dated, button-heavy flow to a clean, branded, map-aware app they actually enjoy using.</p>
+    <div class="tags"><span>Land Surveying</span><span>Field Crews</span><span>UX Redesign</span><span>Maps &amp; Routing</span><span>Time Tracking</span><span>.NET MAUI</span></div>
+    <div class="cascade">
+      <div class="phone" style="--ty:40px;"><img src="images/KudurruStone/kud-new-dashboard.png" alt="Redesigned dashboard" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="ph">Dashboard</span></div>
+      <div class="phone" style="--ty:18px;"><img src="images/KudurruStone/kud-new-schedule.png" alt="Redesigned schedule" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="ph">Schedule</span></div>
+      <div class="phone" style="--ty:0;"><img src="images/KudurruStone/kud-new-scheduledetail.png" alt="Redesigned schedule detail" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="ph">Detail</span></div>
+      <div class="phone" style="--ty:18px;"><img src="images/KudurruStone/kud-new-employeetime.png" alt="Redesigned employee time" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="ph">Time</span></div>
+      <div class="phone" style="--ty:40px;"><img src="images/KudurruStone/kud-new-map.png" alt="Map integration" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="ph">Map</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- BRIEF + GOALS -->
+<section>
+  <div class="wrap">
+    <div class="brief">
+      <span class="kicker">The brief</span>
+      <h2 class="sec" style="font-size:clamp(24px,3.2vw,32px);">Refresh the experience, end to end</h2>
+      <p>The goal: a modernized, streamlined navigation experience for the Kudurru Stone .NET MAUI app — keep the field workflow crews rely on, but make it cleaner, faster, branded, and far more intuitive to move between login, schedule, job details, maps and time tracking.</p>
+      <div class="goals">
+        <div class="goal"><div class="ic">✨</div><h3>Modernized look</h3><p>A branded, contemporary visual language across every screen.</p></div>
+        <div class="goal"><div class="ic">🧭</div><h3>Streamlined navigation</h3><p>Fewer taps and clearer paths between the screens crews use most.</p></div>
+        <div class="goal"><div class="ic">🗺️</div><h3>Map-aware</h3><p>Job locations, directions and on-route conditions, built in.</p></div>
+        <div class="goal"><div class="ic">⏱️</div><h3>Real time tracking</h3><p>Start/stop timers, billable hours and entries in one place.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BEFORE / AFTER -->
+<section style="background:#e6efec;">
+  <div class="wrap">
+    <div class="center">
+      <span class="kicker">The transformation</span>
+      <h2 class="sec">Before &nbsp;→&nbsp; After</h2>
+      <p class="sec-sub">Same workflow, reimagined. Tap any screen to enlarge.</p>
+    </div>
+    <div style="margin-top:30px;">
+      <div class="crow">
+        <div class="cside"><span class="tag before">Before</span><br><div class="frame before"><img src="images/KudurruStone/kud-dashboard.png" alt="Old dashboard" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="ph">Old Dashboard</span></div></div>
+        <div class="arrowc"><div class="ar">→</div><div class="nm">Dashboard</div></div>
+        <div class="cside"><span class="tag after">After</span><br><div class="frame after"><img src="images/KudurruStone/kud-new-dashboard.png" alt="New dashboard" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="ph">New Dashboard</span></div></div>
+      </div>
+      <div class="crow">
+        <div class="cside"><span class="tag before">Before</span><br><div class="frame before"><img src="images/KudurruStone/kud-schedule.png" alt="Old schedule" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="ph">Old Schedule</span></div></div>
+        <div class="arrowc"><div class="ar">→</div><div class="nm">Schedule</div></div>
+        <div class="cside"><span class="tag after">After</span><br><div class="frame after"><img src="images/KudurruStone/kud-new-schedule.png" alt="New schedule" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="ph">New Schedule</span></div></div>
+      </div>
+      <div class="crow">
+        <div class="cside"><span class="tag before">Before</span><br><div class="frame before"><img src="images/KudurruStone/kud-scheduledetail.png" alt="Old schedule detail" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="ph">Old Detail</span></div></div>
+        <div class="arrowc"><div class="ar">→</div><div class="nm">Job Detail</div></div>
+        <div class="cside"><span class="tag after">After</span><br><div class="frame after"><img src="images/KudurruStone/kud-new-scheduledetail.png" alt="New schedule detail" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="ph">New Detail</span></div></div>
+      </div>
+      <div class="crow">
+        <div class="cside"><span class="tag before">Before</span><br><div class="frame before"><img src="images/KudurruStone/kud-employeetime.png" alt="Old employee time" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="ph">Old Time</span></div></div>
+        <div class="arrowc"><div class="ar">→</div><div class="nm">Employee Time</div></div>
+        <div class="cside"><span class="tag after">After</span><br><div class="frame after"><img src="images/KudurruStone/kud-new-employeetime.png" alt="New employee time" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="ph">New Time</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT'S NEW -->
+<section>
+  <div class="wrap">
+    <div class="center"><span class="kicker">What the refresh delivered</span><h2 class="sec">More than a fresh coat of paint</h2><p class="sec-sub">The redesign didn't just modernize the visuals — it leveled up what crews can do in the field.</p></div>
+    <div class="hl3" style="margin-top:36px;">
+      <div class="hcard"><div class="ic">🏷️</div><h3>A branded, clear home</h3><p>A logo-forward dashboard that greets crews with "What would you like to do?" and three obvious actions — no guesswork.</p></div>
+      <div class="hcard"><div class="ic">🗺️</div><h3>Built-in maps &amp; routing</h3><p>Tap through to job locations, get driving directions, and even see on-route conditions like flood warnings before heading out.</p></div>
+      <div class="hcard"><div class="ic">⏱️</div><h3>Full time tracking</h3><p>Start/stop timers, billable flags, hours, notes and a clean entries list with date-range totals — all redesigned for speed.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY of refreshed screens -->
+<section style="background:#e6efec;">
+  <div class="wrap">
+    <div class="center"><span class="kicker">The refreshed app</span><h2 class="sec">Every screen, modernized</h2><p class="sec-sub">A tour of the redesigned experience. Click any to enlarge.</p></div>
+    <div class="grid4" style="margin-top:36px;">
+      <figure class="screen"><div class="fr"><img src="images/KudurruStone/kud-new-dashboard.png" alt="Dashboard" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="ph">Dashboard</span></div><figcaption>Dashboard</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="images/KudurruStone/kud-new-schedule.png" alt="Schedule" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="ph">Schedule</span></div><figcaption>Schedule</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="images/KudurruStone/kud-new-scheduledetail.png" alt="Schedule detail" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="ph">Detail</span></div><figcaption>Job Detail</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="images/KudurruStone/kud-new-employeetime.png" alt="Employee time list" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="ph">Time list</span></div><figcaption>Time Entries</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="images/KudurruStone/kud-new-timedetails.png" alt="Employee time details" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="ph">Time detail</span></div><figcaption>Time Detail</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="images/KudurruStone/kud-new-map.png" alt="Map" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="ph">Map</span></div><figcaption>Job Map</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="images/KudurruStone/kud-new-maproute.png" alt="Map route" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="ph">Route</span></div><figcaption>Directions &amp; conditions</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="images/KudurruStone/kud-login.png" alt="Login" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="ph">Login</span></div><figcaption>Login</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- TECH -->
+<section class="band">
+  <div class="wrap">
+    <span class="kicker">Architecture &amp; role</span>
+    <h2 class="sec">A UX refresh on .NET MAUI</h2>
+    <p class="sec-sub">Reimagining the navigation, visual design and field capabilities of a real survey operations app — cross-platform on .NET MAUI with a clean MVVM foundation and native maps.</p>
+    <div class="stack"><span>.NET MAUI</span><span>MVVM</span><span>Shell Navigation</span><span>Maps &amp; Geolocation</span><span>iOS &amp; Android</span><span>UX / UI Design</span></div>
+  </div>
+</section>
+
+<footer>Kudurru Stone · .NET MAUI Field App · UX Refresh (Before → After) &nbsp;·&nbsp; <a href="David Silverlight Portfolio.html" onclick="if(history.length>1){history.back();return false;}">← Back to portfolio</a> &nbsp;·&nbsp; <a href="https://DavidSilverlight.com" target="_blank">DavidSilverlight.com</a></footer>
+<div id="lb"><span class="x">&times;</span><img alt="enlarged screenshot"></div>
+<script>(function(){var lb=document.getElementById('lb'),im=lb.querySelector('img');document.querySelectorAll('.cascade img,.frame img,.fr img').forEach(function(g){g.addEventListener('click',function(e){e.stopPropagation();im.src=g.src;lb.style.display='flex';});});lb.addEventListener('click',function(){lb.style.display='none';im.src='';});document.addEventListener('keydown',function(e){if(e.key==='Escape'){lb.style.display='none';im.src='';}});})();</script>
+</body>
+</html>

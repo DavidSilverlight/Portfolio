@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kudurru Stone — Project Management Built for Land Surveyors</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#15212b; --slate:#22323f; --muted:#5d6e7a; --paper:#f6f2ea; --card:#ffffff; --line:#e7ded0;
+    --orange:#ff6a1a; --orange2:#ff9244; --teal:#13a08a; --teal2:#3fd0b6; --sand:#f0e7d6; --gold:#f4b942;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; font-family:"Inter","Segoe UI",Arial,sans-serif; color:var(--ink); background:var(--paper); line-height:1.6; -webkit-font-smoothing:antialiased;}
+  h1,h2,h3,.disp{font-family:"Sora","Inter",sans-serif;}
+  a{color:inherit;}
+  .wrap{max-width:1160px; margin:0 auto; padding:0 28px;}
+  .btn{display:inline-flex; align-items:center; gap:9px; text-decoration:none; font-weight:700; font-size:16px; border-radius:40px; padding:15px 28px; transition:transform .15s, box-shadow .15s, filter .15s; cursor:pointer; border:0;}
+  .btn.primary{background:linear-gradient(90deg,var(--orange),var(--orange2)); color:#fff; box-shadow:0 10px 26px rgba(255,106,26,.4);}
+  .btn.primary:hover{transform:translateY(-2px); box-shadow:0 16px 34px rgba(255,106,26,.5);}
+  .btn.ghost{background:rgba(255,255,255,.12); color:#fff; border:1.5px solid rgba(255,255,255,.4);}
+  .btn.ghost:hover{background:rgba(255,255,255,.2);}
+  .btn.dark{background:var(--ink); color:#fff;} .btn.dark:hover{transform:translateY(-2px);}
+  .kick{display:inline-block; font-size:12.5px; font-weight:800; letter-spacing:2.5px; text-transform:uppercase; color:var(--orange);}
+
+  /* nav */
+  header.nav{position:sticky; top:0; z-index:50; background:rgba(20,32,42,.92); backdrop-filter:blur(10px); border-bottom:1px solid rgba(255,255,255,.08);}
+  .nav .wrap{display:flex; align-items:center; gap:22px; height:68px;}
+  .nav .brand{display:flex; align-items:center; gap:10px; font-family:"Sora"; font-weight:800; color:#fff; font-size:20px; text-decoration:none;}
+  .nav .brand .gem{width:30px; height:30px; border-radius:8px; background:linear-gradient(140deg,var(--orange),var(--gold)); display:flex; align-items:center; justify-content:center; transform:rotate(45deg);}
+  .nav .brand .gem b{transform:rotate(-45deg); color:#fff; font-size:15px;}
+  .nav .links{margin-left:auto; display:flex; align-items:center; gap:26px;}
+  .nav .links a{color:#d4dde4; text-decoration:none; font-weight:600; font-size:15px;}
+  .nav .links a:hover{color:#fff;}
+  .nav .btn{padding:11px 20px; font-size:15px;}
+  @media(max-width:860px){ .nav .links a.hidem{display:none;} }
+
+  /* hero */
+  .hero{position:relative; overflow:hidden; color:#fff; background:
+     radial-gradient(900px 500px at 85% -10%, rgba(255,106,26,.28), transparent 60%),
+     radial-gradient(700px 500px at 0% 110%, rgba(19,160,138,.30), transparent 55%),
+     linear-gradient(160deg,#16242f,#1d3340 55%,#13262b);}
+  .topo{position:absolute; inset:0; opacity:.5; pointer-events:none;
+     background:
+       repeating-radial-gradient(circle at 78% 18%, transparent 0 38px, rgba(255,255,255,.05) 38px 39px),
+       repeating-radial-gradient(circle at 12% 86%, transparent 0 46px, rgba(63,208,182,.06) 46px 47px);}
+  .hero .wrap{position:relative; z-index:2; display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px; align-items:center; padding:70px 28px 96px;}
+  .hero h1{font-size:clamp(38px,5.2vw,62px); line-height:1.05; margin:14px 0 16px; font-weight:800;}
+  .hero h1 .hl{background:linear-gradient(90deg,#ffb06a,#ffd9a0); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero p.sub{font-size:19px; color:#d3e0e6; max-width:560px;}
+  .hero .cta{display:flex; flex-wrap:wrap; gap:14px; margin-top:26px;}
+  .hero .micro{margin-top:14px; font-size:13.5px; color:#9fb6bf;}
+  .hero .micro b{color:#ffd9a0;}
+  /* floating UI */
+  .heroart{position:relative;}
+  .heroart .shot{width:100%; border-radius:16px; box-shadow:0 30px 70px rgba(0,0,0,.5); border:1px solid rgba(255,255,255,.12); display:block; background:#0e1c24;}
+  .heroart .chip{position:absolute; background:#fff; color:var(--ink); border-radius:14px; padding:12px 16px; box-shadow:0 16px 34px rgba(0,0,0,.3); font-weight:700; font-size:14px; display:flex; align-items:center; gap:10px; animation:floaty 5s ease-in-out infinite;}
+  .heroart .chip .ic{width:30px; height:30px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:16px;}
+  .heroart .chip.a{top:-22px; left:-24px;} .heroart .chip.b{bottom:30px; right:-26px; animation-delay:1.2s;} .heroart .chip.c{bottom:-22px; left:24px; animation-delay:.6s;}
+  @keyframes floaty{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
+  .hero .phfallback{width:100%; aspect-ratio:16/10; border-radius:16px; background:linear-gradient(160deg,#0e2730,#10384a); border:1px solid rgba(255,255,255,.12); display:flex; align-items:center; justify-content:center; color:#5e8a93; font-weight:700;}
+
+  /* reveal */
+  .rv{opacity:0; transform:translateY(26px); transition:opacity .7s ease, transform .7s ease;}
+  .rv.in{opacity:1; transform:none;}
+
+  section{padding:84px 0;}
+  h2.sec{font-size:clamp(30px,4vw,46px); line-height:1.08; margin:10px 0 14px; font-weight:800; color:var(--ink);}
+  .lead{font-size:18px; color:var(--muted); max-width:680px;}
+  .center{text-align:center; margin:0 auto;} .center .lead{margin:0 auto;}
+
+  /* replace strip */
+  .replace{background:var(--ink); color:#fff; padding:44px 0;}
+  .replace .row{display:flex; align-items:center; justify-content:center; gap:18px; flex-wrap:wrap; margin-top:18px;}
+  .replace .old{display:flex; align-items:center; gap:10px; font-weight:700; color:#9fb0bb; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); padding:12px 18px; border-radius:12px; position:relative;}
+  .replace .old s{text-decoration-color:var(--orange);}
+  .replace .arrow{font-size:24px; color:var(--orange);}
+  .replace .one{font-weight:800; color:#fff; background:linear-gradient(90deg,var(--orange),var(--gold)); padding:13px 22px; border-radius:12px; box-shadow:0 10px 24px rgba(255,106,26,.4);}
+
+  /* stat band */
+  .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:18px;}
+  .stat{background:var(--card); border:1px solid var(--line); border-radius:18px; padding:26px 22px; text-align:center; box-shadow:0 2px 8px rgba(40,30,10,.05);}
+  .stat .n{font-family:"Sora"; font-size:46px; font-weight:800; line-height:1; color:var(--orange);}
+  .stat .n small{font-size:24px;} .stat .l{margin-top:8px; font-size:14px; color:var(--muted); font-weight:600;}
+
+  /* feature cards */
+  .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  .fcard{background:var(--card); border:1px solid var(--line); border-radius:20px; padding:30px; box-shadow:0 2px 10px rgba(40,30,10,.05); transition:transform .25s, box-shadow .25s;}
+  .fcard:hover{transform:translateY(-8px); box-shadow:0 24px 44px rgba(20,40,40,.14);}
+  .fcard .ic{width:58px; height:58px; border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:28px; background:linear-gradient(150deg,#fff1e6,#ffe3cf); margin-bottom:16px;}
+  .fcard h3{font-size:21px; margin:0 0 8px;} .fcard p{margin:0; color:var(--muted); font-size:15.5px;}
+
+  /* pillars */
+  .pillars{background:linear-gradient(160deg,#11313a,#0e2730); color:#fff; border-radius:0;}
+  .pillars .split{display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;}
+  .pillars .pgrid{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  .pillars .p{background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:22px;}
+  .pillars .p .t{font-family:"Sora"; font-weight:700; font-size:18px; color:#fff; display:flex; align-items:center; gap:10px;}
+  .pillars .p p{margin:8px 0 0; color:#bcd2d6; font-size:14.5px;}
+  .pillars img{width:100%; border-radius:16px; box-shadow:0 24px 50px rgba(0,0,0,.45); border:1px solid rgba(255,255,255,.12);}
+  .pillars h2{color:#fff;}
+
+  /* results */
+  .results .item{display:grid; grid-template-columns:1fr 1fr; gap:44px; align-items:center; margin-bottom:46px;}
+  .results .item:nth-child(even) .txt{order:2;}
+  .results .item img{width:100%; border-radius:18px; box-shadow:0 20px 44px rgba(20,40,40,.16); border:1px solid var(--line); background:#fff;}
+  .results .badge{display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:800; color:var(--teal); background:#e3f6f1; padding:7px 14px; border-radius:30px; text-transform:uppercase; letter-spacing:1px;}
+  .results h3{font-size:28px; margin:12px 0 8px;}
+  .results p{color:var(--muted); font-size:16.5px; margin:0;}
+  .results .imgph{width:100%; aspect-ratio:16/10; border-radius:18px; background:linear-gradient(160deg,#eef4f2,#e3efe9); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; color:#8aa39c; font-weight:700;}
+
+  /* map highlight */
+  .mapfeat{background:var(--sand); border-radius:24px; padding:48px; display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center;}
+  .mapviz{position:relative; aspect-ratio:4/3; border-radius:18px; overflow:hidden; background:
+      repeating-linear-gradient(0deg, transparent 0 27px, rgba(19,160,138,.12) 27px 28px),
+      repeating-linear-gradient(90deg, transparent 0 27px, rgba(19,160,138,.12) 27px 28px),
+      linear-gradient(160deg,#dff0ea,#cfe7df); border:1px solid #cde0d8;}
+  .mapviz .pin{position:absolute; width:30px; height:30px; transform:translate(-50%,-100%);}
+  .mapviz .pin span{display:block; width:30px; height:30px; background:var(--orange); border-radius:50% 50% 50% 0; transform:rotate(-45deg); box-shadow:0 6px 12px rgba(0,0,0,.25);}
+  .mapviz .pin span::after{content:""; position:absolute; left:9px; top:9px; width:12px; height:12px; background:#fff; border-radius:50%; transform:rotate(45deg);}
+  .mapviz .route{position:absolute; inset:0;}
+
+  /* steps */
+  .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; counter-reset:s;}
+  .step{background:var(--card); border:1px solid var(--line); border-radius:20px; padding:30px; position:relative;}
+  .step .num{width:48px; height:48px; border-radius:50%; background:linear-gradient(140deg,var(--orange),var(--gold)); color:#fff; font-family:"Sora"; font-weight:800; font-size:22px; display:flex; align-items:center; justify-content:center; margin-bottom:14px;}
+  .step h3{font-size:19px; margin:0 0 6px;} .step p{margin:0; color:var(--muted); font-size:15px;}
+
+  /* testimonials */
+  .tcard{background:var(--card); border:1px solid var(--line); border-radius:20px; padding:28px; box-shadow:0 2px 10px rgba(40,30,10,.05);}
+  .tcard .stars{color:var(--gold); font-size:16px; letter-spacing:2px;}
+  .tcard p{font-size:15.5px; color:#3a4853; margin:12px 0 14px;}
+  .tcard .who{font-weight:700; color:var(--ink); font-size:14.5px;}
+
+  /* story */
+  .story{background:linear-gradient(160deg,#1d3340,#14242d); color:#fff; text-align:center;}
+  .story h2{color:#fff;} .story p{color:#cddde2; max-width:760px; margin:14px auto 0; font-size:17px;}
+  .story .gem{width:64px; height:64px; border-radius:14px; background:linear-gradient(140deg,var(--orange),var(--gold)); margin:0 auto; display:flex; align-items:center; justify-content:center; transform:rotate(45deg); box-shadow:0 14px 30px rgba(255,106,26,.4);}
+  .story .gem b{transform:rotate(-45deg); color:#fff; font-size:30px;}
+
+  /* final cta */
+  .final{background:linear-gradient(120deg,var(--orange),#ff8a3d); color:#fff; text-align:center; border-radius:26px; padding:60px 30px; box-shadow:0 24px 60px rgba(255,106,26,.4);}
+  .final h2{color:#fff; font-size:clamp(30px,4vw,46px);}
+  .final p{color:#fff2e6; font-size:18px; margin:8px 0 24px;}
+  .final .btn.dark{background:#15212b;}
+
+  footer{background:#11202a; color:#9fb2bd; padding:54px 0 30px; font-size:14px;}
+  footer .cols{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:28px;}
+  footer a{color:#bccbd4; text-decoration:none; display:block; padding:4px 0;}
+  footer a:hover{color:#fff;} footer h4{color:#fff; font-size:13px; letter-spacing:1px; text-transform:uppercase; margin:0 0 8px;}
+  footer .copy{margin-top:34px; padding-top:20px; border-top:1px solid rgba(255,255,255,.1); color:#7f93a0;}
+
+  @media(max-width:920px){
+    .hero .wrap, .pillars .split, .results .item, .mapfeat{grid-template-columns:1fr;}
+    .results .item:nth-child(even) .txt{order:0;}
+    .grid3,.stats,.steps,.pillars .pgrid{grid-template-columns:1fr 1fr;}
+    .heroart{display:none;}
+  }
+  @media(max-width:600px){ .grid3,.stats,.steps,.pillars .pgrid{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="gem"><b>K</b></span> Kudurru Stone</a>
+    <nav class="links">
+      <a class="hidem" href="#features">Features</a>
+      <a class="hidem" href="#results">Results</a>
+      <a class="hidem" href="https://kudurrustone.com/Landing/Pricing">Pricing</a>
+      <a class="hidem" href="https://kudurrustone.com/Landing/Demo">Demo</a>
+      <a class="hidem" href="https://kudurrustone.com/Account/Login">Login</a>
+      <a class="btn primary" href="https://kudurrustone.com/Account/Register">Start Free Trial</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top" style="padding:0;">
+  <div class="topo"></div>
+  <div class="wrap">
+    <div>
+      <span class="kick" style="color:#ffd9a0;">Project Management for Land Surveyors</span>
+      <h1>Run your entire survey operation from <span class="hl">one screen.</span></h1>
+      <p class="sub">Plan crews, schedule jobs on a live map, and hit every deadline — without the spreadsheet circus. Kudurru Stone is built for one job: making land surveyors faster, calmer, and more profitable.</p>
+      <div class="cta">
+        <a class="btn primary" href="https://kudurrustone.com/Account/Register">Start your free 7-day trial →</a>
+        <a class="btn ghost" href="https://kudurrustone.com/Landing/Demo">▶ Watch a quick demo</a>
+      </div>
+      <p class="micro">✓ <b>No credit card.</b> No boots, no clothes, no motorcycle. Live up and running in as little as <b>24 hours.</b></p>
+    </div>
+    <div class="heroart">
+      <img class="shot" src="https://www.kudurrustone.com/Landing/img/laptop.webp" alt="Kudurru Stone dashboard" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="phfallback" style="display:none;">Your dashboard, all in one place</div>
+      <div class="chip a"><span class="ic" style="background:#ffe3cf;">📋</span> Job #2041 · On schedule</div>
+      <div class="chip b"><span class="ic" style="background:#e3f6f1;">📍</span> 3 crews routed today</div>
+      <div class="chip c"><span class="ic" style="background:#fff3cf;">✅</span> Budget on track</div>
+    </div>
+  </div>
+</section>
+
+<!-- REPLACE -->
+<div class="replace">
+  <div class="wrap center">
+    <span class="kick" style="color:#ffd9a0;">Bury the Frankenstein stack</span>
+    <h2 class="sec" style="color:#fff; margin-bottom:6px;">Stop duct-taping tools together</h2>
+    <div class="row">
+      <div class="old"><s>MS Project</s></div>
+      <div class="old"><s>Excel</s></div>
+      <div class="old"><s>The whiteboard</s></div>
+      <span class="arrow">➜</span>
+      <div class="one">One tool, made for surveyors</div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<section style="padding-bottom:30px;">
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat rv"><div class="n" data-to="1">0</div><div class="l">Tool to run it all</div></div>
+      <div class="stat rv"><div class="n" data-to="3">0</div><div class="l">Clunky tools you can drop</div></div>
+      <div class="stat rv"><div class="n" data-to="7">0</div><div class="l">Day free trial</div></div>
+      <div class="stat rv"><div class="n" data-to="24">0</div><div class="l">Hours to go live</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CORE FEATURES -->
+<section id="features">
+  <div class="wrap">
+    <div class="center" style="max-width:720px;">
+      <span class="kick">Why surveyors love it</span>
+      <h2 class="sec">From project chaos to peace of mind</h2>
+      <p class="lead">Centralize everything, see the whole picture at a glance, and get your team rolling fast.</p>
+    </div>
+    <div class="grid3" style="margin-top:44px;">
+      <div class="fcard rv"><div class="ic">🗂️</div><h3>Organize job info</h3><p>Centralize every project and pull the details that matter into one clean overview — no more digging through five programs to answer one question.</p></div>
+      <div class="fcard rv"><div class="ic">📈</div><h3>Track every project</h3><p>Plan and track jobs at every level of your business, so work flows smoothly from "received" to "filed" without anything slipping through the cracks.</p></div>
+      <div class="fcard rv"><div class="ic">🚀</div><h3>Onboard in a flash</h3><p>Go from spreadsheet chaos to in-control fast, with a personalized support team that sets up your data and walks you through it.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PILLARS -->
+<section class="pillars">
+  <div class="wrap">
+    <div class="split">
+      <div class="rv">
+        <span class="kick" style="color:#3fd0b6;">Plan · Delegate · Collaborate · Monitor</span>
+        <h2 class="sec">The four things great surveying ops do well — in one place</h2>
+        <div class="pgrid" style="margin-top:24px;">
+          <div class="p"><div class="t">🗓️ Plan</div><p>Schedule crews, time and finite resources before they collide.</p></div>
+          <div class="p"><div class="t">🤝 Delegate</div><p>Assign tasks to the right crew around their schedule and gear.</p></div>
+          <div class="p"><div class="t">💬 Collaborate</div><p>One source of truth keeps everyone informed, automatically.</p></div>
+          <div class="p"><div class="t">🔎 Monitor</div><p>Full accountability and transparency — you're always in the know.</p></div>
+        </div>
+      </div>
+      <div class="rv">
+        <img src="https://www.kudurrustone.com/Landing/img/2-dashboard-555.webp" alt="Kudurru Stone scheduling dashboard" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="phfallback" style="display:none; aspect-ratio:16/11;">Scheduling dashboard</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section id="results">
+  <div class="wrap">
+    <div class="center" style="max-width:720px; margin-bottom:50px;">
+      <span class="kick">The results you'll feel</span>
+      <h2 class="sec">Less chasing. More finishing.</h2>
+      <p class="lead">Stop constantly communicating and manually logging information. Here's what changes once Kudurru Stone runs the show.</p>
+    </div>
+
+    <div class="item rv">
+      <div class="txt">
+        <span class="badge">⚡ Streamlined</span>
+        <h3>Tasks that run themselves</h3>
+        <p>Trim, automate or eliminate the steps that eat your day. The result: on-time deliverables with a fraction of the babysitting.</p>
+      </div>
+      <div><img src="https://kudurrustone.com/Images/streamline-tasks.gif" alt="Streamline task management" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="imgph" style="display:none;">Streamlined task management</div></div>
+    </div>
+
+    <div class="item rv">
+      <div class="txt">
+        <span class="badge">👷 Performance</span>
+        <h3>Crews that run like clockwork</h3>
+        <p>Smoother processes mean better-used hours and fewer mistakes. Fewer bottlenecks, less wasted time, a healthier bottom line.</p>
+      </div>
+      <div><img src="https://kudurrustone.com/Images/crew-performance.gif" alt="Improve crew performance" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="imgph" style="display:none;">Crew performance</div></div>
+    </div>
+
+    <div class="item rv">
+      <div class="txt">
+        <span class="badge">💰 Profitability</span>
+        <h3>Budgets that finally behave</h3>
+        <p>Fewer errors, tighter schedules and simpler workloads keep budgets under control — and keep your business profitable.</p>
+      </div>
+      <div><img src="https://kudurrustone.com/Images/control-your-budgets.gif" alt="Control your budgets" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="imgph" style="display:none;">Budget control</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MAP -->
+<section style="padding-top:20px;">
+  <div class="wrap">
+    <div class="mapfeat rv">
+      <div>
+        <span class="kick">See where the work is</span>
+        <h2 class="sec" style="font-size:clamp(26px,3.2vw,38px);">Every job on the map</h2>
+        <p class="lead">Plot your projects geographically and build smarter schedules in seconds. As one customer put it — <em>"I love the map part; showing where jobs are located makes figuring out your schedule so much simpler."</em></p>
+        <a class="btn dark" href="https://kudurrustone.com/Landing/Demo" style="margin-top:20px;">See it in a demo →</a>
+      </div>
+      <div class="mapviz">
+        <svg class="route" viewBox="0 0 400 300" preserveAspectRatio="none"><path d="M60 230 C140 180 180 120 250 110 S360 70 350 60" fill="none" stroke="#13a08a" stroke-width="3" stroke-dasharray="7 7" opacity="0.7"/></svg>
+        <div class="pin" style="left:16%; top:80%;"><span></span></div>
+        <div class="pin" style="left:46%; top:46%;"><span></span></div>
+        <div class="pin" style="left:64%; top:40%;"><span></span></div>
+        <div class="pin" style="left:88%; top:22%;"><span></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STEPS -->
+<section style="background:#fbf7ef;">
+  <div class="wrap">
+    <div class="center" style="max-width:680px;">
+      <span class="kick">Onboarding is easy</span>
+      <h2 class="sec">Up and running in 1 · 2 · 3</h2>
+      <p class="lead">No long migrations, no IT project. Just a fast path to fewer headaches.</p>
+    </div>
+    <div class="steps" style="margin-top:44px;">
+      <div class="step rv"><div class="num">1</div><h3>Start your free 7-day trial</h3><p>Sign up in minutes and see how much calmer your week can be.</p></div>
+      <div class="step rv"><div class="num">2</div><h3>Get personalized onboarding</h3><p>Our team walks you through setup, data migration and more — live.</p></div>
+      <div class="step rv"><div class="num">3</div><h3>Go live in ~24 hours</h3><p>By tomorrow, you could be cutting headaches instead of corners.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section>
+  <div class="wrap">
+    <div class="center" style="max-width:680px;">
+      <span class="kick">Loved by surveyors</span>
+      <h2 class="sec">Don't take our word for it</h2>
+    </div>
+    <div class="grid3" style="margin-top:44px;">
+      <div class="tcard rv"><div class="stars">★★★★★</div><p>"We'd looked for a long time for software to support our commercial land surveying business and eliminate the third-party programs we used. We finally found the perfect software when we found Kudurru Stone."</p><div class="who">Ray — DPK Consulting, LLC.</div></div>
+      <div class="tcard rv"><div class="stars">★★★★★</div><p>"Kudurru Stone is a great program! I love the map part — showing where jobs are located makes figuring out your schedule so much simpler."</p><div class="who">Morgan — ECK Land Surveyors, Inc.</div></div>
+      <div class="tcard rv"><div class="stars">★★★★★</div><p>"An absolute game-changer for scheduling field work and managing projects. Customer service is off the charts, and the level of detail for land surveying is top-notch. A total win!"</p><div class="who">Jason — East Coast Engineering, Inc.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="story">
+  <div class="wrap rv">
+    <div class="gem"><b>K</b></div>
+    <h2 class="sec" style="margin-top:18px;">Named for the original boundary stone</h2>
+    <p>A <em>kudurru</em> was the ancient stone that defined where one's land began and ended — order carved into the earth. We built the modern one for your business: the single landmark that defines your projects, your crews, and your day. <strong>Streamline workflow, eliminate mistakes, and enjoy peace of mind.</strong></p>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section style="padding-top:0;">
+  <div class="wrap">
+    <div class="final rv">
+      <h2>Your calmer, more profitable survey business starts today</h2>
+      <p>Free 7-day trial · No credit card · Live in as little as 24 hours.</p>
+      <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
+        <a class="btn dark" href="https://kudurrustone.com/Account/Register">Start my free trial →</a>
+        <a class="btn ghost" href="https://kudurrustone.com/Landing/Demo" style="border-color:rgba(255,255,255,.7);">Schedule a demo</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <a class="brand" href="#top" style="display:flex; align-items:center; gap:10px; color:#fff; font-family:Sora; font-weight:800; font-size:19px; text-decoration:none;"><span style="width:28px;height:28px;border-radius:7px;background:linear-gradient(140deg,var(--orange),var(--gold));display:flex;align-items:center;justify-content:center;transform:rotate(45deg);"><b style="transform:rotate(-45deg);color:#fff;">K</b></span> Kudurru Stone</a>
+        <p style="margin-top:12px; max-width:300px;">Project management &amp; scheduling software built exclusively for land surveyors.</p>
+      </div>
+      <div><h4>Product</h4><a href="#features">Features</a><a href="https://kudurrustone.com/Landing/Pricing">Pricing</a><a href="https://kudurrustone.com/Landing/Demo">Demo</a><a href="https://kudurrustone.com/UserGuide">User Guide</a></div>
+      <div><h4>Get started</h4><a href="https://kudurrustone.com/Account/Register">Free Trial</a><a href="https://kudurrustone.com/Account/Login">Login</a><a href="https://kudurrustone.com/Landing/Contact_Us">Contact Us</a><a href="https://kudurrustone.com/blog">Blog</a></div>
+      <div><h4>Company</h4><a href="https://www.kudurrustone.com/landing/privacypolicy">Privacy Policy</a><a href="https://www.kudurrustone.com/Legal/ToS.pdf">Terms of Service</a><span style="display:block; padding:4px 0;">Meridian, ID 83646</span></div>
+    </div>
+    <div class="copy">© 2026 Kudurru Stone LLC · Streamline workflow, eliminate mistakes, enjoy peace of mind.</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in'); io.unobserve(e.target);}});},{threshold:0.15});
+  document.querySelectorAll('.rv').forEach(function(el){io.observe(el);});
+  // count-up
+  var co=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting) return;
+      var el=e.target.querySelector('.n[data-to]');
+      if(el && !el.dataset.done){
+        el.dataset.done="1";
+        var to=+el.getAttribute('data-to'), t0=null;
+        function step(ts){ if(!t0)t0=ts; var p=Math.min((ts-t0)/900,1); el.textContent=Math.round((1-Math.pow(1-p,3))*to); if(p<1) requestAnimationFrame(step); }
+        requestAnimationFrame(step);
+      }
+      co.unobserve(e.target);
+    });
+  },{threshold:0.4});
+  document.querySelectorAll('.stat').forEach(function(el){co.observe(el);});
+})();
+</script>
+</body>
+</html>
