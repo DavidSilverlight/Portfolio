@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BCBS — My BluePrint · Analysis &amp; Roadmap · David Silverlight</title>
+<style>
+  :root{
+    --blue:#1f9fd4; --navy:#0b3a52; --deep:#072736; --sky:#5bc0e8; --green:#7ac043; --gold:#e8b64c;
+    --ink:#17242c; --muted:#5c6b74; --paper:#f4f8fb; --card:#ffffff; --line:#e2ebf1;
+  }
+  *{box-sizing:border-box;} html{scroll-behavior:smooth;}
+  body{margin:0; font-family:"Segoe UI",Calibri,Arial,sans-serif; color:var(--ink); background:var(--paper); line-height:1.6;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 26px;}
+
+  /* top bar */
+  .topbar{position:sticky; top:0; z-index:40; background:rgba(7,39,54,.97); backdrop-filter:blur(8px); border-bottom:1px solid rgba(91,192,232,.4);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:56px;}
+  .back{display:inline-flex; gap:8px; text-decoration:none; color:#fff; font-weight:800; font-size:14px; background:linear-gradient(135deg,var(--sky),var(--blue)); padding:9px 16px; border-radius:30px;}
+  .topbar .who{color:#bfe4f4; font-size:13px; font-weight:700;} .topbar .who b{color:#fff;}
+
+  /* hero */
+  .hero{position:relative; overflow:hidden; color:#fff;
+    background:radial-gradient(820px 460px at 84% -12%, rgba(91,192,232,.5), transparent 60%),
+      radial-gradient(600px 400px at 2% 116%, rgba(122,192,67,.22), transparent 58%),
+      linear-gradient(160deg,#072736,#0e4763 55%,#072736);}
+  .hero::before{content:""; position:absolute; inset:0; opacity:.4;
+    background:linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px); background-size:44px 44px;}
+  .hero .wrap{position:relative; z-index:3; display:grid; grid-template-columns:1.08fr .92fr; gap:44px; align-items:center; padding:60px 26px 66px;}
+  .eyebrow{display:inline-flex; gap:8px; align-items:center; font-size:12px; font-weight:800; letter-spacing:2.5px; text-transform:uppercase; color:#cfeefb; background:rgba(91,192,232,.16); border:1px solid rgba(91,192,232,.5); padding:6px 14px; border-radius:30px;}
+  .hero h1{margin:18px 0 8px; font-size:clamp(34px,5.2vw,56px); line-height:1.04; letter-spacing:-.5px; font-weight:800;}
+  .hero h1 span{background:linear-gradient(90deg,#8fd6f0,#c9edfa); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero .rule{width:70px; height:3px; background:linear-gradient(90deg,var(--sky),transparent); margin:14px 0 16px; border-radius:2px;}
+  .hero .lead{max-width:566px; font-size:18px; color:#d7e8f2;}
+  .tags{margin-top:18px; display:flex; flex-wrap:wrap; gap:8px;}
+  .tags span{font-size:12px; font-weight:700; color:#eaf5fb; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.2); padding:5px 12px; border-radius:20px;}
+
+  /* analysis scorecard graphic */
+  .art{position:relative; display:flex; align-items:center; justify-content:center; min-height:300px;}
+  .scorecard{width:100%; max-width:360px; background:rgba(255,255,255,.97); border-radius:18px; padding:22px 22px 18px; box-shadow:0 24px 50px rgba(4,20,30,.5); border:1px solid rgba(255,255,255,.6); transform:rotate(-2deg); color:var(--ink);}
+  .scorecard h4{margin:0 0 3px; font-size:14px; color:var(--navy);}
+  .scorecard .sub{font-size:11px; color:var(--muted); margin-bottom:14px;}
+  .metric{margin-bottom:12px;}
+  .metric .lab{display:flex; justify-content:space-between; font-size:11.5px; font-weight:700; color:#41525c; margin-bottom:5px;}
+  .metric .track{height:8px; border-radius:5px; background:#e7eef3; overflow:hidden;}
+  .metric .fill{height:100%; border-radius:5px;}
+  .m1 .fill{width:62%; background:linear-gradient(90deg,var(--gold),#f0c96a);}
+  .m2 .fill{width:78%; background:linear-gradient(90deg,var(--blue),var(--sky));}
+  .m3 .fill{width:45%; background:linear-gradient(90deg,#e0736b,#f0968f);}
+  .m4 .fill{width:88%; background:linear-gradient(90deg,var(--green),#9bd36a);}
+
+  section{padding:56px 0;}
+  .kicker{font-size:12px; font-weight:800; letter-spacing:2.5px; text-transform:uppercase; color:var(--blue);}
+  h2.sec{font-size:clamp(24px,3.4vw,34px); margin:8px 0 6px; color:var(--navy); font-weight:800;}
+  .sec-sub{color:var(--muted); max-width:730px; font-size:16px; margin:0 0 26px;}
+  .center{text-align:center;} .center .sec-sub{margin-left:auto;margin-right:auto;}
+  .center .rule{width:60px; height:3px; background:linear-gradient(90deg,var(--sky),var(--green)); border-radius:2px; margin:12px auto 0;}
+
+  /* pillars (analysis areas) */
+  .pillars{display:grid; grid-template-columns:repeat(auto-fit,minmax(185px,1fr)); gap:18px;}
+  .pill3{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:24px 20px; box-shadow:0 2px 12px rgba(11,58,82,.05); transition:transform .2s, box-shadow .2s; position:relative; overflow:hidden;}
+  .pill3::before{content:""; position:absolute; left:0; top:0; height:4px; width:100%; background:linear-gradient(90deg,var(--blue),var(--sky));}
+  .pill3:hover{transform:translateY(-6px); box-shadow:0 18px 38px rgba(11,58,82,.14);}
+  .pill3 .ic{width:54px; height:54px; border-radius:15px; display:flex; align-items:center; justify-content:center; font-size:26px; margin:8px 0 12px; background:linear-gradient(150deg,#e8f3fa,#dcebf4);}
+  .pill3 h3{margin:0 0 6px; font-size:17px; color:var(--navy);} .pill3 p{margin:0; color:#54636c; font-size:13.5px;}
+
+  /* roadmap timeline */
+  .roadmap{background:linear-gradient(160deg,#072736,#0e4763); color:#fff; border-radius:22px; padding:42px 34px; position:relative; overflow:hidden;}
+  .roadmap::after{content:""; position:absolute; right:-70px; top:-70px; width:250px; height:250px; border-radius:50%; background:radial-gradient(circle,rgba(122,192,67,.2),transparent 65%);}
+  .roadmap .kicker{color:#cfeefb;} .roadmap h2{color:#fff;} .roadmap .sec-sub{color:#d4e7f1;}
+  .phases{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:24px; position:relative; z-index:2;}
+  .phase{background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.16); border-radius:14px; padding:18px;}
+  .phase .when{display:inline-block; font-size:10.5px; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:var(--deep); background:linear-gradient(135deg,var(--sky),var(--blue)); padding:3px 9px; border-radius:20px; margin-bottom:10px;}
+  .phase.p1 .when{background:linear-gradient(135deg,#f0968f,#e0736b); color:#fff;}
+  .phase.p4 .when{background:linear-gradient(135deg,var(--green),#9bd36a); color:var(--deep);}
+  .phase h3{margin:0 0 6px; font-size:15px; color:#fff;} .phase p{margin:0; font-size:12.5px; color:#cfe0ea; line-height:1.45;}
+  .prio{display:inline-flex; align-items:center; gap:10px; margin-top:24px; background:rgba(122,192,67,.16); border:1px solid rgba(122,192,67,.45); border-radius:30px; padding:10px 18px; font-weight:700; font-size:14.5px; color:#d7f0bd; position:relative; z-index:2;}
+
+  /* gallery — flat thumbnails, no cards behind */
+  .gallery-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,178px)); gap:34px 26px; justify-content:center; align-items:start; margin-top:46px;}
+  .screen{margin:0;}
+  .screen .fr{position:relative; display:block; width:fit-content; margin:0 auto; line-height:0; background:transparent; transition:transform .28s cubic-bezier(.2,.7,.3,1);}
+  .screen .fr:hover{transform:translateY(-9px);}
+  .screen .fr img{width:100%; display:block; border-radius:16px; cursor:zoom-in;}
+
+  /* band */
+  .band{background:linear-gradient(160deg,#072736,#051d29); color:#fff;}
+  .band h2{color:#fff;} .band .kicker{color:#cfeefb;} .band .sec-sub{color:#d4e7f1;}
+  .stack{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;}
+  .stack span{font-size:13px; font-weight:700; color:#eaf5fb; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); padding:8px 15px; border-radius:30px;}
+
+  footer{padding:30px 0 50px; text-align:center; color:var(--muted); font-size:13px;} footer a{color:var(--blue); text-decoration:none; font-weight:800;}
+  #lb{display:none; position:fixed; inset:0; z-index:9999; background:rgba(5,20,30,.94); align-items:flex-start; justify-content:center; overflow:auto; cursor:zoom-out; padding:24px;}
+  #lb img{max-width:none; border-radius:10px; box-shadow:0 16px 60px rgba(0,0,0,.6);} #lb .x{position:fixed; top:16px; right:22px; color:#fff; font-size:38px; cursor:pointer;}
+  @media (max-width:900px){ .hero .wrap{grid-template-columns:1fr;} .phases{grid-template-columns:1fr 1fr;} }
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap"><a class="back" href="index.html" onclick="if(history.length>1){history.back();return false;}">&larr; Back to portfolio</a><span class="who">Case Study · <b>David Silverlight</b></span></div></div>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">📊 Xamarin.Forms · Healthcare · App Analysis</span>
+      <h1>BCBS <span>My BluePrint</span></h1>
+      <div class="rule"></div>
+      <p class="lead">A deep, structured analysis of the Blue Cross Blue Shield member app — turning performance data, store feedback, exception patterns and accessibility gaps into a clear, prioritized roadmap for what to fix, and when.</p>
+      <div class="tags"><span>Performance</span><span>App Store Feedback</span><span>Engagement</span><span>Exception Resolution</span><span>Accessibility</span></div>
+    </div>
+    <div class="art">
+      <div class="scorecard">
+        <h4>App Health Scorecard</h4>
+        <div class="sub">Baseline assessment · My BluePrint Mobile</div>
+        <div class="metric m1"><div class="lab"><span>Performance</span><span>Needs work</span></div><div class="track"><div class="fill"></div></div></div>
+        <div class="metric m2"><div class="lab"><span>Engagement</span><span>Opportunity</span></div><div class="track"><div class="fill"></div></div></div>
+        <div class="metric m3"><div class="lab"><span>Top Exceptions</span><span>High priority</span></div><div class="track"><div class="fill"></div></div></div>
+        <div class="metric m4"><div class="lab"><span>Accessibility</span><span>Target</span></div><div class="track"><div class="fill"></div></div></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- THE ANALYSIS -->
+<section>
+  <div class="wrap">
+    <div class="center"><span class="kicker">The analysis</span><h2 class="sec">Five lenses on app quality</h2><div class="rule"></div><p class="sec-sub" style="margin-top:16px;">The assessment examined the My BluePrint experience across five dimensions — each scored, evidenced, and translated into concrete, actionable findings.</p></div>
+    <div class="pillars" style="margin-top:36px;">
+      <div class="pill3"><div class="ic">⚡</div><h3>Performance</h3><p>Profiled responsiveness, load times, and bottlenecks affecting day-to-day member use.</p></div>
+      <div class="pill3"><div class="ic">⭐</div><h3>App Store Feedback</h3><p>Mined ratings and reviews to surface recurring themes and member pain points.</p></div>
+      <div class="pill3"><div class="ic">📈</div><h3>Customer Engagement</h3><p>Identified opportunities to deepen usage, retention, and self-service adoption.</p></div>
+      <div class="pill3"><div class="ic">🛠️</div><h3>Exception Resolution</h3><p>Ranked high-frequency crashes and errors by impact for targeted remediation.</p></div>
+      <div class="pill3"><div class="ic">♿</div><h3>Accessibility</h3><p>Audited compliance gaps to ensure the app is usable by every member.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- THE ROADMAP -->
+<section style="padding-top:14px;">
+  <div class="wrap">
+    <div class="roadmap">
+      <span class="kicker">The roadmap</span>
+      <h2 class="sec" style="font-size:clamp(24px,3.2vw,32px);">A prioritized plan — highest impact first</h2>
+      <p class="sec-sub">Findings were sequenced into a phased roadmap that schedules each area by timeframe and order, so the team tackles the most critical, highest-priority issues before moving down the list.</p>
+      <div class="phases">
+        <div class="phase p1"><span class="when">Phase 1 · Now</span><h3>Stabilize</h3><p>Resolve the highest-frequency exceptions and critical performance issues impacting members most.</p></div>
+        <div class="phase p2"><span class="when">Phase 2 · Next</span><h3>Comply</h3><p>Close accessibility gaps to meet compliance and make the app usable for everyone.</p></div>
+        <div class="phase p3"><span class="when">Phase 3 · Then</span><h3>Refine</h3><p>Address recurring App Store feedback themes and polish the rough edges members flagged.</p></div>
+        <div class="phase p4"><span class="when">Phase 4 · Ongoing</span><h3>Grow</h3><p>Roll out engagement enhancements that increase adoption and long-term retention.</p></div>
+      </div>
+      <div class="prio">🎯 Each area scheduled by timeframe and priority — critical issues first, improvements next.</div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section style="background:#e9f2f8;">
+  <div class="wrap">
+    <div class="center"><span class="kicker">The app</span><h2 class="sec">A look at My BluePrint</h2><div class="rule"></div><p class="sec-sub" style="margin-top:16px;">The member self-service experience assessed in this analysis. Click any screen to enlarge.</p></div>
+    <div class="gallery-grid">
+      <figure class="screen"><div class="fr"><img src="images/BCBS/mbp-splash.png" alt="My BluePrint splash — Hello" onerror="this.style.display='none';this.closest('.screen').style.display='none';"></div></figure>
+      <figure class="screen"><div class="fr"><img src="images/BCBS/mbp-signin.png" alt="My BluePrint sign in" onerror="this.style.display='none';this.closest('.screen').style.display='none';"></div></figure>
+      <figure class="screen"><div class="fr"><img src="images/BCBS/mbp-select.png" alt="My BluePrint select policy" onerror="this.style.display='none';this.closest('.screen').style.display='none';"></div></figure>
+      <figure class="screen"><div class="fr"><img src="images/BCBS/mbp-home.png" alt="My BluePrint home menu" onerror="this.style.display='none';this.closest('.screen').style.display='none';"></div></figure>
+      <figure class="screen"><div class="fr"><img src="images/BCBS/mbp-claims.png" alt="My BluePrint claims center" onerror="this.style.display='none';this.closest('.screen').style.display='none';"></div></figure>
+      <figure class="screen"><div class="fr"><img src="images/BCBS/mbp-contact.png" alt="My BluePrint contact us" onerror="this.style.display='none';this.closest('.screen').style.display='none';"></div></figure>
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section class="band">
+  <div class="wrap">
+    <span class="kicker">Approach &amp; deliverable</span>
+    <h2 class="sec">From assessment to actionable plan</h2>
+    <p class="sec-sub">The engagement paired hands-on evaluation of the Xamarin.Forms app with data from the stores and telemetry — packaged as a prioritized roadmap the team could execute against with confidence.</p>
+    <div class="stack"><span>Xamarin.Forms</span><span>Performance Profiling</span><span>App Store Analytics</span><span>Exception Triage</span><span>Accessibility Audit</span><span>Prioritized Roadmap</span></div>
+  </div>
+</section>
+
+<footer>BCBS · My BluePrint · Analysis &amp; Roadmap &nbsp;·&nbsp; <a href="index.html" onclick="if(history.length>1){history.back();return false;}">← Back to portfolio</a> &nbsp;·&nbsp; <a href="https://DavidSilverlight.com" target="_blank">DavidSilverlight.com</a></footer>
+<div id="lb"><span class="x">&times;</span><img alt="enlarged screenshot"></div>
+<script>(function(){var lb=document.getElementById('lb'),im=lb.querySelector('img');document.querySelectorAll('.fr img').forEach(function(g){g.addEventListener('click',function(e){e.stopPropagation();im.src=g.src;lb.style.display='flex';});});lb.addEventListener('click',function(){lb.style.display='none';im.src='';});document.addEventListener('keydown',function(e){if(e.key==='Escape'){lb.style.display='none';im.src='';}});})();</script>
+</body>
+</html>

@@ -43,17 +43,6 @@
   .shot.iso.fan .iso-plane{transform:rotate(-18deg); gap:18px;}
   .shot.iso.fan .dev{background:transparent; border-radius:14px; padding:0; box-shadow:0 14px 30px rgba(60,70,90,.18), 0 4px 10px rgba(60,70,90,.10);}
   .shot.iso.fan .dev img{border-radius:14px;}
-  /* Midmark — IoT radar showcase */
-  .shot.radar{position:relative; height:225px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:radial-gradient(circle at 50% 58%, #103c4e 0%, #0b2530 70%); border-bottom:1px solid var(--rule);}
-  .shot.radar::before{content:""; position:absolute; inset:-40%; background:repeating-radial-gradient(circle at 50% 62%, rgba(86,204,214,.16) 0 1.5px, transparent 1.5px 46px);}
-  .shot.radar::after{content:""; position:absolute; left:50%; top:64%; width:10px; height:10px; margin:-5px; border-radius:50%; background:#5fd4dd; animation:mmpulse 2.6s ease-out infinite;}
-  @keyframes mmpulse{0%{box-shadow:0 0 0 0 rgba(95,212,221,.5);}100%{box-shadow:0 0 0 46px rgba(95,212,221,0);}}
-  .shot.radar .ph3{position:relative; z-index:2; display:flex; align-items:flex-end; animation:mmfloat 6s ease-in-out infinite;}
-  @keyframes mmfloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-7px);}}
-  .shot.radar img{width:67px; border-radius:12px; box-shadow:0 16px 30px rgba(0,10,20,.55); cursor:zoom-in;}
-  .shot.radar img:nth-child(1){transform:rotate(-10deg) translate(16px,6px); z-index:1;}
-  .shot.radar img:nth-child(2){transform:translateY(-12px); z-index:3; width:74px;}
-  .shot.radar img:nth-child(3){transform:rotate(10deg) translate(-16px,6px); z-index:2;}
   /* Safe4Dogs — leash-line snapshot gallery */
   .shot.leash{position:relative; height:225px; overflow:hidden; background:linear-gradient(180deg,#fdf7ec,#f5ebd6); display:flex; align-items:flex-start; justify-content:center; border-bottom:1px solid var(--rule);}
   .shot.leash .line{position:absolute; left:-6%; right:-6%; top:10px; height:60px; border-top:3px dashed #c9a36a; border-radius:50%;}
@@ -487,6 +476,7 @@
 
     <a class="cat" href="#maui">.NET MAUI Apps</a>
     <ul>
+      <li><a href="#kinship">Kinship Navigator</a></li>
       <li><a href="#atrack">ATrack Mobile</a></li>
       <li><a href="#kudurrustone">Kudurru Stone</a></li>
       <li><a href="#smartcard">SmartCard</a></li>
@@ -501,6 +491,8 @@
 
     <a class="cat" href="#xamarin">Xamarin.Forms Apps</a>
     <ul>
+      <li><a href="Sherlock Talent.html">Sherlock Talent</a></li>
+      <li><a href="BCBS - My BluePrint.html">BCBS - My BluePrint</a></li>
       <li><a href="T-Mobile Money.html">T-Mobile Money</a></li>
       <li><a href="#marcel">Marcel</a></li>
       <li><a href="#nalco">Nalco Lock App</a></li>
@@ -570,6 +562,26 @@
 
   <h2 class="section" id="maui">.NET MAUI Applications</h2>
   <div class="grid">
+
+    <div class="card" id="kinship">
+      <div class="shot iso mock fan" style="background:linear-gradient(150deg,#e8f2fb,#f7ecd9);">
+        <span class="deco tc">👵</span><span class="deco br">💙</span>
+        <div class="iso-plane tall">
+          <div class="dev"><img src="images/KinshipNavigator/kn-landing.png" alt="Kinship Navigator welcome" onerror="this.style.display='none'"></div>
+          <div class="dev"><img src="images/KinshipNavigator/kn-programs.png" alt="Kinship Navigator program selection" onerror="this.style.display='none'"></div>
+          <div class="dev"><img src="images/KinshipNavigator/kn-apply.png" alt="Kinship Navigator apply for caregiver subsidy" onerror="this.style.display='none'"></div>
+          <div class="dev"><img src="images/KinshipNavigator/kn-contact.png" alt="Kinship Navigator contact step" onerror="this.style.display='none'"></div>
+          <div class="dev"><img src="images/KinshipNavigator/kn-address.png" alt="Kinship Navigator address step" onerror="this.style.display='none'"></div>
+          <div class="dev"><img src="images/KinshipNavigator/kn-signin.png" alt="Kinship Navigator sign in or register" onerror="this.style.display='none'"></div>
+        </div>
+      </div>
+      <div class="body">
+        <p class="name">Kinship Navigator <span class="yr">Washington, DC</span></p>
+        <span class="pill mig">.NET MAUI · Gov / Social · Featured</span>
+        <p class="desc">A .NET MAUI application providing tools for users to apply for subsidies and Emergency Financial Assistance for caretakers of children in need — funding food, housing and essentials. Architected on .NET MAUI, MAUI Essentials, CommunityToolkit.MVVM and RESTful services communicating with a Dynamics back end. Most notably, it was delivered within an extremely tight timeframe tied to payment terms that could have meant catastrophe for the client if missed — and through a steadfast focus on the MVP requirements, the app shipped successfully inside the deadline.</p>
+        <p class="tech"><b>Tech:</b> .NET MAUI, MAUI Essentials, CommunityToolkit.MVVM, RESTful Services, Dynamics</p>
+      </div>
+    </div>
 
     <div class="card" id="kudurrustone">
       <div class="shot iso mock fan">
@@ -660,25 +672,6 @@
         <p class="desc">.NET MAUI feasibility spike for the UPS driver app on the DIAD 6 handheld. Validated Trimble Maps and barcode scanning under .NET MAUI, rebuilt the in-house component library, and removed Prism in response to licensing changes.</p>
         <p class="tech"><b>Tech:</b> .NET MAUI, Trimble Maps, MAUI Essentials, CommunityToolkit.Mvvm, SQLite</p>
         <p class="lnk"><a href="UPS Mobile Delivery.html">✦ View the full case study &rarr;</a></p>
-      </div>
-    </div>
-
-    <div class="card" id="moultrie">
-      <div class="shot cam">
-        <span class="deco tl dk">🦉</span><span class="deco mr dk">🦌</span>
-        <div class="cap"><img src="images/Moultrie/IMG_4526.PNG" alt="Moultrie world map with camera pins"></div>
-        <div class="cap"><img src="images/Moultrie/IMG_4525.PNG" alt="Moultrie map layers panel"></div>
-        <div class="cap"><img src="images/Moultrie/IMG_4527.PNG" alt="Moultrie satellite property view"></div>
-        <div class="cap"><img src="images/Moultrie/IMG_4518.PNG" alt="Moultrie Mobile login"></div>
-        <div class="cap"><img src="images/Moultrie/IMG_4521.PNG" alt="Moultrie account menu"></div>
-        <div class="cap"><img src="images/Moultrie/IMG_4522.PNG" alt="Moultrie notification settings"></div>
-      </div>
-      <div class="body">
-        <p class="name">Moultrie Mobile <span class="yr">2022–2023</span></p>
-        <span class="pill mig">.NET MAUI · Featured</span>
-        <p class="desc">Trail-camera app providing access to remote camera images, property monitoring, and location navigation tools — migrated from Xamarin.Forms to .NET MAUI.</p>
-        <p class="tech"><b>Tech:</b> .NET MAUI, Xamarin.Forms</p>
-        <p class="lnk"><a href="Moultrie Mobile.html">✦ View the full case study &rarr;</a></p>
       </div>
     </div>
 
@@ -797,6 +790,48 @@
 
   <h2 class="section" id="xamarin">Xamarin.Forms Applications</h2>
   <div class="grid">
+
+    <div class="card" id="bcbs">
+      <div class="shot iso mock fan" style="background:linear-gradient(150deg,#e9f4fb,#dfeaf3);">
+        <a href="BCBS - My BluePrint.html" class="shot-link" aria-label="View the BCBS My BluePrint case study" style="position:absolute; inset:0; z-index:20;"></a>
+        <span class="deco tc">📊</span><span class="deco br">🩺</span>
+        <div class="iso-plane tall">
+          <div class="dev"><img src="images/BCBS/mbp-splash.png" alt="My BluePrint splash" onerror="this.style.display='none'"></div>
+          <div class="dev"><img src="images/BCBS/mbp-signin.png" alt="My BluePrint sign in" onerror="this.style.display='none'"></div>
+          <div class="dev"><img src="images/BCBS/mbp-home.png" alt="My BluePrint home menu" onerror="this.style.display='none'"></div>
+          <div class="dev"><img src="images/BCBS/mbp-claims.png" alt="My BluePrint claims center" onerror="this.style.display='none'"></div>
+          <div class="dev"><img src="images/BCBS/mbp-contact.png" alt="My BluePrint contact us" onerror="this.style.display='none'"></div>
+        </div>
+      </div>
+      <div class="body">
+        <p class="name">BCBS - My BluePrint <span class="yr">Analysis &amp; Roadmap</span></p>
+        <span class="pill xam">Xamarin.Forms · Healthcare · Featured</span>
+        <p class="desc">A deep analysis of the Blue Cross Blue Shield My BluePrint member app — covering application performance, App Store feedback, customer engagement, resolution of high-frequency exceptions, and accessibility compliance — delivered as a prioritized roadmap that schedules each identified area by timeframe and order, tackling the highest-priority issues first.</p>
+        <p class="tech"><b>Tech:</b> Xamarin.Forms, Performance Profiling, App Store Analytics, Accessibility, Exception Triage</p>
+        <p class="lnk"><a href="BCBS - My BluePrint.html">✦ View the full case study &rarr;</a></p>
+      </div>
+    </div>
+
+    <div class="card" id="sherlocktalent">
+      <div class="shot iso mock fan" style="background:linear-gradient(150deg,#1f6fb2,#0f4c81);">
+        <a href="Sherlock Talent.html" class="shot-link" aria-label="View the Sherlock Talent case study" style="position:absolute; inset:0; z-index:20;"></a>
+        <span class="deco tc">🔍</span><span class="deco br">💼</span>
+        <div class="iso-plane tall">
+          <div class="dev"><img src="images/SherlockTalent/st-home.png" alt="Sherlock Talent home" onerror="this.style.display='none'"></div>
+          <div class="dev"><img src="images/SherlockTalent/st-chat.png" alt="Sherlock Talent chat assistant" onerror="this.style.display='none'"></div>
+          <div class="dev"><img src="images/SherlockTalent/st-jobs.png" alt="Sherlock Talent job search" onerror="this.style.display='none'"></div>
+          <div class="dev"><img src="images/SherlockTalent/st-hire.png" alt="Sherlock Talent hire talent" onerror="this.style.display='none'"></div>
+          <div class="dev"><img src="images/SherlockTalent/st-events.png" alt="Sherlock Talent event search" onerror="this.style.display='none'"></div>
+        </div>
+      </div>
+      <div class="body">
+        <p class="name">Sherlock Talent <span class="yr">Xamarin.Forms</span></p>
+        <span class="pill xam">Xamarin.Forms · Job Search · Featured</span>
+        <p class="desc">A set of tools job seekers consider an invaluable resource — offering more than state-of-the-art guidance to find the perfect job. Sherlock Talent acts as a partner, always at the ready to strengthen trust and build a long-term relationship as your career goals grow with you.</p>
+        <p class="tech"><b>Tech:</b> Xamarin.Forms, REST APIs, Xamarin.Essentials, Conversational UI, iOS &amp; Android</p>
+        <p class="lnk"><a href="Sherlock Talent.html">✦ View the full case study &rarr;</a></p>
+      </div>
+    </div>
 
     <div class="card" id="tmobile">
       <div class="shot tmo">
@@ -1455,7 +1490,6 @@
     'smartcard':'SmartCard.html',
     'gmobile':'RamTech gMobile.html',
     'ups':'UPS Mobile Delivery.html',
-    'moultrie':'Moultrie Mobile.html',
     'moviebuff':'MovieBuff.html',
     'safe4dogs':'Safe4Dogs.html',
     'searchmed':'SearchMed.html',

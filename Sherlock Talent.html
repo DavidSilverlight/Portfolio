@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sherlock Talent — Case Study · David Silverlight</title>
+<style>
+  :root{
+    --navy:#0f2e4d; --blue:#1f6fb2; --deep:#0b2138; --gold:#c9a24b; --gold-soft:#e7d3a1;
+    --ink:#1b2733; --muted:#5f6b78; --paper:#f5f7fa; --card:#ffffff; --line:#e4e9ef;
+  }
+  *{box-sizing:border-box;} html{scroll-behavior:smooth;}
+  body{margin:0; font-family:"Segoe UI",Calibri,Arial,sans-serif; color:var(--ink); background:var(--paper); line-height:1.6;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 26px;}
+
+  /* top bar */
+  .topbar{position:sticky; top:0; z-index:40; background:rgba(11,33,56,.97); backdrop-filter:blur(8px); border-bottom:1px solid rgba(201,162,75,.4);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:56px;}
+  .back{display:inline-flex; gap:8px; text-decoration:none; color:var(--deep); font-weight:800; font-size:14px; background:linear-gradient(135deg,var(--gold-soft),var(--gold)); padding:9px 16px; border-radius:30px;}
+  .topbar .who{color:#cfe0f0; font-size:13px; font-weight:700;} .topbar .who b{color:#fff;}
+
+  /* hero */
+  .hero{position:relative; overflow:hidden; color:#fff;
+    background:radial-gradient(820px 460px at 84% -12%, rgba(31,111,178,.55), transparent 60%),
+      radial-gradient(620px 400px at 2% 116%, rgba(201,162,75,.22), transparent 58%),
+      linear-gradient(160deg,#0b2138,#12456f 55%,#0b2138);}
+  .hero::before{content:""; position:absolute; inset:0; opacity:.4;
+    background:linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px); background-size:44px 44px;}
+  .hero .wrap{position:relative; z-index:3; display:grid; grid-template-columns:1.08fr .92fr; gap:44px; align-items:center; padding:60px 26px 66px;}
+  .eyebrow{display:inline-flex; gap:8px; align-items:center; font-size:12px; font-weight:800; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold-soft); background:rgba(201,162,75,.14); border:1px solid rgba(201,162,75,.5); padding:6px 14px; border-radius:30px;}
+  .hero h1{margin:18px 0 8px; font-size:clamp(38px,5.8vw,62px); line-height:1.02; letter-spacing:-.5px; font-weight:800;}
+  .hero h1 span{background:linear-gradient(90deg,#e7d3a1,#f4e9cd); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero .rule{width:70px; height:3px; background:linear-gradient(90deg,var(--gold),transparent); margin:14px 0 16px; border-radius:2px;}
+  .hero .lead{max-width:566px; font-size:18px; color:#dbe6f1;}
+  .tags{margin-top:18px; display:flex; flex-wrap:wrap; gap:8px;}
+  .tags span{font-size:12px; font-weight:700; color:#eaf2fb; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.2); padding:5px 12px; border-radius:20px;}
+
+  /* magnifier / job-match graphic */
+  .art{position:relative; display:flex; align-items:center; justify-content:center; min-height:300px;}
+  .joblist{width:100%; max-width:360px; display:flex; flex-direction:column; gap:12px; transform:rotate(-3deg);}
+  .jrow{background:rgba(255,255,255,.96); color:var(--ink); border-radius:12px; padding:14px 16px; box-shadow:0 18px 40px rgba(5,20,38,.45); border:1px solid rgba(255,255,255,.5);}
+  .jrow .t{font-weight:800; font-size:14px; color:var(--navy);}
+  .jrow .m{font-size:11.5px; color:var(--muted); margin-top:3px;}
+  .jrow .bar{height:7px; border-radius:4px; background:linear-gradient(90deg,var(--blue),var(--gold)); margin-top:9px;}
+  .jrow.b2 .bar{width:74%;} .jrow.b3 .bar{width:52%;}
+  .lens{position:absolute; right:2px; bottom:6px; width:150px; height:150px; z-index:4;}
+  .lens .glass{position:absolute; inset:0; border-radius:50%; border:9px solid #0e2f4e; background:radial-gradient(circle at 36% 30%, rgba(255,255,255,.55), rgba(120,180,225,.22) 45%, rgba(15,46,73,.16) 75%); box-shadow:0 16px 34px rgba(5,20,38,.5), inset 0 0 22px rgba(255,255,255,.4);}
+  .lens .handle{position:absolute; right:-30px; bottom:-24px; width:56px; height:16px; background:linear-gradient(90deg,#0e2f4e,#0a2033); border-radius:9px; transform:rotate(45deg); box-shadow:0 6px 12px rgba(5,20,38,.5);}
+  .lens .spark{position:absolute; left:34px; top:30px; color:var(--gold); font-size:20px; z-index:5; filter:drop-shadow(0 1px 2px rgba(0,0,0,.3));}
+
+  section{padding:56px 0;}
+  .kicker{font-size:12px; font-weight:800; letter-spacing:2.5px; text-transform:uppercase; color:var(--blue);}
+  .kicker.g{color:var(--gold);}
+  h2.sec{font-size:clamp(24px,3.4vw,34px); margin:8px 0 6px; color:var(--navy); font-weight:800;}
+  .sec-sub{color:var(--muted); max-width:730px; font-size:16px; margin:0 0 26px;}
+  .center{text-align:center;} .center .sec-sub{margin-left:auto;margin-right:auto;}
+  .center .rule{width:60px; height:3px; background:linear-gradient(90deg,var(--gold),var(--blue)); border-radius:2px; margin:12px auto 0;}
+
+  /* pillars */
+  .pillars{display:grid; grid-template-columns:repeat(4,1fr); gap:18px;}
+  .pill3{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:26px 22px; box-shadow:0 2px 12px rgba(15,46,73,.05); transition:transform .2s, box-shadow .2s; position:relative; overflow:hidden;}
+  .pill3::before{content:""; position:absolute; left:0; top:0; height:4px; width:100%; background:linear-gradient(90deg,var(--blue),var(--gold));}
+  .pill3:hover{transform:translateY(-6px); box-shadow:0 18px 38px rgba(15,46,73,.14);}
+  .pill3 .ic{width:56px; height:56px; border-radius:15px; display:flex; align-items:center; justify-content:center; font-size:27px; margin:8px 0 12px; background:linear-gradient(150deg,#eaf1f8,#dfe9f3);}
+  .pill3 h3{margin:0 0 6px; font-size:18px; color:var(--navy);} .pill3 p{margin:0; color:#556070; font-size:14px;}
+
+  /* role timeline */
+  .role{background:linear-gradient(160deg,#0b2138,#123c60); color:#fff; border-radius:22px; padding:42px 34px; position:relative; overflow:hidden;}
+  .role::after{content:""; position:absolute; right:-70px; top:-70px; width:250px; height:250px; border-radius:50%; background:radial-gradient(circle,rgba(201,162,75,.22),transparent 65%);}
+  .role .kicker{color:var(--gold-soft);} .role h2{color:#fff;} .role .sec-sub{color:#d4e2f0;}
+  .steps{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:22px; position:relative; z-index:2;}
+  .rstep{background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.16); border-radius:14px; padding:18px;}
+  .rstep .n{width:34px; height:34px; border-radius:50%; background:linear-gradient(140deg,var(--blue),var(--gold)); color:#fff; font-weight:800; display:flex; align-items:center; justify-content:center; font-size:15px; margin-bottom:10px;}
+  .rstep h3{margin:0 0 5px; font-size:15px; color:#fff;} .rstep p{margin:0; font-size:12.5px; color:#cddcea; line-height:1.45;}
+  .velocity{display:inline-flex; align-items:center; gap:10px; margin-top:22px; background:rgba(201,162,75,.16); border:1px solid rgba(201,162,75,.45); border-radius:30px; padding:10px 18px; font-weight:700; font-size:14.5px; color:var(--gold-soft); position:relative; z-index:2;}
+
+  /* gallery — flat thumbnails, no cards behind */
+  .gallery-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,180px)); gap:34px 26px; justify-content:center; align-items:start; margin-top:46px;}
+  .screen{margin:0;}
+  .screen .fr{position:relative; display:block; width:fit-content; margin:0 auto; line-height:0; background:transparent; transition:transform .28s cubic-bezier(.2,.7,.3,1);}
+  .screen .fr:hover{transform:translateY(-9px);}
+  .screen .fr img{width:100%; display:block; border-radius:16px; cursor:zoom-in;}
+
+  /* tech band */
+  .band{background:linear-gradient(160deg,#0b2138,#081a2c); color:#fff;}
+  .band h2{color:#fff;} .band .kicker{color:var(--gold-soft);} .band .sec-sub{color:#d4e2f0;}
+  .stack{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;}
+  .stack span{font-size:13px; font-weight:700; color:#eaf2fb; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); padding:8px 15px; border-radius:30px;}
+
+  footer{padding:30px 0 50px; text-align:center; color:var(--muted); font-size:13px;} footer a{color:var(--blue); text-decoration:none; font-weight:800;}
+  #lb{display:none; position:fixed; inset:0; z-index:9999; background:rgba(8,20,34,.94); align-items:flex-start; justify-content:center; overflow:auto; cursor:zoom-out; padding:24px;}
+  #lb img{max-width:none; border-radius:10px; box-shadow:0 16px 60px rgba(0,0,0,.6);} #lb .x{position:fixed; top:16px; right:22px; color:#fff; font-size:38px; cursor:pointer;}
+  @media (max-width:900px){ .hero .wrap{grid-template-columns:1fr;} .pillars{grid-template-columns:1fr 1fr;} .steps{grid-template-columns:1fr 1fr;} }
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap"><a class="back" href="index.html" onclick="if(history.length>1){history.back();return false;}">&larr; Back to portfolio</a><span class="who">Case Study · <b>David Silverlight</b></span></div></div>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">🔍 Xamarin.Forms · Careers &amp; Talent</span>
+      <h1>Sherlock <span>Talent</span></h1>
+      <div class="rule"></div>
+      <p class="lead">A career companion for job seekers — pairing state-of-the-art job discovery with a chat-guided assistant, so finding the perfect role feels less like a search and more like a trusted partnership that grows with your career.</p>
+      <div class="tags"><span>Job Discovery</span><span>Chat Assistant</span><span>Hire Talent</span><span>Events</span><span>Xamarin.Forms</span></div>
+    </div>
+    <div class="art">
+      <div class="joblist">
+        <div class="jrow"><div class="t">System Administrator (VMware)</div><div class="m">$100,000 · Miami, FL · Contract to Hire</div><div class="bar"></div></div>
+        <div class="jrow b2"><div class="t">Manager of IT Operations</div><div class="m">Depends on experience · Miramar, FL</div><div class="bar"></div></div>
+        <div class="jrow b3"><div class="t">Digital Marketing Lead</div><div class="m">Creative · Fort Lauderdale, FL</div><div class="bar"></div></div>
+      </div>
+      <div class="lens"><div class="glass"></div><div class="handle"></div><span class="spark">★</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- WHAT IT DOES -->
+<section>
+  <div class="wrap">
+    <div class="center"><span class="kicker">What it does</span><h2 class="sec">More than a job board — a career partner</h2><div class="rule"></div><p class="sec-sub" style="margin-top:16px;">Sherlock Talent brings the whole job journey into one elegant experience: discover roles, get guided help, connect with employers, and stay close to the events that grow a career.</p></div>
+    <div class="pillars" style="margin-top:36px;">
+      <div class="pill3"><div class="ic">💬</div><h3>Chat Assistant</h3><p>A conversational assistant guides job seekers step by step — capturing details and routing them to the right recruiter.</p></div>
+      <div class="pill3"><div class="ic">🔎</div><h3>Search Jobs</h3><p>Rich job search with salary ranges, locations, favorites, full details, and one-tap apply.</p></div>
+      <div class="pill3"><div class="ic">🤝</div><h3>Hire Talent</h3><p>Employers connect instantly via chat or call, built on long-lasting, referral-driven relationships.</p></div>
+      <div class="pill3"><div class="ic">📅</div><h3>Find Events</h3><p>Discover industry events and forums with searchable details, dates, and registration perks.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- MY ROLE -->
+<section style="padding-top:14px;">
+  <div class="wrap">
+    <div class="role">
+      <span class="kicker">My role</span>
+      <h2 class="sec" style="font-size:clamp(24px,3.2vw,32px);">Designing an elegant, trust-building experience</h2>
+      <p class="sec-sub">I designed and built the cross-platform Xamarin.Forms app end to end — shaping a refined, top-tier experience that makes job seekers feel supported at every step.</p>
+      <div class="steps">
+        <div class="rstep"><div class="n">1</div><h3>Guided chat</h3><p>Built the conversational assistant that onboards seekers and hands off to recruiters.</p></div>
+        <div class="rstep"><div class="n">2</div><h3>Job &amp; event search</h3><p>Delivered searchable jobs and events with details, favorites, and apply flows.</p></div>
+        <div class="rstep"><div class="n">3</div><h3>Employer connect</h3><p>Wired instant chat/call paths so employers can engage talent without friction.</p></div>
+        <div class="rstep"><div class="n">4</div><h3>Elegant polish</h3><p>Refined the UI to a premium, trustworthy standard across iOS and Android.</p></div>
+      </div>
+      <div class="velocity">🏆 A polished, partner-first experience — built to strengthen trust and grow with the user.</div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section style="background:#eef3f8;">
+  <div class="wrap">
+    <div class="center"><span class="kicker g">The app</span><h2 class="sec">A look at Sherlock Talent</h2><div class="rule"></div><p class="sec-sub" style="margin-top:16px;">A refined, cross-platform job-search experience. Click any screen to enlarge.</p></div>
+    <div class="gallery-grid">
+      <figure class="screen"><div class="fr"><img src="images/SherlockTalent/st-home.png" alt="Sherlock Talent home — Hire, Chat, Jobs" onerror="this.style.display='none';this.closest('.screen').style.display='none';"></div></figure>
+      <figure class="screen"><div class="fr"><img src="images/SherlockTalent/st-chat.png" alt="Sherlock Talent chat assistant" onerror="this.style.display='none';this.closest('.screen').style.display='none';"></div></figure>
+      <figure class="screen"><div class="fr"><img src="images/SherlockTalent/st-jobs.png" alt="Sherlock Talent job search" onerror="this.style.display='none';this.closest('.screen').style.display='none';"></div></figure>
+      <figure class="screen"><div class="fr"><img src="images/SherlockTalent/st-hire.png" alt="Sherlock Talent hire talent" onerror="this.style.display='none';this.closest('.screen').style.display='none';"></div></figure>
+      <figure class="screen"><div class="fr"><img src="images/SherlockTalent/st-events.png" alt="Sherlock Talent event search" onerror="this.style.display='none';this.closest('.screen').style.display='none';"></div></figure>
+    </div>
+  </div>
+</section>
+
+<!-- TECH -->
+<section class="band">
+  <div class="wrap">
+    <span class="kicker">Architecture &amp; stack</span>
+    <h2 class="sec">Built cross-platform, crafted for polish</h2>
+    <p class="sec-sub">A single Xamarin.Forms codebase delivering a premium experience on iOS and Android — chat-guided onboarding, live job and event search, and direct employer connection.</p>
+    <div class="stack"><span>Xamarin.Forms</span><span>MVVM</span><span>REST APIs</span><span>Xamarin.Essentials</span><span>Conversational UI</span><span>iOS &amp; Android</span></div>
+  </div>
+</section>
+
+<footer>Sherlock Talent · Xamarin.Forms · Careers &amp; Talent &nbsp;·&nbsp; <a href="index.html" onclick="if(history.length>1){history.back();return false;}">← Back to portfolio</a> &nbsp;·&nbsp; <a href="https://DavidSilverlight.com" target="_blank">DavidSilverlight.com</a></footer>
+<div id="lb"><span class="x">&times;</span><img alt="enlarged screenshot"></div>
+<script>(function(){var lb=document.getElementById('lb'),im=lb.querySelector('img');document.querySelectorAll('.fr img').forEach(function(g){g.addEventListener('click',function(e){e.stopPropagation();im.src=g.src;lb.style.display='flex';});});lb.addEventListener('click',function(){lb.style.display='none';im.src='';});document.addEventListener('keydown',function(e){if(e.key==='Escape'){lb.style.display='none';im.src='';}});})();</script>
+</body>
+</html>
