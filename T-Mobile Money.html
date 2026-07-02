@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>T-Mobile Money — Case Study · David Silverlight</title>
+<style>
+  :root{
+    --magenta:#e20074; --magenta-deep:#a1004f; --plum:#1a0714; --plum2:#2a0a1f;
+    --mint:#00c389; --gold:#ffcf5c;
+    --ink:#22101b; --muted:#6f5a64; --paper:#f6f1f4; --card:#ffffff; --line:#efe1e8;
+  }
+  *{box-sizing:border-box;} html{scroll-behavior:smooth;}
+  body{margin:0; font-family:"Segoe UI",Calibri,Arial,sans-serif; color:var(--ink); background:var(--paper); line-height:1.55;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 26px;}
+
+  /* top bar */
+  .topbar{position:sticky; top:0; z-index:40; background:rgba(26,7,20,.96); backdrop-filter:blur(8px); border-bottom:1px solid rgba(226,0,116,.32);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:56px;}
+  .back{display:inline-flex; gap:8px; text-decoration:none; color:#fff; font-weight:800; font-size:14px; background:linear-gradient(135deg,var(--magenta),var(--magenta-deep)); padding:9px 16px; border-radius:30px;}
+  .topbar .who{color:#f3c9df; font-size:13px; font-weight:700;} .topbar .who b{color:#fff;}
+
+  /* hero */
+  .hero{position:relative; overflow:hidden; color:#fff;
+    background:radial-gradient(820px 440px at 84% -12%, rgba(226,0,116,.5), transparent 58%),
+      radial-gradient(680px 420px at 4% 118%, rgba(0,195,137,.34), transparent 55%),
+      linear-gradient(160deg,#1a0714,#3a0c29 52%,#1a0714);}
+  .hero::before{content:""; position:absolute; inset:0; opacity:.5;
+    background:linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px); background-size:42px 42px;}
+  /* rising growth line motif */
+  .hero .chartline{position:absolute; left:0; right:0; bottom:0; height:210px; z-index:1; opacity:.5; pointer-events:none;}
+  .hero .wrap{position:relative; z-index:3; display:grid; grid-template-columns:1.06fr .94fr; gap:40px; align-items:center; padding:56px 26px 64px;}
+  .eyebrow{display:inline-flex; gap:8px; align-items:center; font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:#ffd0e6; background:rgba(226,0,116,.18); border:1px solid rgba(255,120,190,.5); padding:6px 13px; border-radius:30px;}
+  .hero h1{margin:16px 0 6px; font-size:clamp(36px,5.6vw,60px); line-height:1.02; letter-spacing:-.5px;}
+  .hero h1 span{background:linear-gradient(90deg,#ff8ec6,#ffd15c 70%); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero .lead{max-width:560px; font-size:18px; color:#f0d8e5;}
+  .tags{margin-top:16px; display:flex; flex-wrap:wrap; gap:8px;}
+  .tags span{font-size:12px; font-weight:700; color:#ffe6f2; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.2); padding:5px 12px; border-radius:20px;}
+
+  /* fintech card graphic */
+  .cardart{position:relative; display:flex; align-items:center; justify-content:center;}
+  .fcard{width:100%; max-width:390px; aspect-ratio:1.585/1; border-radius:20px; padding:22px; position:relative; color:#fff; overflow:hidden;
+    background:linear-gradient(135deg,#ff2d9b 0%,#e20074 38%,#8f0247 100%); box-shadow:0 30px 62px rgba(20,3,14,.55); border:1px solid rgba(255,255,255,.18); animation:tilt 6s ease-in-out infinite;}
+  .fcard::after{content:""; position:absolute; top:-40%; right:-20%; width:70%; height:180%; background:radial-gradient(circle, rgba(255,255,255,.22), transparent 60%); transform:rotate(25deg);}
+  @keyframes tilt{0%,100%{transform:rotate(-3deg) translateY(0);}50%{transform:rotate(-3deg) translateY(-10px);}}
+  .fcard .brand{font-size:13px; font-weight:800; letter-spacing:1px; text-transform:uppercase; opacity:.95;}
+  .fcard .brand b{color:var(--gold);}
+  .fcard .chip{width:50px; height:37px; border-radius:8px; margin-top:26px; background:linear-gradient(135deg,#ffe08a,#e0a94a); position:relative;}
+  .fcard .chip::after{content:""; position:absolute; inset:6px; border:1.5px solid rgba(120,80,10,.5); border-radius:4px;}
+  .fcard .num{position:absolute; left:22px; bottom:58px; font-size:18px; letter-spacing:3px; font-weight:700; text-shadow:0 1px 2px rgba(0,0,0,.25);}
+  .fcard .bal{position:absolute; left:22px; bottom:20px;}
+  .fcard .bal .lab{font-size:10px; letter-spacing:2px; opacity:.8; text-transform:uppercase;}
+  .fcard .bal .amt{font-size:22px; font-weight:800;}
+  .fcard .trend{position:absolute; right:20px; bottom:20px; display:inline-flex; align-items:center; gap:5px; font-size:13px; font-weight:800; color:#c8ffe8; background:rgba(0,195,137,.22); border:1px solid rgba(0,195,137,.5); padding:5px 10px; border-radius:20px;}
+
+  section{padding:54px 0;}
+  .kicker{font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--magenta);}
+  h2.sec{font-size:clamp(24px,3.4vw,34px); margin:8px 0 6px; color:var(--ink);}
+  .sec-sub{color:var(--muted); max-width:720px; font-size:16px; margin:0 0 26px;}
+  .center{text-align:center;} .center .sec-sub{margin-left:auto;margin-right:auto;}
+
+  /* stat strip */
+  .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:-26px;}
+  .stat{position:relative; background:var(--card); border:1px solid var(--line); border-radius:16px; padding:22px 20px; box-shadow:0 10px 30px rgba(120,10,70,.07); overflow:hidden;}
+  .stat::before{content:""; position:absolute; left:0; top:0; bottom:0; width:5px; background:linear-gradient(180deg,var(--magenta),var(--mint));}
+  .stat .big{font-size:30px; font-weight:800; color:var(--magenta-deep); line-height:1;}
+  .stat .lab{margin-top:6px; font-size:13px; color:#6f5a64; font-weight:600;}
+
+  /* pillars */
+  .pillars{display:grid; grid-template-columns:repeat(4,1fr); gap:18px;}
+  .pill3{background:var(--card); border:1px solid var(--line); border-radius:18px; padding:26px 22px; box-shadow:0 2px 10px rgba(120,10,70,.05); transition:transform .2s, box-shadow .2s;}
+  .pill3:hover{transform:translateY(-6px); box-shadow:0 18px 38px rgba(180,10,100,.14);}
+  .pill3 .ic{width:56px; height:56px; border-radius:15px; display:flex; align-items:center; justify-content:center; font-size:28px; margin-bottom:12px; background:linear-gradient(150deg,#ffe3f1,#ffd0e6);}
+  .pill3 h3{margin:0 0 6px; font-size:18px; color:var(--ink);} .pill3 p{margin:0; color:#5f5460; font-size:14px;}
+
+  /* role timeline */
+  .role{background:linear-gradient(160deg,#1a0714,#3a0c29); color:#fff; border-radius:22px; padding:40px 34px; position:relative; overflow:hidden;}
+  .role::after{content:""; position:absolute; right:-60px; top:-60px; width:240px; height:240px; border-radius:50%; background:radial-gradient(circle,rgba(0,195,137,.25),transparent 65%);}
+  .role .kicker{color:#8affd0;} .role h2{color:#fff;} .role .sec-sub{color:#f0d3e2;}
+  .steps{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:22px; position:relative; z-index:2;}
+  .rstep{background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.16); border-radius:14px; padding:18px;}
+  .rstep .n{width:34px; height:34px; border-radius:50%; background:linear-gradient(140deg,var(--magenta),var(--mint)); color:#fff; font-weight:800; display:flex; align-items:center; justify-content:center; font-size:15px; margin-bottom:10px;}
+  .rstep h3{margin:0 0 5px; font-size:15px; color:#fff;} .rstep p{margin:0; font-size:12.5px; color:#ecd6e2; line-height:1.45;}
+  .velocity{display:inline-flex; align-items:center; gap:10px; margin-top:22px; background:rgba(0,195,137,.16); border:1px solid rgba(0,195,137,.45); border-radius:30px; padding:10px 18px; font-weight:700; font-size:14.5px; color:#c8ffe8; position:relative; z-index:2;}
+
+  /* gallery — flat thumbnails, no cards behind */
+  .gallery-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,180px)); gap:34px 26px; justify-content:center; align-items:start; margin-top:46px;}
+  .screen{margin:0;}
+  .screen .fr{position:relative; display:block; width:fit-content; margin:0 auto; line-height:0; background:transparent; transition:transform .28s cubic-bezier(.2,.7,.3,1);}
+  .screen .fr:hover{transform:translateY(-9px);}
+  .screen .fr img{width:100%; display:block; border-radius:16px; cursor:zoom-in;}
+
+  /* tech band */
+  .band{background:linear-gradient(160deg,#1a0714,#120610); color:#fff;}
+  .band h2{color:#fff;} .band .kicker{color:#8affd0;} .band .sec-sub{color:#f0d3e2;}
+  .stack{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;}
+  .stack span{font-size:13px; font-weight:700; color:#ffe6f2; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); padding:8px 15px; border-radius:30px;}
+
+  footer{padding:30px 0 50px; text-align:center; color:var(--muted); font-size:13px;} footer a{color:var(--magenta); text-decoration:none; font-weight:800;}
+  #lb{display:none; position:fixed; inset:0; z-index:9999; background:rgba(18,4,12,.94); align-items:flex-start; justify-content:center; overflow:auto; cursor:zoom-out; padding:24px;}
+  #lb img{max-width:none; border-radius:10px; box-shadow:0 16px 60px rgba(0,0,0,.6);} #lb .x{position:fixed; top:16px; right:22px; color:#fff; font-size:38px; cursor:pointer;}
+  @media (max-width:900px){ .hero .wrap{grid-template-columns:1fr;} .pillars{grid-template-columns:1fr 1fr;} .steps{grid-template-columns:1fr 1fr;} .stats{grid-template-columns:1fr 1fr;} }
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap"><a class="back" href="index.html" onclick="if(history.length>1){history.back();return false;}">&larr; Back to portfolio</a><span class="who">Case Study · <b>David Silverlight</b></span></div></div>
+
+<header class="hero">
+  <svg class="chartline" viewBox="0 0 1200 210" preserveAspectRatio="none">
+    <defs><linearGradient id="lg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#00c389" stop-opacity=".5"/><stop offset="1" stop-color="#00c389" stop-opacity="0"/></linearGradient></defs>
+    <path d="M0,180 L120,168 L240,176 L360,150 L480,158 L600,120 L720,132 L840,86 L960,96 L1080,52 L1200,30 L1200,210 L0,210 Z" fill="url(#lg)"/>
+    <path d="M0,180 L120,168 L240,176 L360,150 L480,158 L600,120 L720,132 L840,86 L960,96 L1080,52 L1200,30" fill="none" stroke="#3fe0aa" stroke-width="2.5"/>
+  </svg>
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">💳 Xamarin.Forms · Banking-as-a-Service</span>
+      <h1>T-Mobile <span>Money</span></h1>
+      <p class="lead">A customer-facing mobile bank built for a national carrier — full-service checking, transfers, perks, and cash access wrapped in a fast, secure Xamarin experience spanning 300+ screens on iOS and Android.</p>
+      <div class="tags"><span>Mobile Banking</span><span>Fintech</span><span>Money Movement</span><span>Google Maps</span><span>Xamarin.Forms</span></div>
+    </div>
+    <div class="cardart">
+      <div class="fcard">
+        <div class="brand">T-Mobile <b>MONEY</b></div>
+        <div class="chip"></div>
+        <div class="num">4•••  ••••  ••••  2019</div>
+        <div class="bal"><div class="lab">Available balance</div><div class="amt">$4,271.08</div></div>
+        <div class="trend">▲ 4.00% APY</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- STAT STRIP -->
+<section>
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat"><div class="big">300+</div><div class="lab">Screens across the app</div></div>
+      <div class="stat"><div class="big">iOS + Android</div><div class="lab">Single shared codebase</div></div>
+      <div class="stat"><div class="big">BaaS</div><div class="lab">Banking-as-a-Service platform</div></div>
+      <div class="stat"><div class="big">2017–19</div><div class="lab">Build &amp; launch engagement</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT IT DOES -->
+<section style="padding-top:14px;">
+  <div class="wrap">
+    <div class="center"><span class="kicker">What it does</span><h2 class="sec">A full bank, in your pocket</h2><p class="sec-sub">T-Mobile Money delivers a complete suite of everyday banking services — designed to move money, reward customers, and keep cash within reach.</p></div>
+    <div class="pillars" style="margin-top:36px;">
+      <div class="pill3"><div class="ic">💸</div><h3>Move Money</h3><p>Account transfers and fund management that let customers move money quickly and confidently.</p></div>
+      <div class="pill3"><div class="ic">🎁</div><h3>Perks &amp; Alerts</h3><p>Rewards, perks, and CUI notifications that keep customers engaged and informed in real time.</p></div>
+      <div class="pill3"><div class="ic">📍</div><h3>Find Cash</h3><p>ATM and cash-deposit locators powered by Google Maps to surface the nearest access points.</p></div>
+      <div class="pill3"><div class="ic">🔐</div><h3>Card Controls</h3><p>Card activation and account customization that put security and control in the customer's hands.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- MY ROLE -->
+<section style="padding-top:14px;">
+  <div class="wrap">
+    <div class="role">
+      <span class="kicker">My role</span>
+      <h2 class="sec" style="font-size:clamp(24px,3.2vw,32px);">Building trusted money features on a distributed team</h2>
+      <p class="sec-sub">As a Xamarin.Forms developer on a distributed delivery team, I built customer-facing money features on a robust architecture — with an emphasis on reliability, UX, and clean patterns.</p>
+      <div class="steps">
+        <div class="rstep"><div class="n">1</div><h3>Money movement</h3><p>Developed account transfers and fund-management flows at the core of the banking experience.</p></div>
+        <div class="rstep"><div class="n">2</div><h3>Perks &amp; notifications</h3><p>Delivered perks and CUI notification features that drove engagement and clarity.</p></div>
+        <div class="rstep"><div class="n">3</div><h3>Cash access</h3><p>Built ATM / cash-deposit locators on the Google Maps SDK to help customers find cash fast.</p></div>
+        <div class="rstep"><div class="n">4</div><h3>Card &amp; account</h3><p>Integrated card activation and account customization while upholding UI/UX best practices.</p></div>
+      </div>
+      <div class="velocity">🏦 300+ screens, delivered on a robust Xamarin architecture with MVVMCross.</div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section style="background:#fbecf3;">
+  <div class="wrap">
+    <div class="center"><span class="kicker">The app</span><h2 class="sec">A look at T-Mobile Money</h2><p class="sec-sub">A polished, customer-facing banking experience across iOS and Android. Click any screen to enlarge.</p></div>
+    <div class="gallery-grid">
+      <figure class="screen"><div class="fr"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/5f3e878c-6300-433c-9c49-84f3391a1d7a_rw_600.png?h=e43067a9096c78ed5973478cf1350840" alt="T-Mobile Money account overview"></div></figure>
+      <figure class="screen"><div class="fr"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/58ea141d-cfc2-4be3-90fa-8eb38e64a7cf_rw_600.png?h=916f929a6d0d07df4affa026e7b29262" alt="T-Mobile Money transfers"></div></figure>
+      <figure class="screen"><div class="fr"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/310544d5-745a-4976-956e-147fec257c94_rw_600.png?h=8ba68d9cb8b49c0dc2b6b0151a6790b1" alt="T-Mobile Money perks"></div></figure>
+      <figure class="screen"><div class="fr"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/6ef07b73-6bee-4056-8ad8-256244b450bb_rw_600.png?h=a65332cc3af79cda82952549df9e1a6b" alt="T-Mobile Money ATM locator"></div></figure>
+      <figure class="screen"><div class="fr"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/095b71b3-0d0b-45f4-86a6-ecc595367e19_rw_600.png?h=11e827504e72489c57da0fbcf673e8f9" alt="T-Mobile Money card controls"></div></figure>
+      <figure class="screen"><div class="fr"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/bcce895c-7aea-4272-b3bd-af6d55f81388_rw_600.png?h=65241fa2054aed2243a49384a452ee37" alt="T-Mobile Money account settings"></div></figure>
+    </div>
+  </div>
+</section>
+
+<!-- TECH -->
+<section class="band">
+  <div class="wrap">
+    <span class="kicker">Architecture &amp; stack</span>
+    <h2 class="sec">Engineered for trust and scale</h2>
+    <p class="sec-sub">A customer-facing banking platform built on a robust Xamarin architecture — the kind of foundation that keeps a 300-screen fintech app maintainable, testable, and reliable.</p>
+    <div class="stack"><span>Xamarin.Forms</span><span>MVVMCross</span><span>Google Maps SDK</span><span>REST APIs</span><span>Xamarin.Essentials</span><span>iOS &amp; Android</span><span>Banking-as-a-Service</span></div>
+  </div>
+</section>
+
+<footer>T-Mobile Money · Xamarin.Forms · Mobile Banking &nbsp;·&nbsp; <a href="index.html" onclick="if(history.length>1){history.back();return false;}">← Back to portfolio</a> &nbsp;·&nbsp; <a href="https://DavidSilverlight.com" target="_blank">DavidSilverlight.com</a></footer>
+<div id="lb"><span class="x">&times;</span><img alt="enlarged screenshot"></div>
+<script>(function(){var lb=document.getElementById('lb'),im=lb.querySelector('img');document.querySelectorAll('.fr img').forEach(function(g){g.addEventListener('click',function(e){e.stopPropagation();im.src=g.src;lb.style.display='flex';});});lb.addEventListener('click',function(){lb.style.display='none';im.src='';});document.addEventListener('keydown',function(e){if(e.key==='Escape'){lb.style.display='none';im.src='';}});})();</script>
+</body>
+</html>
