@@ -22,8 +22,8 @@
   .intro{color:var(--muted); font-size:13.5px; max-width:760px; margin:10px 0 4px;}
   .tip{color:var(--accent2); font-size:12px; margin:4px 0 0;}
   h2.section{font-size:19px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:#fff; background:linear-gradient(90deg,var(--accent),var(--accent2)); padding:10px 16px; border-radius:6px; margin:38px 0 18px; box-shadow:0 2px 6px rgba(20,40,80,.18);}
-  .grid{display:grid; grid-template-columns:repeat(2,1fr); gap:20px; align-items:start;}
-  .card{background:transparent; border:none; border-radius:10px; overflow:hidden; display:flex; flex-direction:column; box-shadow:none;}
+  .grid{display:grid; grid-template-columns:repeat(2,1fr); gap:30px 20px; align-items:stretch; grid-auto-rows:1fr;}
+  .card{background:var(--card); border:1px solid #dde3ec; border-radius:12px; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 10px 26px rgba(30,50,90,.14), 0 2px 6px rgba(30,50,90,.08);}
   #tmobile{background:var(--card); border:1px solid var(--rule); box-shadow:0 1px 3px rgba(20,40,80,.06);}
   #tmobile .shot-link{position:absolute; inset:0; z-index:20; display:block; cursor:pointer;}
   .shot{height:230px; background:#ffffff; display:flex; align-items:center; justify-content:center; border-bottom:1px solid var(--rule); overflow:hidden;}
@@ -945,7 +945,7 @@
       </div>
     </div>
 
-    <div class="card" id="uas" data-video="eid8C_dTVvo">
+    <div class="card" id="uas">
       <div class="shot sky">
         <span class="deco bl">🚁</span><span class="deco mr">📡</span>
         <div class="wp" style="left:4%; top:40px;"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/847971f2-5714-4e10-904d-9c6e0715d2ae_rw_1200.png?h=9f35bf8c0bfb7870c12abeebf5b76b26" alt="UAS Trakker 1"></div>
@@ -955,9 +955,10 @@
       </div>
       <div class="body">
         <p class="name">UAS Trakker</p>
-        <span class="pill xam">Xamarin.Forms · Drone/GIS</span>
+        <span class="pill xam">Xamarin.Forms · Drone/GIS · Featured</span>
         <p class="desc">Empowers custom Unmanned Aerial Systems to locate, track, and follow radio-frequency personal locator beacons attached to people engaged in risk-prone activities.</p>
         <p class="tech"><b>Tech:</b> Xamarin.Forms, Google Maps SDK, Microsoft Azure Cloud Services</p>
+        <p class="lnk"><a href="UAS Trakker.html">✦ View the full case study &rarr;</a></p>
       </div>
     </div>
 
@@ -990,9 +991,11 @@
       </div>
       <div class="body">
         <p class="name">Pet Pixie</p>
-        <span class="pill xam">Xamarin.Forms · Social</span>
+        <span class="pill xam">Xamarin.Forms · Social · Featured</span>
         <p class="desc">Social-sharing app for pet parents to share photos, receive reminders, and store vet info — released on iOS and Android.</p>
-        <p class="tech"><b>Tech:</b> Xamarin.Forms, MVVMCross</p>      </div>
+        <p class="tech"><b>Tech:</b> Xamarin.Forms, MVVMCross</p>
+        <p class="lnk"><a href="Pet Pixie.html">✦ View the full case study &rarr;</a></p>
+      </div>
     </div>
 
     <div class="card" id="salon">
@@ -1545,6 +1548,8 @@
     'kinship':'Kinship Navigator.html',
     'marcel':'Marcel.html',
     'nalco':'Nalco Lock App.html',
+    'uas':'UAS Trakker.html',
+    'petpixie':'Pet Pixie.html',
     'gmobile':'RamTech gMobile.html',
     'ups':'UPS Mobile Delivery.html',
     'moviebuff':'MovieBuff.html',

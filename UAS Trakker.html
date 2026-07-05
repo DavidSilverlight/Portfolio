@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UAS Trakker — Case Study · David Silverlight</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Share+Tech+Mono&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--void:#05080d; --panel:#0a1017; --panel2:#0d151d; --cyan:#21e6c1; --cyan2:#19c8e6; --signal:#8bff6b;
+    --alert:#ff5a5f; --amber:#ffc233; --text:#dfeef0; --muted:#7f95a3; --line:rgba(33,230,193,.22);}
+  *{box-sizing:border-box;} html{scroll-behavior:smooth;}
+  body{margin:0; font-family:"Inter","Segoe UI",Arial,sans-serif; color:var(--text); background:var(--void); line-height:1.6;}
+  .wrap{max-width:1140px; margin:0 auto; padding:0 26px;}
+  .mono{font-family:"Share Tech Mono",monospace;}
+  h1,h2,h3,.disp{font-family:"Chakra Petch",sans-serif;}
+  .kicker{font-family:"Share Tech Mono",monospace; font-size:12px; letter-spacing:3px; text-transform:uppercase; color:var(--cyan);}
+  h2.sec{font-family:"Chakra Petch",sans-serif; font-size:clamp(26px,3.7vw,40px); margin:8px 0 8px; color:#fff; text-transform:uppercase; letter-spacing:1px; font-weight:700; line-height:1.04;}
+  .sec-sub{color:var(--muted); max-width:740px; font-size:16px; margin:0 0 26px;}
+  .center{text-align:center;} .center .sec-sub{margin-left:auto; margin-right:auto;}
+  section{padding:56px 0; position:relative;}
+  /* ticker */
+  .ticker{background:#04070a; border-bottom:1px solid var(--line); color:var(--muted); font-family:"Share Tech Mono",monospace; font-size:12px; letter-spacing:1px; padding:7px 0; overflow:hidden; white-space:nowrap;}
+  .ticker b{color:var(--cyan);} .ticker .dot{color:var(--signal);}
+  /* topbar */
+  .topbar{position:sticky; top:0; z-index:40; background:rgba(5,8,13,.95); backdrop-filter:blur(8px); border-bottom:1px solid var(--line);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:54px;}
+  .back{display:inline-flex; gap:8px; text-decoration:none; color:var(--void); font-family:"Chakra Petch",sans-serif; font-weight:700; font-size:13px; letter-spacing:1px; text-transform:uppercase; background:var(--cyan); padding:8px 16px; border-radius:3px;}
+  .topbar .who{color:var(--muted); font-family:"Share Tech Mono",monospace; font-size:12px; letter-spacing:1px;} .topbar .who b{color:#fff;}
+  /* corner brackets */
+  .bracket{position:relative;}
+  .bracket::before,.bracket::after{content:""; position:absolute; width:18px; height:18px; border:2px solid var(--cyan); pointer-events:none;}
+  .bracket::before{top:-1px; left:-1px; border-right:0; border-bottom:0;}
+  .bracket::after{bottom:-1px; right:-1px; border-left:0; border-top:0;}
+  /* hero */
+  .hero{position:relative; overflow:hidden; text-align:center; padding:56px 0 60px; background:radial-gradient(600px 400px at 50% 0%, rgba(33,230,193,.09), transparent 60%);}
+  .hero .scan{position:absolute; inset:0; background:repeating-linear-gradient(rgba(33,230,193,.035) 0 2px, transparent 2px 4px); pointer-events:none;}
+  .hero .grid{position:absolute; inset:0; background-image:linear-gradient(rgba(33,230,193,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(33,230,193,.06) 1px,transparent 1px); background-size:40px 40px; mask-image:radial-gradient(circle at 50% 40%, #000, transparent 75%);}
+  .hero .wrap{position:relative; z-index:3;}
+  .stencil{display:inline-flex; align-items:center; gap:9px; font-family:"Share Tech Mono",monospace; font-size:12px; letter-spacing:3px; text-transform:uppercase; color:var(--cyan); border:1px solid var(--line); background:rgba(33,230,193,.06); padding:6px 14px; border-radius:3px;}
+  .hero h1{margin:18px 0 6px; font-size:clamp(46px,8vw,92px); line-height:.92; font-weight:700; text-transform:uppercase; letter-spacing:2px; color:#fff; text-shadow:0 0 34px rgba(33,230,193,.35);}
+  .hero h1 span{color:var(--cyan);}
+  .hero .lead{max-width:620px; margin:0 auto; font-size:17.5px; color:#b7cbcf;}
+  /* radar */
+  .radar{position:relative; width:min(400px,82vw); aspect-ratio:1; margin:34px auto 0; border-radius:50%;
+    background:radial-gradient(circle, rgba(33,230,193,.05), transparent 72%), repeating-radial-gradient(circle at 50% 50%, transparent 0 44px, rgba(33,230,193,.12) 44px 45px);
+    border:1px solid rgba(33,230,193,.32); box-shadow:0 0 70px rgba(33,230,193,.14), inset 0 0 46px rgba(33,230,193,.06);}
+  .radar::before{content:""; position:absolute; inset:0; background:linear-gradient(rgba(33,230,193,.22),rgba(33,230,193,.22)) 50% 0/1px 100% no-repeat, linear-gradient(rgba(33,230,193,.22),rgba(33,230,193,.22)) 0 50%/100% 1px no-repeat;}
+  .radar .sweep{position:absolute; inset:0; border-radius:50%; background:conic-gradient(from 0deg, rgba(33,230,193,.5), rgba(33,230,193,0) 48deg); animation:spin 4.5s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .radar .uav{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); font-size:24px; filter:drop-shadow(0 0 8px rgba(33,230,193,.8)); z-index:3;}
+  .ping{position:absolute; width:12px; height:12px; border-radius:50%; background:var(--alert); box-shadow:0 0 14px var(--alert); transform:translate(-50%,-50%); z-index:3;}
+  .ping::before,.ping::after{content:""; position:absolute; left:50%; top:50%; width:12px; height:12px; margin:-6px 0 0 -6px; border-radius:50%; border:2px solid var(--alert); animation:ping 2.6s ease-out infinite;}
+  .ping::after{animation-delay:1.3s;}
+  @keyframes ping{0%{transform:scale(1); opacity:.9;}100%{transform:scale(5.5); opacity:0;}}
+  .hud-tiles{display:flex; justify-content:center; gap:14px; flex-wrap:wrap; margin-top:34px;}
+  .tile{min-width:150px; background:var(--panel); border:1px solid var(--line); border-radius:4px; padding:14px 20px; text-align:left;}
+  .tile .lab{font-family:"Share Tech Mono",monospace; font-size:10.5px; letter-spacing:2px; text-transform:uppercase; color:var(--muted);}
+  .tile .val{font-family:"Chakra Petch",sans-serif; font-size:24px; font-weight:700; color:var(--cyan); line-height:1.1;}
+  .tile .val.g{color:var(--signal);}
+  /* generic panel */
+  .panel{background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:28px 30px;}
+  .two{display:grid; grid-template-columns:1.3fr .7fr; gap:26px; align-items:stretch;}
+  .brief p{font-size:16.5px; color:#c3d3d6; margin:0 0 14px;} .brief p:last-child{margin:0;}
+  .missionbox{background:linear-gradient(160deg,#0b141c,#0a1017); border:1px solid var(--line); border-radius:6px; padding:24px;}
+  .missionbox .kicker{color:var(--amber);} .missionbox h3{font-family:"Chakra Petch",sans-serif; margin:10px 0 8px; text-transform:uppercase; letter-spacing:1px; font-size:19px; color:#fff;}
+  .missionbox p{margin:0 0 12px; color:#a9bcc0; font-size:14px;} .missionbox .tg{display:flex; flex-wrap:wrap; gap:7px;}
+  .missionbox .tg span{font-family:"Share Tech Mono",monospace; font-size:11px; letter-spacing:1px; color:var(--cyan); border:1px solid var(--line); padding:4px 9px; border-radius:3px;}
+  /* radial tracking */
+  .track{background:var(--panel2);}
+  .orbit{position:relative; width:min(560px,92vw); aspect-ratio:1.7/1; margin:30px auto 0;}
+  .orbit .core{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:96px; height:96px; border-radius:50%; background:radial-gradient(circle,#0e1c24,#081016); border:1px solid var(--cyan); display:flex; flex-direction:column; align-items:center; justify-content:center; box-shadow:0 0 40px rgba(33,230,193,.25); z-index:3;}
+  .orbit .core b{font-family:"Chakra Petch",sans-serif; color:var(--cyan); font-size:15px; letter-spacing:1px;} .orbit .core small{font-family:"Share Tech Mono",monospace; font-size:9px; color:var(--muted); letter-spacing:1px;}
+  .orbit .ring{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); border-radius:50%; border:1px dashed rgba(33,230,193,.25);}
+  .stg{position:absolute; width:150px; text-align:center; transform:translate(-50%,-50%);}
+  .stg .nd{width:56px; height:56px; margin:0 auto 8px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:24px; background:var(--panel); border:1px solid var(--cyan); box-shadow:0 0 22px rgba(33,230,193,.18);}
+  .stg h4{font-family:"Chakra Petch",sans-serif; margin:0 0 3px; font-size:15px; text-transform:uppercase; letter-spacing:.8px; color:#fff;} .stg p{margin:0; font-size:12px; color:var(--muted);}
+  /* capability HUD grid */
+  .caps{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:32px;}
+  .cap{background:var(--panel); border:1px solid var(--line); border-radius:5px; padding:20px; position:relative;}
+  .cap .idx{font-family:"Share Tech Mono",monospace; font-size:10px; letter-spacing:1px; color:var(--muted);}
+  .cap .ic{font-size:26px; margin:6px 0 10px; filter:drop-shadow(0 0 8px rgba(33,230,193,.4));}
+  .cap h3{font-family:"Chakra Petch",sans-serif; margin:0 0 5px; font-size:16px; text-transform:uppercase; letter-spacing:.5px; color:#fff;} .cap p{margin:0; font-size:13px; color:#9fb4b8;}
+  /* map */
+  .mapwrap{margin-top:14px; border:1px solid var(--line); border-radius:8px; overflow:hidden; position:relative; background:#060b10;}
+  .mapwrap svg{display:block; width:100%; height:auto;}
+  .maptag{position:absolute; font-family:"Share Tech Mono",monospace; font-size:11px; letter-spacing:1px; color:var(--cyan); background:rgba(5,10,14,.8); border:1px solid var(--line); padding:5px 9px; border-radius:3px;}
+  /* gallery */
+  .grid4{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:32px;}
+  .screen{margin:0; text-align:center;}
+  .screen .fr{position:relative; border-radius:4px; overflow:hidden; line-height:0; border:1px solid var(--line); transition:transform .2s; background:#070d12;}
+  .screen:nth-child(even) .fr{transform:translateY(16px);}
+  .screen .fr:hover{transform:translateY(-4px); border-color:var(--cyan);}
+  .screen:nth-child(even) .fr:hover{transform:translateY(12px);}
+  .screen .fr img{width:100%; display:block; cursor:zoom-in;}
+  .screen figcaption{margin-top:10px; font-family:"Share Tech Mono",monospace; font-size:11px; letter-spacing:1px; text-transform:uppercase; color:var(--muted);}
+  /* tech band */
+  .band{background:radial-gradient(500px 300px at 80% 0%, rgba(33,230,193,.1), transparent 60%), var(--panel2); border-top:1px solid var(--line);}
+  .stack{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;}
+  .stack span{font-family:"Share Tech Mono",monospace; font-size:12.5px; letter-spacing:.8px; color:var(--text); background:rgba(33,230,193,.06); border:1px solid var(--line); padding:8px 14px; border-radius:3px;}
+  footer{padding:28px 0 50px; text-align:center; color:var(--muted); font-family:"Share Tech Mono",monospace; font-size:11px; letter-spacing:1px;} footer a{color:var(--cyan); text-decoration:none;}
+  #lb{display:none; position:fixed; inset:0; z-index:9999; background:rgba(2,5,8,.95); align-items:flex-start; justify-content:center; overflow:auto; cursor:zoom-out; padding:24px;}
+  #lb img{max-width:none; border-radius:6px; box-shadow:0 0 60px rgba(33,230,193,.3);} #lb .x{position:fixed; top:16px; right:22px; color:#fff; font-size:38px; cursor:pointer;}
+  @media (max-width:900px){ .two{grid-template-columns:1fr;} .caps{grid-template-columns:1fr 1fr;} .grid4{grid-template-columns:1fr 1fr;} .orbit{aspect-ratio:1/1;} }
+  @media (max-width:560px){ .grid4{grid-template-columns:1fr;} .screen:nth-child(even) .fr{transform:none;} }
+</style>
+</head>
+<body>
+<div class="ticker"><div class="wrap"><span class="dot">●</span> TRACKING &nbsp; <b>TARGET</b> PLB-0427 &nbsp; LAT <b>34.0192°N</b> &nbsp; LON <b>118.4901°W</b> &nbsp; SIG <b>-58 dBm</b> &nbsp; ALT <b>124 m</b> &nbsp; VEL <b>9.4 m/s</b> &nbsp; <span class="dot">●</span> LOCK ACQUIRED</div></div>
+<div class="topbar"><div class="wrap"><a class="back" href="index.html" onclick="if(history.length>1){history.back();return false;}">&larr; Back</a><span class="who">CASE STUDY // <b>DAVID SILVERLIGHT</b></span></div></div>
+
+<header class="hero">
+  <div class="grid"></div><div class="scan"></div>
+  <div class="wrap">
+    <span class="stencil">◈ Search &amp; Rescue · UAS Telemetry</span>
+    <h1>UAS <span>Trakker</span></h1>
+    <p class="lead">Give an unmanned aerial system the eyes to find a person in trouble — locate, track and follow a radio-frequency personal locator beacon from the sky, in real time.</p>
+    <div class="radar">
+      <div class="sweep"></div>
+      <div class="uav">🚁</div>
+      <span class="ping" style="left:70%; top:36%;"></span>
+    </div>
+    <div class="hud-tiles">
+      <div class="tile"><div class="lab">Signal lock</div><div class="val g">ACQUIRED</div></div>
+      <div class="tile"><div class="lab">Track mode</div><div class="val">FOLLOW</div></div>
+      <div class="tile"><div class="lab">Beacon type</div><div class="val">RF PLB</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- BRIEF -->
+<section>
+  <div class="wrap">
+    <div class="two">
+      <div class="panel bracket brief">
+        <span class="kicker">Mission brief</span>
+        <h2 class="sec" style="font-size:clamp(24px,3.2vw,32px);">Eyes in the sky for people at risk</h2>
+        <p>People pursuing risk-prone activities — remote, off-grid, hard to reach — can carry a radio-frequency personal locator beacon. When something goes wrong, finding them fast is everything.</p>
+        <p>UAS Trakker turns a custom unmanned aerial system into an autonomous spotter: it detects the beacon's RF signal, pinpoints the location on a live map, and keeps the aircraft locked on — tracking and following the target as it moves, and streaming position back to the team on the ground.</p>
+      </div>
+      <div class="missionbox">
+        <span class="kicker">My role</span>
+        <h3>Built the tracking app</h3>
+        <p>I developed the UAS Trakker application on Xamarin.Forms — wiring live mapping and cloud telemetry into a single, field-ready interface for locating and following beacons.</p>
+        <div class="tg"><span>XAMARIN.FORMS</span><span>GOOGLE MAPS SDK</span><span>AZURE</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRACKING RADIAL -->
+<section class="track">
+  <div class="wrap">
+    <div class="center"><span class="kicker">Tracking loop</span><h2 class="sec">Locate · Track · Follow</h2><p class="sec-sub">A continuous loop that keeps the aircraft on target from first ping to recovery.</p></div>
+    <div class="orbit">
+      <div class="ring" style="width:74%; height:88%;"></div>
+      <div class="ring" style="width:46%; height:56%;"></div>
+      <div class="core"><b>UAS</b><small>ONBOARD</small></div>
+      <div class="stg" style="left:10%; top:30%;"><div class="nd">📡</div><h4>Locate</h4><p>Detect the RF beacon and fix its position.</p></div>
+      <div class="stg" style="left:50%; top:88%;"><div class="nd">🎯</div><h4>Track</h4><p>Plot the target live on the map.</p></div>
+      <div class="stg" style="left:90%; top:30%;"><div class="nd">🛰️</div><h4>Follow</h4><p>Keep the aircraft locked on as it moves.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section>
+  <div class="wrap">
+    <div class="center"><span class="kicker">Systems</span><h2 class="sec">On-board capabilities</h2></div>
+    <div class="caps">
+      <div class="cap bracket"><div class="idx">SYS_01</div><div class="ic">📡</div><h3>RF beacon detect</h3><p>Acquires signal from radio-frequency personal locator beacons.</p></div>
+      <div class="cap bracket"><div class="idx">SYS_02</div><div class="ic">🗺️</div><h3>Live mapping</h3><p>Real-time positioning and target plotting on Google Maps.</p></div>
+      <div class="cap bracket"><div class="idx">SYS_03</div><div class="ic">🛰️</div><h3>Follow mode</h3><p>Keeps the UAS locked on a moving target automatically.</p></div>
+      <div class="cap bracket"><div class="idx">SYS_04</div><div class="ic">☁️</div><h3>Cloud telemetry</h3><p>Streams position and status through Azure cloud services.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- MAP -->
+<section class="track">
+  <div class="wrap">
+    <div class="center"><span class="kicker">Live map</span><h2 class="sec">Target on the grid</h2><p class="sec-sub">The operator's view: aircraft, flight path, and the beacon target with a live lock reticle.</p></div>
+    <div class="mapwrap bracket">
+      <span class="maptag" style="left:14px; top:14px;">GRID // SECTOR-7 · ZOOM 15</span>
+      <span class="maptag" style="right:14px; bottom:14px; color:#ff8a8d; border-color:rgba(255,90,95,.4);">TARGET LOCK · -58 dBm</span>
+      <svg viewBox="0 0 1000 420" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="g" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="rgba(33,230,193,.10)" stroke-width="1"/></pattern>
+        </defs>
+        <rect width="1000" height="420" fill="#060b10"/><rect width="1000" height="420" fill="url(#g)"/>
+        <path d="M120 360 C 260 300, 240 200, 380 190 S 560 240, 640 170 S 820 90, 900 120" fill="none" stroke="rgba(33,230,193,.35)" stroke-width="3"/>
+        <path d="M120 360 C 300 380, 500 340, 640 330 S 860 300, 940 320" fill="none" stroke="rgba(120,150,175,.25)" stroke-width="2"/>
+        <g fill="none" stroke="rgba(33,230,193,.5)" stroke-width="2" stroke-dasharray="4 10"><path d="M120 360 C 260 300, 240 200, 380 190 S 560 240, 640 170 S 820 90, 900 120"/></g>
+        <g transform="translate(120,360)"><circle r="9" fill="#21e6c1"/><circle r="16" fill="none" stroke="#21e6c1" stroke-width="1.5" opacity=".6"/><text x="16" y="-12" fill="#21e6c1" font-family="Share Tech Mono, monospace" font-size="16">BASE</text></g>
+        <g transform="translate(640,170)"><path d="M0 -14 L12 10 L0 3 L-12 10 Z" fill="#8bff6b"/><text x="16" y="4" fill="#8bff6b" font-family="Share Tech Mono, monospace" font-size="16">UAS</text></g>
+        <g transform="translate(900,120)">
+          <circle r="30" fill="none" stroke="#ff5a5f" stroke-width="1.5" opacity=".7"/>
+          <line x1="-40" y1="0" x2="40" y2="0" stroke="#ff5a5f" stroke-width="1"/><line x1="0" y1="-40" x2="0" y2="40" stroke="#ff5a5f" stroke-width="1"/>
+          <circle r="7" fill="#ff5a5f"/>
+          <text x="20" y="-26" fill="#ff8a8d" font-family="Share Tech Mono, monospace" font-size="16">TARGET</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section>
+  <div class="wrap">
+    <div class="center"><span class="kicker">Field unit</span><h2 class="sec">On the device</h2><p class="sec-sub">UAS Trakker running in the field. Click any screen to enlarge.</p></div>
+    <div class="grid4">
+      <figure class="screen"><div class="fr bracket"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/847971f2-5714-4e10-904d-9c6e0715d2ae_rw_1200.png?h=9f35bf8c0bfb7870c12abeebf5b76b26" alt="UAS Trakker screen 1" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Map view</figcaption></figure>
+      <figure class="screen"><div class="fr bracket"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/01869c44-f8c7-4cfd-b33b-0525b962e83a_rw_1200.png?h=ee83f63c4463841508cdac00adf1220c" alt="UAS Trakker screen 2" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Tracking</figcaption></figure>
+      <figure class="screen"><div class="fr bracket"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/ecdcf1b6-cabe-44fd-becd-e6932144fb1a_rw_1200.png?h=5650306a4a43779ac206d8afc2f7ef38" alt="UAS Trakker screen 3" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Beacon</figcaption></figure>
+      <figure class="screen"><div class="fr bracket"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/7f0ca7c8-4f34-4ecf-bed6-06970219107d_rw_1200.png?h=465806878c84b782ff45b418b8a879e6" alt="UAS Trakker screen 4" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Status</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- TECH -->
+<section class="band">
+  <div class="wrap">
+    <span class="kicker">Stack</span>
+    <h2 class="sec">Built to fly</h2>
+    <p class="sec-sub">A cross-platform Xamarin.Forms application with live Google Maps positioning and Microsoft Azure cloud services carrying telemetry between the aircraft and the ground team.</p>
+    <div class="stack"><span>Xamarin.Forms</span><span>Google Maps SDK</span><span>Microsoft Azure</span><span>Cloud Telemetry</span><span>RF Beacon (PLB)</span><span>iOS &amp; Android</span></div>
+  </div>
+</section>
+
+<footer>UAS TRAKKER // XAMARIN.FORMS · SEARCH &amp; RESCUE TELEMETRY &nbsp; — &nbsp; <a href="index.html" onclick="if(history.length>1){history.back();return false;}">← BACK TO PORTFOLIO</a></footer>
+<div id="lb"><span class="x">&times;</span><img alt="enlarged screenshot"></div>
+<script>(function(){var lb=document.getElementById('lb'),im=lb.querySelector('img');document.querySelectorAll('.fr img').forEach(function(g){g.addEventListener('click',function(e){e.stopPropagation();im.src=g.src;lb.style.display='flex';});});lb.addEventListener('click',function(){lb.style.display='none';im.src='';});document.addEventListener('keydown',function(e){if(e.key==='Escape'){lb.style.display='none';im.src='';}});})();</script>
+</body>
+</html>
