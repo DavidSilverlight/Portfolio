@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nalco Lock App — Case Study · David Silverlight</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--steel:#111519; --steel2:#1b2127; --graphite:#2b333c; --amber:#f5b301; --amber2:#ffc233; --orange:#e8622a;
+    --concrete:#e8eaec; --card:#fff; --ink:#171b1f; --muted:#5c6771; --line:#dde1e5; --steelline:#39424c;}
+  *{box-sizing:border-box;} html{scroll-behavior:smooth;}
+  body{margin:0; font-family:"Inter","Segoe UI",Arial,sans-serif; color:var(--ink); background:var(--concrete); line-height:1.6;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 26px;}
+  .oswald,h1,h2,h3,.label{font-family:"Oswald",Impact,sans-serif;}
+  .label{text-transform:uppercase; letter-spacing:3px; font-weight:600; font-size:12px;}
+  .hazard{height:8px; background:repeating-linear-gradient(45deg,#f5b301 0 16px,#111519 16px 32px);}
+  .topbar{position:sticky; top:0; z-index:40; background:rgba(17,21,25,.97); backdrop-filter:blur(8px); border-bottom:1px solid var(--steelline);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:56px;}
+  .back{display:inline-flex; gap:8px; text-decoration:none; color:#111519; font-weight:700; font-size:13px; letter-spacing:1px; text-transform:uppercase; font-family:"Oswald",sans-serif; background:var(--amber); padding:9px 16px; border-radius:4px;}
+  .topbar .who{color:#aeb8c1; font-size:12px; font-weight:600; letter-spacing:1px; text-transform:uppercase; font-family:"Oswald",sans-serif;} .topbar .who b{color:#fff;}
+  /* hero */
+  .hero{position:relative; overflow:hidden; color:#fff; background:linear-gradient(160deg,#0e1215 0%,#1b2127 55%,#0d1013 100%);}
+  .hero .blue{position:absolute; inset:0; background-image:linear-gradient(rgba(120,150,175,.06) 1px, transparent 1px),linear-gradient(90deg, rgba(120,150,175,.06) 1px, transparent 1px); background-size:34px 34px;}
+  .hero .lockbg{position:absolute; right:-40px; top:40%; transform:translateY(-50%); width:360px; height:360px; opacity:.06;}
+  .hero .wrap{position:relative; z-index:3; display:grid; grid-template-columns:1.12fr .88fr; gap:40px; align-items:center; padding:56px 26px 60px;}
+  .stencil{display:inline-flex; align-items:center; gap:10px; color:#ffd45e; font-family:"Oswald",sans-serif; text-transform:uppercase; letter-spacing:3px; font-size:12px; font-weight:600; border:1px solid rgba(245,179,1,.4); background:rgba(245,179,1,.08); padding:6px 13px; border-radius:4px;}
+  .hero h1{margin:16px 0 6px; font-size:clamp(44px,7vw,78px); line-height:.96; font-weight:700; text-transform:uppercase; letter-spacing:1px;}
+  .hero h1 span{color:var(--amber);}
+  .hero .lead{max-width:540px; font-size:17.5px; color:#c3ccd4;}
+  .tags{margin-top:18px; display:flex; flex-wrap:wrap; gap:8px;}
+  .tags span{font-family:"Oswald",sans-serif; font-size:12px; letter-spacing:1px; text-transform:uppercase; color:#e9eef2; background:rgba(255,255,255,.06); border:1px solid var(--steelline); padding:6px 12px; border-radius:4px;}
+  .stat-row{display:flex; gap:0; margin-top:26px; border:1px solid var(--steelline); border-radius:6px; overflow:hidden; width:fit-content; max-width:100%;}
+  .stat{padding:14px 22px; border-right:1px solid var(--steelline);} .stat:last-child{border-right:0;}
+  .stat b{display:block; font-family:"Oswald",sans-serif; font-size:30px; font-weight:700; color:var(--amber); line-height:1;} .stat span{font-size:11px; color:#9fabb4; text-transform:uppercase; letter-spacing:1.5px; font-family:"Oswald",sans-serif;}
+  /* hero device */
+  .heroart{position:relative; display:flex; align-items:center; justify-content:center; min-height:340px;}
+  .plinth{position:relative; z-index:3; padding:6px; background:linear-gradient(160deg,#2c343d,#12161a); border-radius:22px; box-shadow:0 30px 60px rgba(0,0,0,.55); border:1px solid #3c4650;}
+  .plinth img{width:auto; height:310px; display:block; border-radius:16px;}
+  .plinth .fb{width:170px; aspect-ratio:9/19; border-radius:16px; background:linear-gradient(160deg,#222a31,#12161a); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; color:#c3ccd4; text-align:center; padding:20px;}
+  .ichip{position:absolute; z-index:4; display:flex; align-items:center; gap:9px; background:#fff; border-radius:6px; padding:8px 12px 8px 8px; box-shadow:0 14px 30px rgba(0,0,0,.4);}
+  .ichip .ic{width:30px; height:30px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:16px; background:#12161a; color:var(--amber);}
+  .ichip b{font-family:"Oswald",sans-serif; font-size:12px; letter-spacing:.5px; text-transform:uppercase; color:#12161a;} .ichip small{display:block; font-size:10px; color:#6b7680; letter-spacing:.5px;}
+  .ichip.i1{top:20px; left:-14px;} .ichip.i2{bottom:66px; right:-20px;} .ichip.i3{bottom:6px; left:8px;}
+  .barcode{position:absolute; z-index:2; bottom:16px; right:12px; width:120px; height:44px; background:repeating-linear-gradient(90deg,#e9eef2 0 2px,transparent 2px 4px,#e9eef2 4px 7px,transparent 7px 9px,#e9eef2 9px 10px,transparent 10px 13px); opacity:.5;}
+  /* sections */
+  section{padding:56px 0;}
+  .kicker{font-family:"Oswald",sans-serif; font-size:12px; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:var(--orange);}
+  h2.sec{font-family:"Oswald",sans-serif; font-size:clamp(28px,3.8vw,42px); margin:8px 0 8px; color:var(--steel); text-transform:uppercase; letter-spacing:1px; font-weight:700; line-height:1.02;}
+  .sec-sub{color:var(--muted); max-width:740px; font-size:16.5px; margin:0 0 26px;}
+  .center{text-align:center;} .center .sec-sub{margin-left:auto; margin-right:auto;}
+  .lead-two{display:grid; grid-template-columns:1.25fr .75fr; gap:34px; align-items:stretch;}
+  .brief{background:var(--card); border:1px solid var(--line); border-left:6px solid var(--amber); border-radius:6px; padding:26px 28px;}
+  .brief p{font-size:16.5px; color:#3a444c; margin:0 0 14px;} .brief p:last-child{margin-bottom:0;}
+  .rolebox{background:linear-gradient(160deg,#171c21,#242c34); color:#fff; border-radius:6px; padding:26px 26px; position:relative; overflow:hidden;}
+  .rolebox::before{content:""; position:absolute; top:0; left:0; right:0; height:6px; background:repeating-linear-gradient(45deg,#f5b301 0 12px,#171c21 12px 24px);}
+  .rolebox .kicker{color:#ffd45e;} .rolebox h3{font-family:"Oswald",sans-serif; margin:12px 0 10px; font-size:22px; text-transform:uppercase; letter-spacing:1px;} .rolebox p{margin:0 0 12px; color:#c3ccd4; font-size:14.5px;}
+  .roletags{display:flex; flex-wrap:wrap; gap:8px; margin-top:4px;}
+  .roletags span{font-family:"Oswald",sans-serif; font-size:11px; letter-spacing:1px; text-transform:uppercase; background:rgba(245,179,1,.14); border:1px solid rgba(245,179,1,.4); color:#ffe08a; padding:5px 10px; border-radius:4px;}
+  /* workflow line */
+  .flow{background:var(--steel); color:#fff;} .flow h2{color:#fff;} .flow .kicker{color:#ffd45e;} .flow .sec-sub{color:#b9c3cb;}
+  .line{display:grid; grid-template-columns:repeat(5,1fr); gap:0; margin-top:36px; position:relative;}
+  .st{position:relative; text-align:center; padding:0 10px;}
+  .st .num{font-family:"Oswald",sans-serif; font-size:12px; letter-spacing:2px; color:#6f7c86;}
+  .st .node{width:66px; height:66px; margin:8px auto 14px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:28px; background:linear-gradient(160deg,#2b333c,#161b20); border:1px solid #3c4650; box-shadow:0 10px 22px rgba(0,0,0,.4); position:relative; z-index:2;}
+  .st .node.on{border-color:var(--amber); box-shadow:0 0 0 3px rgba(245,179,1,.18), 0 10px 22px rgba(0,0,0,.4);}
+  .st h4{font-family:"Oswald",sans-serif; margin:0 0 5px; font-size:15px; text-transform:uppercase; letter-spacing:.8px; color:#fff;}
+  .st p{margin:0; font-size:12.5px; color:#9fabb4; line-height:1.4;}
+  .line::before{content:""; position:absolute; top:64px; left:10%; right:10%; height:4px; background:repeating-linear-gradient(90deg,var(--amber) 0 14px,#2b333c 14px 22px); z-index:1;}
+  /* pillars */
+  .pillars{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:34px;}
+  .pill3{background:var(--card); border:1px solid var(--line); border-top:4px solid var(--graphite); border-radius:6px; padding:24px; transition:transform .2s, box-shadow .2s, border-color .2s;}
+  .pill3:hover{transform:translateY(-5px); box-shadow:0 16px 34px rgba(20,30,40,.14); border-top-color:var(--amber);}
+  .pill3 .ic{width:52px; height:52px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:25px; margin-bottom:12px; background:#12161a; color:var(--amber);}
+  .pill3 h3{font-family:"Oswald",sans-serif; margin:0 0 6px; font-size:18px; text-transform:uppercase; letter-spacing:.6px; color:var(--steel);} .pill3 p{margin:0; color:#54606a; font-size:14.5px;}
+  /* scale callout */
+  .scale{background:linear-gradient(120deg,#12161a,#242c34); color:#fff; border-radius:8px; padding:0; overflow:hidden; display:grid; grid-template-columns:auto 1fr;}
+  .scale .big{background:var(--amber); color:#12161a; padding:34px 34px; display:flex; flex-direction:column; justify-content:center; text-align:center;}
+  .scale .big b{font-family:"Oswald",sans-serif; font-size:56px; font-weight:700; line-height:.9;} .scale .big span{font-family:"Oswald",sans-serif; text-transform:uppercase; letter-spacing:2px; font-size:13px; margin-top:4px;}
+  .scale .txt{padding:30px 34px; display:flex; flex-direction:column; justify-content:center;}
+  .scale .txt h3{font-family:"Oswald",sans-serif; margin:0 0 8px; font-size:22px; text-transform:uppercase; letter-spacing:1px;} .scale .txt p{margin:0; color:#c3ccd4; font-size:15px;}
+  /* gallery */
+  .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  .screen{margin:0; text-align:center;}
+  .screen .fr{background:transparent; border-radius:14px; padding:0; overflow:hidden; line-height:0; box-shadow:none; border:0; transition:transform .2s;}
+  .screen .fr:hover{transform:translateY(-5px);}
+  .screen .fr img{width:100%; display:block; cursor:zoom-in; border-radius:0;}
+  .screen figcaption{margin-top:10px; font-family:"Oswald",sans-serif; font-size:13px; letter-spacing:1px; text-transform:uppercase; color:var(--muted);}
+  /* tech */
+  .band{background:var(--steel); color:#fff; position:relative;}
+  .band h2{color:#fff;} .band .kicker{color:#ffd45e;} .band .sec-sub{color:#b9c3cb;}
+  .stack{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;}
+  .stack span{font-family:"Oswald",sans-serif; font-size:13px; letter-spacing:.8px; text-transform:uppercase; color:#e9eef2; background:rgba(255,255,255,.06); border:1px solid var(--steelline); padding:8px 15px; border-radius:4px;}
+  footer{padding:30px 0 52px; text-align:center; color:var(--muted); font-size:12px; font-family:"Oswald",sans-serif; letter-spacing:1px; text-transform:uppercase;} footer a{color:var(--orange); text-decoration:none; font-weight:600;}
+  #lb{display:none; position:fixed; inset:0; z-index:9999; background:rgba(8,10,12,.94); align-items:flex-start; justify-content:center; overflow:auto; cursor:zoom-out; padding:24px;}
+  #lb img{max-width:none; border-radius:8px; box-shadow:0 16px 60px rgba(0,0,0,.6);} #lb .x{position:fixed; top:16px; right:22px; color:#fff; font-size:38px; cursor:pointer;}
+  @media (max-width:900px){ .hero .wrap{grid-template-columns:1fr;} .lead-two{grid-template-columns:1fr;} .line{grid-template-columns:1fr 1fr;} .line::before{display:none;} .pillars{grid-template-columns:1fr;} .grid3{grid-template-columns:1fr 1fr;} .scale{grid-template-columns:1fr;} }
+  @media (max-width:560px){ .grid3{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<div class="hazard"></div>
+<div class="topbar"><div class="wrap"><a class="back" href="index.html" onclick="if(history.length>1){history.back();return false;}">&larr; Back</a><span class="who">Case Study · <b>David Silverlight</b></span></div></div>
+
+<header class="hero">
+  <div class="blue"></div>
+  <svg class="lockbg" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="14" y="52" width="72" height="58" rx="10" fill="#fff"/><path d="M28 52V38a22 22 0 0 1 44 0v14" stroke="#fff" stroke-width="10" fill="none"/><circle cx="50" cy="78" r="8" fill="#111"/><rect x="46" y="82" width="8" height="16" rx="3" fill="#111"/></svg>
+  <div class="wrap">
+    <div>
+      <span class="stencil">◆ Field Tool · Industrial Rollout</span>
+      <h1>Nalco <span>Lock</span> App</h1>
+      <p class="lead">A rugged field companion for installation specialists — scan the tank, fit the new lock, generate a unique combination, and document every unit to the backend. Built to keep a 28,000-tank rollout moving on schedule.</p>
+      <div class="tags"><span>Tank locking</span><span>Barcode scan</span><span>Unique combos</span><span>Backend sync</span><span>Xamarin.Forms</span></div>
+      <div class="stat-row">
+        <div class="stat"><b>28,000</b><span>Tanks secured</span></div>
+        <div class="stat"><b>1</b><span>Condensed timeline</span></div>
+        <div class="stat"><b>100%</b><span>On schedule</span></div>
+      </div>
+    </div>
+    <div class="heroart">
+      <div class="plinth">
+        <img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/a629b851-b61f-436e-8b70-66debf751710_rw_600.png?h=1f03f5079bb45d40c84565c96371e3bf" alt="Nalco Lock App" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="fb" style="display:none;"><span style="font-size:40px;">🔒</span><b class="oswald" style="font-size:18px;text-transform:uppercase;letter-spacing:1px;">Nalco Lock</b><small>Field lock &amp; combo tool</small></div>
+      </div>
+      <div class="ichip i1"><span class="ic">▮▮▮</span><div><b>Scan tank</b><small>Barcode ID</small></div></div>
+      <div class="ichip i2"><span class="ic">🔑</span><div><b>Generate combo</b><small>Unique per unit</small></div></div>
+      <div class="ichip i3"><span class="ic">☁</span><div><b>Sync</b><small>Backend log</small></div></div>
+      <div class="barcode"></div>
+    </div>
+  </div>
+</header>
+
+<!-- BRIEF -->
+<section>
+  <div class="wrap">
+    <div class="lead-two">
+      <div class="brief">
+        <span class="kicker">The brief</span>
+        <h2 class="sec" style="font-size:clamp(24px,3.2vw,32px);">Lock down 28,000 tanks — without slowing the crew</h2>
+        <p>A massive field rollout meant installation specialists had to fit a brand-new lock to tens of thousands of tanks, each with its own unique combination, and log every detail so the records stayed airtight. Doing that on paper — at that scale, on a tight deadline — was a non-starter.</p>
+        <p>The Nalco Lock App put the whole procedure in the installer's hand: scan the tank, configure the lock, generate a one-of-a-kind combination, and push a complete, verified record to the backend before moving to the next unit.</p>
+      </div>
+      <div class="rolebox">
+        <span class="kicker">My role</span>
+        <h3>Built &amp; delivered under deadline</h3>
+        <p>I developed the Nalco Lock App as a cross-platform Xamarin.Forms field tool and delivered it on a compressed timeline — the schedule the 28,000-tank installation depended on.</p>
+        <div class="roletags"><span>Xamarin.Forms</span><span>Field UX</span><span>Delivery under deadline</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKFLOW -->
+<section class="flow">
+  <div class="wrap">
+    <div class="center"><span class="kicker">The field workflow</span><h2 class="sec">One unit, start to finish</h2><p class="sec-sub">Every tank runs the same tight loop — designed so a specialist can repeat it thousands of times without a misstep.</p></div>
+    <div class="line">
+      <div class="st"><div class="num">01</div><div class="node">🔐</div><h4>Authenticate</h4><p>Secure Microsoft SSO sign-in for every field specialist.</p></div>
+      <div class="st"><div class="num">02</div><div class="node on">▮▮▮</div><h4>Scan tank</h4><p>Barcode scan identifies the exact unit on site.</p></div>
+      <div class="st"><div class="num">03</div><div class="node">🔒</div><h4>Fit the lock</h4><p>Configure and fit the new lock hardware to the tank.</p></div>
+      <div class="st"><div class="num">04</div><div class="node on">🔑</div><h4>Generate combo</h4><p>Produce a unique combination for that individual tank.</p></div>
+      <div class="st"><div class="num">05</div><div class="node">☁</div><h4>Document &amp; sync</h4><p>Push a verified record to the backend service via REST.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PILLARS -->
+<section>
+  <div class="wrap">
+    <div class="center"><span class="kicker">Capabilities</span><h2 class="sec">Engineered for the job site</h2></div>
+    <div class="pillars">
+      <div class="pill3"><div class="ic">▮▮▮</div><h3>Barcode scanning</h3><p>Fast, reliable tank identification in the field with an integrated barcode scanner.</p></div>
+      <div class="pill3"><div class="ic">🔑</div><h3>Unique combinations</h3><p>Generates a distinct, secure combination for every single tank in the program.</p></div>
+      <div class="pill3"><div class="ic">☁</div><h3>Backend documentation</h3><p>Every install is captured and synced to a backend service over REST — a complete audit trail.</p></div>
+      <div class="pill3"><div class="ic">🛡️</div><h3>Secure sign-in</h3><p>Microsoft SSO keeps access controlled to authorized installation specialists.</p></div>
+      <div class="pill3"><div class="ic">🔊</div><h3>Audio confirmation</h3><p>SimpleAudioPlayer gives clear audible feedback on scans and actions — eyes-free on the line.</p></div>
+      <div class="pill3"><div class="ic">📶</div><h3>Field-ready</h3><p>A focused, rugged workflow that holds up to thousands of repetitions across job sites.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SCALE -->
+<section>
+  <div class="wrap">
+    <div class="scale">
+      <div class="big"><b>28,000</b><span>Tanks · on schedule</span></div>
+      <div class="txt"><h3>Built for scale, delivered on time</h3><p>The app existed to protect one number: the installation schedule. By turning a manual, error-prone procedure into a fast, guided loop, it helped the crew fit and document locks across 28,000 tanks — on a condensed timeline, without falling behind.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section style="background:#dfe3e6;">
+  <div class="wrap">
+    <div class="center"><span class="kicker">The app</span><h2 class="sec">On the device</h2><p class="sec-sub">The Nalco Lock App in the field. Click any screen to enlarge.</p></div>
+    <div class="grid3" style="margin-top:34px;">
+      <figure class="screen"><div class="fr"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/a629b851-b61f-436e-8b70-66debf751710_rw_600.png?h=1f03f5079bb45d40c84565c96371e3bf" alt="Nalco screen 1" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Sign in</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/f47df40b-ad55-46d4-9630-2bff9243eb28_rw_600.png?h=57eca7b2c3181fbd727065b2dcfe5c5b" alt="Nalco screen 2" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Scan tank</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/3ef50299-0884-49e8-9aaf-29ea7e9f8df6_rw_600.png?h=cb1f029fa6c03ba2b083996d728bf24f" alt="Nalco screen 3" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Lock detail</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/4e220934-3dfa-47d6-85a3-1adccdbff3fa_rw_600.png?h=cccc5759ba9f74aae4dcfcb3f0809dae" alt="Nalco screen 4" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Combination</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/bc9aaa96-1c04-49eb-9f9d-80b0149b36e8_rw_600.png?h=c8d13d0c3651e88c55a36c5e0eeb8fa7" alt="Nalco screen 5" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Records</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/9c015bae-4d9c-4a09-ab46-70b3dad9dc32_rw_600.png?h=bbad743b9f33c07e9c683d740fae6804" alt="Nalco screen 6" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Confirmation</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- TECH -->
+<section class="band">
+  <div class="hazard"></div>
+  <div class="wrap" style="padding-top:44px;">
+    <span class="kicker">Under the hood</span>
+    <h2 class="sec">Built to spec</h2>
+    <p class="sec-sub">A cross-platform Xamarin.Forms app with an MVVM core, hardware barcode scanning, audible feedback and a REST backend — engineered to be dependable in the hands of a field crew.</p>
+    <div class="stack"><span>Xamarin.Forms</span><span>MVVM</span><span>REST</span><span>Microsoft SSO</span><span>BarcodeScanner</span><span>SimpleAudioPlayer</span><span>iOS &amp; Android</span></div>
+  </div>
+</section>
+
+<footer>Nalco Lock App · Xamarin.Forms · 28,000 tanks, on schedule &nbsp;·&nbsp; <a href="index.html" onclick="if(history.length>1){history.back();return false;}">← Back to portfolio</a></footer>
+<div id="lb"><span class="x">&times;</span><img alt="enlarged screenshot"></div>
+<script>(function(){var lb=document.getElementById('lb'),im=lb.querySelector('img');document.querySelectorAll('.fr img').forEach(function(g){g.addEventListener('click',function(e){e.stopPropagation();im.src=g.src;lb.style.display='flex';});});lb.addEventListener('click',function(){lb.style.display='none';im.src='';});document.addEventListener('keydown',function(e){if(e.key==='Escape'){lb.style.display='none';im.src='';}});})();</script>
+</body>
+</html>

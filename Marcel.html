@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marcel — Case Study · David Silverlight</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#0b1f3a; --navy2:#16345f; --blue:#2f80ed; --blue2:#5aa6ff; --cyan:#7fe3ff; --gold:#ffb547;
+    --ink:#132033; --muted:#5b6b82; --paper:#eef3fa; --card:#fff; --line:#dde6f2;}
+  *{box-sizing:border-box;} html{scroll-behavior:smooth;}
+  body{margin:0; font-family:"Segoe UI",Calibri,Arial,sans-serif; color:var(--ink); background:var(--paper); line-height:1.55;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 26px;}
+  .topbar{position:sticky; top:0; z-index:40; background:rgba(9,22,42,.96); backdrop-filter:blur(8px); border-bottom:1px solid rgba(90,166,255,.28);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:56px;}
+  .back{display:inline-flex; gap:8px; text-decoration:none; color:#0a2540; font-weight:800; font-size:14px; background:#bcd6ff; padding:9px 16px; border-radius:30px;}
+  .topbar .who{color:#bcd0ee; font-size:13px; font-weight:700;} .topbar .who b{color:#fff;}
+  /* hero */
+  .hero{position:relative; overflow:hidden; color:#fff;
+    background:radial-gradient(760px 380px at 82% -12%, rgba(74,155,255,.32), transparent 58%),
+      radial-gradient(520px 360px at 4% 120%, rgba(255,181,71,.14), transparent 55%),
+      linear-gradient(155deg,#0b1f3a 0%,#16345f 55%,#0a1c34 100%);}
+  .hero .grid-dots{position:absolute; inset:0; background-image:radial-gradient(rgba(255,255,255,.09) 1px, transparent 1px); background-size:22px 22px; opacity:.6;}
+  .hero svg.net{position:absolute; inset:0; width:100%; height:100%; pointer-events:none; opacity:.9;}
+  .hero .wrap{position:relative; z-index:3; display:grid; grid-template-columns:1.15fr .85fr; gap:40px; align-items:center; padding:58px 26px 62px;}
+  .eyebrow{display:inline-flex; gap:8px; font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:#bfe4ff; background:rgba(74,155,255,.16); border:1px solid rgba(90,166,255,.5); padding:6px 13px; border-radius:30px;}
+  .hero h1{margin:16px 0 6px; font-size:clamp(40px,6.4vw,68px); line-height:1.0;}
+  .hero h1 span{background:linear-gradient(90deg,#9fd0ff,#7fe3ff); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero .lead{max-width:540px; font-size:18px; color:#d5e2f4;}
+  .tags{margin-top:18px; display:flex; flex-wrap:wrap; gap:8px;}
+  .tags span{font-size:12px; font-weight:700; color:#eaf1fb; background:rgba(255,255,255,.09); border:1px solid rgba(255,255,255,.18); padding:5px 12px; border-radius:20px;}
+  .heroart{position:relative; display:flex; align-items:center; justify-content:center; min-height:300px;}
+  .heroart .phone{position:relative; z-index:3; padding:6px; background:#0a1524; border-radius:26px; box-shadow:0 26px 60px rgba(0,8,28,.6); border:1px solid rgba(255,255,255,.08);}
+  .heroart .phone img{width:auto; height:300px; display:block; border-radius:20px;}
+  .chip{position:absolute; z-index:4; display:flex; align-items:center; gap:8px; background:#fff; border-radius:12px; padding:8px 12px 8px 8px; box-shadow:0 12px 30px rgba(0,8,28,.4);}
+  .chip .av{width:26px; height:26px; border-radius:50%; background:linear-gradient(140deg,#5aa6ff,#2f5fd0); display:flex; align-items:center; justify-content:center; color:#fff; font:800 13px/1 Arial;}
+  .chip b{font:800 11px/1.2 "Segoe UI",Arial; color:#0a2540;} .chip small{display:block; font:600 9.5px/1.3 "Segoe UI",Arial; color:#6b7b92;}
+  .chip.c1{top:20px; left:-6px;} .chip.c2{bottom:34px; right:-8px;} .chip.c3{top:120px; right:-14px; padding:8px 12px;}
+  .stat-row{display:flex; gap:26px; margin-top:24px; flex-wrap:wrap;}
+  .stat b{display:block; font-size:26px; color:#fff; line-height:1;} .stat span{font-size:12px; color:#a9bdd8; text-transform:uppercase; letter-spacing:1px;}
+  /* sections */
+  section{padding:54px 0;}
+  .kicker{font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--blue);}
+  h2.sec{font-size:clamp(24px,3.4vw,34px); margin:8px 0 8px; color:var(--navy);}
+  .sec-sub{color:var(--muted); max-width:720px; font-size:16.5px; margin:0 0 26px;}
+  .center{text-align:center;} .center .sec-sub{margin-left:auto; margin-right:auto;}
+  .lead-two{display:grid; grid-template-columns:1.3fr .7fr; gap:34px; align-items:center;}
+  .brief p{font-size:16.5px; color:#3a4a60; margin:0 0 14px;}
+  .rolebox{background:linear-gradient(160deg,#0b1f3a,#1a3f70); color:#fff; border-radius:18px; padding:26px 24px;}
+  .rolebox .kicker{color:#7fe3ff;} .rolebox h3{margin:6px 0 10px; font-size:20px;} .rolebox p{margin:0; color:#cfdcf0; font-size:14.5px;}
+  .badge{display:inline-flex; align-items:center; gap:8px; margin-top:14px; background:rgba(127,227,255,.14); border:1px solid rgba(127,227,255,.4); border-radius:30px; padding:7px 13px; font-weight:700; font-size:13px; color:#e9fbff;}
+  /* pillars */
+  .pillars{display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:34px;}
+  .pill3{background:var(--card); border:1px solid var(--line); border-radius:18px; padding:26px; box-shadow:0 2px 12px rgba(30,60,110,.05); transition:transform .2s, box-shadow .2s;}
+  .pill3:hover{transform:translateY(-6px); box-shadow:0 18px 40px rgba(40,90,180,.14);}
+  .pill3 .ic{width:54px; height:54px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:26px; margin-bottom:12px; background:linear-gradient(150deg,#e7f0ff,#d9e6ff);}
+  .pill3 h3{margin:0 0 6px; font-size:19px; color:var(--navy);} .pill3 p{margin:0; color:#54607a; font-size:14.5px;}
+  /* gallery */
+  .grid4{display:grid; grid-template-columns:repeat(4,1fr); gap:18px;}
+  .screen{margin:0; text-align:center;}
+  .screen .fr{background:#0c1a30; border-radius:18px; padding:5px; overflow:hidden; line-height:0; box-shadow:0 12px 26px rgba(20,40,80,.16); transition:transform .2s, box-shadow .2s;}
+  .screen .fr:hover{transform:translateY(-5px); box-shadow:0 22px 44px rgba(30,70,160,.2);}
+  .screen .fr img{width:100%; display:block; cursor:zoom-in; border-radius:13px;}
+  .screen figcaption{margin-top:10px; font-size:13px; color:var(--muted); font-weight:600;}
+  .band{background:radial-gradient(600px 300px at 80% -20%, rgba(74,155,255,.2), transparent 60%), linear-gradient(155deg,#0b1f3a,#0a1526); color:#fff;}
+  .band h2{color:#fff;} .band .kicker{color:#7fe3ff;} .band .sec-sub{color:#cbd8ec;}
+  .stack{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;}
+  .stack span{font-size:13px; font-weight:700; color:#eaf1fb; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16); padding:8px 15px; border-radius:30px;}
+  .press{display:inline-flex; align-items:center; gap:10px; margin-top:22px; background:#fff; color:#0a2540; border-radius:12px; padding:12px 18px; text-decoration:none; font-weight:700; box-shadow:0 10px 26px rgba(0,10,40,.28);}
+  .press:hover{transform:translateY(-2px);}
+  .fclogo{display:inline-flex; align-items:center; background:#000; color:#fff; font-weight:900; font-size:12px; letter-spacing:.6px; padding:6px 9px; border-radius:6px; text-transform:uppercase; white-space:nowrap;}
+  .video{position:relative; max-width:860px; margin:34px auto 0; aspect-ratio:16/9; border-radius:18px; overflow:hidden; cursor:pointer; background:#05101f; box-shadow:0 22px 54px rgba(8,22,55,.38); border:1px solid var(--line);}
+  .video img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;}
+  .video .playbtn{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:78px; height:78px; border-radius:50%; border:0; background:#e2334b; display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 12px 34px rgba(0,0,0,.5); transition:transform .2s, background .2s;}
+  .video:hover .playbtn{transform:translate(-50%,-50%) scale(1.08); background:#ff2d4b;}
+  .video .playbtn svg{margin-left:5px;}
+  .video iframe{position:absolute; inset:0; width:100%; height:100%; border:0;}
+  .fc-feature{width:fit-content; max-width:100%; margin:30px auto 0; display:flex; flex-direction:column; align-items:stretch;}
+  .fc-logo-card{background:#1ca0e8; border-radius:14px; padding:18px 22px; text-align:center; box-shadow:0 14px 34px rgba(28,160,232,.30);}
+  .fc-wordmark{font-family:"Playfair Display",Georgia,"Times New Roman",serif; font-weight:800; color:#fff; font-size:clamp(22px,4.5vw,30px); letter-spacing:.5px; line-height:1; text-transform:uppercase; white-space:nowrap;}
+  .fc-feature .press{margin-top:18px; justify-content:center;}
+  footer{padding:30px 0 52px; text-align:center; color:var(--muted); font-size:13px;} footer a{color:var(--blue); text-decoration:none; font-weight:800;}
+  #lb{display:none; position:fixed; inset:0; z-index:9999; background:rgba(6,14,28,.94); align-items:flex-start; justify-content:center; overflow:auto; cursor:zoom-out; padding:24px;}
+  #lb img{max-width:none; border-radius:10px; box-shadow:0 16px 60px rgba(0,0,0,.6);} #lb .x{position:fixed; top:16px; right:22px; color:#fff; font-size:38px; cursor:pointer;}
+  @media (max-width:900px){ .hero .wrap{grid-template-columns:1fr;} .lead-two{grid-template-columns:1fr;} .pillars{grid-template-columns:1fr;} .grid4{grid-template-columns:1fr 1fr;} }
+  @media (max-width:560px){ .grid4{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap"><a class="back" href="index.html" onclick="if(history.length>1){history.back();return false;}">&larr; Back to portfolio</a><span class="who">Case Study · <b>David Silverlight</b></span></div></div>
+
+<header class="hero">
+  <div class="grid-dots"></div>
+  <svg class="net" viewBox="0 0 1200 460" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="nd" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5aa6ff"/><stop offset="1" stop-color="#2f5fd0"/></linearGradient>
+      <radialGradient id="ai" cx="0.5" cy="0.4" r="0.6"><stop offset="0" stop-color="#8fe8ff"/><stop offset="1" stop-color="#2f80ed"/></radialGradient>
+      <filter id="gl"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    </defs>
+    <g stroke="rgba(135,190,255,.22)" stroke-width="1.4">
+      <line x1="120" y1="90" x2="360" y2="240"/><line x1="1080" y1="70" x2="840" y2="230"/>
+      <line x1="90" y1="360" x2="360" y2="240"/><line x1="1110" y1="380" x2="840" y2="230"/>
+      <line x1="360" y1="240" x2="840" y2="230"/><line x1="600" y1="420" x2="360" y2="240"/>
+      <line x1="980" y1="330" x2="840" y2="230"/>
+    </g>
+    <g font-family="Segoe UI,Arial" font-size="18" font-weight="700" text-anchor="middle">
+      <circle cx="120" cy="90" r="24" fill="url(#nd)" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/><text x="120" y="96" fill="#fff">JD</text>
+      <circle cx="1080" cy="70" r="22" fill="url(#nd)" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/><text x="1080" y="76" fill="#fff">AK</text>
+      <circle cx="90" cy="360" r="21" fill="url(#nd)" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/><text x="90" y="366" fill="#fff">MR</text>
+      <circle cx="1110" cy="380" r="20" fill="url(#nd)" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/><text x="1110" y="386" fill="#fff">SL</text>
+      <circle cx="600" cy="420" r="19" fill="url(#nd)" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/><text x="600" y="426" fill="#fff">TP</text>
+      <circle cx="980" cy="330" r="18" fill="url(#nd)" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/><text x="980" y="336" fill="#fff">RC</text>
+    </g>
+    <g filter="url(#gl)"><circle cx="840" cy="230" r="26" fill="url(#ai)"/></g>
+    <text x="840" y="236" text-anchor="middle" font-family="Segoe UI,Arial" font-size="17" font-weight="800" fill="#06243f">AI</text>
+  </svg>
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Xamarin.Forms · AI · Enterprise Social</span>
+      <h1>Marcel<span>.</span></h1>
+      <p class="lead">An AI-powered professional network connecting <b>20,000+ people</b> across Publicis Groupe — helping them find the right collaborators, schedule the right meetings, and keep deliverables moving.</p>
+      <div class="tags"><span>Find collaborators</span><span>Schedule meetings</span><span>Track deliverables</span><span>AI matching</span><span>iOS &amp; Android</span></div>
+      <div class="stat-row">
+        <div class="stat"><b>20,000+</b><span>People connected</span></div>
+        <div class="stat"><b>2019</b><span>Initial release</span></div>
+        <div class="stat"><b>Publicis</b><span>Groupe-wide</span></div>
+      </div>
+    </div>
+    <div class="heroart">
+      <div class="phone"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/0e271187-c87f-4f43-9987-40a96d719e48_rw_600.png?h=15cf3b81af0ed0c54e3600935365cbc0" alt="Marcel app" onerror="this.parentNode.style.display='none'"></div>
+      <div class="chip c1"><span class="av">+</span><div><b>Connect</b><small>New collaborator match</small></div></div>
+      <div class="chip c2"><span style="font-size:15px;">📅</span><div><b>Sync · 2:00</b><small>Auto-scheduled</small></div></div>
+      <div class="chip c3"><span style="font-size:15px;">✅</span><div><b>Deliverable</b><small>On track</small></div></div>
+    </div>
+  </div>
+</header>
+
+<!-- BRIEF -->
+<section>
+  <div class="wrap">
+    <div class="lead-two">
+      <div class="brief">
+        <span class="kicker">The brief</span>
+        <h2 class="sec">A social network built for one of the world's largest creative organizations</h2>
+        <p>Publicis Groupe set out to connect its global workforce with Marcel — an internal, AI-powered platform that helps people discover the right colleagues, spin up the right meetings, and keep work moving across a company of 80,000+. Think of it as a professional network tuned for a single enterprise: profiles, matching, messaging, scheduling and deliverable tracking, all in one place.</p>
+        <p>The mobile experience needed to feel as polished and trustworthy as any consumer social app, while carrying the weight of enterprise data and AI-driven recommendations.</p>
+      </div>
+      <div class="rolebox">
+        <span class="kicker">My role</span>
+        <h3>Shipping the first release</h3>
+        <p>As a badged Microsoft contractor working on the Microsoft campus, I helped build the initial release of Marcel — partnering with Publicis.Sapient to bring the first version of the cross-platform app to life on Xamarin.Forms.</p>
+        <span class="badge">🏢 On-campus · Microsoft × Publicis.Sapient</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILLARS -->
+<section style="background:#e6eefa;">
+  <div class="wrap">
+    <div class="center"><span class="kicker">What Marcel does</span><h2 class="sec">Three ways it brings people together</h2><p class="sec-sub">AI sits underneath all of it — quietly matching the right people, moments and work.</p></div>
+    <div class="pillars">
+      <div class="pill3"><div class="ic">🤝</div><h3>Find collaborators</h3><p>AI matching surfaces the right colleagues and expertise across the entire organization, wherever they sit.</p></div>
+      <div class="pill3"><div class="ic">📅</div><h3>Schedule meetings</h3><p>Turn a match into a conversation — coordinate and book the right meetings without the back-and-forth.</p></div>
+      <div class="pill3"><div class="ic">✅</div><h3>Track deliverables</h3><p>Keep work visible and moving, so teams always know what's next and nothing slips through the cracks.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO -->
+<section>
+  <div class="wrap">
+    <div class="center"><span class="kicker">See it in action</span><h2 class="sec">Marcel, in motion</h2><p class="sec-sub">A short look at the AI-powered platform reinventing the way Publicis Groupe's people work.</p></div>
+    <div class="video" id="marcelVideo" onclick="playVid()" role="button" aria-label="Play the Marcel video">
+      <img src="https://img.youtube.com/vi/eid8C_dTVvo/maxresdefault.jpg" alt="Marcel video preview" onerror="this.src='https://img.youtube.com/vi/eid8C_dTVvo/hqdefault.jpg'">
+      <button class="playbtn" aria-label="Play video"><svg width="30" height="30" viewBox="0 0 24 24" fill="#fff" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED IN -->
+<section>
+  <div class="wrap">
+    <div class="fc-feature">
+      <div class="fc-logo-card"><div class="fc-wordmark">Fast&nbsp;Company</div></div>
+      <a class="press" href="https://www.fastcompany.com/40577293/publicis-unveils-long-awaited-details-on-new-ai-platform-marcel" target="_blank">Read overview of Marcel on Fast Company →</a>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section>
+  <div class="wrap">
+    <div class="center"><span class="kicker">The app</span><h2 class="sec">A closer look at Marcel</h2><p class="sec-sub">A polished, cross-platform Xamarin.Forms experience. Click any screen to enlarge.</p></div>
+    <div class="grid4" style="margin-top:34px;">
+      <figure class="screen"><div class="fr"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/0e271187-c87f-4f43-9987-40a96d719e48_rw_600.png?h=15cf3b81af0ed0c54e3600935365cbc0" alt="Marcel screen 1" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Home &amp; matches</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/09032beb-b9b3-4435-b59b-05421fb3be03_rw_600.png?h=00e209e46be6e26e68c381533eb09417" alt="Marcel screen 2" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Connections</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/9966c7d7-a28a-48bc-a46d-a07a0c9b1b80_rw_600.png?h=542fdd0bb7ca073032c0ddf9d826c78e" alt="Marcel screen 3" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Profile</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/a788a0cc-88bd-4cae-8942-56d887eb2544_rw_600.png?h=beb333da6ffaa1470dcc9bf3a44a6f4c" alt="Marcel screen 4" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Activity</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- TECH -->
+<section class="band">
+  <div class="wrap">
+    <span class="kicker">Under the hood</span>
+    <h2 class="sec">Built cross-platform, backed by AI</h2>
+    <p class="sec-sub">One Xamarin.Forms codebase across iOS and Android, wired to Microsoft AI services and REST APIs, delivered with Publicis.Sapient.</p>
+    <div class="stack"><span>Xamarin.Forms</span><span>Microsoft AI</span><span>Prism</span><span>REST APIs</span><span>iOS &amp; Android</span><span>Publicis.Sapient</span></div>
+  </div>
+</section>
+
+<footer>Marcel · Xamarin.Forms · AI-powered professional network &nbsp;·&nbsp; <a href="index.html" onclick="if(history.length>1){history.back();return false;}">← Back to portfolio</a> &nbsp;·&nbsp; <a href="https://DavidSilverlight.com" target="_blank">DavidSilverlight.com</a></footer>
+<div id="lb"><span class="x">&times;</span><img alt="enlarged screenshot"></div>
+<script>
+function playVid(){var v=document.getElementById('marcelVideo'); if(v){v.style.cursor='default'; v.innerHTML='<iframe src="https://www.youtube.com/embed/eid8C_dTVvo?autoplay=1&rel=0" title="Marcel in action" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';}}
+(function(){var lb=document.getElementById('lb'),im=lb.querySelector('img');document.querySelectorAll('.fr img').forEach(function(g){g.addEventListener('click',function(e){e.stopPropagation();im.src=g.src;lb.style.display='flex';});});lb.addEventListener('click',function(){lb.style.display='none';im.src='';});document.addEventListener('keydown',function(e){if(e.key==='Escape'){lb.style.display='none';im.src='';}});})();</script>
+</body>
+</html>

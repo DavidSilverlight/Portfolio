@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kinship Navigator — Case Study · David Silverlight</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--teal:#1f8f80; --teal2:#38b2a0; --deep:#0f3b37; --sage:#7bbcae; --amber:#f4a259; --coral:#ef7a6b;
+    --cream:#f7f4ee; --card:#fff; --ink:#22322f; --muted:#5f7370; --line:#e5ede9;}
+  *{box-sizing:border-box;} html{scroll-behavior:smooth;}
+  body{margin:0; font-family:"Nunito Sans","Segoe UI",Arial,sans-serif; color:var(--ink); background:var(--cream); line-height:1.6;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 26px;}
+  h1,h2,h3,.serif{font-family:"Fraunces",Georgia,serif;}
+  .topbar{position:sticky; top:0; z-index:40; background:rgba(15,59,55,.96); backdrop-filter:blur(8px); border-bottom:1px solid rgba(123,188,174,.3);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:56px;}
+  .back{display:inline-flex; gap:8px; text-decoration:none; color:#0f3b37; font-weight:800; font-size:14px; background:#bfe4da; padding:9px 16px; border-radius:30px;}
+  .topbar .who{color:#bcd8d0; font-size:13px; font-weight:700;} .topbar .who b{color:#fff;}
+  /* hero */
+  .hero{position:relative; overflow:hidden; color:#fff;
+    background:radial-gradient(700px 380px at 84% -10%, rgba(244,162,89,.34), transparent 56%),
+      radial-gradient(560px 380px at 2% 118%, rgba(239,122,107,.24), transparent 55%),
+      linear-gradient(155deg,#0f3b37 0%,#1f8f80 60%,#0d3733 100%);}
+  .hero .blob{position:absolute; border-radius:50%; filter:blur(2px); opacity:.5; pointer-events:none;}
+  .hero .wrap{position:relative; z-index:3; display:grid; grid-template-columns:1.1fr .9fr; gap:40px; align-items:center; padding:58px 26px 64px;}
+  .eyebrow{display:inline-flex; gap:8px; font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:#d8f2ea; background:rgba(56,178,160,.2); border:1px solid rgba(123,188,174,.5); padding:6px 13px; border-radius:30px;}
+  .hero h1{margin:16px 0 8px; font-size:clamp(40px,6.2vw,66px); line-height:1.02; font-weight:600;}
+  .hero h1 span{color:#ffd9a6;}
+  .hero .lead{max-width:540px; font-size:18.5px; color:#e4f1ec;}
+  .tags{margin-top:20px; display:flex; flex-wrap:wrap; gap:8px;}
+  .tags span{font-size:12px; font-weight:700; color:#effaf6; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.2); padding:5px 12px; border-radius:20px;}
+  /* hero art: phone + resource chips + compass */
+  .heroart{position:relative; display:flex; align-items:center; justify-content:center; min-height:320px;}
+  .phone{position:relative; z-index:3; width:210px; padding:7px; background:#0c2c29; border-radius:30px; box-shadow:0 30px 60px rgba(6,26,24,.5); border:1px solid rgba(255,255,255,.1);}
+  .phone img{width:100%; display:block; border-radius:23px;}
+  .phone .fb{display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:10px; aspect-ratio:9/19; border-radius:23px; background:linear-gradient(160deg,#2aa693,#12706a); color:#eafaf4; padding:24px 16px;}
+  .phone .fb .compass{width:64px; height:64px;}
+  .phone .fb b{font-family:"Fraunces",serif; font-size:19px; font-weight:600;} .phone .fb small{font-size:12.5px; color:#bfe7dd; line-height:1.4;}
+  .rchip{position:absolute; z-index:4; display:flex; align-items:center; gap:8px; background:#fff; border-radius:14px; padding:8px 12px 8px 8px; box-shadow:0 14px 30px rgba(6,26,24,.35);}
+  .rchip .ic{width:30px; height:30px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:16px; background:#eef7f3;}
+  .rchip b{font:800 11px/1.1 "Nunito Sans",Arial; color:#134a44;} .rchip small{display:block; font:600 9.5px/1.3 "Nunito Sans",Arial; color:#6b8a83;}
+  .rchip.r1{top:14px; left:-10px;} .rchip.r2{top:120px; right:-18px;} .rchip.r3{bottom:26px; left:-16px;} .rchip.r4{bottom:-6px; right:6px;}
+  /* sections */
+  section{padding:56px 0;}
+  .kicker{font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--teal);}
+  h2.sec{font-size:clamp(26px,3.6vw,38px); margin:8px 0 8px; color:var(--deep); font-weight:600; line-height:1.1;}
+  .sec-sub{color:var(--muted); max-width:730px; font-size:17px; margin:0 0 26px;}
+  .center{text-align:center;} .center .sec-sub{margin-left:auto; margin-right:auto;}
+  .lead-two{display:grid; grid-template-columns:1.25fr .75fr; gap:36px; align-items:center;}
+  .brief p{font-size:17px; color:#3d514d; margin:0 0 14px;}
+  .rolebox{background:linear-gradient(160deg,#0f3b37,#1c7d72); color:#fff; border-radius:20px; padding:28px 26px; box-shadow:0 18px 44px rgba(15,59,55,.2);}
+  .rolebox .kicker{color:#8fe0d1;} .rolebox h3{margin:6px 0 10px; font-size:21px; font-weight:600;} .rolebox p{margin:0 0 12px; color:#d4ebe4; font-size:15px;}
+  .roletags{display:flex; flex-wrap:wrap; gap:8px; margin-top:6px;}
+  .roletags span{font-size:12px; font-weight:700; background:rgba(143,224,209,.16); border:1px solid rgba(143,224,209,.4); color:#eafaf4; padding:5px 11px; border-radius:20px;}
+  /* journey path */
+  .journey{background:#eef6f2;}
+  .path{position:relative; margin-top:38px;}
+  .path svg{width:100%; height:120px; display:block;}
+  .waypoints{display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:8px;}
+  .wp{text-align:center;}
+  .wp .node{width:58px; height:58px; margin:0 auto 12px; border-radius:18px; display:flex; align-items:center; justify-content:center; font-size:26px; color:#fff; box-shadow:0 12px 26px rgba(15,80,72,.22);}
+  .wp:nth-child(1) .node{background:linear-gradient(150deg,#38b2a0,#1f8f80);}
+  .wp:nth-child(2) .node{background:linear-gradient(150deg,#5bbfae,#2a9a89);}
+  .wp:nth-child(3) .node{background:linear-gradient(150deg,#f4a259,#e6893c);}
+  .wp:nth-child(4) .node{background:linear-gradient(150deg,#ef7a6b,#df5f50);}
+  .wp h4{margin:0 0 4px; font-family:"Fraunces",serif; font-size:16.5px; font-weight:600; color:var(--deep);}
+  .wp p{margin:0; font-size:13.5px; color:#5f7370;}
+  /* pillars */
+  .pillars{display:grid; grid-template-columns:repeat(2,1fr); gap:20px; margin-top:34px;}
+  .pill3{background:var(--card); border:1px solid var(--line); border-radius:20px; padding:26px; box-shadow:0 2px 12px rgba(20,70,64,.05); display:flex; gap:16px; align-items:flex-start; transition:transform .2s, box-shadow .2s;}
+  .pill3:hover{transform:translateY(-5px); box-shadow:0 18px 40px rgba(20,110,100,.13);}
+  .pill3 .ic{flex:0 0 auto; width:52px; height:52px; border-radius:15px; display:flex; align-items:center; justify-content:center; font-size:25px; background:linear-gradient(150deg,#e7f4ef,#dcefe8);}
+  .pill3 h3{margin:2px 0 5px; font-size:19px; color:var(--deep); font-weight:600;} .pill3 p{margin:0; color:#54655f; font-size:14.5px;}
+  /* care callout */
+  .care{background:linear-gradient(150deg,#f4a259,#ef7a6b); color:#3a1c10; border-radius:22px; padding:34px 30px; display:flex; gap:20px; align-items:center; flex-wrap:wrap;}
+  .care .big{font-size:40px;} .care h3{margin:0 0 6px; font-family:"Fraunces",serif; font-size:22px; font-weight:600; color:#3a1c10;} .care p{margin:0; max-width:720px; color:#4a2416; font-size:15.5px;}
+  /* gallery */
+  .grid4{display:grid; grid-template-columns:repeat(4,1fr); gap:18px;}
+  .screen{margin:0; text-align:center;}
+  .screen .fr{background:transparent; border-radius:20px; overflow:hidden; line-height:0; transition:transform .2s;}
+  .screen .fr:hover{transform:translateY(-5px);}
+  .screen .fr img{width:100%; display:block; cursor:zoom-in;}
+  .screen .fr .ph{width:100%; aspect-ratio:9/19.5; display:none; align-items:center; justify-content:center; color:#6b9a8f; font-weight:700; font-size:12px; background:#dcefe8;}
+  .screen figcaption{margin-top:10px; font-size:13px; color:var(--muted); font-weight:600;}
+  .band{background:radial-gradient(560px 300px at 82% -20%, rgba(56,178,160,.22), transparent 60%), linear-gradient(155deg,#0f3b37,#0b2a27); color:#fff;}
+  .band h2{color:#fff;} .band .kicker{color:#8fe0d1;} .band .sec-sub{color:#c9e2db;}
+  .stack{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;}
+  .stack span{font-size:13px; font-weight:700; color:#eafaf4; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16); padding:8px 15px; border-radius:30px;}
+  footer{padding:32px 0 54px; text-align:center; color:var(--muted); font-size:13.5px;} footer a{color:var(--teal); text-decoration:none; font-weight:800;}
+  #lb{display:none; position:fixed; inset:0; z-index:9999; background:rgba(8,26,24,.94); align-items:flex-start; justify-content:center; overflow:auto; cursor:zoom-out; padding:24px;}
+  #lb img{max-width:none; border-radius:10px; box-shadow:0 16px 60px rgba(0,0,0,.6);} #lb .x{position:fixed; top:16px; right:22px; color:#fff; font-size:38px; cursor:pointer;}
+  @media (max-width:900px){ .hero .wrap{grid-template-columns:1fr;} .lead-two{grid-template-columns:1fr;} .pillars{grid-template-columns:1fr;} .waypoints{grid-template-columns:1fr 1fr;} .grid4{grid-template-columns:1fr 1fr;} }
+  @media (max-width:560px){ .grid4{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap"><a class="back" href="index.html" onclick="if(history.length>1){history.back();return false;}">&larr; Back to portfolio</a><span class="who">Case Study · <b>David Silverlight</b></span></div></div>
+
+<header class="hero">
+  <span class="blob" style="width:220px; height:220px; left:-60px; top:-70px; background:radial-gradient(circle at 40% 40%, rgba(255,217,166,.5), transparent 70%);"></span>
+  <span class="blob" style="width:180px; height:180px; right:6%; bottom:-60px; background:radial-gradient(circle at 40% 40%, rgba(239,122,107,.5), transparent 70%);"></span>
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">🧭 .NET MAUI · Social Impact · Washington, DC</span>
+      <h1>Kinship <span>Navigator</span> DC</h1>
+      <p class="lead">A mobile companion that helps Washington, DC residents caring for minor children apply for — and recertify — the financial assistance their family qualifies for, turning detailed government programs into a clear, guided experience.</p>
+      <div class="tags"><span>Grandparents Caregiver Program</span><span>Close Relative Caregiver Program</span><span>Emergency Financial Assistance</span><span>Apply &amp; recertify</span><span>.NET MAUI</span></div>
+    </div>
+    <div class="heroart">
+      <div class="phone">
+        <img src="images/KinshipNavigator/kn-welcome.png" alt="Kinship Navigator DC app welcome screen" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="fb" style="display:none;">
+          <svg class="compass" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="32" cy="32" r="29" stroke="#eafaf4" stroke-width="3"/><path d="M32 14l6 18-6 18-6-18z" fill="#ffd9a6"/><path d="M32 50l-6-18 6-18 6 18z" fill="#eafaf4" opacity=".85"/><circle cx="32" cy="32" r="3.5" fill="#0f3b37"/></svg>
+          <b>Kinship Navigator DC</b>
+          <small>Apply for DC caregiver assistance — step by step.</small>
+        </div>
+      </div>
+      <div class="rchip r1"><span class="ic">💛</span><div><b>Caregiver subsidy</b><small>GCP &amp; CRCP</small></div></div>
+      <div class="rchip r2"><span class="ic">🆘</span><div><b>Emergency aid</b><small>Food, housing &amp; more</small></div></div>
+      <div class="rchip r3"><span class="ic">📝</span><div><b>Apply</b><small>Guided steps</small></div></div>
+      <div class="rchip r4"><span class="ic">🔄</span><div><b>Recertify</b><small>Each year</small></div></div>
+    </div>
+  </div>
+</header>
+
+<!-- BRIEF -->
+<section>
+  <div class="wrap">
+    <div class="lead-two">
+      <div class="brief">
+        <span class="kicker">The brief</span>
+        <h2 class="sec">Real help for DC's kinship families</h2>
+        <p>Across Washington, DC, grandparents and close relatives are raising children who can't remain with their parents. The District offers real financial support — the Grandparents Caregiver Program (GCP), the Close Relative Caregiver Program (CRCP) and Emergency Financial Assistance — but the applications are detailed and easy to stall on.</p>
+        <p>Kinship Navigator DC puts those programs in a caregiver's pocket: a calm, trustworthy app to securely sign in, choose a program, and move through the application one step at a time — then come back each year to recertify.</p>
+      </div>
+      <div class="rolebox">
+        <span class="kicker">My role</span>
+        <h3>Lead &amp; architect · core features</h3>
+        <p>I set the technical direction for Kinship Navigator and built out its core feature set on .NET MAUI — architecting for a clean, extensible foundation while keeping the experience gentle and dependable for people under real stress.</p>
+        <div class="roletags"><span>Architecture</span><span>Core feature development</span><span>.NET MAUI</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNEY -->
+<section class="journey">
+  <div class="wrap">
+    <div class="center"><span class="kicker">How it guides you</span><h2 class="sec">A clear path, one step at a time</h2><p class="sec-sub">Kinship Navigator breaks an overwhelming process into a journey anyone can follow.</p></div>
+    <div class="path">
+      <svg viewBox="0 0 1000 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M40 90 C 220 10, 300 110, 500 60 S 800 10, 960 70" fill="none" stroke="#9fd0c6" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="waypoints">
+      <div class="wp"><div class="node">🗂️</div><h4>Choose a program</h4><p>Start a caregiver subsidy or emergency financial assistance request.</p></div>
+      <div class="wp"><div class="node">🔐</div><h4>Sign in securely</h4><p>Register or sign in to protect personal and family information.</p></div>
+      <div class="wp"><div class="node">📝</div><h4>Complete guided steps</h4><p>Move through the application one clear step at a time, saving as you go.</p></div>
+      <div class="wp"><div class="node">🔄</div><h4>Apply &amp; recertify</h4><p>Submit the application and return each year to recertify with ease.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PILLARS -->
+<section>
+  <div class="wrap">
+    <div class="center"><span class="kicker">What it does</span><h2 class="sec">Everything a caregiver needs, gently organized</h2></div>
+    <div class="pillars">
+      <div class="pill3"><div class="ic">💛</div><div><h3>Caregiver subsidies</h3><p>Apply for the Grandparents Caregiver Program (GCP) and Close Relative Caregiver Program (CRCP) — subsidies for relatives raising children.</p></div></div>
+      <div class="pill3"><div class="ic">🆘</div><div><h3>Emergency Financial Assistance</h3><p>Request support for food, clothing, housing, utilities, furniture, pest control, household items or transportation.</p></div></div>
+      <div class="pill3"><div class="ic">📝</div><div><h3>Guided, step-by-step applications</h3><p>Long forms broken into clear steps — Contact, Address and more — with Save &amp; Continue, so nothing is lost along the way.</p></div></div>
+      <div class="pill3"><div class="ic">🔄</div><div><h3>Apply &amp; recertify</h3><p>Submit new applications and recertify existing benefits each year, all from one secure account.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CARE CALLOUT -->
+<section>
+  <div class="wrap">
+    <div class="care">
+      <span class="big">🫶</span>
+      <div>
+        <h3>Designed for someone having a hard day</h3>
+        <p>Every screen is built for low stress and high clarity — generous type, calm color, plain language and accessible touch targets — so the app feels like a steady hand, not another hurdle.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section style="background:#eef6f2;">
+  <div class="wrap">
+    <div class="center"><span class="kicker">The app</span><h2 class="sec">A look at Kinship Navigator</h2><p class="sec-sub">A warm, accessible .NET MAUI experience across iOS and Android. Click any screen to enlarge.</p></div>
+    <div class="grid4" style="margin-top:34px;">
+      <figure class="screen"><div class="fr"><img src="images/KinshipNavigator/kn-welcome.png" alt="Kinship Navigator DC welcome" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="ph">Welcome</span></div><figcaption>Welcome</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="images/KinshipNavigator/kn-programs.png" alt="Select a program" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="ph">Programs</span></div><figcaption>Select a program</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="images/KinshipNavigator/kn-menu.png" alt="Navigation menu" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="ph">Menu</span></div><figcaption>Programs menu</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="images/KinshipNavigator/kn-contact.png" alt="Contact step" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="ph">Contact</span></div><figcaption>Contact · Step 1 of 7</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="images/KinshipNavigator/kn-address.png" alt="Address step" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="ph">Address</span></div><figcaption>Address · Step 2 of 7</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="images/KinshipNavigator/kn-signin.png" alt="Secure sign-in" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="ph">Sign in</span></div><figcaption>Secure sign-in</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- TECH -->
+<section class="band">
+  <div class="wrap">
+    <span class="kicker">Under the hood</span>
+    <h2 class="sec">Cross-platform, and built to grow</h2>
+    <p class="sec-sub">One .NET MAUI codebase across iOS and Android, with secure Azure AD B2C sign-in and REST services — a clean architecture that keeps the app dependable today and ready for the programs and features to come.</p>
+    <div class="stack"><span>.NET MAUI</span><span>MVVM</span><span>Shell Navigation</span><span>Azure AD B2C</span><span>REST APIs</span><span>iOS &amp; Android</span></div>
+  </div>
+</section>
+
+<footer>Kinship Navigator DC · .NET MAUI · Helping DC families apply for caregiver assistance &nbsp;·&nbsp; Need help? Call 866.326.5461 &nbsp;·&nbsp; <a href="index.html" onclick="if(history.length>1){history.back();return false;}">← Back to portfolio</a></footer>
+<div id="lb"><span class="x">&times;</span><img alt="enlarged screenshot"></div>
+<script>(function(){var lb=document.getElementById('lb'),im=lb.querySelector('img');document.querySelectorAll('.fr img').forEach(function(g){g.addEventListener('click',function(e){e.stopPropagation();im.src=g.src;lb.style.display='flex';});});lb.addEventListener('click',function(){lb.style.display='none';im.src='';});document.addEventListener('keydown',function(e){if(e.key==='Escape'){lb.style.display='none';im.src='';}});})();</script>
+</body>
+</html>
