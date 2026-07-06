@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Waggy — Case Study · David Silverlight</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{--wall:#ece9e1; --wall2:#f5f3ee; --ink:#1b1a17; --muted:#726d64; --brass:#a9854e; --frame:#26221d; --line:#d9d3c8;}
+  *{box-sizing:border-box;} html{scroll-behavior:smooth;}
+  body{margin:0; font-family:"Inter","Segoe UI",Arial,sans-serif; color:var(--ink); background:var(--wall); line-height:1.7;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 26px;}
+  h1,h2,h3,.grot{font-family:"Space Grotesk",sans-serif;}
+  .mono{font-family:"Space Mono",monospace;}
+  .label{font-family:"Space Mono",monospace; font-size:12px; letter-spacing:3px; text-transform:uppercase; color:var(--brass);}
+  h2.sec{font-family:"Space Grotesk",sans-serif; font-weight:600; font-size:clamp(28px,3.8vw,44px); margin:10px 0 8px; color:var(--ink); letter-spacing:-.5px; line-height:1.04;}
+  .sec-sub{color:var(--muted); max-width:680px; font-size:16.5px; margin:0 0 26px;}
+  .center{text-align:center;} .center .sec-sub{margin-left:auto; margin-right:auto;}
+  section{padding:64px 0;}
+  .topbar{position:sticky; top:0; z-index:40; background:rgba(27,26,23,.96); backdrop-filter:blur(8px); border-bottom:1px solid rgba(169,133,78,.4);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:56px;}
+  .back{display:inline-flex; gap:8px; text-decoration:none; color:var(--ink); font-family:"Space Grotesk",sans-serif; font-weight:600; font-size:13px; background:var(--wall); padding:9px 16px; border-radius:4px;}
+  .topbar .who{color:#cfc6b6; font-family:"Space Mono",monospace; font-size:12px; letter-spacing:1px;} .topbar .who b{color:#fff;}
+  /* frame element */
+  .art{display:inline-block; background:#fff; padding:14px; border:7px solid var(--frame); box-shadow:0 20px 40px rgba(40,34,28,.22); line-height:0;}
+  .art img{display:block; width:100%;}
+  .placard{margin-top:16px; text-align:center;}
+  .placard b{font-family:"Space Grotesk",sans-serif; font-weight:600; font-size:15px; color:var(--ink); display:block;}
+  .placard .med{font-family:"Space Mono",monospace; font-size:11.5px; color:var(--muted); letter-spacing:.5px; margin-top:3px;}
+  .placard .no{font-family:"Space Mono",monospace; font-size:11px; color:var(--brass); letter-spacing:1px;}
+  /* hero */
+  .hero{position:relative; overflow:hidden; background:radial-gradient(500px 200px at 30% -5%, rgba(255,255,255,.9), transparent 60%), radial-gradient(500px 200px at 70% -5%, rgba(255,255,255,.7), transparent 60%), linear-gradient(180deg,#f2efe9,#e6e2d9); border-bottom:1px solid var(--line);}
+  .hero .rail{position:absolute; top:0; left:0; right:0; height:1px; background:rgba(38,34,29,.12);}
+  .hero .wrap{position:relative; z-index:3; display:grid; grid-template-columns:1fr .82fr; gap:48px; align-items:center; padding:64px 26px 70px;}
+  .hero .label{color:var(--brass);}
+  .hero h1{font-family:"Space Grotesk",sans-serif; font-weight:700; font-size:clamp(56px,9vw,110px); margin:16px 0 8px; color:var(--ink); letter-spacing:-2px; line-height:.9;}
+  .hero .lead{max-width:460px; font-size:18px; color:#4f4a42;}
+  .hero .meta{margin-top:22px; display:flex; gap:26px; flex-wrap:wrap;}
+  .hero .meta .m .k{font-family:"Space Mono",monospace; font-size:10.5px; letter-spacing:2px; text-transform:uppercase; color:var(--muted);} .hero .meta .m .v{font-family:"Space Grotesk",sans-serif; font-weight:600; font-size:15px; color:var(--ink);}
+  .heropiece{position:relative; text-align:center;}
+  .heropiece .art{max-width:250px;}
+  .heropiece .art img{max-height:360px; width:auto;}
+  .heropiece .art .ph{width:220px; height:360px; background:linear-gradient(160deg,#f3f1ec,#e3ded4); display:flex; align-items:center; justify-content:center; font-size:60px;}
+  .heropiece::before{content:""; position:absolute; top:-40px; left:50%; transform:translateX(-50%); width:200px; height:70px; background:radial-gradient(ellipse at center, rgba(255,255,255,.9), transparent 70%); z-index:1;}
+  /* brief */
+  .two{display:grid; grid-template-columns:1.2fr .8fr; gap:36px; align-items:start;}
+  .brief p{font-size:17px; color:#4a463f; margin:0 0 14px;} .brief p:last-child{margin:0;}
+  .plate{background:var(--wall2); border:1px solid var(--line); border-radius:4px; padding:26px;}
+  .plate .label{color:var(--brass);} .plate h3{font-family:"Space Grotesk",sans-serif; font-weight:600; margin:10px 0 8px; font-size:19px;} .plate p{margin:0 0 12px; color:#5a544b; font-size:14.5px;}
+  .plate .tg{display:flex; flex-wrap:wrap; gap:7px;} .plate .tg span{font-family:"Space Mono",monospace; font-size:11.5px; color:var(--ink); background:#fff; border:1px solid var(--line); padding:4px 10px; border-radius:3px;}
+  /* exhibition grid */
+  .exhibit-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:50px 30px; margin-top:46px; align-items:end; justify-items:center;}
+  .exhibit{max-width:250px;}
+  .exhibit .art img{max-height:320px; width:auto; margin:0 auto;}
+  .exhibit .art .ph{width:190px; height:320px; background:linear-gradient(160deg,#f3f1ec,#e3ded4); display:flex; align-items:center; justify-content:center; font-size:48px; color:#b8b0a2;}
+  /* study / comparison */
+  .study{background:#26221d; color:#efe9dd;}
+  .study .label{color:#d8b57e;} .study h2{color:#fff;} .study .sec-sub{color:#c9c1b2;}
+  .compare{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:30px;}
+  .col{background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.12); border-radius:6px; padding:26px;}
+  .col.native{border-top:3px solid #d8b57e;} .col.xam{border-top:3px solid #8fb0d8;}
+  .col h3{font-family:"Space Grotesk",sans-serif; font-weight:600; font-size:20px; margin:0 0 4px; color:#fff;}
+  .col .tagline{font-family:"Space Mono",monospace; font-size:11.5px; letter-spacing:1px; color:#a49b8b; margin-bottom:14px;}
+  .col ul{margin:0; padding:0; list-style:none;}
+  .col li{position:relative; padding-left:20px; margin-bottom:10px; font-size:14px; color:#d6cec0;}
+  .col li::before{content:"—"; position:absolute; left:0; color:#d8b57e;}
+  .col.xam li::before{color:#8fb0d8;}
+  .takeaway{margin-top:24px; background:rgba(216,181,126,.12); border:1px solid rgba(216,181,126,.4); border-radius:6px; padding:18px 22px; font-size:15px; color:#f0e6d5;}
+  .takeaway b{color:#fff;}
+  /* tech */
+  .band{background:var(--wall2); border-top:1px solid var(--line);}
+  .stack{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;}
+  .stack span{font-family:"Space Mono",monospace; font-size:12.5px; color:var(--ink); background:#fff; border:1px solid var(--line); padding:8px 14px; border-radius:3px;}
+  footer{padding:30px 0 54px; text-align:center; color:var(--muted); font-family:"Space Mono",monospace; font-size:12px; letter-spacing:.5px;} footer a{color:var(--brass); text-decoration:none;}
+  #lb{display:none; position:fixed; inset:0; z-index:9999; background:rgba(20,17,14,.94); align-items:flex-start; justify-content:center; overflow:auto; cursor:zoom-out; padding:24px;}
+  #lb img{max-width:none; border-radius:6px; box-shadow:0 16px 60px rgba(0,0,0,.6);} #lb .x{position:fixed; top:16px; right:22px; color:#fff; font-size:38px; cursor:pointer;}
+  @media (max-width:900px){ .hero .wrap{grid-template-columns:1fr;} .two{grid-template-columns:1fr;} .exhibit-grid{grid-template-columns:1fr 1fr;} .compare{grid-template-columns:1fr;} }
+  @media (max-width:560px){ .exhibit-grid{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap"><a class="back" href="index.html" onclick="if(history.length>1){history.back();return false;}">&larr; Back</a><span class="who">CASE STUDY · <b>DAVID SILVERLIGHT</b></span></div></div>
+
+<header class="hero">
+  <div class="rail"></div>
+  <div class="wrap">
+    <div>
+      <span class="label">Now Showing · A Native iOS Study</span>
+      <h1>Waggy</h1>
+      <p class="lead">A pet photo-album app that hangs your favorite four-legged companions in playful, curated frames — and a hands-on study in building for native iOS.</p>
+      <div class="meta">
+        <div class="m"><div class="k">Medium</div><div class="v">Native iOS · Swift</div></div>
+        <div class="m"><div class="k">Subject</div><div class="v">Pets &amp; their portraits</div></div>
+        <div class="m"><div class="k">Type</div><div class="v">Learning project</div></div>
+      </div>
+    </div>
+    <div class="heropiece">
+      <div class="art"><img src="images/Waggy/waggy-home.png" alt="Waggy home gallery wall" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="ph" style="display:none;">🖼️</div></div>
+      <div class="placard"><span class="no">No. 01</span><b>The Home Gallery</b><span class="med">Pet portraits, hung with care</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- BRIEF -->
+<section>
+  <div class="wrap">
+    <div class="two">
+      <div class="brief">
+        <span class="label">The premise</span>
+        <h2 class="sec">Every pet deserves a gallery</h2>
+        <p>Waggy treats your pet's photos like art. Instead of a plain camera roll, each picture is displayed in a themed setting — pinned to a corkboard, framed on a gallery wall, wrapped in a holiday border, or hung over the living-room couch — with albums to organize it all.</p>
+        <p>Underneath the fun, Waggy had a serious purpose for me: it was a deliberate learning project — a chance to get hands-on with what building a <b>native iOS</b> app really takes, and to hold that experience up against <b>Xamarin.Forms</b>, the technology I've long considered my go-to for mobile.</p>
+      </div>
+      <div class="plate">
+        <span class="label">My role</span>
+        <h3>Sole designer &amp; developer</h3>
+        <p>I built Waggy end to end as a personal study — designing the playful display concepts and implementing them natively on iOS to feel the platform first-hand.</p>
+        <div class="tg"><span>Native iOS</span><span>Swift</span><span>Self-directed study</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXHIBITION -->
+<section style="background:linear-gradient(180deg,#f2efe9,#e9e5dc);">
+  <div class="wrap">
+    <div class="center"><span class="label">The exhibition</span><h2 class="sec">Selected works</h2><p class="sec-sub" style="margin-top:14px;">A walk through Waggy's themed displays. Click any piece to enlarge.</p></div>
+    <div class="exhibit-grid">
+      <figure class="exhibit"><div class="art"><img src="images/Waggy/waggy-corkboard.png" alt="Gizmo Favorites corkboard" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="ph" style="display:none;">📌</div></div><figcaption class="placard"><span class="no">No. 02</span><b>Gizmo Favorites</b><span class="med">Corkboard &amp; pins</span></figcaption></figure>
+      <figure class="exhibit"><div class="art"><img src="images/Waggy/waggy-christmas.png" alt="Smokey Christmas" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="ph" style="display:none;">🎄</div></div><figcaption class="placard"><span class="no">No. 03</span><b>Smokey Christmas</b><span class="med">Holiday frame</span></figcaption></figure>
+      <figure class="exhibit"><div class="art"><img src="images/Waggy/waggy-livingroom.png" alt="Gizmo and Angry Bird living room" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="ph" style="display:none;">🛋️</div></div><figcaption class="placard"><span class="no">No. 04</span><b>Gizmo &amp; Angry Bird</b><span class="med">Living-room display</span></figcaption></figure>
+      <figure class="exhibit"><div class="art"><img src="images/Waggy/waggy-grid.png" alt="Angry Bird series" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="ph" style="display:none;">🐤</div></div><figcaption class="placard"><span class="no">No. 05</span><b>The Angry Bird Series</b><span class="med">Album spread</span></figcaption></figure>
+      <figure class="exhibit"><div class="art"><img src="images/Waggy/waggy-home.png" alt="Home gallery wall" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="ph" style="display:none;">🖼️</div></div><figcaption class="placard"><span class="no">No. 01</span><b>The Home Gallery</b><span class="med">Curated wall</span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- THE STUDY -->
+<section class="study">
+  <div class="wrap">
+    <div class="center"><span class="label">Curatorial note</span><h2 class="sec">The study behind the show</h2><p class="sec-sub" style="margin-top:14px;">Waggy was really an experiment: build something real natively, then compare the experience to the cross-platform world I know best.</p></div>
+    <div class="compare">
+      <div class="col native">
+        <h3>Native iOS</h3>
+        <div class="tagline">Swift · UIKit · the new ground</div>
+        <ul>
+          <li>Direct access to the platform's controls, gestures and animations.</li>
+          <li>A closer feel for how iOS wants an app to look and behave.</li>
+          <li>First-hand appreciation for the tooling, layout and lifecycle.</li>
+        </ul>
+      </div>
+      <div class="col xam">
+        <h3>Xamarin.Forms</h3>
+        <div class="tagline">C# · one codebase · my go-to</div>
+        <ul>
+          <li>Write once, ship to iOS and Android from a shared codebase.</li>
+          <li>The productivity and reach I rely on for real-world delivery.</li>
+          <li>A frame of reference that made the native trade-offs obvious.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="takeaway">🎯 <b>The takeaway:</b> building Waggy natively sharpened my instincts for what each iOS interaction really costs — and reaffirmed why Xamarin.Forms remains my go-to when a project needs both platforms, fast. Knowing both makes me better at either.</div>
+  </div>
+</section>
+
+<!-- TECH -->
+<section class="band">
+  <div class="wrap">
+    <span class="label">Under the hood</span>
+    <h2 class="sec" style="font-size:clamp(24px,3vw,32px);">Built the native way</h2>
+    <p class="sec-sub">A native iOS application written in Swift — deliberately hand-built on the platform to study it directly, as a counterpoint to Xamarin.Forms.</p>
+    <div class="stack"><span>Native iOS</span><span>Swift</span><span>UIKit</span><span>Learning Project</span><span>vs. Xamarin.Forms</span></div>
+  </div>
+</section>
+
+<footer>Waggy · Native iOS · A study in the platform &nbsp;·&nbsp; <a href="index.html" onclick="if(history.length>1){history.back();return false;}">← Back to portfolio</a></footer>
+<div id="lb"><span class="x">&times;</span><img alt="enlarged screenshot"></div>
+<script>(function(){var lb=document.getElementById('lb'),im=lb.querySelector('img');document.querySelectorAll('.art img').forEach(function(g){g.addEventListener('click',function(e){e.stopPropagation();im.src=g.src;lb.style.display='flex';});});lb.addEventListener('click',function(){lb.style.display='none';im.src='';});document.addEventListener('keydown',function(e){if(e.key==='Escape'){lb.style.display='none';im.src='';}});})();</script>
+</body>
+</html>
