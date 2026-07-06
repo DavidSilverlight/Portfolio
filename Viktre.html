@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Viktre — Case Study · David Silverlight</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--gold:#f2c14e; --gold2:#e0a92e; --red:#ff2e4d; --void:#0a0b0e; --panel:#14161b; --panel2:#1c1f27;
+    --text:#eaecf0; --muted:#9198a5; --line:rgba(255,255,255,.1);}
+  *{box-sizing:border-box;} html{scroll-behavior:smooth;}
+  body{margin:0; font-family:"Inter","Segoe UI",Arial,sans-serif; color:var(--text); background:var(--void); line-height:1.6;}
+  .wrap{max-width:1160px; margin:0 auto; padding:0 26px;}
+  .anton{font-family:"Anton",Impact,sans-serif; font-weight:400; letter-spacing:.5px;}
+  .cond{font-family:"Barlow Condensed",sans-serif;}
+  .kicker{font-family:"Barlow Condensed",sans-serif; font-size:14px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--gold);}
+  h2.sec{font-family:"Anton",sans-serif; font-size:clamp(30px,4.6vw,54px); margin:6px 0 8px; color:#fff; text-transform:uppercase; letter-spacing:.5px; line-height:.98;}
+  .sec-sub{color:var(--muted); max-width:720px; font-size:17px; margin:0 0 26px;}
+  .center{text-align:center;} .center .sec-sub{margin-left:auto; margin-right:auto;}
+  section{padding:56px 0;}
+  .topbar{position:sticky; top:0; z-index:40; background:rgba(10,11,14,.96); backdrop-filter:blur(8px); border-bottom:1px solid var(--line);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:56px;}
+  .back{display:inline-flex; gap:8px; text-decoration:none; color:var(--void); font-family:"Barlow Condensed",sans-serif; font-weight:700; letter-spacing:1px; text-transform:uppercase; font-size:14px; background:var(--gold); padding:8px 18px; border-radius:3px;}
+  .topbar .who{color:var(--muted); font-family:"Barlow Condensed",sans-serif; letter-spacing:2px; font-size:13px; text-transform:uppercase;} .topbar .who b{color:#fff;}
+  /* hero */
+  .hero{position:relative; overflow:hidden; padding:52px 0 0; background:radial-gradient(700px 380px at 78% -10%, rgba(242,193,78,.16), transparent 58%), radial-gradient(500px 340px at 5% 110%, rgba(255,46,77,.14), transparent 55%), var(--void);}
+  .hero .eyebrow{display:inline-flex; align-items:center; gap:9px; font-family:"Barlow Condensed",sans-serif; font-weight:700; letter-spacing:3px; text-transform:uppercase; font-size:14px; color:var(--gold); border:1px solid rgba(242,193,78,.4); padding:6px 14px; border-radius:3px;}
+  .hero h1{font-family:"Anton",sans-serif; font-size:clamp(72px,15vw,190px); line-height:.82; margin:20px 0 0; color:#fff; text-transform:uppercase; letter-spacing:2px;}
+  .hero h1 em{font-style:normal; color:var(--gold);}
+  .hero .lead{max-width:640px; font-size:19px; color:#c3c9d3; margin:16px 0 0;}
+  .hero .wrap{position:relative; z-index:3;}
+  .hero-grid{display:grid; grid-template-columns:1.05fr .95fr; gap:36px; align-items:center; margin-top:30px;}
+  /* featured stream */
+  .stream{position:relative; border-radius:14px; overflow:hidden; aspect-ratio:16/10; background:linear-gradient(150deg,#243b52,#0e1620); border:1px solid var(--line); display:flex; align-items:flex-end;}
+  .stream .art{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:120px; opacity:.5;}
+  .stream .live{position:absolute; top:16px; left:16px; z-index:3; background:var(--red); color:#fff; font-family:"Barlow Condensed",sans-serif; font-weight:700; letter-spacing:2px; font-size:13px; padding:5px 10px; border-radius:4px; display:flex; align-items:center; gap:6px;}
+  .stream .live i{width:7px; height:7px; border-radius:50%; background:#fff; display:inline-block;}
+  .stream .play{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:3; width:74px; height:74px; border-radius:50%; background:var(--gold); display:flex; align-items:center; justify-content:center; box-shadow:0 10px 30px rgba(0,0,0,.5);}
+  .stream .meta{position:relative; z-index:3; width:100%; padding:20px; background:linear-gradient(0deg,rgba(6,8,11,.9),transparent);}
+  .stream .meta .tag{font-family:"Barlow Condensed",sans-serif; letter-spacing:2px; text-transform:uppercase; color:var(--gold); font-size:13px; font-weight:700;}
+  .stream .meta h3{font-family:"Anton",sans-serif; font-size:26px; margin:2px 0 0; color:#fff; text-transform:uppercase;}
+  /* rail */
+  .railhead{display:flex; align-items:baseline; justify-content:space-between; margin-top:8px;}
+  .rail{display:flex; gap:16px; overflow-x:auto; padding:18px 0 8px; scroll-snap-type:x mandatory;}
+  .rail::-webkit-scrollbar{height:6px;} .rail::-webkit-scrollbar-thumb{background:var(--panel2); border-radius:6px;}
+  .rcard{flex:0 0 220px; scroll-snap-align:start;}
+  .rcard .thumb{aspect-ratio:16/10; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; font-size:46px; position:relative; border:1px solid var(--line);}
+  .rcard .thumb .d{position:absolute; bottom:8px; right:8px; background:rgba(6,8,11,.8); color:#fff; font-family:"Barlow Condensed",sans-serif; font-size:12px; letter-spacing:1px; padding:2px 7px; border-radius:3px;}
+  .rcard h4{font-family:"Barlow Condensed",sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:.5px; font-size:16px; margin:10px 0 2px; color:#fff;}
+  .rcard span{font-size:12.5px; color:var(--muted);}
+  /* brief */
+  .two{display:grid; grid-template-columns:1.25fr .75fr; gap:32px; align-items:stretch;}
+  .brief{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:28px 30px;}
+  .brief p{font-size:16.5px; color:#c3c9d3; margin:0 0 14px;} .brief p:last-child{margin:0;}
+  .rolebox{background:linear-gradient(160deg,#1c1f27,#14161b); border:1px solid var(--line); border-top:4px solid var(--gold); border-radius:14px; padding:26px;}
+  .rolebox h3{font-family:"Anton",sans-serif; text-transform:uppercase; margin:10px 0 8px; font-size:22px; color:#fff; letter-spacing:.5px;} .rolebox p{margin:0 0 12px; color:#aab2bf; font-size:14.5px;}
+  .rolebox .tg{display:flex; flex-wrap:wrap; gap:7px;} .rolebox .tg span{font-family:"Barlow Condensed",sans-serif; letter-spacing:1px; text-transform:uppercase; font-size:12.5px; color:var(--gold); border:1px solid rgba(242,193,78,.4); padding:4px 10px; border-radius:3px;}
+  /* three networks */
+  .nets{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:34px;}
+  .net{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:28px 24px; position:relative; overflow:hidden; transition:transform .2s, border-color .2s;}
+  .net:hover{transform:translateY(-6px); border-color:var(--gold);}
+  .net .no{font-family:"Anton",sans-serif; font-size:44px; color:rgba(242,193,78,.25); line-height:1;}
+  .net .ic{font-size:30px; margin:4px 0 10px;}
+  .net h3{font-family:"Anton",sans-serif; text-transform:uppercase; font-size:21px; margin:0 0 4px; color:#fff; letter-spacing:.5px;}
+  .net .sub{font-family:"Barlow Condensed",sans-serif; letter-spacing:2px; text-transform:uppercase; font-size:12.5px; color:var(--gold); margin-bottom:8px;}
+  .net p{margin:0; color:#aab2bf; font-size:14.5px;}
+  /* features */
+  .feat{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:32px;}
+  .fcard{background:var(--panel2); border:1px solid var(--line); border-radius:12px; padding:22px;}
+  .fcard .ic{font-size:24px; margin-bottom:10px;}
+  .fcard h3{font-family:"Barlow Condensed",sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:.5px; font-size:18px; margin:0 0 4px; color:#fff;} .fcard p{margin:0; color:#9aa2af; font-size:14px;}
+  /* gallery */
+  .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:32px;}
+  .screen{margin:0; text-align:center;}
+  .screen .fr{border-radius:14px; overflow:hidden; line-height:0; border:1px solid var(--line); transition:transform .2s, border-color .2s;}
+  .screen .fr:hover{transform:translateY(-5px); border-color:var(--gold);}
+  .screen .fr img{width:100%; display:block; cursor:zoom-in;}
+  .screen figcaption{margin-top:10px; font-family:"Barlow Condensed",sans-serif; letter-spacing:1px; text-transform:uppercase; font-size:14px; color:var(--muted);}
+  /* tech */
+  .band{background:linear-gradient(160deg,#14161b,#0a0b0e); border-top:1px solid var(--line);}
+  .stack{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;}
+  .stack span{font-family:"Barlow Condensed",sans-serif; letter-spacing:1px; text-transform:uppercase; font-size:14px; color:#eaecf0; background:rgba(255,255,255,.06); border:1px solid var(--line); padding:8px 15px; border-radius:3px;}
+  footer{padding:28px 0 50px; text-align:center; color:var(--muted); font-family:"Barlow Condensed",sans-serif; letter-spacing:1px; text-transform:uppercase; font-size:13px;} footer a{color:var(--gold); text-decoration:none;}
+  #lb{display:none; position:fixed; inset:0; z-index:9999; background:rgba(5,6,8,.95); align-items:flex-start; justify-content:center; overflow:auto; cursor:zoom-out; padding:24px;}
+  #lb img{max-width:none; border-radius:10px; box-shadow:0 16px 60px rgba(0,0,0,.6);} #lb .x{position:fixed; top:16px; right:22px; color:#fff; font-size:38px; cursor:pointer;}
+  @media (max-width:900px){ .hero-grid{grid-template-columns:1fr;} .two{grid-template-columns:1fr;} .nets{grid-template-columns:1fr;} .feat{grid-template-columns:1fr;} .grid3{grid-template-columns:1fr 1fr;} }
+  @media (max-width:560px){ .grid3{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap"><a class="back" href="index.html" onclick="if(history.length>1){history.back();return false;}">&larr; Back</a><span class="who">CASE STUDY · <b>DAVID SILVERLIGHT</b></span></div></div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">● Athlete Network · 24/7 Streaming</span>
+    <div class="hero-grid">
+      <div>
+        <h1>Vik<em>tre</em></h1>
+        <p class="lead">All about the athlete. A private network to connect and collaborate, a public network to engage fans and followers, and a 24/7 stream of everything in the athlete's world — on the field and beyond it.</p>
+      </div>
+      <div class="stream">
+        <span class="live"><i></i>LIVE</span>
+        <div class="art">🏟️</div>
+        <div class="play"><svg width="26" height="26" viewBox="0 0 24 24" fill="#0a0b0e"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="meta"><div class="tag">Now Streaming</div><h3>Beyond the Arena</h3></div>
+      </div>
+    </div>
+    <div class="railhead" style="margin-top:26px;"><span class="kicker">The 24/7 channel</span></div>
+    <div class="rail">
+      <div class="rcard"><div class="thumb" style="background:linear-gradient(150deg,#2a4a3a,#0e1a14);">🏀<span class="d">12:04</span></div><h4>Game Film</h4><span>Breakdowns &amp; highlights</span></div>
+      <div class="rcard"><div class="thumb" style="background:linear-gradient(150deg,#3a2a52,#16101f);">🎙️<span class="d">28:41</span></div><h4>The Locker Room</h4><span>Athletes, unfiltered</span></div>
+      <div class="rcard"><div class="thumb" style="background:linear-gradient(150deg,#52402a,#1f1610);">🏋️<span class="d">08:17</span></div><h4>Training Day</h4><span>Inside the grind</span></div>
+      <div class="rcard"><div class="thumb" style="background:linear-gradient(150deg,#2a3a52,#101620);">🌍<span class="d">15:32</span></div><h4>Off the Clock</h4><span>Life beyond sport</span></div>
+      <div class="rcard"><div class="thumb" style="background:linear-gradient(150deg,#4a2a34,#1f1014);">🏆<span class="d">21:09</span></div><h4>Legends</h4><span>The stories that last</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- BRIEF -->
+<section>
+  <div class="wrap">
+    <div class="two">
+      <div class="brief">
+        <span class="kicker">The platform</span>
+        <h2 class="sec" style="font-size:clamp(26px,3.6vw,38px);">Where the athlete is the whole world</h2>
+        <p>Fans want closer. Athletes want control. Viktre gives both — one home built entirely around the athlete, connecting the private, professional side of their world with the public stage where fans live.</p>
+        <p>It's three products in one: a members-only network for athletes to connect and collaborate, an open network to engage fans and followers, and a nonstop stream of compelling content from every corner of an athlete's life.</p>
+      </div>
+      <div class="rolebox">
+        <span class="kicker">My role</span>
+        <h3>Built the app</h3>
+        <p>I developed Viktre as a cross-platform Xamarin.Forms application — bringing the private network, public feed and live streaming together in one athlete-first experience.</p>
+        <div class="tg"><span>Xamarin.Forms</span><span>Live streaming</span><span>iOS &amp; Android</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THREE NETWORKS -->
+<section>
+  <div class="wrap">
+    <div class="center"><span class="kicker">Three ways in</span><h2 class="sec">One platform, three arenas</h2></div>
+    <div class="nets">
+      <div class="net"><div class="no">01</div><div class="ic">🤝</div><div class="sub">Private</div><h3>The Athlete Network</h3><p>A members-only space for athletes to connect, collaborate and build relationships away from the public eye.</p></div>
+      <div class="net"><div class="no">02</div><div class="ic">📣</div><div class="sub">Public</div><h3>Fans &amp; Followers</h3><p>An open network where athletes engage their fans and followers, and grow the audience that follows every move.</p></div>
+      <div class="net"><div class="no">03</div><div class="ic">📺</div><div class="sub">24/7 Stream</div><h3>Always On</h3><p>A round-the-clock stream of compelling content about the world of the athlete — in the game and well beyond it.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section style="background:var(--panel);">
+  <div class="wrap">
+    <div class="center"><span class="kicker">In the app</span><h2 class="sec">Built for the fan &amp; the pro</h2></div>
+    <div class="feat">
+      <div class="fcard"><div class="ic">🪪</div><h3>Athlete profiles</h3><p>Rich profiles that put each athlete's story and presence front and center.</p></div>
+      <div class="fcard"><div class="ic">📰</div><h3>Public feed</h3><p>A living feed where fans follow, react to and share athlete moments.</p></div>
+      <div class="fcard"><div class="ic">🔒</div><h3>Private network</h3><p>A protected space for athletes to connect and collaborate with peers.</p></div>
+      <div class="fcard"><div class="ic">▶️</div><h3>24/7 streaming</h3><p>Continuous video content, always ready to play.</p></div>
+      <div class="fcard"><div class="ic">➕</div><h3>Follow &amp; engage</h3><p>Follow favorite athletes and stay close to everything they do.</p></div>
+      <div class="fcard"><div class="ic">💬</div><h3>Connect</h3><p>Messaging and interaction that link athletes, fans and the community.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section>
+  <div class="wrap">
+    <div class="center"><span class="kicker">On the device</span><h2 class="sec">Viktre in the hand</h2><p class="sec-sub">Cross-platform on iOS &amp; Android. Click any screen to enlarge.</p></div>
+    <div class="grid3">
+      <figure class="screen"><div class="fr"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/b9ea88d808ab58f3d87b8f6c_rw_1200.png?h=d83abbb10a5a2826caa84bff6b9a561c" alt="Viktre screen 1" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Profile</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/0fc53d7d2412de8fd6497605_rw_600.png?h=b2bf0472cdb4264c0c990c8342af4bad" alt="Viktre screen 2" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Feed</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/6bf610b4c7c2a190f7e193c8_rw_600.png?h=26b380781e0cc3aa3f82e7ad6ba958c9" alt="Viktre screen 3" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Streaming</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/5dc2306a0032a97ae868da53_rw_600.png?h=46e553df87a872690859d95f22227267" alt="Viktre screen 4" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Discover</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/758c43c55b2f710147a81213_rw_1200.png?h=3e0af13a27427c2b477cbd8cebc95753" alt="Viktre screen 5" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Athlete</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/005e881f667223cebf92afc1_rw_600.png?h=f820bfd2ab6ae8fa75441364420d6225" alt="Viktre screen 6" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Content</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- TECH -->
+<section class="band">
+  <div class="wrap">
+    <span class="kicker">Under the hood</span>
+    <h2 class="sec">One codebase, game on</h2>
+    <p class="sec-sub">A cross-platform Xamarin.Forms application uniting a private athlete network, a public fan feed and 24/7 live streaming across iOS and Android.</p>
+    <div class="stack"><span>Xamarin.Forms</span><span>Live Streaming</span><span>Social Feed</span><span>Messaging</span><span>iOS &amp; Android</span></div>
+  </div>
+</section>
+
+<footer>Viktre · Xamarin.Forms · All about the athlete &nbsp;·&nbsp; <a href="index.html" onclick="if(history.length>1){history.back();return false;}">← Back to portfolio</a></footer>
+<div id="lb"><span class="x">&times;</span><img alt="enlarged screenshot"></div>
+<script>(function(){var lb=document.getElementById('lb'),im=lb.querySelector('img');document.querySelectorAll('.fr img').forEach(function(g){g.addEventListener('click',function(e){e.stopPropagation();im.src=g.src;lb.style.display='flex';});});lb.addEventListener('click',function(){lb.style.display='none';im.src='';});document.addEventListener('keydown',function(e){if(e.key==='Escape'){lb.style.display='none';im.src='';}});})();</script>
+</body>
+</html>

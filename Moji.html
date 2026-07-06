@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moji — Case Study · David Silverlight</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--life:#2bb3a3; --pro:#4f78ea; --date:#c74fbb; --ink:#141821; --charcoal:#0f1218; --paper:#f5f6f8;
+    --muted:#6b7482; --card:#fff; --line:#e6e9ef;}
+  *{box-sizing:border-box;} html{scroll-behavior:smooth;}
+  body{margin:0; font-family:"Inter","Segoe UI",Arial,sans-serif; color:var(--ink); background:var(--paper); line-height:1.6;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 26px;}
+  h1,h2,h3,.sora{font-family:"Sora",sans-serif;}
+  .kicker{font-family:"Sora",sans-serif; font-size:12px; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:var(--muted);}
+  h2.sec{font-family:"Sora",sans-serif; font-weight:600; font-size:clamp(26px,3.6vw,40px); margin:8px 0 8px; color:var(--ink); line-height:1.08; letter-spacing:-.5px;}
+  .sec-sub{color:var(--muted); max-width:720px; font-size:17px; margin:0 0 26px;}
+  .center{text-align:center;} .center .sec-sub{margin-left:auto; margin-right:auto;}
+  section{padding:58px 0;}
+  .topbar{position:sticky; top:0; z-index:40; background:rgba(15,18,24,.96); backdrop-filter:blur(8px); border-bottom:1px solid rgba(255,255,255,.08);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:56px;}
+  .back{display:inline-flex; gap:8px; text-decoration:none; color:#0f1218; font-family:"Sora",sans-serif; font-weight:600; font-size:13px; background:#fff; padding:8px 16px; border-radius:30px;}
+  .topbar .who{color:#8b94a2; font-size:12px; letter-spacing:1px; font-family:"Sora",sans-serif;} .topbar .who b{color:#fff;}
+  /* hero */
+  .hero{background:radial-gradient(700px 360px at 50% -8%, rgba(79,120,234,.18), transparent 60%), var(--charcoal); color:#fff; padding:60px 0 0; text-align:center; position:relative; overflow:hidden;}
+  .hero .eyebrow{display:inline-flex; align-items:center; gap:9px; font-family:"Sora",sans-serif; font-size:12px; letter-spacing:3px; text-transform:uppercase; color:#c7cfdd; border:1px solid rgba(255,255,255,.16); padding:6px 14px; border-radius:30px;}
+  .hero h1{font-family:"Sora",sans-serif; font-weight:700; font-size:clamp(52px,9vw,104px); margin:20px 0 8px; letter-spacing:-1px; line-height:.9;
+    background:linear-gradient(100deg,#2bb3a3,#4f78ea 52%,#c74fbb); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero .lead{max-width:560px; margin:0 auto; font-size:19px; color:#cdd4e0;}
+  .hero .subline{font-family:"Sora",sans-serif; font-size:14px; letter-spacing:1px; color:#8b94a2; margin-top:10px;}
+  /* triptych */
+  .tript{display:grid; grid-template-columns:repeat(3,1fr); gap:0; margin-top:46px; border-top:1px solid rgba(255,255,255,.08);}
+  .sphere{padding:40px 26px 46px; text-align:center; position:relative; border-right:1px solid rgba(255,255,255,.08); transition:transform .25s, background .25s;}
+  .sphere:last-child{border-right:0;}
+  .sphere:hover{transform:translateY(-6px);}
+  .orb{width:88px; height:88px; border-radius:50%; margin:0 auto 18px; display:flex; align-items:center; justify-content:center; font-size:38px; position:relative;}
+  .orb::after{content:""; position:absolute; inset:-14px; border-radius:50%; opacity:.28; filter:blur(14px); z-index:-1;}
+  .sphere.life .orb{background:linear-gradient(160deg,#2bb3a3,#178a7d);} .sphere.life .orb::after{background:#2bb3a3;}
+  .sphere.pro .orb{background:linear-gradient(160deg,#4f78ea,#2f4fbf);} .sphere.pro .orb::after{background:#4f78ea;}
+  .sphere.date .orb{background:linear-gradient(160deg,#c74fbb,#9a2e94);} .sphere.date .orb::after{background:#c74fbb;}
+  .sphere .nm{font-family:"Sora",sans-serif; font-weight:700; font-size:24px;}
+  .sphere .nm span{font-weight:400; opacity:.7;}
+  .sphere .role{font-family:"Sora",sans-serif; font-size:12px; letter-spacing:2px; text-transform:uppercase; margin:4px 0 12px;}
+  .sphere.life .role{color:#5fd6c6;} .sphere.pro .role{color:#8aa6ff;} .sphere.date .role{color:#e888d8;}
+  .sphere p{margin:0; color:#aab2c0; font-size:14px; max-width:230px; margin:0 auto;}
+  /* brief */
+  .two{display:grid; grid-template-columns:1.2fr .8fr; gap:34px; align-items:center;}
+  .brief p{font-size:17px; color:#3c4553; margin:0 0 14px;} .brief p:last-child{margin:0;}
+  .rolecard{background:var(--ink); color:#fff; border-radius:16px; padding:26px; position:relative; overflow:hidden;}
+  .rolecard::before{content:""; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,#2bb3a3,#4f78ea,#c74fbb);}
+  .rolecard .kicker{color:#9aa4b2;} .rolecard h3{font-family:"Sora",sans-serif; margin:12px 0 8px; font-size:20px;} .rolecard p{margin:0 0 12px; color:#c1c9d6; font-size:14.5px;}
+  .rolecard .tg{display:flex; flex-wrap:wrap; gap:7px;} .rolecard .tg span{font-family:"Sora",sans-serif; font-size:12px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16); padding:5px 11px; border-radius:20px;}
+  /* control dial */
+  .control{background:#fff; border:1px solid var(--line); border-radius:20px; padding:40px 40px 46px; box-shadow:0 14px 40px rgba(30,50,90,.06);}
+  .dial{margin-top:30px;}
+  .dial .track{height:8px; border-radius:8px; background:linear-gradient(90deg,#2bb3a3,#4f78ea 50%,#c74fbb); position:relative;}
+  .dial .thumb{position:absolute; top:50%; left:70%; transform:translate(-50%,-50%); width:26px; height:26px; border-radius:50%; background:#fff; border:3px solid var(--pro); box-shadow:0 4px 12px rgba(30,50,90,.25);}
+  .dial .stops{display:flex; justify-content:space-between; margin-top:14px;}
+  .dial .stops span{font-family:"Sora",sans-serif; font-size:12.5px; color:var(--muted); text-align:center; flex:1;}
+  .dial .stops span:first-child{text-align:left;} .dial .stops span:last-child{text-align:right;}
+  .dial .stops b{color:var(--ink);}
+  /* features */
+  .feat{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:32px;}
+  .fcard{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:24px; transition:transform .2s, box-shadow .2s;}
+  .fcard:hover{transform:translateY(-5px); box-shadow:0 16px 36px rgba(30,50,90,.1);}
+  .fcard .ic{width:48px; height:48px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:23px; margin-bottom:12px; background:#eef1f7; color:var(--ink);}
+  .fcard h3{font-family:"Sora",sans-serif; margin:0 0 5px; font-size:17px;} .fcard p{margin:0; color:#5a6472; font-size:14px;}
+  /* gallery */
+  .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:32px;}
+  .screen{margin:0; text-align:center;}
+  .screen .fr{border-radius:16px; overflow:hidden; line-height:0; border:1px solid var(--line); box-shadow:0 10px 26px rgba(30,50,90,.1); transition:transform .2s;}
+  .screen .fr:hover{transform:translateY(-5px);}
+  .screen .fr img{width:100%; display:block; cursor:zoom-in;}
+  .screen figcaption{margin-top:10px; font-family:"Sora",sans-serif; font-size:13px; color:var(--muted);}
+  /* tech */
+  .band{background:var(--charcoal); color:#fff;}
+  .band h2{color:#fff;} .band .kicker{color:#9aa4b2;} .band .sec-sub{color:#c1c9d6;}
+  .stack{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;}
+  .stack span{font-family:"Sora",sans-serif; font-size:13px; color:#e9edf3; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.16); padding:8px 15px; border-radius:30px;}
+  footer{padding:30px 0 52px; text-align:center; color:var(--muted); font-size:13px;} footer a{color:var(--pro); text-decoration:none; font-weight:600;}
+  #lb{display:none; position:fixed; inset:0; z-index:9999; background:rgba(10,14,20,.94); align-items:flex-start; justify-content:center; overflow:auto; cursor:zoom-out; padding:24px;}
+  #lb img{max-width:none; border-radius:10px; box-shadow:0 16px 60px rgba(0,0,0,.6);} #lb .x{position:fixed; top:16px; right:22px; color:#fff; font-size:38px; cursor:pointer;}
+  @media (max-width:900px){ .tript{grid-template-columns:1fr;} .sphere{border-right:0; border-bottom:1px solid rgba(255,255,255,.08);} .two{grid-template-columns:1fr;} .feat{grid-template-columns:1fr;} .grid3{grid-template-columns:1fr 1fr;} }
+  @media (max-width:560px){ .grid3{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap"><a class="back" href="index.html" onclick="if(history.length>1){history.back();return false;}">&larr; Back</a><span class="who">CASE STUDY · <b>DAVID SILVERLIGHT</b></span></div></div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">◍ Social Network · Spheres</span>
+    <h1>Moji</h1>
+    <p class="lead">One identity, kept in its own worlds. Moji is a social network built on <b>spheres</b> — so your Life, your Work and your Dating never bleed into each other.</p>
+    <p class="subline">mojiLife &nbsp;·&nbsp; mojiPro &nbsp;·&nbsp; mojiDate</p>
+    <div class="tript">
+      <div class="sphere life"><div class="orb">🌿</div><div class="nm">moji<span>Life</span></div><div class="role">Life</div><p>Friends and family — the people who know the real, off-the-clock you.</p></div>
+      <div class="sphere pro"><div class="orb">💼</div><div class="nm">moji<span>Pro</span></div><div class="role">Work</div><p>Colleagues, clients and connections — a professional face kept strictly its own.</p></div>
+      <div class="sphere date"><div class="orb">💜</div><div class="nm">moji<span>Date</span></div><div class="role">Dating</div><p>Matches and dates — a private world that stays fully separate from the rest.</p></div>
+    </div>
+  </div>
+</header>
+
+<!-- BRIEF -->
+<section>
+  <div class="wrap">
+    <div class="two">
+      <div class="brief">
+        <span class="kicker">The idea</span>
+        <h2 class="sec">The people we are depend on who's watching</h2>
+        <p>We don't act the same around family, coworkers and a first date — yet most social networks flatten all of them into one feed. Moji was built for people who take that seriously: a single account, split into distinct <b>spheres</b>, each with its own timeline, friends, photos and messages.</p>
+        <p>Switch from Life to Work to Dating and the whole network changes with you. What one sphere sees, the others never do — by design.</p>
+      </div>
+      <div class="rolecard">
+        <span class="kicker">My role</span>
+        <h3>UI/UX &amp; development</h3>
+        <p>I worked on the user experience and development of Moji — shaping the sphere model into a clean, cross-platform social app on iOS and Android.</p>
+        <div class="tg"><span>UI/UX</span><span>Xamarin.Forms</span><span>iOS &amp; Android</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTROL -->
+<section>
+  <div class="wrap">
+    <div class="center"><span class="kicker">Granular control</span><h2 class="sec">From the whole world to a single person</h2><p class="sec-sub">Moji's defining feature is command over who sees what — dial access from broad and sweeping all the way down to one specific person.</p></div>
+    <div class="control">
+      <div class="dial">
+        <div class="track"><div class="thumb"></div></div>
+        <div class="stops"><span><b>Everyone</b><br>public</span><span>A whole<br>sphere</span><span><b>Selected</b><br>friends</span><span>Just one<br>person</span></div>
+      </div>
+      <p style="margin:26px 0 0; color:#5a6472; font-size:15px; text-align:center; max-width:640px; margin-left:auto; margin-right:auto;">Every post, photo and detail carries its own audience — set it wide, keep it to a sphere, or share with exactly one person. Nothing is exposed by accident.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section style="background:#eef1f7;">
+  <div class="wrap">
+    <div class="center"><span class="kicker">In each sphere</span><h2 class="sec">A full social network, three times over</h2></div>
+    <div class="feat">
+      <div class="fcard"><div class="ic">📰</div><h3>Timelines</h3><p>A separate timeline in every sphere, so the right people see the right updates.</p></div>
+      <div class="fcard"><div class="ic">👥</div><h3>Friends</h3><p>Distinct friend lists per sphere — Work contacts never mix with Dating.</p></div>
+      <div class="fcard"><div class="ic">💬</div><h3>Messaging</h3><p>Private conversations kept within the sphere they belong to.</p></div>
+      <div class="fcard"><div class="ic">🖼️</div><h3>Albums</h3><p>Photos, videos, profile and cover images — organized and access-controlled.</p></div>
+      <div class="fcard"><div class="ic">🔔</div><h3>Notifications</h3><p>Stay current across all your spheres, without the noise bleeding together.</p></div>
+      <div class="fcard"><div class="ic">🪪</div><h3>Profiles</h3><p>Present a different profile to each sphere — one you, tailored to the audience.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section>
+  <div class="wrap">
+    <div class="center"><span class="kicker">In the app</span><h2 class="sec">Moji in motion</h2><p class="sec-sub">Cross-platform on iOS &amp; Android. Click any screen to enlarge.</p></div>
+    <div class="grid3">
+      <figure class="screen"><div class="fr"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/e239d1975f0531581de4136b_rw_1200.jpg?h=fa7355f35fe7a1211c81fe58ffcedc25" alt="Moji screen 1" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Spheres</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/ceed884367242c2cbeb0deec_rw_1200.jpg?h=66985089ba8d8aeb055c4a9a1bb799f8" alt="Moji screen 2" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Timeline</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/30eec65f284dea66227ff801_rw_1200.jpg?h=5ea20dcad36b9d1f81efe86e3d0e031b" alt="Moji screen 3" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Friends</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/67802bca62acede064345e71_rw_1200.jpg?h=599683d2d378c32769ac1db348856cbd" alt="Moji screen 4" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Messages</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/58085a1b6a2f4de850a9eb51_rw_1200.jpg?h=5aef5efcf20f58e248ca588b7acaa266" alt="Moji screen 5" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Albums</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/341f2f0e90eae5410d577c91_rw_1200.jpg?h=96bb388d2fcb31dbd913656a90b0568d" alt="Moji screen 6" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Profile</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- TECH -->
+<section class="band">
+  <div class="wrap">
+    <span class="kicker">Under the hood</span>
+    <h2 class="sec">One codebase, every sphere</h2>
+    <p class="sec-sub">A cross-platform Xamarin.Forms social app delivering separate, access-controlled spheres from a single shared codebase across iOS and Android.</p>
+    <div class="stack"><span>Xamarin.Forms</span><span>UI/UX</span><span>Social graph</span><span>Messaging</span><span>iOS &amp; Android</span></div>
+  </div>
+</section>
+
+<footer>Moji · Xamarin.Forms · One you, kept in separate worlds &nbsp;·&nbsp; <a href="index.html" onclick="if(history.length>1){history.back();return false;}">← Back to portfolio</a></footer>
+<div id="lb"><span class="x">&times;</span><img alt="enlarged screenshot"></div>
+<script>(function(){var lb=document.getElementById('lb'),im=lb.querySelector('img');document.querySelectorAll('.fr img').forEach(function(g){g.addEventListener('click',function(e){e.stopPropagation();im.src=g.src;lb.style.display='flex';});});lb.addEventListener('click',function(){lb.style.display='none';im.src='';});document.addEventListener('keydown',function(e){if(e.key==='Escape'){lb.style.display='none';im.src='';}});})();</script>
+</body>
+</html>
