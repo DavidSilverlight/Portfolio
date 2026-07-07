@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ITPalooza 2016 — Case Study · David Silverlight</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--purple:#6b2fd6; --purple2:#8a4ff5; --deep:#2a1160; --orange:#f5a623; --pink:#ff5c8a; --green:#7ac74f;
+    --blue:#3fb6e6; --ink:#241a3d; --paper:#f6f3fc; --card:#fff; --muted:#7c7196; --line:#e9e1f7;}
+  *{box-sizing:border-box;} html{scroll-behavior:smooth;}
+  body{margin:0; font-family:"Inter","Segoe UI",Arial,sans-serif; color:var(--ink); background:var(--paper); line-height:1.6;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 26px;}
+  h1,h2,h3,.outfit{font-family:"Outfit",sans-serif;}
+  .kicker{font-family:"Outfit",sans-serif; font-weight:700; font-size:12px; letter-spacing:2.5px; text-transform:uppercase; color:var(--purple);}
+  h2.sec{font-family:"Outfit",sans-serif; font-weight:800; font-size:clamp(28px,4vw,46px); margin:8px 0 8px; color:var(--deep); line-height:1.02; letter-spacing:-.5px;}
+  .sec-sub{color:var(--muted); max-width:720px; font-size:16.5px; margin:0 0 26px;}
+  .center{text-align:center;} .center .sec-sub{margin-left:auto; margin-right:auto;}
+  section{padding:60px 0;}
+  .topbar{position:sticky; top:0; z-index:40; background:rgba(42,17,96,.97); backdrop-filter:blur(8px); border-bottom:1px solid rgba(138,79,245,.4);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:56px;}
+  .back{display:inline-flex; gap:8px; text-decoration:none; color:var(--deep); font-family:"Outfit",sans-serif; font-weight:700; font-size:13px; background:#fff; padding:9px 16px; border-radius:30px;}
+  .topbar .who{color:#d7c9f7; font-family:"Outfit",sans-serif; font-size:12px; letter-spacing:1px;} .topbar .who b{color:#fff;}
+  /* hero */
+  .hero{position:relative; overflow:hidden; color:#fff; background:linear-gradient(160deg,#6b2fd6,#3f1a9e 60%,#2a1160);}
+  .hero .iso{position:absolute; inset:0; opacity:.14; pointer-events:none;
+    background-image:linear-gradient(30deg, rgba(255,255,255,.5) 1px, transparent 1px),linear-gradient(150deg, rgba(255,255,255,.5) 1px, transparent 1px); background-size:34px 20px;}
+  .hero .wrap{position:relative; z-index:3; display:grid; grid-template-columns:1.1fr .9fr; gap:40px; align-items:center; padding:58px 26px 64px;}
+  .eyebrow{display:inline-flex; align-items:center; gap:9px; font-family:"Outfit",sans-serif; font-weight:700; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:#f7d9a6; border:1px solid rgba(245,166,35,.5); background:rgba(245,166,35,.12); padding:6px 14px; border-radius:30px;}
+  .hero h1{font-family:"Outfit",sans-serif; font-weight:800; font-size:clamp(46px,8vw,92px); margin:18px 0 4px; line-height:.94; letter-spacing:-1.5px;}
+  .hero h1 b{color:var(--orange);}
+  .hero .theme{font-family:"Outfit",sans-serif; font-weight:700; font-size:clamp(18px,2.6vw,26px); color:#e9dcff;}
+  .hero .lead{max-width:500px; font-size:17.5px; color:#e2d6fb; margin-top:14px;}
+  /* phone */
+  .phonewrap{display:flex; justify-content:center;}
+  .phone{width:min(260px,80%); border-radius:22px; padding:0; background:transparent; overflow:hidden; box-shadow:0 30px 60px rgba(20,8,60,.55); border:1px solid rgba(255,255,255,.25);}
+  .phone img{width:100%; display:block; border-radius:0;}
+  .phone .fb{aspect-ratio:9/16; border-radius:23px; background:linear-gradient(160deg,#7b3ff2,#4a1fb0); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; color:#fff; padding:24px;}
+  .phone .fb .logo{font-family:"Outfit",sans-serif; font-weight:800; font-size:30px;} .phone .fb .logo b{color:var(--orange);}
+  .phone .fb small{font-size:13px; color:#e0d3fb; margin-top:10px;}
+  /* zones (iso blocks) */
+  .zones{display:grid; grid-template-columns:repeat(5,1fr); gap:16px; margin-top:38px;}
+  .zone{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:22px 18px; text-align:center; position:relative; box-shadow:0 8px 0 var(--zc,#d9cff2), 0 18px 30px rgba(70,40,140,.12); transition:transform .2s;}
+  .zone:hover{transform:translateY(-6px);}
+  .zone .ic{width:56px; height:56px; border-radius:14px; margin:0 auto 12px; display:flex; align-items:center; justify-content:center; font-size:26px; color:#fff; background:var(--zbg,var(--purple));}
+  .zone h3{font-family:"Outfit",sans-serif; font-weight:700; font-size:16px; margin:0 0 4px; color:var(--deep);} .zone p{margin:0; font-size:12.5px; color:var(--muted);}
+  /* mini hacks */
+  .hacks{display:grid; grid-template-columns:repeat(5,1fr); gap:16px; margin-top:32px;}
+  .hack{background:var(--card); border:1px solid var(--line); border-radius:16px; overflow:hidden; transition:transform .2s, box-shadow .2s;}
+  .hack:hover{transform:translateY(-6px); box-shadow:0 18px 40px rgba(70,40,140,.16);}
+  .hack .cap{height:74px; display:flex; align-items:center; justify-content:center; font-size:34px; color:#fff;}
+  .hack .txt{padding:14px 16px 18px;} .hack h3{font-family:"Outfit",sans-serif; font-weight:700; font-size:15px; margin:0 0 4px; color:var(--deep);} .hack p{margin:0; font-size:12.5px; color:var(--muted);}
+  /* sessions */
+  .sesswrap{display:grid; grid-template-columns:1fr .9fr; gap:26px; align-items:start;}
+  .sesscard{background:var(--card); border:1px solid var(--line); border-radius:18px; overflow:hidden; box-shadow:0 10px 30px rgba(70,40,140,.07);}
+  .sesscard .ph{padding:14px 18px; font-family:"Outfit",sans-serif; font-weight:700; letter-spacing:1px; text-transform:uppercase; font-size:12px; color:var(--purple); border-bottom:1px solid var(--line); display:flex; justify-content:space-between;}
+  .srow{display:flex; align-items:flex-start; gap:12px; padding:14px 18px; border-bottom:1px solid #f2ecfb;}
+  .srow:last-child{border-bottom:0;}
+  .srow .body{flex:1;} .srow .body b{font-weight:600; font-size:14.5px; color:var(--ink); display:block;} .srow .body small{color:var(--muted); font-size:12px;}
+  .tag{display:inline-block; margin-top:6px; font-family:"Outfit",sans-serif; font-weight:700; font-size:10px; letter-spacing:.5px; text-transform:uppercase; color:#fff; padding:3px 9px; border-radius:20px;}
+  .tag.ios{background:var(--pink);} .tag.and{background:var(--green);} .tag.des{background:var(--blue);}
+  .srow .heart{font-size:19px; color:var(--pink);} .srow .heart.off{color:#d9cfe8;}
+  .rate{background:linear-gradient(160deg,#7b3ff2,#4a1fb0); color:#fff; border-radius:18px; padding:26px; }
+  .rate h3{font-family:"Outfit",sans-serif; font-weight:700; margin:0 0 6px; font-size:20px;} .rate p{margin:0 0 14px; color:#e2d6fb; font-size:14px;}
+  .rate .stars{font-size:26px; color:var(--orange); letter-spacing:4px;}
+  .rate .spk{display:flex; align-items:center; gap:10px; margin-top:16px; background:rgba(255,255,255,.1); border-radius:12px; padding:10px 12px;}
+  .rate .spk .av{width:34px; height:34px; border-radius:50%; background:rgba(255,255,255,.25); display:flex; align-items:center; justify-content:center; font-size:16px;} .rate .spk b{font-size:13.5px; font-weight:600;} .rate .spk small{display:block; font-size:11px; color:#d5c6f5;}
+  /* info / venue */
+  .info3{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:32px;}
+  .icard{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:24px;}
+  .icard .ic{font-size:26px; margin-bottom:10px;} .icard h3{font-family:"Outfit",sans-serif; font-weight:700; font-size:18px; margin:0 0 6px; color:var(--deep);} .icard p{margin:0; color:#5f5578; font-size:14px;}
+  .icard .rooms{display:flex; flex-wrap:wrap; gap:6px; margin-top:10px;} .icard .rooms span{font-size:11px; font-weight:600; color:var(--purple); background:#f1eafd; border-radius:20px; padding:3px 9px;}
+  .spons{display:flex; flex-wrap:wrap; gap:10px; margin-top:12px;} .spons span{font-family:"Outfit",sans-serif; font-weight:600; font-size:12.5px; color:var(--deep); background:#fff; border:1px solid var(--line); padding:6px 12px; border-radius:8px;}
+  /* gallery */
+  .grid4{display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:32px;}
+  .screen{margin:0; text-align:center;}
+  .screen .fr{border-radius:16px; overflow:hidden; line-height:0; border:1px solid var(--line); box-shadow:0 10px 26px rgba(70,40,140,.1); transition:transform .2s;}
+  .screen .fr:hover{transform:translateY(-5px);}
+  .screen .fr img{width:100%; display:block; cursor:zoom-in;}
+  .screen .fr .ph{width:100%; aspect-ratio:9/16; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:#a99ccb; background:#efe8fb;}
+  .screen figcaption{margin-top:10px; font-family:"Outfit",sans-serif; font-weight:600; font-size:12.5px; color:var(--muted);}
+  /* tech */
+  .band{background:linear-gradient(160deg,#2a1160,#1a0b40); color:#fff;}
+  .band h2{color:#fff;} .band .kicker{color:#c9a9ff;} .band .sec-sub{color:#d6c8f5;}
+  .stack{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;}
+  .stack span{font-family:"Outfit",sans-serif; font-weight:600; font-size:13px; color:#efe6ff; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.2); padding:8px 15px; border-radius:30px;}
+  footer{padding:30px 0 52px; text-align:center; color:var(--muted); font-family:"Outfit",sans-serif; font-size:13px;}
+  #lb{display:none; position:fixed; inset:0; z-index:9999; background:rgba(20,10,44,.95); align-items:flex-start; justify-content:center; overflow:auto; cursor:zoom-out; padding:24px;}
+  #lb img{max-width:none; border-radius:10px; box-shadow:0 16px 60px rgba(0,0,0,.6);} #lb .x{position:fixed; top:16px; right:22px; color:#fff; font-size:38px; cursor:pointer;}
+  @media (max-width:900px){ .hero .wrap{grid-template-columns:1fr;} .zones{grid-template-columns:1fr 1fr;} .hacks{grid-template-columns:1fr 1fr;} .sesswrap{grid-template-columns:1fr;} .info3{grid-template-columns:1fr;} .grid4{grid-template-columns:1fr 1fr;} }
+  @media (max-width:560px){ .zones{grid-template-columns:1fr;} .hacks{grid-template-columns:1fr;} .grid4{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap"><a class="back" href="index.html" onclick="if(history.length>1){history.back();return false;}">&larr; Back</a><span class="who">CASE STUDY · <b>DAVID SILVERLIGHT</b></span></div></div>
+
+<header class="hero">
+  <div class="iso"></div>
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">◆ 5th Annual · South Florida · Dec 2016</span>
+      <h1>ITP<b>alooza</b> 2016</h1>
+      <div class="theme">Cloud, Security, IoT &amp; Me</div>
+      <p class="lead">The companion app for South Florida's biggest tech gathering — where the community comes together to network, learn and give back. Browse and favorite sessions, rate what you attend, and build the day that's yours.</p>
+    </div>
+    <div class="phonewrap">
+      <div class="phone">
+        <img src="images/ITPalooza2016/itp-splash.png" alt="ITPalooza 2016 splash" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="fb" style="display:none;"><div class="logo">ITP<b>alooza</b></div><small>South Florida · 2016</small><small style="margin-top:22px; font-weight:600;">Cloud, Security, IoT &amp; Me</small></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- BRIEF -->
+<section>
+  <div class="wrap">
+    <div class="sesswrap" style="grid-template-columns:1.25fr .75fr;">
+      <div>
+        <span class="kicker">The brief</span>
+        <h2 class="sec">A whole conference, beautifully in hand</h2>
+        <p class="sec-sub" style="max-width:none;">By its fifth year, ITPalooza had grown into a multi-day event — training days, a keynote, dozens of sessions, mini-hacks, sponsors and a sprawling venue. Attendees needed one place to make sense of it all.</p>
+        <p class="sec-sub" style="max-width:none; margin:0;">The 2016 companion app pulls the feed, sessions, events, hands-on hacks and venue info together — so attendees can review and select sessions, leave feedback, and build the schedule of what they'll actually attend that day.</p>
+      </div>
+      <div class="icard" style="border-top:4px solid var(--orange);">
+        <span class="kicker">My role</span>
+        <h3 style="margin:8px 0 6px;">Development · UI/UX</h3>
+        <p>I built the ITPalooza 2016 companion app on Xamarin.Forms — a native, fully cross-platform experience, with a focus on polished interaction and visual detail.</p>
+        <div class="spons" style="margin-top:12px;"><span>Xamarin.Forms</span><span>iOS &amp; Android</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ZONES -->
+<section style="background:#efe8fb;">
+  <div class="wrap">
+    <div class="center"><span class="kicker">One app, five zones</span><h2 class="sec">Everything, one tab away</h2><p class="sec-sub">The whole event, organized into five spaces you can move between in a tap.</p></div>
+    <div class="zones">
+      <div class="zone" style="--zbg:#6b2fd6; --zc:#d9cff2;"><div class="ic">📰</div><h3>Feed</h3><p>Announcements &amp; #ITPalooza social</p></div>
+      <div class="zone" style="--zbg:#ff5c8a; --zc:#fbd6e2;"><div class="ic">🎤</div><h3>Sessions</h3><p>Browse, favorite &amp; rate</p></div>
+      <div class="zone" style="--zbg:#f5a623; --zc:#fbe6c2;"><div class="ic">🗓️</div><h3>Events</h3><p>Schedule + add to calendar</p></div>
+      <div class="zone" style="--zbg:#3fb6e6; --zc:#cfeaf7;"><div class="ic">🔧</div><h3>Mini-Hacks</h3><p>Hands-on with real tech</p></div>
+      <div class="zone" style="--zbg:#7ac74f; --zc:#dcefcb;"><div class="ic">ℹ️</div><h3>Info</h3><p>Maps, venue &amp; sponsors</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- MINI HACKS -->
+<section>
+  <div class="wrap">
+    <div class="center"><span class="kicker">For the love of learning tech</span><h2 class="sec">Mini-Hacks — get your hands dirty</h2><p class="sec-sub">The heart of ITPalooza's curiosity: hands-on stations to tinker with real hardware and platforms, right there at the conference.</p></div>
+    <div class="hacks">
+      <div class="hack"><div class="cap" style="background:linear-gradient(150deg,#3fb6e6,#1f7fb0);">⌚</div><div class="txt"><h3>Android Wear</h3><p>Intel-powered Fossil Q watch.</p></div></div>
+      <div class="hack"><div class="cap" style="background:linear-gradient(150deg,#26c281,#0f7a4e);">🚀</div><div class="txt"><h3>Bitrise</h3><p>CI/CD to the max.</p></div></div>
+      <div class="hack"><div class="cap" style="background:linear-gradient(150deg,#ff8a4b,#e0532a);">💡</div><div class="txt"><h3>Philips Hue</h3><p>Make those lights glow!</p></div></div>
+      <div class="hack"><div class="cap" style="background:linear-gradient(150deg,#f22f46,#b0121f);">📞</div><div class="txt"><h3>Twilio</h3><p>Ring ring, who's there?</p></div></div>
+      <div class="hack"><div class="cap" style="background:linear-gradient(150deg,#3fb6e6,#2a6fd0);">☁️</div><div class="txt"><h3>Azure Mobile Apps</h3><p>Offline? Your data syncs.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SESSIONS -->
+<section style="background:#efe8fb;">
+  <div class="wrap">
+    <div class="center"><span class="kicker">Sessions you love</span><h2 class="sec">Favorite it. Attend it. Rate it.</h2><p class="sec-sub">Tap the heart to save a session, colour-coded by track — then leave feedback that helps everyone.</p></div>
+    <div class="sesswrap">
+      <div class="sesscard">
+        <div class="ph"><span>All Sessions</span><span>April 27</span></div>
+        <div class="srow"><div class="body"><b>3 Platforms: 1 codebase — your first Xamarin.Forms app</b><small>Arwa Davis · 10:00–11:00 AM</small><br><span class="tag des">Design</span></div><span class="heart">♥</span></div>
+        <div class="srow"><div class="body"><b>The Future of WordPress</b><small>Arwa Johnson, Breck Williams, Anya Smith · 9:00 AM</small><br><span class="tag ios">iOS</span></div><span class="heart off">♡</span></div>
+        <div class="srow"><div class="body"><b>VIP CIO/CTO/CSO: Cyber Security Panel</b><small>Anya Smith · 9:00 AM</small><br><span class="tag and">Android</span></div><span class="heart">♥</span></div>
+      </div>
+      <div class="rate">
+        <span class="kicker" style="color:#f7d9a6;">Session details</span>
+        <h3>Mastering XAML in Xamarin.Forms</h3>
+        <p>April 27 · 11:00 AM–12:00 PM</p>
+        <div class="stars">★★★★★</div>
+        <p style="margin:12px 0 0; font-size:13px; color:#e2d6fb;">Leave feedback → <b>Rate this Session</b></p>
+        <div class="spk"><span class="av">👩</span><div><b>Brianne Garcia</b><small>Designer, Couchbase</small></div></div>
+        <div class="spk"><span class="av">👩‍💼</span><div><b>Tammy Rodriguez</b><small>SVP of Engineering, Xamarin</small></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INFO / VENUE -->
+<section>
+  <div class="wrap">
+    <div class="center"><span class="kicker">Find your way</span><h2 class="sec">Never lost, always in the know</h2></div>
+    <div class="info3">
+      <div class="icard"><div class="ic">🗺️</div><h3>Floor maps</h3><p>Interactive maps of the conference level — with breakout rooms named for great minds of science.</p><div class="rooms"><span>Goodall · Keynote</span><span>Watson</span><span>Franklin</span><span>Fossey</span><span>Linnaeus</span><span>Crick</span><span>Darwin Lounge</span></div></div>
+      <div class="icard"><div class="ic">📍</div><h3>Venue</h3><p>Mapped to the Hyatt Regency at the Orange County Convention Center, Orlando — one tap to directions.</p></div>
+      <div class="icard"><div class="ic">🤝</div><h3>Sponsors</h3><p>The partners who make it happen, from platinum to silver.</p><div class="spons"><span>Microsoft · Platinum</span><span>Google</span><span>Avanade</span><span>AirWatch</span><span>Arxan</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section style="background:#efe8fb;">
+  <div class="wrap">
+    <div class="center"><span class="kicker">On the device</span><h2 class="sec">ITPalooza 2016, live</h2><p class="sec-sub">The companion app on iOS &amp; Android. Click any screen to enlarge.</p></div>
+    <div class="grid4">
+      <figure class="screen"><div class="fr"><img src="images/ITPalooza2016/itp-feed.png" alt="ITPalooza Feed" onerror="this.closest('.screen').style.display='none'"></div><figcaption>ITPalooza Feed</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="images/ITPalooza2016/itp-sessions.png" alt="Sessions" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Sessions</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="images/ITPalooza2016/itp-session.png" alt="Session details" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Session details</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="images/ITPalooza2016/itp-minihacks.png" alt="Mini-Hacks" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Mini-Hacks</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="images/ITPalooza2016/itp-events.png" alt="Events" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Events</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="images/ITPalooza2016/itp-floormap.png" alt="Floor map" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Floor maps</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="images/ITPalooza2016/itp-speaker.png" alt="Speaker info" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Speaker info</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="images/ITPalooza2016/itp-sponsors.png" alt="Sponsors" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Sponsors</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- TECH -->
+<section class="band">
+  <div class="wrap">
+    <span class="kicker">Under the hood</span>
+    <h2 class="sec">Native, cross-platform, polished</h2>
+    <p class="sec-sub">A native, fully cross-platform Xamarin.Forms application delivering the feed, sessions, events, mini-hacks and venue info to attendees on iOS and Android.</p>
+    <div class="stack"><span>Xamarin.Forms</span><span>iOS &amp; Android</span><span>UI/UX</span><span>Visual Effects</span><span>Event / Conference</span></div>
+  </div>
+</section>
+
+<footer>ITPalooza 2016 · Xamarin.Forms · Cloud, Security, IoT &amp; Me</footer>
+<div id="lb"><span class="x">&times;</span><img alt="enlarged screenshot"></div>
+<script>(function(){var lb=document.getElementById('lb'),im=lb.querySelector('img');document.querySelectorAll('.fr img').forEach(function(g){g.addEventListener('click',function(e){e.stopPropagation();im.src=g.src;lb.style.display='flex';});});lb.addEventListener('click',function(){lb.style.display='none';im.src='';});document.addEventListener('keydown',function(e){if(e.key==='Escape'){lb.style.display='none';im.src='';}});})();</script>
+</body>
+</html>

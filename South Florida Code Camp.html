@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>South Florida Code Camp — Case Study · David Silverlight</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--blue:#1b3fd6; --blue2:#3a5cf0; --deep:#0d1b52; --navy:#0a1338; --sky:#6c8ef2; --accent:#ff7a59;
+    --ink:#1a2033; --paper:#f4f6fc; --muted:#69718f; --card:#fff; --line:#e4e8f4;}
+  *{box-sizing:border-box;} html{scroll-behavior:smooth;}
+  body{margin:0; font-family:"Inter","Segoe UI",Arial,sans-serif; color:var(--ink); background:var(--paper); line-height:1.6;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 26px;}
+  h1,h2,h3,.man{font-family:"Manrope",sans-serif;}
+  .kicker{font-family:"Manrope",sans-serif; font-weight:700; font-size:12px; letter-spacing:2.5px; text-transform:uppercase; color:var(--blue);}
+  h2.sec{font-family:"Manrope",sans-serif; font-weight:800; font-size:clamp(28px,4vw,44px); margin:8px 0 8px; color:var(--deep); line-height:1.04; letter-spacing:-.5px;}
+  .sec-sub{color:var(--muted); max-width:720px; font-size:16.5px; margin:0 0 26px;}
+  .center{text-align:center;} .center .sec-sub{margin-left:auto; margin-right:auto;}
+  section{padding:60px 0;}
+  .topbar{position:sticky; top:0; z-index:40; background:rgba(13,27,82,.97); backdrop-filter:blur(8px); border-bottom:1px solid rgba(108,142,242,.4);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:56px;}
+  .back{display:inline-flex; gap:8px; text-decoration:none; color:var(--deep); font-family:"Manrope",sans-serif; font-weight:700; font-size:13px; background:#fff; padding:9px 16px; border-radius:30px;}
+  .topbar .who{color:#c3ccf5; font-family:"Manrope",sans-serif; font-size:12px; letter-spacing:1px;} .topbar .who b{color:#fff;}
+  /* hero poster */
+  .hero{position:relative; overflow:hidden; color:#fff; background:linear-gradient(155deg,#1b3fd6,#12297f 60%,#0d1b52);}
+  .hero .yr{position:absolute; right:-30px; top:20px; font-family:"Manrope",sans-serif; font-weight:800; font-size:clamp(160px,30vw,360px); color:rgba(255,255,255,.06); line-height:.8; letter-spacing:-6px; pointer-events:none; z-index:1;}
+  .hero .wrap{position:relative; z-index:3; display:grid; grid-template-columns:1.15fr .85fr; gap:40px; align-items:center; padding:60px 26px 66px;}
+  .eyebrow{display:inline-flex; align-items:center; gap:9px; font-family:"Manrope",sans-serif; font-weight:700; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:#cdd9ff; border:1px solid rgba(255,255,255,.28); padding:6px 14px; border-radius:30px;}
+  .hero h1{font-family:"Manrope",sans-serif; font-weight:800; font-size:clamp(40px,6.6vw,76px); margin:18px 0 6px; line-height:.98; letter-spacing:-1.5px; text-transform:uppercase;}
+  .hero h1 b{color:#fff;} .hero h1 .light{font-weight:600; opacity:.85;}
+  .hero .tag{font-family:"Manrope",sans-serif; font-weight:600; font-size:clamp(16px,2.2vw,20px); color:#dbe4ff;}
+  .hero .lead{max-width:480px; font-size:17px; color:#c9d4f7; margin-top:14px;}
+  .hero .pw{display:inline-flex; align-items:center; gap:8px; margin-top:20px; font-family:"Manrope",sans-serif; font-size:13px; letter-spacing:1px; color:#a9b8f0; text-transform:uppercase;}
+  .hero .pw b{color:var(--accent);}
+  .phonewrap{display:flex; justify-content:center;}
+  .phone{width:min(250px,78%); border-radius:20px; overflow:hidden; box-shadow:0 30px 60px rgba(6,14,54,.6); border:1px solid rgba(255,255,255,.25);}
+  .phone img{width:100%; display:block;}
+  .phone .fb{aspect-ratio:2/3; background:linear-gradient(160deg,#2a4fe0,#12297f); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; color:#fff; padding:26px;}
+  .phone .fb b{font-family:"Manrope",sans-serif; font-weight:800; font-size:24px; text-transform:uppercase; line-height:1.05;} .phone .fb small{font-size:12px; color:#c9d4f7; margin-top:18px; letter-spacing:1px;}
+  /* brief */
+  .two{display:grid; grid-template-columns:1.25fr .75fr; gap:30px; align-items:stretch;}
+  .brief p{font-size:16.5px; color:#3c4562; margin:0 0 14px;} .brief p:last-child{margin:0;}
+  .rolebox{background:linear-gradient(160deg,#1b3fd6,#0d1b52); color:#fff; border-radius:16px; padding:28px; position:relative; overflow:hidden;}
+  .rolebox::before{content:""; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,var(--accent),#ffb08e);}
+  .rolebox .kicker{color:#bcccff;} .rolebox h3{font-family:"Manrope",sans-serif; font-weight:800; margin:12px 0 8px; font-size:24px;} .rolebox p{margin:0 0 12px; color:#cdd7f5; font-size:14.5px;}
+  .rolebox .tg{display:flex; flex-wrap:wrap; gap:7px;} .rolebox .tg span{font-family:"Manrope",sans-serif; font-weight:600; font-size:12px; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.22); padding:5px 11px; border-radius:20px;}
+  /* eventarin engine */
+  .engine{background:var(--deep); color:#fff;} .engine h2{color:#fff;} .engine .kicker{color:#8fa8ff;} .engine .sec-sub{color:#c3cdf0;}
+  .enginewrap{display:flex; align-items:center; justify-content:center; gap:0; flex-wrap:wrap; margin-top:36px;}
+  .core{background:linear-gradient(150deg,#2a4fe0,#12297f); border:1px solid rgba(120,150,240,.4); border-radius:18px; padding:26px 30px; text-align:center; box-shadow:0 20px 44px rgba(6,14,54,.5); min-width:220px;}
+  .core .lab{font-family:"Manrope",sans-serif; font-weight:800; font-size:26px;} .core .lab b{color:var(--accent);} .core small{font-family:"Manrope",sans-serif; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:#aebbf0;}
+  .arrow{width:64px; height:3px; background:repeating-linear-gradient(90deg,#6c8ef2 0 8px,transparent 8px 14px); position:relative;}
+  .branches{display:grid; gap:12px;}
+  .branch{background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); border-radius:12px; padding:14px 18px; font-family:"Manrope",sans-serif; font-weight:600; font-size:14px; display:flex; align-items:center; gap:10px;}
+  .branch b{color:#fff;} .branch small{color:#9fb0e8; font-weight:400; font-size:12px;}
+  /* team credits */
+  .team{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:32px;}
+  .member{background:var(--card); border:1px solid var(--line); border-radius:18px; padding:26px; text-align:center; transition:transform .2s, box-shadow .2s;}
+  .member:hover{transform:translateY(-6px); box-shadow:0 20px 42px rgba(27,63,214,.14);}
+  .member.lead{border:2px solid var(--blue); box-shadow:0 16px 40px rgba(27,63,214,.14);}
+  .member .av{width:70px; height:70px; border-radius:50%; margin:0 auto 12px; display:flex; align-items:center; justify-content:center; font-size:32px; background:linear-gradient(150deg,#dbe4ff,#c3d0ff);}
+  .member .rl{font-family:"Manrope",sans-serif; font-weight:700; font-size:12px; letter-spacing:1px; text-transform:uppercase; color:var(--blue); margin-bottom:4px;}
+  .member.lead .rl{color:var(--accent);}
+  .member h3{font-family:"Manrope",sans-serif; font-weight:800; font-size:20px; margin:0 0 4px; color:var(--deep);} .member p{margin:0; color:var(--muted); font-size:13.5px;}
+  .member .badge{display:inline-block; margin-top:10px; font-family:"Manrope",sans-serif; font-size:11px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; color:#fff; background:var(--accent); border-radius:20px; padding:3px 10px;}
+  /* features */
+  .feat{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:32px;}
+  .fcard{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:24px; transition:transform .2s, box-shadow .2s;}
+  .fcard:hover{transform:translateY(-5px); box-shadow:0 16px 36px rgba(27,63,214,.1);}
+  .fcard .ic{width:48px; height:48px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:23px; margin-bottom:12px; background:linear-gradient(150deg,#e6ecff,#d5deff); color:var(--blue);}
+  .fcard h3{font-family:"Manrope",sans-serif; font-weight:700; font-size:17px; margin:0 0 5px; color:var(--deep);} .fcard p{margin:0; color:#5a6280; font-size:14px;}
+  /* gallery */
+  .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:32px;}
+  .screen{margin:0; text-align:center;}
+  .screen .fr{border-radius:0; overflow:hidden; line-height:0; border:0; box-shadow:none; background:transparent; transition:transform .2s;}
+  .screen .fr img{border:0;}
+  .screen .fr:hover{transform:translateY(-5px);}
+  .screen .fr img{width:100%; display:block; cursor:zoom-in;}
+  .screen figcaption{margin-top:10px; font-family:"Manrope",sans-serif; font-weight:600; font-size:12.5px; color:var(--muted);}
+  /* tech */
+  .band{background:linear-gradient(160deg,#0d1b52,#080f30); color:#fff;}
+  .band h2{color:#fff;} .band .kicker{color:#8fa8ff;} .band .sec-sub{color:#c3cdf0;}
+  .stack{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;}
+  .stack span{font-family:"Manrope",sans-serif; font-weight:600; font-size:13px; color:#e7ecff; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.2); padding:8px 15px; border-radius:30px;}
+  footer{padding:30px 0 52px; text-align:center; color:var(--muted); font-family:"Manrope",sans-serif; font-size:13px;}
+  #lb{display:none; position:fixed; inset:0; z-index:9999; background:rgba(6,12,40,.95); align-items:flex-start; justify-content:center; overflow:auto; cursor:zoom-out; padding:24px;}
+  #lb img{max-width:none; border-radius:10px; box-shadow:0 16px 60px rgba(0,0,0,.6);} #lb .x{position:fixed; top:16px; right:22px; color:#fff; font-size:38px; cursor:pointer;}
+  @media (max-width:900px){ .hero .wrap{grid-template-columns:1fr;} .two{grid-template-columns:1fr;} .team{grid-template-columns:1fr;} .feat{grid-template-columns:1fr 1fr;} .grid3{grid-template-columns:1fr 1fr;} .arrow{display:none;} }
+  @media (max-width:560px){ .feat{grid-template-columns:1fr;} .grid3{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap"><a class="back" href="index.html" onclick="if(history.length>1){history.back();return false;}">&larr; Back</a><span class="who">CASE STUDY · <b>DAVID SILVERLIGHT</b></span></div></div>
+
+<header class="hero">
+  <div class="yr">2015</div>
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">◇ South Florida · Community Conference · Feb 2015</span>
+      <h1><span class="light">South Florida</span><br><b>Code Camp</b></h1>
+      <div class="tag">An Amazing Technical Experience</div>
+      <p class="lead">The companion app for South Florida's community code camp — where developers gather to learn, network and give back. Browse and select sessions, leave feedback, and build the day you want to attend.</p>
+      <div class="pw">Powered by <b>Eventarin</b></div>
+    </div>
+    <div class="phonewrap">
+      <div class="phone">
+        <img src="images/SFCodeCamp/sfcc-splash.png" alt="South Florida Code Camp splash" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="fb" style="display:none;"><b>South Florida<br>Code Camp</b><small>FEB 2015 · powered by Eventarin</small></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- BRIEF -->
+<section>
+  <div class="wrap">
+    <div class="two">
+      <div class="brief">
+        <span class="kicker">The brief</span>
+        <h2 class="sec">A conference, built by its own community</h2>
+        <p>South Florida Code Camp brings the region's technologists together for a day of learning, networking and giving back. The 2015 companion app helped attendees make the most of it — reviewing and selecting sessions, leaving feedback, and building a personal schedule of what they'd attend.</p>
+        <p>What makes it special is who built it: a team of fellow <b>South Florida Xamarin User Group</b> members, as a community effort — a real-world way for developers to sharpen their skills on something the whole community would use.</p>
+      </div>
+      <div class="rolebox">
+        <span class="kicker">My role</span>
+        <h3>Technical Team Lead</h3>
+        <p>I led the technical effort for the Code Camp app — guiding the architecture and the volunteer developer team building it on Xamarin.Forms.</p>
+        <div class="tg"><span>Technical Team Lead</span><span>Xamarin.Forms</span><span>Eventarin codebase</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTARIN ENGINE -->
+<section class="engine">
+  <div class="wrap">
+    <div class="center"><span class="kicker">The signature idea</span><h2 class="sec">One codebase. Many community events.</h2><p class="sec-sub">The app was built on <b>Eventarin</b> — a reusable event-app codebase created by our Xamarin User Group, so any community conference could get a first-class app without starting from scratch.</p></div>
+    <div class="enginewrap">
+      <div class="core"><div class="lab">Event<b>arin</b></div><small>Reusable event engine</small></div>
+      <div class="arrow"></div>
+      <div class="branches">
+        <div class="branch"><span>💻</span><div><b>South Florida Code Camp 2015</b><br><small>This app</small></div></div>
+        <div class="branch"><span>🎟️</span><div><b>Community conferences</b><br><small>Sessions · Speakers · Itinerary · Feedback</small></div></div>
+        <div class="branch"><span>🤝</span><div><b>Built by the user group</b><br><small>For the whole community to use</small></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section>
+  <div class="wrap">
+    <div class="center"><span class="kicker">The Eventarin team</span><h2 class="sec">Built by the community, for the community</h2><p class="sec-sub">A volunteer team of South Florida Xamarin User Group developers — showing off the latest Xamarin tech and getting real-world experience.</p></div>
+    <div class="team">
+      <div class="member lead"><div class="av">👨‍💻</div><div class="rl">Technical Team Lead</div><h3>David Silverlight</h3><p>Led the technical direction &amp; build.</p><span class="badge">That's me</span></div>
+      <div class="member"><div class="av">🧑‍💻</div><div class="rl">Architecture &amp; Best Practices</div><h3>Jonas Stawski</h3><p>Shaped a clean, solid foundation.</p></div>
+      <div class="member"><div class="av">🧑‍💼</div><div class="rl">Project Management · Development</div><h3>Mir Maheed</h3><p>Kept the effort moving and shipping.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section style="background:#e9eefc;">
+  <div class="wrap">
+    <div class="center"><span class="kicker">In the app</span><h2 class="sec">Everything an attendee needs</h2></div>
+    <div class="feat">
+      <div class="fcard"><div class="ic">🎤</div><h3>Sessions</h3><p>Browse every session with presenter, track and time — and pick your favorites.</p></div>
+      <div class="fcard"><div class="ic">🧑‍🏫</div><h3>Speakers</h3><p>Meet the speakers, with photos and bios, right in the app.</p></div>
+      <div class="fcard"><div class="ic">🗓️</div><h3>Itinerary</h3><p>Build a personal schedule of the sessions you'll attend that day.</p></div>
+      <div class="fcard"><div class="ic">⭐</div><h3>Feedback</h3><p>Rate sessions and the conference to help make the next one even better.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section>
+  <div class="wrap">
+    <div class="center"><span class="kicker">On the device</span><h2 class="sec">Code Camp, in hand</h2><p class="sec-sub">The 2015 companion app on iOS &amp; Android. Click any screen to enlarge.</p></div>
+    <div class="grid3">
+      <figure class="screen"><div class="fr"><img src="images/SFCodeCamp/sfcc-splash.png" alt="Splash" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Splash</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="images/SFCodeCamp/sfcc-menu.png" alt="Menu" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Menu</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="images/SFCodeCamp/sfcc-sessions.png" alt="Sessions" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Sessions</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="images/SFCodeCamp/sfcc-session.png" alt="Session details" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Session details</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="images/SFCodeCamp/sfcc-speakers.png" alt="Speakers" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Speakers</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="images/SFCodeCamp/sfcc-contributors.png" alt="Contributors" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Contributors</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- TECH -->
+<section class="band">
+  <div class="wrap">
+    <span class="kicker">Under the hood</span>
+    <h2 class="sec">Cross-platform, community-built</h2>
+    <p class="sec-sub">A cross-platform Xamarin.Forms application built on the reusable Eventarin codebase, delivering sessions, speakers, itinerary and feedback to attendees on iOS and Android.</p>
+    <div class="stack"><span>Xamarin.Forms</span><span>Eventarin codebase</span><span>iOS &amp; Android</span><span>Community open-source</span><span>Event / Conference</span></div>
+  </div>
+</section>
+
+<footer>South Florida Code Camp 2015 · Xamarin.Forms · Powered by Eventarin</footer>
+<div id="lb"><span class="x">&times;</span><img alt="enlarged screenshot"></div>
+<script>(function(){var lb=document.getElementById('lb'),im=lb.querySelector('img');document.querySelectorAll('.fr img').forEach(function(g){g.addEventListener('click',function(e){e.stopPropagation();im.src=g.src;lb.style.display='flex';});});lb.addEventListener('click',function(){lb.style.display='none';im.src='';});document.addEventListener('keydown',function(e){if(e.key==='Escape'){lb.style.display='none';im.src='';}});})();</script>
+</body>
+</html>

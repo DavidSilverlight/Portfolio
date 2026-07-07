@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ITPalooza 2013 — Case Study · David Silverlight</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#0a1226; --navy2:#111f42; --blue:#2b9bf4; --blue2:#1466e0; --cyan:#39d9ff; --magenta:#ff3d81;
+    --lime:#c6ff4a; --gold:#ffd23d; --text:#e9eefc; --muted:#8794b8; --line:rgba(120,150,220,.2);}
+  *{box-sizing:border-box;} html{scroll-behavior:smooth;}
+  body{margin:0; font-family:"Inter","Segoe UI",Arial,sans-serif; color:var(--text); background:var(--navy); line-height:1.6;}
+  .wrap{max-width:1140px; margin:0 auto; padding:0 26px;}
+  h1,h2,h3,.syne{font-family:"Syne",sans-serif;}
+  .kicker{font-family:"Syne",sans-serif; font-weight:700; font-size:12px; letter-spacing:3px; text-transform:uppercase; color:var(--cyan);}
+  h2.sec{font-family:"Syne",sans-serif; font-weight:800; font-size:clamp(28px,4vw,46px); margin:8px 0 8px; color:#fff; line-height:1.02; letter-spacing:-.5px;}
+  .sec-sub{color:var(--muted); max-width:730px; font-size:16.5px; margin:0 0 26px;}
+  .center{text-align:center;} .center .sec-sub{margin-left:auto; margin-right:auto;}
+  section{padding:58px 0;}
+  .topbar{position:sticky; top:0; z-index:40; background:rgba(10,18,38,.95); backdrop-filter:blur(8px); border-bottom:1px solid var(--line);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:56px;}
+  .back{display:inline-flex; gap:8px; text-decoration:none; color:var(--navy); font-family:"Syne",sans-serif; font-weight:700; font-size:13px; background:var(--cyan); padding:8px 16px; border-radius:30px;}
+  .topbar .who{color:var(--muted); font-family:"Syne",sans-serif; font-size:12px; letter-spacing:1px;} .topbar .who b{color:#fff;}
+  /* hero */
+  .hero{position:relative; overflow:hidden; background:radial-gradient(700px 420px at 50% -20%, rgba(43,155,244,.28), transparent 60%), linear-gradient(160deg,#0a1226,#0e1c3e 55%,#0a1226);}
+  .hero .rays{position:absolute; left:50%; top:-120px; width:900px; height:700px; transform:translateX(-50%); pointer-events:none; opacity:.5;
+    background:repeating-conic-gradient(from 0deg at 50% 0%, rgba(57,217,255,.10) 0deg 6deg, transparent 6deg 14deg); mask-image:radial-gradient(circle at 50% 0%, #000, transparent 70%);}
+  .hero .wrap{position:relative; z-index:3; display:grid; grid-template-columns:1.12fr .88fr; gap:40px; align-items:center; padding:58px 26px 64px;}
+  .eyebrow{display:inline-flex; align-items:center; gap:9px; font-family:"Syne",sans-serif; font-weight:700; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:#bfe9ff; border:1px solid rgba(57,217,255,.4); background:rgba(57,217,255,.08); padding:6px 14px; border-radius:30px;}
+  .hero h1{font-family:"Syne",sans-serif; font-weight:800; font-size:clamp(52px,9vw,104px); margin:18px 0 0; line-height:.86; letter-spacing:-2px;
+    background:linear-gradient(92deg,#39d9ff,#2b9bf4 45%,#ff3d81); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero .yr{font-family:"Syne",sans-serif; font-weight:800; font-size:clamp(22px,3vw,30px); color:var(--gold); letter-spacing:2px; margin-top:6px;}
+  .hero .lead{max-width:520px; font-size:18px; color:#c6d0ec; margin-top:14px;}
+  .pillars-row{display:flex; gap:10px; margin-top:20px; flex-wrap:wrap;}
+  .pillars-row span{font-family:"Syne",sans-serif; font-weight:700; font-size:13px; letter-spacing:1px; padding:7px 15px; border-radius:30px;}
+  .pillars-row .n{background:rgba(43,155,244,.16); border:1px solid rgba(43,155,244,.5); color:#bfe0ff;}
+  .pillars-row .l{background:rgba(198,255,74,.14); border:1px solid rgba(198,255,74,.45); color:#e4ffb0;}
+  .pillars-row .g{background:rgba(255,61,129,.14); border:1px solid rgba(255,61,129,.5); color:#ffbfd6;}
+  /* lanyard badge */
+  .badgewrap{display:flex; justify-content:center; align-items:flex-start;}
+  .lanyard{width:6px; height:60px; background:linear-gradient(180deg,#39d9ff,#1466e0); border-radius:6px; margin-bottom:-8px; position:relative; z-index:2;}
+  .badge{width:min(300px,90%); background:linear-gradient(165deg,#0f2350,#0a1730); border:1px solid rgba(57,217,255,.35); border-radius:18px; padding:0; overflow:hidden; box-shadow:0 30px 60px rgba(3,10,28,.6);}
+  .badge .clip{width:60px; height:12px; background:#0a1226; border:1px solid rgba(57,217,255,.4); border-radius:6px; margin:12px auto 0;}
+  .badge .top{background:linear-gradient(120deg,#1466e0,#2b9bf4); padding:16px 18px 14px; text-align:center; position:relative;}
+  .badge .top .evt{font-family:"Syne",sans-serif; font-weight:800; font-size:22px; color:#fff; letter-spacing:.5px;} .badge .top .sub{font-size:11px; letter-spacing:3px; text-transform:uppercase; color:#cfe7ff;}
+  .badge .body{padding:18px; text-align:center;}
+  .badge .role{font-family:"Syne",sans-serif; font-weight:700; letter-spacing:3px; text-transform:uppercase; font-size:12px; color:var(--cyan);}
+  .badge .name{font-family:"Syne",sans-serif; font-weight:800; font-size:24px; color:#fff; margin:4px 0 2px;}
+  .badge .org{font-size:13px; color:var(--muted);}
+  .badge .qr{width:64px; height:64px; margin:14px auto 4px; border-radius:8px; background:conic-gradient(#0a1226 25%,#173a72 0 50%,#0a1226 0 75%,#173a72 0); background-size:12px 12px; border:1px solid var(--line);}
+  .badge .saved{display:inline-block; margin-top:8px; font-size:12px; color:var(--gold); font-weight:600;}
+  /* build your day */
+  .builder{background:var(--navy2);} .builder h2{color:#fff;} .builder .kicker{color:var(--cyan);} .builder .sec-sub{color:#b9c4e4;}
+  .split{display:grid; grid-template-columns:1.1fr .9fr; gap:22px; margin-top:30px; align-items:start;}
+  .panelcard{background:#0c1938; border:1px solid var(--line); border-radius:16px; overflow:hidden;}
+  .panelcard .ph{padding:14px 18px; font-family:"Syne",sans-serif; font-weight:700; letter-spacing:2px; text-transform:uppercase; font-size:12px; color:var(--cyan); border-bottom:1px solid var(--line);}
+  .sess{display:flex; align-items:center; gap:12px; padding:14px 18px; border-bottom:1px solid rgba(120,150,220,.1);}
+  .sess:last-child{border-bottom:0;}
+  .sess .tm{font-family:"Syne",sans-serif; font-weight:700; font-size:12px; color:var(--muted); width:74px; flex:0 0 74px;}
+  .sess .info{flex:1;} .sess .info b{font-weight:600; font-size:14.5px; color:#eaf0ff; display:block;} .sess .info small{color:var(--muted); font-size:12px;}
+  .sess .star{font-size:20px; color:#39456e;}
+  .sess .star.on{color:var(--gold);} .sess .star.off{color:#39456e;}
+  .myday{background:linear-gradient(165deg,#12275a,#0b1a3c); border:1px solid rgba(57,217,255,.3); border-radius:16px; overflow:hidden;}
+  .myday .ph{padding:14px 18px; font-family:"Syne",sans-serif; font-weight:800; font-size:15px; color:#fff; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; align-items:center;}
+  .myday .ph span{font-size:11px; color:var(--cyan); letter-spacing:1px;}
+  .myrow{display:flex; gap:12px; padding:14px 18px; border-bottom:1px solid rgba(120,150,220,.12);}
+  .myrow .tm{font-family:"Syne",sans-serif; font-weight:700; color:var(--gold); font-size:13px; width:56px; flex:0 0 56px;}
+  .myrow b{font-weight:600; font-size:14px; color:#eaf0ff;} .myrow small{display:block; color:var(--muted); font-size:12px;}
+  .myday .hint{padding:14px 18px; font-size:12.5px; color:var(--muted);}
+  /* features */
+  .feat{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:32px;}
+  .fcard{background:#0e1c3e; border:1px solid var(--line); border-radius:14px; padding:22px; transition:transform .2s, border-color .2s;}
+  .fcard:hover{transform:translateY(-5px); border-color:var(--cyan);}
+  .fcard .ic{font-size:24px; margin-bottom:10px;}
+  .fcard h3{font-family:"Syne",sans-serif; font-weight:700; font-size:17px; margin:0 0 5px; color:#fff;} .fcard p{margin:0; color:#a3afd0; font-size:14px;}
+  /* ethos */
+  .ethos{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:32px;}
+  .eth{border-radius:18px; padding:28px 24px; position:relative; overflow:hidden;}
+  .eth.n{background:linear-gradient(160deg,#123a72,#0d2350);} .eth.l{background:linear-gradient(160deg,#3a5a12,#1f3a0d);} .eth.g{background:linear-gradient(160deg,#7a1c46,#3a0d24);}
+  .eth .ic{font-size:32px;} .eth h3{font-family:"Syne",sans-serif; font-weight:800; font-size:22px; margin:8px 0 6px; color:#fff;} .eth p{margin:0; font-size:14px; color:rgba(255,255,255,.82);}
+  /* gallery */
+  .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:32px;}
+  .screen{margin:0; text-align:center;}
+  .screen .fr{border-radius:16px; overflow:hidden; line-height:0; border:1px solid var(--line); transition:transform .2s, border-color .2s;}
+  .screen .fr:hover{transform:translateY(-5px); border-color:var(--cyan);}
+  .screen .fr img{width:100%; display:block; cursor:zoom-in;}
+  .screen figcaption{margin-top:10px; font-family:"Syne",sans-serif; font-weight:600; font-size:13px; color:var(--muted);}
+  /* tech */
+  .band{background:linear-gradient(160deg,#0a1226,#060c1a); border-top:1px solid var(--line);}
+  .stack{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;}
+  .stack span{font-family:"Syne",sans-serif; font-weight:600; font-size:13px; color:#dce6ff; background:rgba(57,217,255,.08); border:1px solid var(--line); padding:8px 15px; border-radius:30px;}
+  footer{padding:30px 0 52px; text-align:center; color:var(--muted); font-family:"Syne",sans-serif; font-size:13px;}
+  #lb{display:none; position:fixed; inset:0; z-index:9999; background:rgba(4,8,18,.95); align-items:flex-start; justify-content:center; overflow:auto; cursor:zoom-out; padding:24px;}
+  #lb img{max-width:none; border-radius:10px; box-shadow:0 16px 60px rgba(0,0,0,.6);} #lb .x{position:fixed; top:16px; right:22px; color:#fff; font-size:38px; cursor:pointer;}
+  @media (max-width:900px){ .hero .wrap{grid-template-columns:1fr;} .split{grid-template-columns:1fr;} .feat{grid-template-columns:1fr;} .ethos{grid-template-columns:1fr;} .grid3{grid-template-columns:1fr 1fr;} }
+  @media (max-width:560px){ .grid3{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap"><a class="back" href="index.html" onclick="if(history.length>1){history.back();return false;}">&larr; Back</a><span class="who">CASE STUDY · <b>DAVID SILVERLIGHT</b></span></div></div>
+
+<header class="hero">
+  <div class="rays"></div>
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">◎ South Florida Tech Community · Companion App</span>
+      <h1>ITPalooza</h1>
+      <div class="yr">— DECEMBER 2013 —</div>
+      <p class="lead">The conference that brings South Florida's tech community together to network, learn and give back — in every attendee's pocket. Browse and rate sessions, share feedback, and build the day you want to have.</p>
+      <div class="pillars-row"><span class="n">✦ Network</span><span class="l">✦ Learn</span><span class="g">✦ Give</span></div>
+    </div>
+    <div class="badgewrap">
+      <div>
+        <div class="lanyard" style="margin:0 auto;"></div>
+        <div class="badge">
+          <div class="clip"></div>
+          <div class="top"><div class="evt">IT PALOOZA</div><div class="sub">2013 · South Florida</div></div>
+          <div class="body">
+            <div class="role">Attendee</div>
+            <div class="name">Your Name</div>
+            <div class="org">South Florida Tech Community</div>
+            <div class="qr"></div>
+            <span class="saved">★ 6 sessions saved to your day</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- BRIEF -->
+<section>
+  <div class="wrap">
+    <div class="split" style="grid-template-columns:1.25fr .75fr;">
+      <div>
+        <span class="kicker">The brief</span>
+        <h2 class="sec">A conference that fits in your hand</h2>
+        <p class="sec-sub" style="max-width:none;">ITPalooza packs a lot into a day — dozens of sessions, speakers, exhibitors and a map to navigate it all, in the name of learning and giving back. Attendees needed a way to find what mattered to them and not miss it.</p>
+        <p class="sec-sub" style="max-width:none; margin:0;">The companion app lets attendees review and select sessions, rate sessions and the conference, and build a personal schedule of exactly what they plan to attend that day — turning a packed program into a plan.</p>
+      </div>
+      <div class="fcard" style="border-top:3px solid var(--cyan);">
+        <span class="kicker">My role</span>
+        <h3 style="font-size:20px; margin:10px 0 8px;">Architecture · IxD · UI/UX</h3>
+        <p style="color:#a3afd0; font-size:14.5px;">I handled the architecture, interaction design and UI/UX for the ITPalooza 2013 companion app, delivered cross-platform on Xamarin.</p>
+        <div class="pillars-row" style="margin-top:14px;"><span class="n">Xamarin</span><span class="n">iOS &amp; Android</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUILD YOUR DAY -->
+<section class="builder">
+  <div class="wrap">
+    <div class="center"><span class="kicker">The signature feature</span><h2 class="sec">Build your day</h2><p class="sec-sub">Star the sessions you want, and they fall into place on your personal schedule — so the day runs itself.</p></div>
+    <div class="split">
+      <div class="panelcard">
+        <div class="ph">All Sessions · Thursday, Dec 12</div>
+        <div class="sess"><span class="tm">8:30</span><div class="info"><b>Hands-On Developer Workshops</b><small>🏛 Room 2082</small></div><span class="star on">★</span></div>
+        <div class="sess"><span class="tm">10:00</span><div class="info"><b>Code Once: Deploy To All (Windows, WinRT, and…)</b><small>🏛 Room 2082</small></div><span class="star on">★</span></div>
+        <div class="sess"><span class="tm">12:30</span><div class="info"><b>Lunch Break</b><small>🏛 Hall 7 — Auditorium C</small></div><span class="star off">☆</span></div>
+        <div class="sess"><span class="tm">1:30</span><div class="info"><b>Cloud, Mobile &amp; the Modern Stack</b><small>🏛 Room 2100</small></div><span class="star off">☆</span></div>
+      </div>
+      <div class="myday">
+        <div class="ph">My Thursday <span>2 SAVED</span></div>
+        <div class="myrow"><span class="tm">8:30</span><div><b>Hands-On Developer Workshops</b><small>Room 2082</small></div></div>
+        <div class="myrow"><span class="tm">10:00</span><div><b>Code Once: Deploy To All</b><small>Room 2082</small></div></div>
+        <div class="hint">☆ Tap the star on any session to add it here. Your day, sorted by time — automatically.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section>
+  <div class="wrap">
+    <div class="center"><span class="kicker">In the app</span><h2 class="sec">Everything the day needs</h2></div>
+    <div class="feat">
+      <div class="fcard"><div class="ic">🗓️</div><h3>Schedule</h3><p>The full conference agenda, day by day, at a glance.</p></div>
+      <div class="fcard"><div class="ic">🎤</div><h3>Speakers &amp; sessions</h3><p>Browse every session and speaker, and select the ones for you.</p></div>
+      <div class="fcard"><div class="ic">⭐</div><h3>Feedback</h3><p>Rate sessions and the conference — help make next year better.</p></div>
+      <div class="fcard"><div class="ic">🗺️</div><h3>Map</h3><p>Find your way between halls, rooms and auditoriums.</p></div>
+      <div class="fcard"><div class="ic">🏢</div><h3>Exhibitors</h3><p>Meet the sponsors and exhibitors — from Antenna Software to TW Telecom.</p></div>
+      <div class="fcard"><div class="ic">✅</div><h3>My day</h3><p>A personal schedule of exactly the sessions you'll attend.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ETHOS -->
+<section class="builder">
+  <div class="wrap">
+    <div class="center"><span class="kicker">Why ITPalooza</span><h2 class="sec">Network · Learn · Give</h2><p class="sec-sub">More than a conference — a community coming together, built on the love of learning technology.</p></div>
+    <div class="ethos">
+      <div class="eth n"><div class="ic">🤝</div><h3>Network</h3><p>Bringing South Florida's technologists together to connect, share and build relationships.</p></div>
+      <div class="eth l"><div class="ic">🚀</div><h3>Learn</h3><p>A day of hands-on workshops and sessions for people who genuinely love learning tech.</p></div>
+      <div class="eth g"><div class="ic">💛</div><h3>Give</h3><p>Rooted in charitable giving — the community coming together to support a good cause.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section>
+  <div class="wrap">
+    <div class="center"><span class="kicker">On the device</span><h2 class="sec">ITPalooza, live</h2><p class="sec-sub">The 2013 companion app on Android &amp; iOS. Click any screen to enlarge.</p></div>
+    <div class="grid3">
+      <figure class="screen"><div class="fr"><img src="images/ITPalooza2013/itp13-schedule.png" alt="ITPalooza 2013 schedule" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Schedule</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="images/ITPalooza2013/itp13-sessions.png" alt="ITPalooza 2013 sessions" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Sessions</figcaption></figure>
+      <figure class="screen"><div class="fr"><img src="images/ITPalooza2013/itp13-exhibitors.png" alt="ITPalooza 2013 exhibitors" onerror="this.closest('.screen').style.display='none'"></div><figcaption>Exhibitors</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- TECH -->
+<section class="band">
+  <div class="wrap">
+    <span class="kicker">Under the hood</span>
+    <h2 class="sec">One codebase, both stores</h2>
+    <p class="sec-sub">A cross-platform Xamarin companion app delivering the schedule, sessions, feedback and a personal agenda to attendees on iOS and Android.</p>
+    <div class="stack"><span>Xamarin</span><span>iOS &amp; Android</span><span>Interaction Design</span><span>UI/UX</span><span>Event / Conference</span></div>
+  </div>
+</section>
+
+<footer>ITPalooza 2013 · Xamarin · Network · Learn · Give</footer>
+<div id="lb"><span class="x">&times;</span><img alt="enlarged screenshot"></div>
+<script>(function(){var lb=document.getElementById('lb'),im=lb.querySelector('img');document.querySelectorAll('.fr img').forEach(function(g){g.addEventListener('click',function(e){e.stopPropagation();im.src=g.src;lb.style.display='flex';});});lb.addEventListener('click',function(){lb.style.display='none';im.src='';});document.addEventListener('keydown',function(e){if(e.key==='Escape'){lb.style.display='none';im.src='';}});})();</script>
+</body>
+</html>
