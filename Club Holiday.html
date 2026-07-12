@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Club Holiday — Case Study · David Silverlight</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;800&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --maroon:#6e1016; --maroon2:#8c1a20; --night:#17090b; --night2:#241014;
+    --gold:#ffd23f; --gold2:#f2b13a; --cream:#fff6e8; --paper:#fffdf8;
+    --ink:#2b1a1c; --mut:#c9a9ab; --line:rgba(255,210,63,.22);
+  }
+  *{box-sizing:border-box;} html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--night); color:var(--cream); font-family:"Work Sans","Segoe UI",Arial,sans-serif; line-height:1.65; font-weight:300; -webkit-font-smoothing:antialiased;}
+  h1,h2,h3,.disp{font-family:"Big Shoulders Display","Arial Narrow",sans-serif; text-transform:uppercase;}
+  a{color:var(--gold);}
+  img{max-width:100%;}
+
+  /* ============ fixed chapter rail ============ */
+  .rail{position:fixed; left:0; top:0; bottom:0; width:210px; z-index:50; padding:26px 0 26px 26px;
+    display:flex; flex-direction:column; gap:4px; border-right:1px solid var(--line);
+    background:linear-gradient(180deg, rgba(23,9,11,.92), rgba(23,9,11,.86)); backdrop-filter:blur(6px);}
+  .rail .back{display:inline-flex; align-items:center; gap:8px; text-decoration:none; color:var(--night);
+    font-weight:600; font-size:12px; letter-spacing:1.5px; text-transform:uppercase;
+    background:var(--gold); border-radius:30px; padding:8px 16px; width:fit-content; margin-bottom:22px;}
+  .rail .who{font-size:10.5px; letter-spacing:2.5px; text-transform:uppercase; color:var(--mut); margin-bottom:18px;}
+  .rail .who b{display:block; color:#fff; font-size:12px; letter-spacing:2px; margin-top:2px;}
+  .rail nav{display:flex; flex-direction:column; gap:2px;}
+  .rail nav a{display:flex; align-items:baseline; gap:10px; text-decoration:none; padding:7px 10px 7px 0; color:var(--mut);
+    font-size:12.5px; letter-spacing:1.2px; text-transform:uppercase; border-right:3px solid transparent; transition:color .2s,border-color .2s;}
+  .rail nav a .n{font-family:"Big Shoulders Display",sans-serif; font-weight:700; font-size:15px; color:rgba(255,210,63,.45); width:24px; flex:0 0 24px;}
+  .rail nav a:hover{color:#fff;}
+  .rail nav a.on{color:var(--gold); border-right-color:var(--gold);}
+  .rail nav a.on .n{color:var(--gold);}
+  .rail .pump{margin-top:auto; font-size:30px; opacity:.5;}
+  main{margin-left:210px;}
+  .in{max-width:1060px; margin:0 auto; padding:0 44px;}
+  section{padding:78px 0; scroll-margin-top:20px;}
+
+  .kick{display:inline-block; font-size:11px; font-weight:600; letter-spacing:4px; text-transform:uppercase; color:var(--gold2); margin-bottom:8px;}
+  h2.t{font-size:clamp(40px,5.6vw,64px); font-weight:800; line-height:.95; margin:0 0 14px; color:#fff; letter-spacing:1px;}
+  h2.t em{font-style:normal; color:var(--gold);}
+  .lead{max-width:640px; color:#e8d3c8; font-size:16.5px; font-weight:300;}
+
+  /* ============ hero ============ */
+  .hero{position:relative; overflow:hidden; padding:90px 0 70px;
+    background:
+      radial-gradient(720px 400px at 82% -8%, rgba(255,210,63,.14), transparent 60%),
+      radial-gradient(560px 460px at -6% 108%, rgba(140,26,32,.55), transparent 65%),
+      linear-gradient(175deg,#2a1013 0%, #17090b 62%);}
+  .hero::after{content:""; position:absolute; left:-4%; right:-4%; bottom:34px; height:3px;
+    background:repeating-linear-gradient(90deg, var(--gold) 0 34px, transparent 34px 68px); opacity:.35; transform:rotate(-.6deg);}
+  .marquee{display:inline-flex; align-items:center; gap:9px; border:1px solid var(--line); border-radius:40px; padding:8px 18px;
+    font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--gold);}
+  .marquee i{width:7px; height:7px; border-radius:50%; background:var(--gold); box-shadow:0 0 10px 2px rgba(255,210,63,.8); animation:blink 1.6s infinite;}
+  .marquee i:nth-child(2){animation-delay:.5s;} .marquee i:nth-child(3){animation-delay:1s;}
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:.25;}}
+  .hero h1{font-size:clamp(64px,9.5vw,124px); font-weight:800; line-height:.88; margin:24px 0 6px; letter-spacing:1px; color:#fff;}
+  .hero h1 em{font-style:normal; color:var(--gold); text-shadow:0 0 34px rgba(255,210,63,.35);}
+  .hero .sub{font-size:15px; letter-spacing:3px; text-transform:uppercase; color:var(--gold2); margin:0 0 20px; font-weight:500;}
+  .hero .grid{display:grid; grid-template-columns:1.15fr .85fr; gap:54px; align-items:center;}
+  .chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:26px;}
+  .chips span{font-size:11.5px; letter-spacing:1.5px; text-transform:uppercase; color:var(--cream); border:1px solid var(--line); padding:7px 14px; border-radius:30px; background:rgba(255,210,63,.06);}
+  /* loyalty card mock */
+  .loycard{position:relative; background:var(--paper); color:var(--ink); border-radius:20px; padding:26px 28px 22px; max-width:360px; margin-left:auto;
+    box-shadow:0 34px 70px rgba(0,0,0,.55), 0 0 0 1px rgba(255,210,63,.25), 0 0 44px rgba(255,210,63,.12); transform:rotate(2.5deg);}
+  .loycard .brand{display:flex; align-items:baseline; justify-content:space-between;}
+  .loycard .brand b{font-family:"Big Shoulders Display",sans-serif; font-size:26px; font-weight:800; letter-spacing:1px; color:var(--maroon);}
+  .loycard .brand small{font-size:10px; letter-spacing:2.5px; text-transform:uppercase; color:#9a8a80;}
+  .loycard .pts{display:flex; align-items:baseline; gap:12px; margin:14px 0 4px;}
+  .loycard .pts b{font-size:56px; font-weight:700; line-height:1; font-family:"Big Shoulders Display",sans-serif; color:var(--ink);}
+  .loycard .pts span{font-size:13px; color:#8a7a70; letter-spacing:1px; text-transform:uppercase;}
+  .loycard .val{font-size:15px; color:var(--maroon2); font-weight:600; margin-bottom:16px;}
+  .loycard .bars{height:52px; background:repeating-linear-gradient(90deg,#221a18 0 2px, transparent 2px 5px, #221a18 5px 7px, transparent 7px 9px, #221a18 9px 10px, transparent 10px 14px);
+    border-radius:4px;}
+  .loycard .num{text-align:center; font-size:11.5px; letter-spacing:5px; color:#6d5f57; margin-top:7px;}
+  .loycard .save{margin-top:16px; background:var(--maroon); color:var(--gold); text-align:center; font-size:12px; letter-spacing:1px; border-radius:10px; padding:9px 10px; font-weight:500;}
+
+  /* ============ stats strip ============ */
+  .stats{border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:rgba(255,210,63,.04);}
+  .stats .in{display:grid; grid-template-columns:repeat(4,1fr); padding-top:34px; padding-bottom:34px; gap:20px;}
+  .stat{text-align:center;}
+  .stat b{display:block; font-family:"Big Shoulders Display",sans-serif; font-size:44px; font-weight:800; color:var(--gold); line-height:1;}
+  .stat span{font-size:11.5px; letter-spacing:2.5px; text-transform:uppercase; color:var(--mut);}
+
+  /* ============ brief ============ */
+  .brief-grid{display:grid; grid-template-columns:1.2fr .8fr; gap:36px; align-items:stretch; margin-top:34px;}
+  .panel{background:var(--night2); border:1px solid var(--line); border-radius:18px; padding:32px 34px;}
+  .panel p{color:#e6d2c9; font-size:15.5px; margin:0 0 14px;} .panel p:last-child{margin:0;}
+  .rolecard{background:linear-gradient(165deg,var(--maroon),#4a0a0f); border-radius:18px; padding:30px; border:1px solid rgba(255,210,63,.3); position:relative; overflow:hidden;}
+  .rolecard::after{content:"⛽"; position:absolute; right:14px; bottom:8px; font-size:56px; opacity:.16;}
+  .rolecard h3{margin:4px 0 10px; font-size:26px; font-weight:700; color:var(--gold); letter-spacing:1px;}
+  .rolecard p{color:#f3ddd2; font-size:14px; margin:0 0 14px;}
+  .rolecard .tg{display:flex; flex-wrap:wrap; gap:7px;}
+  .rolecard .tg span{font-size:11px; letter-spacing:1px; text-transform:uppercase; background:rgba(0,0,0,.28); border:1px solid rgba(255,210,63,.35); color:var(--gold); padding:5px 11px; border-radius:20px;}
+
+  /* ============ journey road ============ */
+  .road{position:relative; margin-top:44px; padding:34px 0 8px;}
+  .road::before{content:""; position:absolute; left:2%; right:2%; top:0; height:4px; border-radius:4px;
+    background:repeating-linear-gradient(90deg, var(--gold) 0 26px, transparent 26px 52px); opacity:.5;}
+  .steps{display:grid; grid-template-columns:repeat(4,1fr); gap:22px;}
+  .step{position:relative; padding-top:22px;}
+  .step::before{content:""; position:absolute; top:-8px; left:6px; width:16px; height:16px; border-radius:50%; background:var(--maroon2); border:3px solid var(--gold); box-shadow:0 0 14px rgba(255,210,63,.45);}
+  .step .no{font-family:"Big Shoulders Display",sans-serif; font-size:15px; font-weight:700; letter-spacing:2px; color:var(--gold2);}
+  .step h3{margin:2px 0 6px; font-size:22px; font-weight:700; color:#fff; letter-spacing:1px;}
+  .step p{margin:0; font-size:13.5px; color:#d9c2b8;}
+
+  /* ============ coupon feature tickets ============ */
+  .tickets{display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:40px;}
+  .tik{position:relative; background:var(--paper); color:var(--ink); border-radius:14px; padding:26px 24px 22px; transition:transform .2s, box-shadow .2s;}
+  .tik::before,.tik::after{content:""; position:absolute; top:50%; width:22px; height:22px; border-radius:50%; background:var(--night); transform:translateY(-50%);}
+  .tik::before{left:-11px;} .tik::after{right:-11px;}
+  .tik:hover{transform:translateY(-6px); box-shadow:0 22px 44px rgba(0,0,0,.5);}
+  .tik .ic{font-size:30px;}
+  .tik h3{margin:10px 0 6px; font-size:23px; font-weight:700; color:var(--maroon); letter-spacing:.5px;}
+  .tik p{margin:0; font-size:14px; color:#5c4c46; font-weight:400;}
+  .tik .rip{border-top:2px dashed #d9c8ba; margin:16px -24px 0; padding:10px 24px 0; font-size:10.5px; letter-spacing:2.5px; text-transform:uppercase; color:#a08f82;}
+
+  /* ============ screen gallery grid ============ */
+  .gal-wrap{margin-top:38px; position:relative;}
+  .gal{display:grid; grid-template-columns:repeat(5,1fr); gap:30px 26px; padding:14px 4px 10px;}
+  .gal figure{margin:0; text-align:center;}
+  .gal .ph{border-radius:22px; overflow:hidden; line-height:0; background:#000; border:1px solid rgba(255,210,63,.18);
+    box-shadow:0 18px 40px rgba(0,0,0,.55); transition:transform .2s, box-shadow .2s;}
+  .gal .ph:hover{transform:translateY(-8px); box-shadow:0 26px 52px rgba(0,0,0,.65), 0 0 30px rgba(255,210,63,.14);}
+  .gal .ph img{width:100%; display:block; cursor:zoom-in;}
+  .gal figcaption{margin-top:12px; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--gold2);}
+  .gal figcaption small{display:block; font-size:11.5px; letter-spacing:.2px; text-transform:none; color:var(--mut); margin-top:3px; font-weight:300;}
+  .swipe{font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--mut); margin-top:2px;}
+
+  /* ============ fuel finder split ============ */
+  .fuel-grid{display:grid; grid-template-columns:.9fr 1.1fr; gap:44px; align-items:center; margin-top:36px;}
+  .pricesign{background:#0d0608; border:2px solid var(--gold2); border-radius:16px; padding:20px 22px; max-width:340px; box-shadow:0 0 44px rgba(255,210,63,.12), 0 24px 50px rgba(0,0,0,.5);}
+  .pricesign .hd{font-family:"Big Shoulders Display",sans-serif; font-weight:800; font-size:22px; letter-spacing:2px; color:var(--gold); text-align:center; border-bottom:1px solid var(--line); padding-bottom:10px; margin-bottom:6px;}
+  .fr-row{display:flex; justify-content:space-between; align-items:baseline; padding:9px 2px; border-bottom:1px dashed rgba(255,210,63,.18);}
+  .fr-row:last-child{border-bottom:0;}
+  .fr-row span{font-size:12px; letter-spacing:2.5px; text-transform:uppercase; color:#e8d3c8;}
+  .fr-row b{font-family:"Big Shoulders Display",sans-serif; font-size:34px; font-weight:800; color:var(--gold); text-shadow:0 0 16px rgba(255,210,63,.4); letter-spacing:1px;}
+  .fuel-copy h3{font-size:26px; font-weight:700; letter-spacing:1px; color:#fff; margin:0 0 8px;}
+  .fuel-copy p{color:#e2cdc2; font-size:15px; margin:0 0 16px;}
+  .fuel-copy ul{margin:0; padding:0; list-style:none;}
+  .fuel-copy li{position:relative; padding:7px 0 7px 26px; font-size:14.5px; color:#dcc4b8;}
+  .fuel-copy li::before{content:"➤"; position:absolute; left:0; top:7px; color:var(--gold2); font-size:12px;}
+
+  /* ============ clubs punch strip ============ */
+  .clubrow{display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:36px;}
+  .club{background:var(--night2); border:1px solid var(--line); border-radius:16px; padding:22px 24px;}
+  .club b{font-size:15px; letter-spacing:1px; color:#fff; font-weight:600;}
+  .club .stars{font-size:19px; letter-spacing:3px; margin:8px 0 6px; color:var(--gold);}
+  .club .stars i{font-style:normal; opacity:.22;}
+  .club small{font-size:12px; color:var(--mut); letter-spacing:.4px;}
+
+  /* ============ tech band ============ */
+  .band{background:linear-gradient(165deg,var(--maroon) 0%, #3c080c 100%); border-top:1px solid rgba(255,210,63,.3);}
+  .stack{display:flex; flex-wrap:wrap; gap:10px; margin-top:26px;}
+  .stack span{font-size:13px; letter-spacing:.6px; color:var(--cream); background:rgba(0,0,0,.3); border:1px solid rgba(255,210,63,.35); padding:9px 18px; border-radius:30px;}
+  .maui-note{margin-top:28px; border-left:3px solid var(--gold); background:rgba(0,0,0,.25); border-radius:0 12px 12px 0; padding:18px 22px; max-width:760px;}
+  .maui-note p{margin:0; color:#f3ddd2; font-size:14.5px;}
+
+  footer{padding:36px 0 50px; text-align:center; color:var(--mut); font-size:12.5px; letter-spacing:1px;}
+  footer a{text-decoration:none;}
+
+  /* lightbox */
+  #lb{display:none; position:fixed; inset:0; z-index:9999; background:rgba(12,4,6,.95); align-items:flex-start; justify-content:center; overflow:auto; cursor:zoom-out; padding:24px;}
+  #lb img{max-width:none; border-radius:12px; box-shadow:0 16px 60px rgba(0,0,0,.6);}
+  #lb .x{position:fixed; top:16px; right:22px; color:#fff; font-size:38px; cursor:pointer; line-height:1;}
+
+  @media (max-width:1080px){
+    .rail{position:static; width:auto; height:auto; flex-direction:row; align-items:center; flex-wrap:wrap; gap:14px; padding:16px 20px; border-right:0; border-bottom:1px solid var(--line);}
+    .rail .back{margin-bottom:0;} .rail .who{margin-bottom:0;} .rail nav{display:none;} .rail .pump{display:none;}
+    main{margin-left:0;}
+  }
+  @media (max-width:1080px){
+    .gal{grid-template-columns:repeat(3,1fr);}
+  }
+  @media (max-width:860px){
+    .gal{grid-template-columns:repeat(2,1fr);}
+    .hero .grid{grid-template-columns:1fr;} .loycard{margin:10px auto 0; transform:rotate(0);}
+    .stats .in{grid-template-columns:1fr 1fr;}
+    .brief-grid{grid-template-columns:1fr;}
+    .steps{grid-template-columns:1fr 1fr;}
+    .tickets{grid-template-columns:1fr;}
+    .fuel-grid{grid-template-columns:1fr;} .pricesign{margin:0 auto;}
+    .clubrow{grid-template-columns:1fr;}
+    .in{padding:0 24px;}
+  }
+</style>
+</head>
+<body>
+
+<aside class="rail">
+  <a class="back" href="index.html" onclick="if(history.length>1){history.back();return false;}">&larr; Back</a>
+  <span class="who">Case Study<b>David Silverlight</b></span>
+  <nav id="chapters">
+    <a href="#overview" class="on"><span class="n">01</span>Overview</a>
+    <a href="#brief"><span class="n">02</span>The Brief</a>
+    <a href="#loyalty"><span class="n">03</span>Loyalty Engine</a>
+    <a href="#screens"><span class="n">04</span>The Screens</a>
+    <a href="#fuel"><span class="n">05</span>Fuel Finder</a>
+    <a href="#tech"><span class="n">06</span>Under the Hood</a>
+  </nav>
+  <span class="pump">⛽</span>
+</aside>
+
+<main>
+
+<!-- 01 · HERO / OVERVIEW -->
+<section class="hero" id="overview" style="padding-top:70px;">
+  <div class="in">
+    <div class="grid">
+      <div>
+        <span class="marquee"><i></i><i></i><i></i> Holiday Oil · Loyalty &amp; Rewards</span>
+        <h1>Club <em>Holiday</em></h1>
+        <p class="sub">Every fill-up. Every snack run. Rewarded.</p>
+        <p class="lead">The official loyalty app for Holiday Oil's convenience-store chain. Members enroll in Club Holiday, earn points on everyday purchases, scan a barcode straight from the home screen at checkout, redeem points for mobile coupons, find the nearest store with live fuel prices — and even activate a car wash without leaving the driver's seat.</p>
+        <div class="chips"><span>Loyalty enrollment</span><span>Points &amp; barcode</span><span>Coupon redemption</span><span>Store locator</span><span>Fuel prices</span><span>Car wash activation</span></div>
+      </div>
+      <div class="loycard">
+        <div class="brand"><b>CLUB HOLIDAY</b><small>Rewards</small></div>
+        <div class="pts"><b>400</b><span>points</span></div>
+        <div class="val">= $1.00 toward anything in the store</div>
+        <div class="bars"></div>
+        <div class="num">6 5 1 1 6 3 2 0 6 3 5 0</div>
+        <div class="save">Save 2¢ per gallon · $2 off any car wash</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="in">
+    <div class="stat"><b>60+</b><span>Utah locations served</span></div>
+    <div class="stat"><b>2¢/gal</b><span>Member fuel discount</span></div>
+    <div class="stat"><b>1</b><span>C# codebase · iOS + Android</span></div>
+    <div class="stat"><b>$1–$5</b><span>Point-funded coupons</span></div>
+  </div>
+</div>
+
+<!-- 02 · BRIEF -->
+<section id="brief">
+  <div class="in">
+    <span class="kick">Chapter 02</span>
+    <h2 class="t">The <em>Brief</em></h2>
+    <p class="lead">Turn a punch-card loyalty program into a pocket companion that customers reach for every single day.</p>
+    <div class="brief-grid">
+      <div class="panel">
+        <p>Holiday Oil runs one of Utah's best-known convenience-store chains — over 60 neighborhood stores where regulars stop daily for fuel, coffee, slushes and snacks. Their loyalty program lived on physical cards and in-store signage. They wanted it in their customers' pockets: enrollment, points, rewards, coupons, store finding and car-wash activation, all in one friendly app that matched the brand's playful personality (clown mascot included).</p>
+        <p>The experience had to work at gas-station speed. A member standing at the register — or sitting at the pump — needed their scannable barcode and point balance on screen within seconds of launch, with weekly specials and the member fuel discount front and center.</p>
+        <p>Onboarding got the same treatment as the brand itself: a lighthearted photo tour (starring some very good dogs) walks new members through what Holiday Rewards does before a single form field appears.</p>
+      </div>
+      <div class="rolecard">
+        <span class="kick" style="color:#ffdf87;">My Role</span>
+        <h3>Sole Mobile Developer</h3>
+        <p>End-to-end delivery of the mobile app: architecture, UI, loyalty and barcode features, REST integration, mapping and store services — shipped to both app stores from a single Xamarin.Forms codebase.</p>
+        <div class="tg"><span>Architecture</span><span>UI / UX build</span><span>REST integration</span><span>Maps &amp; GPS</span><span>Barcode engine</span><span>Store delivery</span></div>
+      </div>
+    </div>
+
+    <div class="road">
+      <div class="steps">
+        <div class="step"><span class="no">Mile 01</span><h3>Enroll</h3><p>A playful guided tour, then a fast sign-up that issues a digital Club Holiday card.</p></div>
+        <div class="step"><span class="no">Mile 02</span><h3>Earn</h3><p>Points on every purchase — balance and dollar value always one tap away.</p></div>
+        <div class="step"><span class="no">Mile 03</span><h3>Redeem</h3><p>Scan the barcode at checkout; trade points for $1–$5 mobile coupons and club rewards.</p></div>
+        <div class="step"><span class="no">Mile 04</span><h3>Wash &amp; Go</h3><p>Activate a car wash directly from the vehicle — $2 off for members.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 · LOYALTY ENGINE -->
+<section id="loyalty" style="background:var(--night2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+  <div class="in">
+    <span class="kick">Chapter 03</span>
+    <h2 class="t">The Loyalty <em>Engine</em></h2>
+    <p class="lead">Three reward systems, one wallet: a scannable points barcode, point-funded coupons, and punch-card style clubs — all synced live over REST.</p>
+
+    <div class="tickets">
+      <div class="tik">
+        <span class="ic">🎫</span>
+        <h3>Scan-to-Earn Barcode</h3>
+        <p>The member's loyalty ID renders on-device as a register-ready barcode. Cashiers scan it straight off the home screen — points post to the account in real time.</p>
+        <div class="rip">Admit one · every visit counts</div>
+      </div>
+      <div class="tik">
+        <span class="ic">💵</span>
+        <h3>Points → Coupons</h3>
+        <p>A live points ledger converts effort into value: 400 points buys a $1 mobile coupon, scaling to $5. Balances, costs and redemptions all flow through the rewards API.</p>
+        <div class="rip">400 pts = $1 · 2,000 pts = $5</div>
+      </div>
+      <div class="tik">
+        <span class="ic">⭐</span>
+        <h3>Clubs &amp; Punch Cards</h3>
+        <p>Digital punch cards for the chain's cult favorites — the Tornado Club, Coffee Club and Slush Club. Stars fill as members buy; a full card earns a freebie.</p>
+        <div class="rip">Buy ten · the next one's on Holiday</div>
+      </div>
+    </div>
+
+    <div class="clubrow">
+      <div class="club"><b>🌪️ Tornado Club</b><div class="stars">★★★★★★★★<i>★★</i></div><small>8 of 10 — two roller-grill tornados to go</small></div>
+      <div class="club"><b>☕ Coffee Club</b><div class="stars">★★★★★★★★★<i>★</i></div><small>9 of 10 — next cup's nearly free</small></div>
+      <div class="club"><b>🥤 Slush Club</b><div class="stars">★★★★★★★<i>★★★</i></div><small>7 of 10 — keep sipping</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 · SCREENS -->
+<section id="screens">
+  <div class="in">
+    <span class="kick">Chapter 04</span>
+    <h2 class="t">The <em>Screens</em></h2>
+    <p class="lead">A drive through the app — from the barcode-first home screen to store maps, coupons, clubs and support.</p>
+    <div class="gal-wrap">
+      <div class="gal">
+        <figure><div class="ph"><img src="images/HolidayApp/HomeScreen.png" alt="Club Holiday home screen with points balance and scannable barcode"></div><figcaption>Home<small>Points, barcode &amp; weekly special</small></figcaption></figure>
+        <figure><div class="ph"><img src="images/HolidayApp/Tour.png" alt="Onboarding tour screens introducing Holiday Rewards"></div><figcaption>Guided Tour<small>Playful enrollment onboarding</small></figcaption></figure>
+        <figure><div class="ph"><img src="images/HolidayApp/Navigation.png" alt="Branded navigation drawer with Holiday clown mascot"></div><figcaption>Navigation<small>Branded drawer &amp; mascot</small></figcaption></figure>
+        <figure><div class="ph"><img src="images/HolidayApp/Clubs.png" alt="Clubs page with star punch cards for Tornado, Coffee and Slush clubs"></div><figcaption>Clubs<small>Star punch-card progress</small></figcaption></figure>
+        <figure><div class="ph"><img src="images/HolidayApp/Coupons.png" alt="Coupons page trading points for mobile coupons"></div><figcaption>Coupons<small>Points-to-value redemption</small></figcaption></figure>
+        <figure><div class="ph"><img src="images/HolidayApp/Specials.png" alt="Specials page with member barcode and weekly deals"></div><figcaption>Specials<small>Searchable weekly deals</small></figcaption></figure>
+        <figure><div class="ph"><img src="images/HolidayApp/StoresMap.png" alt="Store locations map with closest store and live fuel prices"></div><figcaption>Store Map<small>Closest location &amp; fuel prices</small></figcaption></figure>
+        <figure><div class="ph"><img src="images/HolidayApp/StoreListing.png" alt="List of Holiday Oil store locations"></div><figcaption>Store List<small>Every location, at a glance</small></figcaption></figure>
+        <figure><div class="ph"><img src="images/HolidayApp/EditProfile.png" alt="Edit profile page with loyalty card number and member details"></div><figcaption>Profile<small>Card &amp; account management</small></figcaption></figure>
+        <figure><div class="ph"><img src="images/HolidayApp/ContactUs.png" alt="Contact us support center page"></div><figcaption>Support<small>Searchable help &amp; contact</small></figcaption></figure>
+      </div>
+      <p class="swipe">Tap any screen to zoom</p>
+    </div>
+  </div>
+</section>
+
+<!-- 05 · FUEL FINDER -->
+<section id="fuel" style="background:var(--night2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+  <div class="in">
+    <span class="kick">Chapter 05</span>
+    <h2 class="t">Fuel <em>Finder</em></h2>
+    <div class="fuel-grid">
+      <div class="pricesign">
+        <div class="hd">CLOSEST LOCATION</div>
+        <div class="fr-row"><span>Unleaded</span><b>2.69</b></div>
+        <div class="fr-row"><span>Plus</span><b>2.84</b></div>
+        <div class="fr-row"><span>Premium</span><b>2.99</b></div>
+        <div class="fr-row"><span>Diesel</span><b>2.87</b></div>
+      </div>
+      <div class="fuel-copy">
+        <h3>The forecourt price sign, in your pocket</h3>
+        <p>The store locator pairs device GPS with the chain's store service to surface the closest Holiday Oil location — with today's fuel prices for every grade, one-tap directions, click-to-call, and store details. A map/list toggle covers both "where's the nearest one?" and "is there one near my office?"</p>
+        <ul>
+          <li>Geolocation-ranked results with distance to every store</li>
+          <li>Live Unleaded / Plus / Premium / Diesel pricing per location</li>
+          <li>One-tap GO directions and click-to-call from the map card</li>
+          <li>Full alphabetical store directory across 60+ Utah locations</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 · TECH -->
+<section id="tech" class="band">
+  <div class="in">
+    <span class="kick" style="color:#ffdf87;">Chapter 06</span>
+    <h2 class="t">Under the <em>Hood</em></h2>
+    <p class="lead" style="color:#f3ddd2;">One C# codebase delivering native iOS and Android experiences — MVVM-structured, service-driven, and built for register-speed startup.</p>
+    <div class="stack">
+      <span>Xamarin.Forms</span><span>C# / .NET</span><span>MVVM</span><span>RESTful Services</span><span>Xamarin.Essentials</span><span>Maps &amp; Geolocation</span><span>On-device Barcode Rendering</span><span>iOS &amp; Android</span>
+    </div>
+    <div class="maui-note">
+      <p><b style="color:var(--gold);">Framework lineage:</b> Club Holiday was built on Xamarin.Forms — the framework .NET MAUI directly evolved from. The same MVVM architecture, XAML UI patterns and service abstractions used here are the foundation of my current .NET MAUI work, where these skills transfer one-for-one.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Club Holiday · Holiday Oil — case study · Built &amp; shipped by <a href="index.html">David Silverlight</a>
+</footer>
+
+</main>
+
+<div id="lb"><span class="x">&times;</span><img alt="Expanded screenshot"></div>
+
+<script>
+(function(){
+  // lightbox
+  var lb=document.getElementById('lb'), im=lb.querySelector('img');
+  document.querySelectorAll('.gal img').forEach(function(g){
+    g.addEventListener('click', function(){ im.src=g.src; lb.style.display='flex'; });
+  });
+  lb.addEventListener('click', function(){ lb.style.display='none'; im.src=''; });
+
+  // chapter rail scrollspy
+  var links=Array.prototype.slice.call(document.querySelectorAll('#chapters a'));
+  var map={};
+  links.forEach(function(a){ map[a.getAttribute('href').slice(1)]=a; });
+  var targets=Object.keys(map).map(function(id){ return document.getElementById(id); }).filter(Boolean);
+  if('IntersectionObserver' in window){
+    var obs=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          links.forEach(function(l){ l.classList.remove('on'); });
+          map[en.target.id].classList.add('on');
+        }
+      });
+    }, { rootMargin:'-30% 0px -55% 0px', threshold:0 });
+    targets.forEach(function(t){ obs.observe(t); });
+  }
+})();
+</script>
+</body>
+</html>

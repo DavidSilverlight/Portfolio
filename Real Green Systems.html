@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Real Green Systems — Case Study · David Silverlight</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#14304f; --navy2:#1d4067; --blue:#1e6fc0; --sky:#eaf2fa;
+    --green:#3f9d4d; --green2:#2f7c3b; --turf:#e8f1e4; --lime:#8cc63f;
+    --bg:#f7faf5; --card:#ffffff; --ink:#1c2b3a; --mut:#5f7186; --line:#dce7dc;
+  }
+  *{box-sizing:border-box;} html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:"Inter","Segoe UI",Arial,sans-serif; line-height:1.65; font-weight:400; -webkit-font-smoothing:antialiased;}
+  h1,h2,h3,.disp{font-family:"Space Grotesk","Segoe UI",sans-serif;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 30px;}
+  section{padding:74px 0;}
+  .eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:11.5px; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; color:var(--green2); background:var(--turf); border:1px solid #cfe3c9; border-radius:30px; padding:7px 16px;}
+  .eyebrow::before{content:""; width:8px; height:8px; border-radius:50%; background:var(--green);}
+  h2.t{font-size:clamp(32px,4.6vw,52px); font-weight:700; letter-spacing:-.5px; line-height:1.05; margin:14px 0 12px; color:var(--navy);}
+  h2.t em{font-style:normal; color:var(--green2);}
+  .lead{max-width:640px; color:var(--mut); font-size:16.5px;}
+
+  /* top bar */
+  .topbar{position:sticky; top:0; z-index:60; background:rgba(255,255,255,.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:58px;}
+  .back{display:inline-flex; align-items:center; gap:8px; text-decoration:none; color:#fff; background:var(--navy); font-weight:600; font-size:12px; letter-spacing:1.5px; text-transform:uppercase; padding:9px 18px; border-radius:8px;}
+  .topbar .who{font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--mut);}
+  .topbar .who b{color:var(--navy);}
+
+  /* hero */
+  .hero{position:relative; overflow:hidden; padding:74px 0 0;
+    background:radial-gradient(640px 360px at 86% -12%, rgba(30,111,192,.12), transparent 60%), linear-gradient(180deg,#fdfefc, #f2f7ee);}
+  .hero .grid{display:grid; grid-template-columns:1.05fr .95fr; gap:44px; align-items:center; padding-bottom:64px;}
+  .hero h1{font-size:clamp(46px,7vw,84px); font-weight:700; letter-spacing:-1.5px; line-height:.98; margin:22px 0 6px; color:var(--navy);}
+  .hero h1 em{font-style:normal; color:var(--green2);}
+  .hero .sub{font-family:"Space Grotesk",sans-serif; font-size:17px; font-weight:500; color:var(--blue); margin:0 0 18px;}
+  .chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:22px;}
+  .chips span{font-size:12px; font-weight:500; color:var(--navy); background:#fff; border:1px solid var(--line); padding:7px 14px; border-radius:8px;}
+  /* hero phones on a route */
+  .route{position:relative; height:440px;}
+  .route::before{content:""; position:absolute; left:6%; right:4%; top:52%; border-top:3px dashed #b9d3ae; transform:rotate(-9deg); border-radius:50%;}
+  .route .stop{position:absolute; background:#fff; padding:6px; border-radius:22px; box-shadow:0 24px 48px rgba(20,48,79,.18), 0 0 0 1px var(--line); transition:transform .25s ease;}
+  .route .stop img{width:150px; display:block; border-radius:16px; cursor:zoom-in;}
+  .route .stop .tag{position:absolute; top:-13px; left:14px; font-family:"Space Grotesk",sans-serif; font-size:11px; font-weight:700; letter-spacing:1.5px; color:#fff; background:var(--green); border-radius:20px; padding:4px 11px; box-shadow:0 4px 10px rgba(47,124,59,.4);}
+  .route .stop:nth-child(2){left:1%; top:96px; transform:rotate(-5deg); z-index:1;}
+  .route .stop:nth-child(3){left:33%; top:26px; transform:rotate(2deg); z-index:2;}
+  .route .stop:nth-child(4){right:2%; top:112px; transform:rotate(6deg); z-index:1;}
+  .route .stop:hover{transform:rotate(0) translateY(-8px); z-index:9;}
+  /* mown-grass footer strip of hero */
+  .grass{height:46px; background:repeating-linear-gradient(115deg, #59a55e 0 42px, #4c9451 42px 84px);
+    border-top:4px solid #3c8443; position:relative;}
+  .grass::after{content:"🚜"; position:absolute; right:9%; top:-26px; font-size:30px; transform:scaleX(-1);}
+
+  /* stat strip */
+  .strip{background:var(--navy); color:#fff;}
+  .strip .wrap{display:grid; grid-template-columns:repeat(4,1fr); gap:18px; padding-top:30px; padding-bottom:30px;}
+  .st{display:flex; align-items:center; gap:13px;}
+  .st .ic{width:44px; height:44px; flex:0 0 44px; border-radius:12px; background:rgba(140,198,63,.16); border:1px solid rgba(140,198,63,.4); display:flex; align-items:center; justify-content:center; font-size:20px;}
+  .st b{display:block; font-family:"Space Grotesk",sans-serif; font-size:16px; letter-spacing:.3px;}
+  .st span{font-size:12px; color:#a9c0d8;}
+
+  /* brief */
+  .brief{display:grid; grid-template-columns:1.25fr .75fr; gap:34px; margin-top:30px; align-items:stretch;}
+  .bcard{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:32px 34px;}
+  .bcard p{color:#3d4f62; font-size:15.5px; margin:0 0 14px;} .bcard p:last-child{margin:0;}
+  .role{background:linear-gradient(165deg,var(--navy),#0d2038); color:#fff; border-radius:16px; padding:30px; position:relative; overflow:hidden;}
+  .role::after{content:"🌱"; position:absolute; right:16px; bottom:10px; font-size:52px; opacity:.18;}
+  .role .k{font-size:11px; letter-spacing:2.5px; text-transform:uppercase; color:var(--lime); font-weight:600;}
+  .role h3{font-family:"Space Grotesk",sans-serif; margin:8px 0 10px; font-size:24px; letter-spacing:-.3px;}
+  .role p{color:#c6d6e6; font-size:14px; margin:0 0 16px;}
+  .role .tg{display:flex; flex-wrap:wrap; gap:7px;}
+  .role .tg span{font-size:11.5px; background:rgba(255,255,255,.08); border:1px solid rgba(140,198,63,.4); color:#dbe9c9; padding:5px 11px; border-radius:8px;}
+
+  /* ===== day-on-the-route central timeline ===== */
+  .day{position:relative; margin-top:44px;}
+  .day::before{content:""; position:absolute; left:50%; top:0; bottom:0; width:3px; margin-left:-1.5px;
+    background:repeating-linear-gradient(180deg, #b9d3ae 0 14px, transparent 14px 26px);}
+  .tstop{position:relative; display:grid; grid-template-columns:1fr 1fr; gap:70px; margin-bottom:54px;}
+  .tstop:last-child{margin-bottom:0;}
+  .tstop::before{content:""; position:absolute; left:50%; top:6px; width:18px; height:18px; margin-left:-9px; border-radius:50%;
+    background:#fff; border:5px solid var(--green); box-shadow:0 0 0 5px rgba(63,157,77,.15); z-index:2;}
+  .tstop .cell{grid-column:1; text-align:right; padding-right:8px;}
+  .tstop.alt .cell{grid-column:2; text-align:left; padding-left:8px; padding-right:0;}
+  .tstop .cell.ghost{display:none;}
+  .tstop .when{font-family:"Space Grotesk",sans-serif; font-size:13px; font-weight:700; letter-spacing:2px; color:var(--blue); text-transform:uppercase;}
+  .tstop h3{font-family:"Space Grotesk",sans-serif; font-size:24px; margin:4px 0 8px; color:var(--navy); letter-spacing:-.3px;}
+  .tstop p{margin:0; color:var(--mut); font-size:14.5px; max-width:420px;}
+  .tstop .cell:not(.alt) p{margin-left:auto;}
+  .tstop .shotbox{grid-column:2; grid-row:1; justify-self:start; margin-top:-8px;}
+  .tstop.alt .shotbox{grid-column:1; justify-self:end;}
+  .shotbox{background:#fff; padding:6px; border-radius:20px; border:1px solid var(--line); box-shadow:0 20px 44px rgba(20,48,79,.14); transition:transform .25s;}
+  .shotbox:hover{transform:translateY(-6px);}
+  .shotbox img{width:168px; display:block; border-radius:14px; cursor:zoom-in;}
+  .callout{display:inline-block; margin-top:10px; font-size:12px; font-weight:600; color:var(--green2); background:var(--turf); border:1px solid #cfe3c9; border-radius:8px; padding:6px 12px;}
+
+  /* offline sync */
+  .offline{background:linear-gradient(180deg,#f0f6ee,#e6efe2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .sync{display:grid; grid-template-columns:1fr auto 1fr auto 1fr; gap:14px; align-items:center; margin-top:40px;}
+  .node{background:#fff; border:1px solid var(--line); border-radius:16px; padding:24px 20px; text-align:center; box-shadow:0 12px 28px rgba(20,48,79,.08);}
+  .node .ic{font-size:30px;}
+  .node b{display:block; font-family:"Space Grotesk",sans-serif; font-size:16px; color:var(--navy); margin:8px 0 4px;}
+  .node small{font-size:12.5px; color:var(--mut);}
+  .arrow{font-family:"Space Grotesk",sans-serif; font-size:22px; color:var(--green); text-align:center; letter-spacing:-2px;}
+  .arrow small{display:block; font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:var(--mut);}
+
+  /* bento features */
+  .bento{display:grid; grid-template-columns:repeat(4,1fr); grid-auto-rows:150px; gap:16px; margin-top:38px;}
+  .bx{background:#fff; border:1px solid var(--line); border-radius:16px; padding:22px; position:relative; overflow:hidden; transition:transform .2s, box-shadow .2s;}
+  .bx:hover{transform:translateY(-4px); box-shadow:0 18px 38px rgba(20,48,79,.12);}
+  .bx .ic{font-size:24px;}
+  .bx h3{font-family:"Space Grotesk",sans-serif; font-size:17px; margin:8px 0 4px; color:var(--navy); letter-spacing:-.2px;}
+  .bx p{margin:0; font-size:13px; color:var(--mut);}
+  .bx.w2{grid-column:span 2;}
+  .bx.deep{background:linear-gradient(160deg,var(--navy),#0d2038); border-color:var(--navy);}
+  .bx.deep h3{color:#fff;} .bx.deep p{color:#b4c8db;}
+  .bx.grn{background:linear-gradient(160deg,#eaf5e4,#dcecd2);}
+
+  /* screens */
+  .trio{display:grid; grid-template-columns:repeat(3,1fr); gap:30px; margin-top:38px;}
+  .scr{margin:0; text-align:center;}
+  .scr .fr{background:#fff; border:1px solid var(--line); padding:8px; border-radius:24px; box-shadow:0 20px 44px rgba(20,48,79,.13); transition:transform .2s; line-height:0;}
+  .scr .fr:hover{transform:translateY(-8px);}
+  .scr .fr img{width:100%; border-radius:17px; cursor:zoom-in;}
+  .scr figcaption{margin-top:13px; font-family:"Space Grotesk",sans-serif; font-size:13px; font-weight:500; letter-spacing:1.5px; text-transform:uppercase; color:var(--mut);}
+  .scr figcaption small{display:block; font-family:"Inter",sans-serif; font-size:12.5px; letter-spacing:0; text-transform:none; color:#8496a9; margin-top:3px;}
+
+  /* tech band */
+  .band{background:var(--navy); color:#fff;}
+  .band h2.t{color:#fff;} .band h2.t em{color:var(--lime);} .band .lead{color:#b4c8db;}
+  .stack{display:flex; flex-wrap:wrap; gap:10px; margin-top:26px;}
+  .stack span{font-size:13px; color:#e8f1f9; background:rgba(255,255,255,.07); border:1px solid rgba(140,198,63,.45); padding:9px 17px; border-radius:10px;}
+  footer{padding:34px 0 50px; text-align:center; color:var(--mut); font-size:13px;}
+  footer a{color:var(--green2); text-decoration:none; font-weight:600;}
+
+  #lb{display:none; position:fixed; inset:0; z-index:9999; background:rgba(12,26,40,.93); align-items:flex-start; justify-content:center; overflow:auto; cursor:zoom-out; padding:24px;}
+  #lb img{max-width:none; border-radius:12px; box-shadow:0 16px 60px rgba(0,0,0,.5);}
+  #lb .x{position:fixed; top:16px; right:22px; color:#fff; font-size:38px; cursor:pointer; line-height:1;}
+
+  @media (max-width:920px){
+    .hero .grid{grid-template-columns:1fr;} .route{height:380px; max-width:520px; margin:0 auto;}
+    .strip .wrap{grid-template-columns:1fr 1fr;}
+    .brief{grid-template-columns:1fr;}
+    .day::before{left:9px;}
+    .tstop, .tstop.alt{grid-template-columns:1fr; gap:16px; padding-left:36px;}
+    .tstop::before{left:9px; margin-left:-9px;}
+    .tstop .cell, .tstop.alt .cell{grid-column:1; text-align:left; padding:0;}
+    .tstop .cell p{margin-left:0;}
+    .tstop .shotbox, .tstop.alt .shotbox{grid-column:1; grid-row:auto; justify-self:start; margin-top:0;}
+    .sync{grid-template-columns:1fr;} .arrow{transform:rotate(90deg); padding:6px 0;}
+    .bento{grid-template-columns:1fr 1fr; grid-auto-rows:auto;} .bx.w2{grid-column:span 2;}
+    .trio{grid-template-columns:1fr; max-width:340px; margin-left:auto; margin-right:auto;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="wrap">
+  <a class="back" href="index.html" onclick="if(history.length>1){history.back();return false;}">&larr; Back</a>
+  <span class="who">CASE STUDY · <b>DAVID SILVERLIGHT</b></span>
+</div></div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div class="grid">
+      <div>
+        <span class="eyebrow">Field Service · Lawn Care · Xamarin.Forms</span>
+        <h1>Real Green <em>Systems</em></h1>
+        <p class="sub">The back office, riding shotgun.</p>
+        <p class="lead">A productivity app for lawn care and landscaping businesses that connects field technicians to the back office. Crews clock in, load the day's route, review customer history, navigate between stops, and document every job — with or without a signal.</p>
+        <div class="chips"><span>Daily schedules</span><span>Customer history</span><span>Route navigation</span><span>Offline job docs</span><span>Crew timesheets</span></div>
+      </div>
+      <div class="route">
+        <div class="stop"><span class="tag">CLOCK IN</span><img src="images/RealGreen/Login.png" alt="Real Green login by company and employee ID"></div>
+        <div class="stop"><span class="tag">THE ROUTE</span><img src="images/RealGreen/JobList.png" alt="Real Green daily job list with in-progress timer"></div>
+        <div class="stop"><span class="tag">THE CREW</span><img src="images/RealGreen/ClockOut.png" alt="Real Green crew timesheets with clock out"></div>
+      </div>
+    </div>
+  </div>
+  <div class="grass"></div>
+</header>
+
+<div class="strip">
+  <div class="wrap">
+    <div class="st"><span class="ic">📴</span><div><b>Offline-first</b><span>Full workday without a signal</span></div></div>
+    <div class="st"><span class="ic">🕖</span><div><b>Clock-in to clock-out</b><span>One app for the whole shift</span></div></div>
+    <div class="st"><span class="ic">📱</span><div><b>iOS + Android</b><span>Single Xamarin.Forms codebase</span></div></div>
+    <div class="st"><span class="ic">🗒️</span><div><b>Zero paper</b><span>Job docs captured in the field</span></div></div>
+  </div>
+</div>
+
+<!-- BRIEF -->
+<section>
+  <div class="wrap">
+    <span class="eyebrow">The brief</span>
+    <h2 class="t">Field crews and the office, <em>on the same page</em></h2>
+    <div class="brief">
+      <div class="bcard">
+        <p>Real Green Systems (by WorkWave) builds the software that runs thousands of lawn care and landscaping businesses. Their field app is where that software meets the truck: technicians sign in with a company and employee ID, pick up the day's schedule, and work stop by stop — starting timers, recording the services performed at each property, flagging jobs that couldn't be serviced, and heading back to the depot when the route is done.</p>
+        <p>The defining constraint is connectivity. Lawn crews spend their day in suburbs, backyards and rural routes where coverage comes and goes — so every workflow had to run locally first, syncing job documentation, timesheets and status changes back to the office whenever a connection was available.</p>
+        <p>The result replaces the clipboard entirely: schedules, customer history, navigation and proof-of-service all live on the device the technician already carries.</p>
+      </div>
+      <div class="role">
+        <span class="k">My Role</span>
+        <h3>Xamarin.Forms Developer</h3>
+        <p>Built and maintained field-facing features across the job workflow — schedules and job states, timesheets and crew clock-in/out, route and depot navigation, and offline-resilient data flows syncing to Real Green's back office.</p>
+        <div class="tg"><span>Job workflow</span><span>Timesheets</span><span>Offline sync</span><span>Navigation</span><span>REST integration</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DAY ON THE ROUTE -->
+<section style="padding-top:20px;">
+  <div class="wrap">
+    <div style="text-align:center;">
+      <span class="eyebrow">How it's used</span>
+      <h2 class="t">A day on <em>the route</em></h2>
+      <p class="lead" style="margin:0 auto;">The app follows the technician's shift from the first clock-in to the last stop.</p>
+    </div>
+
+    <div class="day">
+      <div class="tstop">
+        <div class="cell">
+          <span class="when">6:45 AM</span>
+          <h3>Clock in, crew up</h3>
+          <p>Techs sign in with their company and employee ID. Crew leads see the whole team's timesheet — who's clocked in, since when — and manage clock-outs at day's end.</p>
+        </div>
+        <div class="shotbox"><img src="images/RealGreen/ClockOut.png" alt="Crew timesheets — clocked-in technicians with clock out"></div>
+      </div>
+
+      <div class="tstop alt">
+        <div class="cell">
+          <span class="when">7:05 AM</span>
+          <h3>Load the route</h3>
+          <p>The day's schedule arrives from the back office, sequenced stop by stop, with customer history and the exact service codes sold at each property. One tap navigates to the next address — or back to the depot.</p>
+        </div>
+        <div class="shotbox"><img src="images/RealGreen/Login.png" alt="Real Green login screen"></div>
+      </div>
+
+      <div class="tstop">
+        <div class="cell">
+          <span class="when">7:30 AM</span>
+          <h3>Work the jobs</h3>
+          <p>Starting a job starts the timer. Services performed are tracked against the work order; finished stops roll into the completed list, and a locked gate or unpaid account can be flagged "not serviceable" with a reason the office sees immediately.</p>
+          <span class="callout">⏱ In progress · 00:03:45 — every minute accounted for</span>
+        </div>
+        <div class="shotbox"><img src="images/RealGreen/JobList.png" alt="Job list with in-progress job, timer, services and depot"></div>
+      </div>
+
+      <div class="tstop alt">
+        <div class="cell">
+          <span class="when">4:50 PM</span>
+          <h3>Document, sync, clock out</h3>
+          <p>Job notes and statuses captured offline throughout the day sync home as coverage allows. The crew clocks out from the same screen they started on — and the office already has the whole day's story.</p>
+        </div>
+        <div class="cell ghost"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFLINE -->
+<section class="offline">
+  <div class="wrap">
+    <div style="text-align:center;">
+      <span class="eyebrow">The hard part</span>
+      <h2 class="t">Signal <em>optional</em></h2>
+      <p class="lead" style="margin:0 auto;">Backyards, basements and rural routes don't care about your coverage map. Every workflow writes locally first and syncs opportunistically.</p>
+    </div>
+    <div class="sync">
+      <div class="node"><span class="ic">📱</span><b>In the field</b><small>Jobs, timers, notes and statuses saved to the device the moment they happen</small></div>
+      <div class="arrow">⇄<small>queued</small></div>
+      <div class="node"><span class="ic">🗂️</span><b>Local store</b><small>Changes held in a durable on-device queue — nothing lost between bars of signal</small></div>
+      <div class="arrow">⇄<small>on signal</small></div>
+      <div class="node"><span class="ic">🏢</span><b>Back office</b><small>Real Green's platform receives the day's work and keeps dispatch in the loop</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES BENTO -->
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Feature set</span>
+    <h2 class="t">Everything a crew needs, <em>nothing it doesn't</em></h2>
+    <div class="bento">
+      <div class="bx w2 deep"><span class="ic">🗓️</span><h3>Daily schedules</h3><p>Routes sequenced by the back office, delivered to the truck — in-progress, completed and not-serviceable states at a glance.</p></div>
+      <div class="bx"><span class="ic">🧾</span><h3>Customer history</h3><p>Property, program and past-visit context at every stop.</p></div>
+      <div class="bx grn"><span class="ic">🧭</span><h3>Route navigation</h3><p>Turn-by-turn to the next job, or back to the depot.</p></div>
+      <div class="bx"><span class="ic">⏱️</span><h3>Job timers</h3><p>Start-to-finish timing per stop for accurate job costing.</p></div>
+      <div class="bx"><span class="ic">🏷️</span><h3>Service codes</h3><p>The exact services sold at each property, tracked as performed.</p></div>
+      <div class="bx w2 grn"><span class="ic">🕐</span><h3>Crew timesheets</h3><p>Clock-in/clock-out for the whole crew — leads manage the team's day from one screen.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SCREENS -->
+<section style="padding-top:16px;">
+  <div class="wrap">
+    <span class="eyebrow">The screens</span>
+    <h2 class="t">In the <em>truck</em></h2>
+    <div class="trio">
+      <figure class="scr"><div class="fr"><img src="images/RealGreen/Login.png" alt="Login — company ID, employee ID and password"></div><figcaption>Sign In<small>Company + employee ID authentication</small></figcaption></figure>
+      <figure class="scr"><div class="fr"><img src="images/RealGreen/JobList.png" alt="Jobs — in-progress with timer, depot, completed and not serviceable"></div><figcaption>The Route<small>Live job states, timer &amp; depot</small></figcaption></figure>
+      <figure class="scr"><div class="fr"><img src="images/RealGreen/ClockOut.png" alt="Timesheets — crew clock in and clock out"></div><figcaption>Timesheets<small>Whole-crew clock-in / clock-out</small></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- TECH -->
+<section class="band">
+  <div class="wrap">
+    <span class="eyebrow" style="background:rgba(140,198,63,.14); border-color:rgba(140,198,63,.4); color:var(--lime);">Under the hood</span>
+    <h2 class="t">Built for the <em>field</em></h2>
+    <p class="lead">One C# codebase shipping native iOS and Android — structured for offline resilience and long shifts on modest hardware.</p>
+    <div class="stack">
+      <span>Xamarin.Forms</span><span>C# / .NET</span><span>MVVM</span><span>Offline-first sync</span><span>SQLite local store</span><span>RESTful Services</span><span>Maps &amp; Navigation</span><span>Xamarin.Essentials</span><span>iOS &amp; Android</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Real Green Systems (by WorkWave) — case study · Built by <a href="index.html">David Silverlight</a>
+</footer>
+
+<div id="lb"><span class="x">&times;</span><img alt="Expanded screenshot"></div>
+<script>
+(function(){
+  var lb=document.getElementById('lb'), im=lb.querySelector('img');
+  document.querySelectorAll('.route img, .shotbox img, .scr img').forEach(function(g){
+    g.addEventListener('click', function(){ im.src=g.src; lb.style.display='flex'; });
+  });
+  lb.addEventListener('click', function(){ lb.style.display='none'; im.src=''; });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MVP HealthCare — Gia · Case Study · David Silverlight</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,500&family=Karla:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --crimson:#a5133f; --wine:#761030; --berry:#c22553;
+    --cream:#faf6f0; --paper:#ffffff; --blush:#f5e6ea;
+    --ink:#2b2126; --mut:#83717a; --line:#e8dcd6; --gold:#c9a35f;
+  }
+  *{box-sizing:border-box;} html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--cream); color:var(--ink); font-family:"Karla","Segoe UI",Arial,sans-serif; line-height:1.7; font-weight:400; -webkit-font-smoothing:antialiased;}
+  h1,h2,h3,.serif{font-family:"Fraunces",Georgia,serif;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 30px;}
+  section{padding:84px 0; position:relative;}
+
+  /* folio numbers — editorial page markers */
+  .folio{position:absolute; top:64px; right:30px; font-family:"Fraunces",serif; font-style:italic; font-weight:300; font-size:15px; color:var(--crimson); letter-spacing:1px;}
+  .folio::before{content:""; display:inline-block; width:44px; height:1px; background:var(--crimson); vertical-align:middle; margin-right:10px; opacity:.5;}
+
+  .kick{font-size:11px; font-weight:600; letter-spacing:4px; text-transform:uppercase; color:var(--crimson);}
+  h2.t{font-weight:500; font-size:clamp(34px,4.8vw,56px); line-height:1.05; letter-spacing:-.5px; margin:10px 0 14px; color:var(--ink);}
+  h2.t em{font-style:italic; color:var(--crimson); font-weight:300;}
+  .lead{color:var(--mut); font-size:16.5px; max-width:620px;}
+  .rule{border:0; border-top:1px solid var(--line); margin:0;}
+
+  /* top bar */
+  .topbar{position:sticky; top:0; z-index:60; background:rgba(250,246,240,.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:58px;}
+  .back{display:inline-flex; align-items:center; gap:8px; text-decoration:none; color:#fff; background:var(--crimson); font-weight:600; font-size:12px; letter-spacing:1.5px; text-transform:uppercase; padding:9px 18px; border-radius:30px;}
+  .topbar .who{font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--mut);}
+  .topbar .who b{color:var(--crimson);}
+
+  /* ===== hero — the 24/7 dial ===== */
+  .hero{position:relative; overflow:hidden; text-align:center; padding:86px 0 70px;
+    background:radial-gradient(760px 420px at 50% -16%, rgba(165,19,63,.09), transparent 62%), var(--cream);}
+  .hero .ghost{position:absolute; left:50%; top:44%; transform:translate(-50%,-50%); font-family:"Fraunces",serif; font-weight:600; font-size:clamp(200px,34vw,420px); line-height:1; color:rgba(165,19,63,.05); pointer-events:none; white-space:nowrap;}
+  .hero .eyebrow{display:inline-block; font-size:11.5px; letter-spacing:4px; text-transform:uppercase; color:var(--crimson); border-bottom:1px solid var(--crimson); padding-bottom:6px;}
+  .hero h1{font-weight:300; font-size:clamp(44px,6.6vw,84px); line-height:1.04; margin:26px auto 10px; max-width:800px; letter-spacing:-.5px;}
+  .hero h1 em{font-style:italic; font-weight:500; color:var(--crimson);}
+  .hero .std{font-family:"Fraunces",serif; font-style:italic; font-size:18px; color:var(--mut); margin:0 0 44px;}
+  /* dial */
+  .dial{position:relative; width:min(560px,92vw); height:340px; margin:0 auto;}
+  .dial .ring{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:330px; height:330px; border-radius:50%; border:1px solid rgba(165,19,63,.30);}
+  .dial .ring.r2{width:390px; height:390px; border-style:dashed; opacity:.5;}
+  .dial .tick{position:absolute; left:50%; top:50%; width:6px; height:6px; margin:-3px; border-radius:50%; background:var(--berry); opacity:.55;}
+  .dial .ph{position:absolute; border-radius:26px; box-shadow:0 30px 60px rgba(118,16,48,.25); transition:transform .25s; line-height:0; background:transparent;}
+  .dial .ph img{border-radius:22px; display:block; cursor:zoom-in;}
+  .dial .ph.c{left:50%; top:50%; transform:translate(-50%,-52%); z-index:3;}
+  .dial .ph.c img{width:172px;}
+  .dial .ph.l{left:6%; top:56%; transform:translateY(-50%) rotate(-7deg); z-index:2; opacity:.96;}
+  .dial .ph.l img{width:128px;}
+  .dial .ph.r{right:6%; top:56%; transform:translateY(-50%) rotate(7deg); z-index:2; opacity:.96;}
+  .dial .ph.r img{width:128px;}
+  .dial .ph:hover{z-index:9; transform:translate(-50%,-56%);}
+  .dial .ph.l:hover{transform:translateY(-56%) rotate(0);} .dial .ph.r:hover{transform:translateY(-56%) rotate(0);}
+  .dial .lbl{position:absolute; font-family:"Fraunces",serif; font-style:italic; font-size:14px; color:var(--crimson);}
+  .dial .lbl.tl{left:2%; top:6%;} .dial .lbl.tr{right:2%; top:6%;}
+
+  /* ===== editorial brief ===== */
+  .mag{display:grid; grid-template-columns:1.35fr .65fr; gap:54px; margin-top:34px;}
+  .mag .body p{font-size:16px; color:#4a3d44; margin:0 0 16px;}
+  .mag .body p:first-child::first-letter{font-family:"Fraunces",serif; font-weight:600; font-size:64px; line-height:.85; float:left; padding:6px 12px 0 0; color:var(--crimson);}
+  .pull{border-left:2px solid var(--crimson); padding:6px 0 6px 24px; align-self:start;}
+  .pull p{font-family:"Fraunces",serif; font-style:italic; font-weight:300; font-size:24px; line-height:1.4; color:var(--ink); margin:0 0 14px;}
+  .pull small{font-size:11.5px; letter-spacing:2.5px; text-transform:uppercase; color:var(--mut);}
+  .freefn{margin-top:26px; font-size:13px; color:var(--mut); border-top:1px solid var(--line); padding-top:14px; max-width:620px;}
+  .freefn b{color:var(--crimson);}
+
+  /* ===== three doors of care ===== */
+  .doors{margin-top:40px; border-top:1px solid var(--line);}
+  .door{display:grid; grid-template-columns:70px 1.1fr .9fr 190px; gap:26px; align-items:center; padding:30px 6px; border-bottom:1px solid var(--line); transition:background .2s;}
+  .door:hover{background:rgba(255,255,255,.75);}
+  .door .no{font-family:"Fraunces",serif; font-style:italic; font-weight:300; font-size:40px; color:rgba(165,19,63,.35); line-height:1;}
+  .door h3{font-weight:500; font-size:26px; margin:0 0 4px; letter-spacing:-.3px;}
+  .door h3 em{font-style:italic; color:var(--crimson);}
+  .door .what{margin:0; font-size:14.5px; color:var(--mut);}
+  .door .via{font-size:13px; color:#4a3d44;}
+  .door .via b{display:block; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--mut); margin-bottom:3px; font-weight:600;}
+  .badge{justify-self:end; text-align:center; background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:12px 18px; box-shadow:0 8px 20px rgba(118,16,48,.07);}
+  .badge b{display:block; font-family:"Fraunces",serif; font-size:22px; color:var(--crimson); font-weight:500;}
+  .badge small{font-size:10.5px; letter-spacing:1.5px; text-transform:uppercase; color:var(--mut);}
+
+  /* ===== the receipt ===== */
+  .savings{background:linear-gradient(170deg,var(--wine),var(--crimson) 90%); color:#fff;}
+  .savings .kick{color:#f0c9d5;}
+  .savings h2.t{color:#fff;} .savings h2.t em{color:#ffd9e4;}
+  .savings .lead{color:#ecc7d2;}
+  .sav-grid{display:grid; grid-template-columns:1fr .9fr; gap:56px; align-items:center; margin-top:24px;}
+  .receipt{background:var(--paper); color:var(--ink); border-radius:6px; padding:34px 34px 26px; max-width:400px; margin-left:auto; position:relative;
+    box-shadow:0 34px 70px rgba(0,0,0,.35);}
+  .receipt::after{content:""; position:absolute; left:0; right:0; bottom:-14px; height:14px;
+    background:linear-gradient(-45deg, transparent 33.33%, var(--paper) 33.33%, var(--paper) 66.66%, transparent 66.66%), linear-gradient(45deg, transparent 33.33%, var(--paper) 33.33%, var(--paper) 66.66%, transparent 66.66%);
+    background-size:16px 28px; background-position:0 -14px;}
+  .receipt .hd{text-align:center; border-bottom:1px dashed var(--line); padding-bottom:14px; margin-bottom:8px;}
+  .receipt .hd b{font-family:"Fraunces",serif; font-weight:500; font-size:19px; letter-spacing:.5px;}
+  .receipt .hd small{display:block; font-size:11px; letter-spacing:2.5px; text-transform:uppercase; color:var(--mut); margin-top:3px;}
+  .rrow{display:flex; justify-content:space-between; align-items:baseline; padding:11px 0; border-bottom:1px dashed var(--line); font-size:14px; color:#4a3d44;}
+  .rrow b{font-family:"Fraunces",serif; font-size:22px; font-weight:500; color:var(--ink);}
+  .rrow.save b{color:#1b8a5a;} .rrow.save{color:#1b8a5a;}
+  .rrow.you{border-bottom:0;} .rrow.you b{font-size:30px; color:var(--crimson);}
+  .receipt .thanks{text-align:center; font-family:"Fraunces",serif; font-style:italic; font-size:13px; color:var(--mut); margin-top:12px;}
+  .sav-copy p{color:#f4dbe3; font-size:15.5px; margin:0 0 16px;}
+  .sav-copy .pts{margin:22px 0 0; padding:0; list-style:none;}
+  .sav-copy .pts li{position:relative; padding:8px 0 8px 30px; font-size:14.5px; color:#fbe9ef;}
+  .sav-copy .pts li::before{content:"✚"; position:absolute; left:0; top:8px; color:#ffd9e4; font-size:13px;}
+
+  /* ===== screens — asymmetric editorial grid ===== */
+  .shelf{display:grid; grid-template-columns:1.15fr .85fr; gap:44px; margin-top:44px; align-items:end;}
+  .shelf .big{margin:0;}
+  .shelf .big .fr, .duo .fr{background:var(--paper); border:1px solid var(--line); border-radius:26px; padding:10px; line-height:0; box-shadow:0 26px 54px rgba(118,16,48,.13); transition:transform .25s;}
+  .shelf .fr:hover{transform:translateY(-8px);}
+  .shelf img{width:100%; border-radius:18px; cursor:zoom-in;}
+  .shelf figcaption, .duo figcaption{margin-top:14px; line-height:1.5;}
+  .shelf figcaption b, .duo figcaption b{display:block; font-family:"Fraunces",serif; font-weight:500; font-size:19px; letter-spacing:-.2px;}
+  .shelf figcaption small, .duo figcaption small{font-size:13px; color:var(--mut);}
+  .duo{display:grid; grid-template-columns:1fr 1fr; gap:26px;}
+  .duo figure{margin:0;}
+  .shelf .cap-rule{height:1px; background:var(--line); margin:34px 0 18px;}
+
+  /* ===== tech ===== */
+  .tech .stack{display:flex; flex-wrap:wrap; gap:10px; margin-top:26px;}
+  .tech .stack span{font-size:13px; color:var(--wine); background:var(--blush); border:1px solid #ecd2da; padding:9px 18px; border-radius:30px;}
+  .tech .note{margin-top:30px; max-width:720px; border-left:2px solid var(--crimson); padding:4px 0 4px 22px; font-family:"Fraunces",serif; font-style:italic; font-size:17px; color:#5c4d55;}
+
+  footer{padding:36px 0 54px; text-align:center; color:var(--mut); font-size:13px;}
+  footer a{color:var(--crimson); text-decoration:none; font-weight:600;}
+
+  #lb{display:none; position:fixed; inset:0; z-index:9999; background:rgba(43,15,25,.94); align-items:flex-start; justify-content:center; overflow:auto; cursor:zoom-out; padding:24px;}
+  #lb img{max-width:none; border-radius:12px; box-shadow:0 16px 60px rgba(0,0,0,.5);}
+  #lb .x{position:fixed; top:16px; right:22px; color:#fff; font-size:38px; cursor:pointer; line-height:1;}
+
+  @media (max-width:900px){
+    .mag{grid-template-columns:1fr;}
+    .door{grid-template-columns:44px 1fr; row-gap:10px;}
+    .door .via{grid-column:2;} .badge{grid-column:2; justify-self:start;}
+    .sav-grid{grid-template-columns:1fr;} .receipt{margin:0 auto;}
+    .shelf{grid-template-columns:1fr;}
+    .dial{height:auto; padding:10px 0 20px;}
+    .dial .ring,.dial .ring.r2,.dial .tick{display:none;}
+    .dial .ph{position:static; display:inline-block; margin:8px;}
+    .dial .ph.c,.dial .ph.l,.dial .ph.r{transform:none;}
+    .folio{position:static; display:block; margin-bottom:14px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="wrap">
+  <a class="back" href="index.html" onclick="if(history.length>1){history.back();return false;}">&larr; Back</a>
+  <span class="who">CASE STUDY · <b>DAVID SILVERLIGHT</b></span>
+</div></div>
+
+<!-- HERO -->
+<header class="hero">
+  <span class="ghost">24/7</span>
+  <div class="wrap" style="position:relative;">
+    <span class="eyebrow">Gia · by MVP Health Care · Xamarin.Forms</span>
+    <h1>Care that <em>never sleeps.</em></h1>
+    <p class="std">Whenever. Wherever. And for most MVP members — free.*</p>
+    <div class="dial">
+      <span class="ring"></span><span class="ring r2"></span>
+      <span class="tick" style="transform:rotate(0deg) translateY(-165px);"></span>
+      <span class="tick" style="transform:rotate(45deg) translateY(-165px);"></span>
+      <span class="tick" style="transform:rotate(90deg) translateY(-165px);"></span>
+      <span class="tick" style="transform:rotate(135deg) translateY(-165px);"></span>
+      <span class="tick" style="transform:rotate(180deg) translateY(-165px);"></span>
+      <span class="tick" style="transform:rotate(225deg) translateY(-165px);"></span>
+      <span class="tick" style="transform:rotate(270deg) translateY(-165px);"></span>
+      <span class="tick" style="transform:rotate(315deg) translateY(-165px);"></span>
+      <span class="lbl tl">3 AM fevers</span>
+      <span class="lbl tr">Sunday questions</span>
+      <div class="ph l"><img src="images/MVPHealthcare/VirtualCare.png" alt="Virtual care options — urgent, everyday and behavioral health"></div>
+      <div class="ph c"><img src="images/MVPHealthcare/Splash.png" alt="Gia by MVP splash screen"></div>
+      <div class="ph r"><img src="images/MVPHealthcare/Home.png" alt="Gia home — get care and my plan"></div>
+    </div>
+  </div>
+</header>
+<hr class="rule">
+
+<!-- 01 · BRIEF -->
+<section>
+  <span class="folio">No. 01 — The Brief</span>
+  <div class="wrap">
+    <span class="kick">The brief</span>
+    <h2 class="t">Health care, reduced to <em>one tap</em></h2>
+    <div class="mag">
+      <div class="body">
+        <p>MVP Health Care serves hundreds of thousands of members across New York and Vermont. Gia is how those members carry their health plan with them: an app that answers the 3 a.m. question — <i>"do I wait, call, or go in?"</i> — with an actual clinician, around the clock.</p>
+        <p>From one home screen, members reach virtual care, search doctors and facilities, pull up ID cards, and understand their claims. The virtual side is tiered the way real life is: urgent care by phone for the sudden stuff, everyday care by in-app message for prescriptions and routine conditions, and behavioral health by video — therapy and medication management included.</p>
+        <p>And because an unread bill is its own health hazard, every claim opens into a plain-language breakdown — what was charged, what MVP covered, and what's actually yours to pay.</p>
+      </div>
+      <div class="pull">
+        <p>"Get care, get answers, get healthier — whenever and wherever you need it."</p>
+        <small>The promise the UI had to keep</small>
+      </div>
+    </div>
+    <p class="freefn"><b>*</b> Virtual care through Gia is available 24/7 and is free for most MVP members.</p>
+  </div>
+</section>
+<hr class="rule">
+
+<!-- 02 · THREE DOORS -->
+<section>
+  <span class="folio">No. 02 — Care Paths</span>
+  <div class="wrap">
+    <span class="kick">Virtual care</span>
+    <h2 class="t">Three doors, all of them <em>open</em></h2>
+    <p class="lead">Certified healthcare professionals, 24/7 — matched to the urgency of the moment.</p>
+    <div class="doors">
+      <div class="door">
+        <span class="no">i.</span>
+        <div><h3>Urgent <em>care</em></h3><p class="what">Sudden, can't-wait needs — worsening cold and flu, minor injuries, urgent symptoms.</p></div>
+        <div class="via"><b>How</b>Phone call with a clinician</div>
+        <div class="badge"><b>~20 min</b><small>avg response</small></div>
+      </div>
+      <div class="door">
+        <span class="no">ii.</span>
+        <div><h3>Everyday <em>health</em></h3><p class="what">Routine medical needs — UTIs, dermatology, birth control, prescriptions, diabetes.</p></div>
+        <div class="via"><b>How</b>In-app messaging</div>
+        <div class="badge"><b>~2 hrs</b><small>avg response</small></div>
+      </div>
+      <div class="door">
+        <span class="no">iii.</span>
+        <div><h3>Behavioral <em>health</em></h3><p class="what">Mental and behavioral care — therapy and medication management, by appointment.</p></div>
+        <div class="via"><b>How</b>Video appointment</div>
+        <div class="badge"><b>7–28 days</b><small>scheduled</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 · SAVINGS -->
+<section class="savings">
+  <span class="folio" style="color:#ffd9e4;">No. 03 — The Money</span>
+  <div class="wrap">
+    <div class="sav-grid">
+      <div class="sav-copy">
+        <span class="kick">Cost transparency</span>
+        <h2 class="t">Even better — it <em>saves you money</em></h2>
+        <p>Claims in Gia read like a receipt, not a riddle. Each one shows the provider's charges, what MVP covered, and the member's actual cost — with "Explain my bill" and service details one tap deeper, and the formal Explanation of Benefits attached as a PDF.</p>
+        <ul class="pts">
+          <li>Plain-language claim status — submitted, processed, paid</li>
+          <li>"MVP Saved You" line makes the plan's value visible on every claim</li>
+          <li>EOB and determination letters available right from the claim</li>
+        </ul>
+      </div>
+      <div class="receipt">
+        <div class="hd"><b>Claim #123456</b><small>Medical · Processed</small></div>
+        <div class="rrow"><span>Charges</span><b>$88.62</b></div>
+        <div class="rrow save"><span>MVP saved you</span><b>−$68.62</b></div>
+        <div class="rrow you"><span>Your cost</span><b>$20.00</b></div>
+        <p class="thanks">— every claim, explained —</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 · SCREENS -->
+<section>
+  <span class="folio">No. 04 — The Screens</span>
+  <div class="wrap">
+    <span class="kick">In the app</span>
+    <h2 class="t">A calm surface over a <em>complex plan</em></h2>
+    <div class="shelf">
+      <figure class="big">
+        <div class="fr"><img src="images/MVPHealthcare/Home.png" alt="Gia home screen — Get Care and My Plan hubs"></div>
+        <figcaption><b>Home</b><small>Two questions, answered instantly: "I need care" (virtual care, doctor &amp; facility search) and "my plan" (claims, ID cards, benefits).</small></figcaption>
+      </figure>
+      <div class="duo">
+        <figure>
+          <div class="fr"><img src="images/MVPHealthcare/VirtualCare.png" alt="Virtual care tiers with response times"></div>
+          <figcaption><b>Virtual Care</b><small>The three care paths, with honest response times.</small></figcaption>
+        </figure>
+        <figure>
+          <div class="fr"><img src="images/MVPHealthcare/Claim.png" alt="Claim detail with charges, savings and member cost"></div>
+          <figcaption><b>Claims</b><small>Charges → saved → your cost, plus the EOB.</small></figcaption>
+        </figure>
+        <figure>
+          <div class="fr"><img src="images/MVPHealthcare/Splash.png" alt="Gia splash screen"></div>
+          <figcaption><b>Gia</b><small>The brand moment — with the 9-1-1 notice where it belongs.</small></figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+<hr class="rule">
+
+<!-- 05 · TECH -->
+<section class="tech">
+  <span class="folio">No. 05 — Under the Hood</span>
+  <div class="wrap">
+    <span class="kick">Under the hood</span>
+    <h2 class="t">One codebase, both <em>bedside tables</em></h2>
+    <p class="lead">Built on Xamarin.Forms — a single C# codebase delivering native iOS and Android experiences for a healthcare audience that spans every age and device generation.</p>
+    <div class="stack">
+      <span>Xamarin.Forms</span><span>C# / .NET</span><span>MVVM</span><span>RESTful Services</span><span>Secure member auth</span><span>PDF viewing (EOB)</span><span>iOS &amp; Android</span>
+    </div>
+    <p class="note">Healthcare UX rewards restraint: large targets, plain words, honest wait times, and the emergency disclaimer always one glance away.</p>
+  </div>
+</section>
+
+<footer>
+  Gia · MVP Health Care — case study · Built by <a href="index.html">David Silverlight</a>
+</footer>
+
+<div id="lb"><span class="x">&times;</span><img alt="Expanded screenshot"></div>
+<script>
+(function(){
+  var lb=document.getElementById('lb'), im=lb.querySelector('img');
+  document.querySelectorAll('.dial img, .shelf img').forEach(function(g){
+    g.addEventListener('click', function(){ im.src=g.src; lb.style.display='flex'; });
+  });
+  lb.addEventListener('click', function(){ lb.style.display='none'; im.src=''; });
+})();
+</script>
+</body>
+</html>

@@ -24,6 +24,20 @@
   h2.section{font-size:19px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:#fff; background:linear-gradient(90deg,var(--accent),var(--accent2)); padding:10px 16px; border-radius:6px; margin:38px 0 18px; box-shadow:0 2px 6px rgba(20,40,80,.18);}
   .grid{display:grid; grid-template-columns:repeat(2,1fr); gap:30px 20px; align-items:stretch; grid-auto-rows:1fr;}
   .card{background:var(--card); border:1px solid #dde3ec; border-radius:12px; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 10px 26px rgba(30,50,90,.14), 0 2px 6px rgba(30,50,90,.08);}
+  /* global thumbnail bob — animates `translate` so each scene's own transforms (rotations, offsets, hover lifts) are preserved */
+  @keyframes thumbBob{0%,100%{translate:0 0;}50%{translate:0 -7px;}}
+  .shot :is(.dev,.pol,.pin,.pt,.parcel,.cap,.res,.win,.s,.pad,.wp,.zone,.snap,.tmcell),
+  .shot:not(.vidposter) img:not(:is(.dev,.pol,.pin,.pt,.parcel,.cap,.res,.win,.s,.pad,.wp,.zone,.snap,.tmcell,.topper,.stake,.giacard) img){animation:thumbBob 5.6s ease-in-out infinite;}
+  .shot :is(.dev,.pol,.pin,.pt,.parcel,.cap,.res,.win,.s,.pad,.wp,.zone,.snap,.tmcell,img):nth-child(2){animation-duration:6.3s; animation-delay:-1.9s;}
+  .shot :is(.dev,.pol,.pin,.pt,.parcel,.cap,.res,.win,.s,.pad,.wp,.zone,.snap,.tmcell,img):nth-child(3){animation-duration:5.1s; animation-delay:-.9s;}
+  .shot :is(.dev,.pol,.pin,.pt,.parcel,.cap,.res,.win,.s,.pad,.wp,.zone,.snap,.tmcell,img):nth-child(4){animation-duration:6.0s; animation-delay:-2.8s;}
+  .shot :is(.dev,.pol,.pin,.pt,.parcel,.cap,.res,.win,.s,.pad,.wp,.zone,.snap,.tmcell,img):nth-child(5){animation-duration:5.3s; animation-delay:-1.4s;}
+  .shot :is(.dev,.pol,.pin,.pt,.parcel,.cap,.res,.win,.s,.pad,.wp,.zone,.snap,.tmcell,img):nth-child(6){animation-duration:6.5s; animation-delay:-3.5s;}
+  .shot :is(.dev,.pol,.pin,.pt,.parcel,.cap,.res,.win,.s,.pad,.wp,.zone,.snap,.tmcell,img):nth-child(7){animation-duration:5.8s; animation-delay:-2.2s;}
+  .shot :is(.dev,.pol,.pin,.pt,.parcel,.cap,.res,.win,.s,.pad,.wp,.zone,.snap,.tmcell,img):nth-child(8){animation-duration:6.2s; animation-delay:-3.0s;}
+  .shot :is(.dev,.pol,.pin,.pt,.parcel,.cap,.res,.win,.s,.pad,.wp,.zone,.snap,.tmcell,img):hover{animation-play-state:paused;}
+  #kudurrustone .iso-plane .dev, #kinship .iso-plane .dev{transition:transform .25s ease;}
+  #kudurrustone .iso-plane .dev:hover, #kinship .iso-plane .dev:hover{transform:translateY(-10px) scale(1.06); z-index:9;}
   #tmobile{background:var(--card); border:1px solid var(--rule); box-shadow:0 1px 3px rgba(20,40,80,.06);}
   #tmobile .shot-link{position:absolute; inset:0; z-index:20; display:block; cursor:pointer;}
   .shot{height:230px; background:#ffffff; display:flex; align-items:center; justify-content:center; border-bottom:1px solid var(--rule); overflow:hidden;}
@@ -64,6 +78,38 @@
   .shot.gmap .pin::after{content:""; position:absolute; left:50%; bottom:-9px; margin-left:-8px; border:8px solid transparent; border-top:10px solid #fff; border-bottom:0;}
   .shot.gmap .pin img{width:104px; display:block; border-radius:7px; cursor:zoom-in;}
   .shot.gmap .pin:hover{transform:translateY(-6px) scale(1.04); z-index:9;}
+  /* Club Holiday — night forecourt with lit pump-topper screens */
+  .shot.fuel{position:relative; height:225px; overflow:hidden; border-bottom:1px solid var(--rule); background:radial-gradient(circle at 80% 16%, rgba(255,210,63,.30) 0 7px, transparent 38px), radial-gradient(420px 170px at 50% 118%, rgba(255,210,63,.16), transparent 70%), linear-gradient(180deg,#3d0d12 0%, #24080b 55%, #140507);}
+  .shot.fuel::before{content:"CLUB HOLIDAY"; position:absolute; left:50%; top:10px; transform:translateX(-50%); font:800 11px/1 "Mulish",Arial,sans-serif; letter-spacing:3px; color:#ffd23f; background:#5c0f14; border:1px solid rgba(255,210,63,.55); border-radius:20px; padding:6px 14px; box-shadow:0 0 18px rgba(255,210,63,.35); z-index:3;}
+  .shot.fuel::after{content:""; position:absolute; left:-4%; right:-4%; bottom:14px; height:3px; background:repeating-linear-gradient(90deg,#ffd23f 0 18px, transparent 18px 36px); opacity:.45;}
+  .shot.fuel .topper{position:absolute; z-index:2; background:#fffdf8; padding:3px; border-radius:9px; box-shadow:0 0 0 1px rgba(255,210,63,.5), 0 12px 22px rgba(0,0,0,.55), 0 0 20px rgba(255,210,63,.18); transition:transform .2s ease; animation:thumbBob 5.6s ease-in-out infinite;}
+  .shot.fuel .topper::after{content:""; position:absolute; left:50%; bottom:-16px; margin-left:-3px; width:6px; height:16px; background:linear-gradient(180deg,#8c6a20,#3a2a10);}
+  .shot.fuel .topper img{width:64px; display:block; border-radius:6px; cursor:zoom-in;}
+  .shot.fuel .topper:nth-of-type(2){animation-duration:6.3s; animation-delay:-1.9s;}
+  .shot.fuel .topper:nth-of-type(3){animation-duration:5.1s; animation-delay:-.9s;}
+  .shot.fuel .topper:nth-of-type(4){animation-duration:6.0s; animation-delay:-2.8s;}
+  .shot.fuel .topper:hover{transform:translateY(-6px); z-index:9; animation-play-state:paused;}
+  /* Real Green — striped mown-lawn scene with staked screens */
+  .shot.lawn{position:relative; height:225px; overflow:hidden; border-bottom:1px solid var(--rule); background:repeating-linear-gradient(115deg, #5aa65f 0 34px, #4d9552 34px 68px);}
+  .shot.lawn::before{content:""; position:absolute; left:-8%; right:-8%; top:60%; border-top:3px dashed rgba(255,255,255,.7); transform:rotate(-7deg);}
+  .shot.lawn::after{content:"🚜"; position:absolute; left:12px; bottom:10px; font-size:26px; transform:scaleX(-1); filter:drop-shadow(0 3px 4px rgba(20,50,25,.5));}
+  .shot.lawn .stake{position:absolute; z-index:2; background:#fff; padding:3px; border-radius:9px; box-shadow:0 12px 22px rgba(15,45,25,.42); transition:transform .2s ease; animation:thumbBob 5.6s ease-in-out infinite;}
+  .shot.lawn .stake::after{content:""; position:absolute; left:50%; bottom:-13px; margin-left:-3px; width:6px; height:13px; background:#e6e1d5; border-radius:0 0 3px 3px; box-shadow:0 2px 3px rgba(20,50,25,.4);}
+  .shot.lawn .stake img{width:74px; display:block; border-radius:6px; cursor:zoom-in;}
+  .shot.lawn .stake:nth-of-type(2){animation-duration:6.3s; animation-delay:-1.9s;}
+  .shot.lawn .stake:nth-of-type(3){animation-duration:5.1s; animation-delay:-.9s;}
+  .shot.lawn .stake:hover{transform:translateY(-6px); z-index:9; animation-play-state:paused;}
+  /* MVP Gia — cream 24/7 pulse-line scene */
+  .shot.gia{position:relative; height:225px; overflow:hidden; display:flex; align-items:center; justify-content:center; gap:14px; border-bottom:1px solid var(--rule); background:radial-gradient(300px 170px at 50% -20%, rgba(165,19,63,.16), transparent 65%), linear-gradient(170deg,#fdf8f2,#f7e7ec);}
+  .shot.gia::before{content:"24/7"; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); font:600 118px/1 Georgia,"Times New Roman",serif; font-style:italic; color:rgba(165,19,63,.09); pointer-events:none;}
+  .shot.gia::after{content:""; position:absolute; left:-6%; right:-6%; top:64%; border-top:3px dashed rgba(165,19,63,.28); transform:rotate(-4deg);}
+  .shot.gia .giacard{position:relative; z-index:2; background:#fff; padding:3px; border-radius:10px; box-shadow:0 14px 26px rgba(118,16,48,.24); transition:transform .2s ease; animation:thumbBob 5.6s ease-in-out infinite;}
+  .shot.gia .giacard img{width:66px; display:block; border-radius:7px; cursor:zoom-in;}
+  .shot.gia .giacard:nth-of-type(1){transform:rotate(-7deg) translateY(14px);}
+  .shot.gia .giacard:nth-of-type(2){transform:translateY(-8px); animation-duration:6.3s; animation-delay:-1.9s;}
+  .shot.gia .giacard:nth-of-type(3){transform:rotate(4deg) translateY(4px); animation-duration:5.1s; animation-delay:-.9s;}
+  .shot.gia .giacard:nth-of-type(4){transform:rotate(9deg) translateY(18px); animation-duration:6s; animation-delay:-2.8s;}
+  .shot.gia .giacard:hover{transform:translateY(-5px) scale(1.05); z-index:9; animation-play-state:paused;}
   /* ATrack — ascending progress-chart cascade */
   .shot.chart{position:relative; height:250px; overflow:hidden; border-bottom:1px solid var(--rule); background:linear-gradient(rgba(21,69,122,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(21,69,122,.06) 1px, transparent 1px), linear-gradient(180deg,#f7fafd,#eef4fa); background-size:24px 24px, 24px 24px, 100% 100%;}
   .shot.chart::before{content:""; position:absolute; left:-6%; right:-6%; top:60%; border-top:3px dashed #2c7a7b; transform:rotate(-14deg); opacity:.5;}
@@ -195,8 +241,6 @@
   .shot.collage.rows.dense{gap:7px; padding:10px 12px;}
   .shot.collage.rows.dense > img{max-height:60px;}
   .shot.collage.rows > img:hover{transform:scale(1.06) !important; z-index:2; position:relative;}
-  .shot.mslice-wrap{height:auto; min-height:210px; display:flex; gap:12px; align-items:center; justify-content:center; padding:16px 12px; background:#ffffff;}
-  .mslice{background-image:url('https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/349215ce-067c-4759-b5e8-0290ed8e68fe_rw_1200.png?h=4dc72cae0de6c75a3ea95f70af779765'); background-repeat:no-repeat; box-shadow:0 5px 12px rgba(15,40,80,.30); border-radius:4px;}
   .ph{width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; background:linear-gradient(135deg,#15457a,#2c7a7b); color:#fff; text-align:center; padding:14px;}
   .ph .big{font-size:30px; font-weight:700; letter-spacing:1px;}
   .ph .note{font-size:11.5px; opacity:.9; margin-top:6px;}
@@ -470,15 +514,15 @@
 
     <a class="cat" href="#maui">.NET MAUI Apps</a>
     <ul>
+      <li><a href="#gmobile">RamTech gMobile</a></li>
+      <li><a href="#safe4dogs">Safe4Dogs</a></li>
+      <li><a href="#ups">UPS Mobile Delivery</a></li>
       <li><a href="#atrack">ATrack Mobile</a></li>
       <li><a href="#kudurrustone">Kudurru Stone</a></li>
+      <li><a href="#kinship">Kinship Navigator</a></li>
       <li><a href="#smartcard">SmartCard</a></li>
       <li><a href="#dcpro">DCPro</a></li>
-      <li><a href="#kinship">Kinship Navigator</a></li>
-      <li><a href="#gmobile">RamTech gMobile</a></li>
-      <li><a href="#ups">UPS Mobile Delivery</a></li>
       <li><a href="#moviebuff">MovieBuff</a></li>
-      <li><a href="#safe4dogs">Safe4Dogs</a></li>
       <li><a href="#searchmed">SearchMed</a></li>
       <li><a href="#pos">POS Prototype</a></li>
       <li><a href="#numbers">Numbers</a></li>
@@ -486,20 +530,23 @@
 
     <a class="cat" href="#xamarin">Xamarin.Forms Apps</a>
     <ul>
-      <li><a href="Sherlock Talent.html">Sherlock Talent</a></li>
-      <li><a href="BCBS - My BluePrint.html">BCBS - My BluePrint</a></li>
-      <li><a href="T-Mobile Money.html">T-Mobile Money</a></li>
       <li><a href="#marcel">Marcel</a></li>
-      <li><a href="#nalco">Nalco Lock App</a></li>
+      <li><a href="T-Mobile Money.html">T-Mobile Money</a></li>
+      <li><a href="Sherlock Talent.html">Sherlock Talent</a></li>
       <li><a href="#uas">UAS Trakker</a></li>
-      <li><a href="#b4ufly">B4UFly</a></li>
       <li><a href="#petpixie">Pet Pixie</a></li>
+      <li><a href="#realgreen">Real Green Systems</a></li>
+      <li><a href="#mvphealthcare">MVP HealthCare</a></li>
+      <li><a href="#clubholiday">Club Holiday</a></li>
+      <li><a href="#waggy">Waggy</a></li>
+      <li><a href="#b4ufly">B4UFly</a></li>
+      <li><a href="#viktre">Viktre Athletes</a></li>
+      <li><a href="BCBS - My BluePrint.html">BCBS - My BluePrint</a></li>
+      <li><a href="#nalco">Nalco Lock App</a></li>
       <li><a href="#salon">Salon Scheduler</a></li>
       <li><a href="#moji">Moji</a></li>
-      <li><a href="#itp2013">ITPalooza 2013</a></li>
-      <li><a href="#waggy">Waggy</a></li>
       <li><a href="#astech2">AsTech 2.0</a></li>
-      <li><a href="#viktre">Viktre Athletes</a></li>
+      <li><a href="#itp2013">ITPalooza 2013</a></li>
       <li><a href="#itp2016">ITPalooza 2016</a></li>
       <li><a href="#sfcc2015">S. Florida Code Camp</a></li>
     </ul>
@@ -557,24 +604,88 @@
   <h2 class="section" id="maui">.NET MAUI Applications</h2>
   <div class="grid">
 
-    <div class="card" id="kinship">
-      <div class="shot iso mock fan" style="background:linear-gradient(150deg,#e8f2fb,#f7ecd9);">
-        <span class="deco tc">👵</span><span class="deco br">💙</span>
-        <div class="iso-plane tall">
-          <div class="dev"><img src="images/KinshipNavigator/kn-landing.png" alt="Kinship Navigator welcome" onerror="this.style.display='none'"></div>
-          <div class="dev"><img src="images/KinshipNavigator/kn-programs.png" alt="Kinship Navigator program selection" onerror="this.style.display='none'"></div>
-          <div class="dev"><img src="images/KinshipNavigator/kn-apply.png" alt="Kinship Navigator apply for caregiver subsidy" onerror="this.style.display='none'"></div>
-          <div class="dev"><img src="images/KinshipNavigator/kn-contact.png" alt="Kinship Navigator contact step" onerror="this.style.display='none'"></div>
-          <div class="dev"><img src="images/KinshipNavigator/kn-address.png" alt="Kinship Navigator address step" onerror="this.style.display='none'"></div>
-          <div class="dev"><img src="images/KinshipNavigator/kn-signin.png" alt="Kinship Navigator sign in or register" onerror="this.style.display='none'"></div>
+    <div class="card" id="gmobile">
+      <div class="shot gmap" style="height:225px;">
+        <span class="deco bl">🗺️</span><span class="deco tr">📡</span>
+        <div class="compass"></div>
+        <div class="pin" style="left:1%; top:8px;"><img src="images/gMobile/LeftMenu.png" alt="gMobile menu"></div>
+        <div class="pin" style="left:37%; top:88px;"><img src="images/gMobile/MapTools.png" alt="gMobile map tools"></div>
+        <div class="pin" style="left:73%; top:38px;"><img src="images/gMobile/DroppedPin.png" alt="gMobile dropped pin"></div>
+      </div>
+      <div class="body">
+        <p class="name">RamTech gMobile <span class="yr">2025–2026</span></p>
+        <span class="pill mig">.NET MAUI · Esri/GIS · Featured</span>
+        <p class="desc">Esri/ArcGIS field-inspection app for damage assessment, leak survey, and gas-insight inspections. Delivered UX/performance work, then re-architected workflows into a vNext release with a single centralized mapping surface — ~30% fewer clicks per feature and ~20s of load-time initializations eliminated.</p>
+        <p class="tech"><b>Tech:</b> .NET MAUI, Prism, Esri ArcGIS Maps SDK, Telerik UI for .NET MAUI, SQLite</p>
+        <p class="lnk"><a href="RamTech gMobile.html">✦ View the full case study &rarr;</a></p>
+      </div>
+    </div>
+
+    <div class="card" id="safe4dogs">
+      <div class="shot leash">
+        <span class="deco tl">🦴</span><span class="deco br">🐶</span>
+        <div class="line"></div>
+        <span class="paw" style="top:40px; left:40px; transform:rotate(-20deg);">🐾</span>
+        <span class="paw" style="top:130px; left:170px; transform:rotate(12deg);">🐾</span>
+        <span class="paw" style="top:300px; left:90px; transform:rotate(-30deg);">🐾</span>
+        <span class="paw" style="top:90px; left:330px; transform:rotate(-8deg);">🐾</span>
+        <span class="paw" style="top:70px; right:140px; transform:rotate(-15deg);">🐾</span>
+        <span class="paw" style="top:240px; right:80px; transform:rotate(20deg);">🐾</span>
+        <span class="paw" style="bottom:60px; left:70px; transform:rotate(35deg);">🐾</span>
+        <span class="paw" style="bottom:150px; left:480px; transform:rotate(-25deg);">🐾</span>
+        <span class="paw" style="bottom:80px; right:120px; transform:rotate(15deg);">🐾</span>
+        <span class="paw" style="bottom:200px; right:260px; transform:rotate(5deg);">🐾</span>
+        <span class="paw" style="bottom:30px; left:300px; transform:rotate(-12deg);">🐾</span>
+        <span class="paw" style="top:360px; right:180px; transform:rotate(28deg);">🐾</span>
+        <div class="pups">
+          <div class="pol"><img src="images/Safe4Dogs/Safe4Dogs1.png" alt="Safe4Dogs — browse foods A to Z" onerror="this.style.display='none'"></div>
+          <div class="pol"><img src="images/Safe4Dogs/Safe4Dogs2.png" alt="Safe4Dogs — yes/no verdicts per food" onerror="this.style.display='none'"></div>
+          <div class="pol"><img src="images/Safe4Dogs/Safe4Dog3.png" alt="Safe4Dogs — Bread: no, with safety description" onerror="this.style.display='none'"></div>
+          <div class="pol"><img src="images/Safe4Dogs/Safe4Dog4.png" alt="Safe4Dogs — Apricot: yes, with precautions" onerror="this.style.display='none'"></div>
         </div>
       </div>
       <div class="body">
-        <p class="name">Kinship Navigator <span class="yr">Washington, DC</span></p>
-        <span class="pill mig">.NET MAUI · Gov / Social · Featured</span>
-        <p class="desc">A .NET MAUI application providing tools for users to apply for subsidies and Emergency Financial Assistance for caretakers of children in need — funding food, housing and essentials. Architected on .NET MAUI, MAUI Essentials, CommunityToolkit.MVVM and RESTful services communicating with a Dynamics back end. Most notably, it was delivered within an extremely tight timeframe tied to payment terms that could have meant catastrophe for the client if missed — and through a steadfast focus on the MVP requirements, the app shipped successfully inside the deadline.</p>
-        <p class="tech"><b>Tech:</b> .NET MAUI, MAUI Essentials, CommunityToolkit.MVVM, RESTful Services, Dynamics</p>
-        <p class="lnk"><a href="Kinship Navigator.html">✦ View the full case study &rarr;</a></p>
+        <p class="name">Safe4Dogs</p>
+        <span class="pill">.NET MAUI · Open Source · Featured</span>
+        <p class="desc">Determines whether foods are safe for dogs, and doubles as a teaching codebase for mentoring developers across core .NET MAUI concepts — MVVM, handlers, Shell, DI, converters, behaviors, and localization.</p>
+        <p class="tech"><b>Tech:</b> .NET MAUI, MVVM, SQLite, REST, CommunityToolkit.Maui, CommunityToolkit.Mvvm</p>
+        <p class="lnk"><a href="Safe4Dogs.html">✦ View the full case study &rarr;</a></p>
+      </div>
+    </div>
+
+    <div class="card" id="ups">
+      <div class="shot ups">
+        <span class="deco tr dk">📦</span><span class="deco br dk">📍</span>
+        <div class="parcel" style="left:2%; top:96px;"><img src="images/UPS/ups-1.png" alt="UPS DIAD 6 — driver login" onerror="this.style.display='none'"></div>
+        <div class="parcel" style="left:27%; top:66px;"><img src="images/UPS/ups-2.png" alt="UPS DIAD 6 — splash and Microsoft login" onerror="this.style.display='none'"></div>
+        <div class="parcel" style="left:52%; top:46px;"><img src="images/UPS/ups-3.png" alt="UPS DIAD 6 — assignment details with route navigation" onerror="this.style.display='none'"></div>
+        <div class="parcel" style="left:76%; top:20px;"><img src="images/UPS/ups-4.png" alt="UPS DIAD 6 — delivery decision screen" onerror="this.style.display='none'"></div>
+      </div>
+      <div class="body">
+        <p class="name">UPS Mobile Delivery <span class="yr">2023–2024</span></p>
+        <span class="pill mig">.NET MAUI · Enterprise · Featured</span>
+        <p class="desc">.NET MAUI feasibility spike for the UPS driver app on the DIAD 6 handheld. Validated Trimble Maps and barcode scanning under .NET MAUI, rebuilt the in-house component library, and removed Prism in response to licensing changes.</p>
+        <p class="tech"><b>Tech:</b> .NET MAUI, Trimble Maps, MAUI Essentials, CommunityToolkit.Mvvm, SQLite</p>
+        <p class="lnk"><a href="UPS Mobile Delivery.html">✦ View the full case study &rarr;</a></p>
+      </div>
+    </div>
+
+    <div class="card" id="atrack">
+      <div class="shot chart" style="height:225px;">
+        <span class="deco tr">📈</span><span class="deco bl">🎯</span>
+        <div class="pt" style="left:1%; top:66px;"><img src="images/Atrack/LoginScreen.png" alt="ATrack login"></div>
+        <div class="pt" style="left:17%; top:54px;"><img src="images/Atrack/HomeScreen.png" alt="ATrack home"></div>
+        <div class="pt" style="left:33%; top:42px;"><img src="images/Atrack/CasesScreen.png" alt="ATrack cases"></div>
+        <div class="pt" style="left:49%; top:30px;"><img src="images/Atrack/ViewProgram.png" alt="ATrack view program"></div>
+        <div class="pt" style="left:65%; top:18px;"><img src="images/Atrack/Targets3Screen.png" alt="ATrack session trial"></div>
+        <div class="pt" style="left:81%; top:6px;"><img src="images/Atrack/ChatWithSupport.png" alt="ATrack support chat"></div>
+      </div>
+      <div class="body">
+        <p class="name">ATrack Mobile <span class="yr">2026</span></p>
+        <span class="pill mig">.NET MAUI · Clinical · Featured</span>
+        <p class="desc">All-in-one data-collection and clinical-practice platform for Applied Behavior Analysis (ABA) therapy and autism providers. Cleared a large defect backlog, shipped new features, fixed migration defects, and designed a configurable Sentry/UXCam crash-and-analytics layer.</p>
+        <p class="tech"><b>Tech:</b> .NET MAUI, Prism.Maui, CommunityToolkit.Maui, DevExpress, Sentry.Maui, Sharpnado, SQLite, UXCam</p>
+        <p class="lnk"><a href="ATrack Mobile.html">✦ View the full case study &rarr;</a></p>
       </div>
     </div>
 
@@ -596,6 +707,27 @@
         <p class="desc">A mobile UX refresh for the Kudurru Stone land-surveying field app — modernizing the look and streamlining navigation across login, schedule, job details, maps and time tracking. A full before → after redesign.</p>
         <p class="tech"><b>Tech:</b> .NET MAUI, MVVM, Shell, Maps &amp; Geolocation</p>
         <p class="lnk"><a href="KudurruStone.html">✦ View the full case study &rarr;</a></p>
+      </div>
+    </div>
+
+    <div class="card" id="kinship">
+      <div class="shot iso mock fan" style="background:linear-gradient(150deg,#e8f2fb,#f7ecd9);">
+        <span class="deco tc">👵</span><span class="deco br">💙</span>
+        <div class="iso-plane tall">
+          <div class="dev"><img src="images/KinshipNavigator/kn-landing.png" alt="Kinship Navigator welcome" onerror="this.style.display='none'"></div>
+          <div class="dev"><img src="images/KinshipNavigator/kn-programs.png" alt="Kinship Navigator program selection" onerror="this.style.display='none'"></div>
+          <div class="dev"><img src="images/KinshipNavigator/kn-apply.png" alt="Kinship Navigator apply for caregiver subsidy" onerror="this.style.display='none'"></div>
+          <div class="dev"><img src="images/KinshipNavigator/kn-contact.png" alt="Kinship Navigator contact step" onerror="this.style.display='none'"></div>
+          <div class="dev"><img src="images/KinshipNavigator/kn-address.png" alt="Kinship Navigator address step" onerror="this.style.display='none'"></div>
+          <div class="dev"><img src="images/KinshipNavigator/kn-signin.png" alt="Kinship Navigator sign in or register" onerror="this.style.display='none'"></div>
+        </div>
+      </div>
+      <div class="body">
+        <p class="name">Kinship Navigator <span class="yr">Washington, DC</span></p>
+        <span class="pill mig">.NET MAUI · Gov / Social · Featured</span>
+        <p class="desc">A .NET MAUI application providing tools for users to apply for subsidies and Emergency Financial Assistance for caretakers of children in need — funding food, housing and essentials. Architected on .NET MAUI, MAUI Essentials, CommunityToolkit.MVVM and RESTful services communicating with a Dynamics back end. Most notably, it was delivered within an extremely tight timeframe tied to payment terms that could have meant catastrophe for the client if missed — and through a steadfast focus on the MVP requirements, the app shipped successfully inside the deadline.</p>
+        <p class="tech"><b>Tech:</b> .NET MAUI, MAUI Essentials, CommunityToolkit.MVVM, RESTful Services, Dynamics</p>
+        <p class="lnk"><a href="Kinship Navigator.html">✦ View the full case study &rarr;</a></p>
       </div>
     </div>
 
@@ -655,59 +787,6 @@
       </div>
     </div>
 
-    <div class="card" id="atrack">
-      <div class="shot chart" style="height:225px;">
-        <span class="deco tr">📈</span><span class="deco bl">🎯</span>
-        <div class="pt" style="left:1%; top:66px;"><img src="images/Atrack/LoginScreen.png" alt="ATrack login"></div>
-        <div class="pt" style="left:17%; top:54px;"><img src="images/Atrack/HomeScreen.png" alt="ATrack home"></div>
-        <div class="pt" style="left:33%; top:42px;"><img src="images/Atrack/CasesScreen.png" alt="ATrack cases"></div>
-        <div class="pt" style="left:49%; top:30px;"><img src="images/Atrack/ViewProgram.png" alt="ATrack view program"></div>
-        <div class="pt" style="left:65%; top:18px;"><img src="images/Atrack/Targets3Screen.png" alt="ATrack session trial"></div>
-        <div class="pt" style="left:81%; top:6px;"><img src="images/Atrack/ChatWithSupport.png" alt="ATrack support chat"></div>
-      </div>
-      <div class="body">
-        <p class="name">ATrack Mobile <span class="yr">2026</span></p>
-        <span class="pill mig">.NET MAUI · Clinical · Featured</span>
-        <p class="desc">All-in-one data-collection and clinical-practice platform for Applied Behavior Analysis (ABA) therapy and autism providers. Cleared a large defect backlog, shipped new features, fixed migration defects, and designed a configurable Sentry/UXCam crash-and-analytics layer.</p>
-        <p class="tech"><b>Tech:</b> .NET MAUI, Prism.Maui, CommunityToolkit.Maui, DevExpress, Sentry.Maui, Sharpnado, SQLite, UXCam</p>
-        <p class="lnk"><a href="ATrack Mobile.html">✦ View the full case study &rarr;</a></p>
-      </div>
-    </div>
-
-    <div class="card" id="gmobile">
-      <div class="shot gmap" style="height:225px;">
-        <span class="deco bl">🗺️</span><span class="deco tr">📡</span>
-        <div class="compass"></div>
-        <div class="pin" style="left:1%; top:8px;"><img src="images/gMobile/LeftMenu.png" alt="gMobile menu"></div>
-        <div class="pin" style="left:37%; top:88px;"><img src="images/gMobile/MapTools.png" alt="gMobile map tools"></div>
-        <div class="pin" style="left:73%; top:38px;"><img src="images/gMobile/DroppedPin.png" alt="gMobile dropped pin"></div>
-      </div>
-      <div class="body">
-        <p class="name">RamTech gMobile <span class="yr">2025–2026</span></p>
-        <span class="pill mig">.NET MAUI · Esri/GIS · Featured</span>
-        <p class="desc">Esri/ArcGIS field-inspection app for damage assessment, leak survey, and gas-insight inspections. Delivered UX/performance work, then re-architected workflows into a vNext release with a single centralized mapping surface — ~30% fewer clicks per feature and ~20s of load-time initializations eliminated.</p>
-        <p class="tech"><b>Tech:</b> .NET MAUI, Prism, Esri ArcGIS Maps SDK, Telerik UI for .NET MAUI, SQLite</p>
-        <p class="lnk"><a href="RamTech gMobile.html">✦ View the full case study &rarr;</a></p>
-      </div>
-    </div>
-
-    <div class="card" id="ups">
-      <div class="shot ups">
-        <span class="deco tr dk">📦</span><span class="deco br dk">📍</span>
-        <div class="parcel" style="left:2%; top:96px;"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/9a928d8d-b597-4a56-9254-b93dc3a3b48a_rw_600.png?h=0698c6d7c2482039755b702598550a10" alt="UPS 1"></div>
-        <div class="parcel" style="left:27%; top:66px;"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/36fe62db-18f1-4d7e-afc5-1b71ce2780af_rw_600.png?h=d6f96e9e52eaec89d46e78519fae2d36" alt="UPS 2"></div>
-        <div class="parcel" style="left:52%; top:46px;"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/ed27b6d9-b183-43ec-901d-6ccdcfd6ab13_rw_600.png?h=854c16685abc60436ed213ae9d615a00" alt="UPS 3"></div>
-        <div class="parcel" style="left:76%; top:20px;"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/09ca7012-d190-4432-a6f2-b498dd9f8a4c_rw_600.png?h=5ad06f44069b78c2267966f5aac06a27" alt="UPS 4"></div>
-      </div>
-      <div class="body">
-        <p class="name">UPS Mobile Delivery <span class="yr">2023–2024</span></p>
-        <span class="pill mig">.NET MAUI · Enterprise · Featured</span>
-        <p class="desc">.NET MAUI feasibility spike for the UPS driver app on the DIAD 6 handheld. Validated Trimble Maps and barcode scanning under .NET MAUI, rebuilt the in-house component library, and removed Prism in response to licensing changes.</p>
-        <p class="tech"><b>Tech:</b> .NET MAUI, Trimble Maps, MAUI Essentials, CommunityToolkit.Mvvm, SQLite</p>
-        <p class="lnk"><a href="UPS Mobile Delivery.html">✦ View the full case study &rarr;</a></p>
-      </div>
-    </div>
-
     <div class="card" id="moviebuff">
       <div class="shot iso mock fan">
         <span class="deco tc">🎬</span><span class="deco br">🍿</span>
@@ -726,38 +805,6 @@
         <p class="desc">Movie & show ticketing app MVP — ticket purchasing, text/MRU search, OTP authentication, and a discussion system with threaded replies and emoji reactions. Integrated an existing REST API and implemented a Figma-based UX.</p>
         <p class="tech"><b>Tech:</b> .NET MAUI, Telerik UI for .NET MAUI, MVVM, REST, CommunityToolkit.Mvvm, SQLite</p>
         <p class="lnk"><a href="MovieBuff.html">✦ View the full case study &rarr;</a></p>
-      </div>
-    </div>
-
-    <div class="card" id="safe4dogs">
-      <div class="shot leash">
-        <span class="deco tl">🦴</span><span class="deco br">🐶</span>
-        <div class="line"></div>
-        <span class="paw" style="top:40px; left:40px; transform:rotate(-20deg);">🐾</span>
-        <span class="paw" style="top:130px; left:170px; transform:rotate(12deg);">🐾</span>
-        <span class="paw" style="top:300px; left:90px; transform:rotate(-30deg);">🐾</span>
-        <span class="paw" style="top:90px; left:330px; transform:rotate(-8deg);">🐾</span>
-        <span class="paw" style="top:70px; right:140px; transform:rotate(-15deg);">🐾</span>
-        <span class="paw" style="top:240px; right:80px; transform:rotate(20deg);">🐾</span>
-        <span class="paw" style="bottom:60px; left:70px; transform:rotate(35deg);">🐾</span>
-        <span class="paw" style="bottom:150px; left:480px; transform:rotate(-25deg);">🐾</span>
-        <span class="paw" style="bottom:80px; right:120px; transform:rotate(15deg);">🐾</span>
-        <span class="paw" style="bottom:200px; right:260px; transform:rotate(5deg);">🐾</span>
-        <span class="paw" style="bottom:30px; left:300px; transform:rotate(-12deg);">🐾</span>
-        <span class="paw" style="top:360px; right:180px; transform:rotate(28deg);">🐾</span>
-        <div class="pups">
-          <div class="pol"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/667f3111-9899-4829-8ede-78f0291abbcb_rw_600.png?h=d75c4b02ca3ed4f4ff51695266cdc39a" alt="Safe4Dogs 1"></div>
-          <div class="pol"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/3c2f12f5-80fc-4e53-9809-8200b790dd26_rw_600.png?h=ef945fa1d0edd3e1e95fe7341152894c" alt="Safe4Dogs 2"></div>
-          <div class="pol"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/729a70b6-a34f-4304-9619-80bb2790dfbe_rw_600.png?h=361af31a1085f766478e08ca287e18b7" alt="Safe4Dogs 3"></div>
-          <div class="pol"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/14492ea7-333a-4fb5-9777-d785f0fae974_rw_600.png?h=594125f6631867f287e0adb4caff7dc8" alt="Safe4Dogs 4"></div>
-        </div>
-      </div>
-      <div class="body">
-        <p class="name">Safe4Dogs</p>
-        <span class="pill">.NET MAUI · Open Source · Featured</span>
-        <p class="desc">Determines whether foods are safe for dogs, and doubles as a teaching codebase for mentoring developers across core .NET MAUI concepts — MVVM, handlers, Shell, DI, converters, behaviors, and localization.</p>
-        <p class="tech"><b>Tech:</b> .NET MAUI, MVVM, SQLite, REST, CommunityToolkit.Maui, CommunityToolkit.Mvvm</p>
-        <p class="lnk"><a href="Safe4Dogs.html">✦ View the full case study &rarr;</a></p>
       </div>
     </div>
 
@@ -783,10 +830,10 @@
     <div class="card" id="pos">
       <div class="shot pos">
         <span class="deco tl">🧾</span><span class="deco br">💳</span>
-        <div class="win" style="left:3%; top:14px;"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/00e068a4-e969-42f1-9025-117fcc921492_rw_1920.PNG?h=e03d0ad18414ed236c4f748fe4021feb" alt="POS Prototype 1"></div>
-        <div class="win" style="left:15%; top:56px;"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/a7e551e7-b36b-4e92-a6bf-84b7e7b57fc0_rw_1920.png?h=f488490ebb84229dd255e5d970dd7c8f" alt="POS Prototype 3"></div>
-        <div class="win" style="left:27%; top:98px;"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/69a624da-38a5-46d0-8e04-417beca80ebf_rw_1920.png?h=e1b029715b48df845f60ab324acdf9a6" alt="POS Prototype 5"></div>
-        <div class="win" style="left:39%; top:140px;"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/ad366a46-7d17-4341-87dc-8ea63e43e4cf_rw_1920.PNG?h=ed51baaa9a764735d47068c3d534b504" alt="POS Prototype 8"></div>
+        <div class="win" style="left:3%; top:14px;"><img src="images/POS/admin-login.png" alt="POS Prototype — admin login" onerror="this.style.display='none'"></div>
+        <div class="win" style="left:15%; top:56px;"><img src="images/POS/create-order.png" alt="POS Prototype — product grid and create order" onerror="this.style.display='none'"></div>
+        <div class="win" style="left:27%; top:98px;"><img src="images/POS/order-screen.png" alt="POS Prototype — order with discounts and payment" onerror="this.style.display='none'"></div>
+        <div class="win" style="left:39%; top:140px;"><img src="images/POS/settings.png" alt="POS Prototype — register and order settings" onerror="this.style.display='none'"></div>
       </div>
       <div class="body">
         <p class="name">POS Prototype</p>
@@ -824,70 +871,6 @@
   <h2 class="section" id="xamarin">Xamarin.Forms Applications</h2>
   <div class="grid">
 
-    <div class="card" id="bcbs">
-      <div class="shot iso mock fan" style="background:linear-gradient(150deg,#e9f4fb,#dfeaf3);">
-        <a href="BCBS - My BluePrint.html" class="shot-link" aria-label="View the BCBS My BluePrint case study" style="position:absolute; inset:0; z-index:20;"></a>
-        <span class="deco tc">📊</span><span class="deco br">🩺</span>
-        <div class="iso-plane tall">
-          <div class="dev"><img src="images/BCBS/mbp-splash.png" alt="My BluePrint splash" onerror="this.style.display='none'"></div>
-          <div class="dev"><img src="images/BCBS/mbp-settings.png" alt="My BluePrint settings" onerror="this.style.display='none'"></div>
-          <div class="dev"><img src="images/BCBS/mbp-home.png" alt="My BluePrint home menu" onerror="this.style.display='none'"></div>
-          <div class="dev"><img src="images/BCBS/mbp-claims.png" alt="My BluePrint claims center" onerror="this.style.display='none'"></div>
-          <div class="dev"><img src="images/BCBS/mbp-contact.png" alt="My BluePrint contact us" onerror="this.style.display='none'"></div>
-        </div>
-      </div>
-      <div class="body">
-        <p class="name">BCBS - My BluePrint <span class="yr">Analysis &amp; Roadmap</span></p>
-        <span class="pill xam">Xamarin.Forms · Healthcare · Featured</span>
-        <p class="desc">A deep analysis of the Blue Cross Blue Shield My BluePrint member app — covering application performance, App Store feedback, customer engagement, resolution of high-frequency exceptions, and accessibility compliance — delivered as a prioritized roadmap that schedules each identified area by timeframe and order, tackling the highest-priority issues first.</p>
-        <p class="tech"><b>Tech:</b> Xamarin.Forms, Performance Profiling, App Store Analytics, Accessibility, Exception Triage</p>
-        <p class="lnk"><a href="BCBS - My BluePrint.html">✦ View the full case study &rarr;</a></p>
-      </div>
-    </div>
-
-    <div class="card" id="sherlocktalent">
-      <div class="shot iso mock fan" style="background:linear-gradient(150deg,#1f6fb2,#0f4c81);">
-        <a href="Sherlock Talent.html" class="shot-link" aria-label="View the Sherlock Talent case study" style="position:absolute; inset:0; z-index:20;"></a>
-        <span class="deco tc">🔍</span><span class="deco br">💼</span>
-        <div class="iso-plane tall">
-          <div class="dev"><img src="images/SherlockTalent/st-home.png" alt="Sherlock Talent home" onerror="this.style.display='none'"></div>
-          <div class="dev"><img src="images/SherlockTalent/st-chat.png" alt="Sherlock Talent chat assistant" onerror="this.style.display='none'"></div>
-          <div class="dev"><img src="images/SherlockTalent/st-jobs.png" alt="Sherlock Talent job search" onerror="this.style.display='none'"></div>
-          <div class="dev"><img src="images/SherlockTalent/st-hire.png" alt="Sherlock Talent hire talent" onerror="this.style.display='none'"></div>
-          <div class="dev"><img src="images/SherlockTalent/st-events.png" alt="Sherlock Talent event search" onerror="this.style.display='none'"></div>
-        </div>
-      </div>
-      <div class="body">
-        <p class="name">Sherlock Talent <span class="yr">Xamarin.Forms</span></p>
-        <span class="pill xam">Xamarin.Forms · Job Search · Featured</span>
-        <p class="desc">A set of tools job seekers consider an invaluable resource — offering more than state-of-the-art guidance to find the perfect job. Sherlock Talent acts as a partner, always at the ready to strengthen trust and build a long-term relationship as your career goals grow with you.</p>
-        <p class="tech"><b>Tech:</b> Xamarin.Forms, REST APIs, Xamarin.Essentials, Conversational UI, iOS &amp; Android</p>
-        <p class="lnk"><a href="Sherlock Talent.html">✦ View the full case study &rarr;</a></p>
-      </div>
-    </div>
-
-    <div class="card" id="tmobile">
-      <div class="shot tmo">
-        <a href="T-Mobile Money.html" class="shot-link" aria-label="View the T-Mobile Money case study"></a>
-        <span class="deco bl dk">💳</span><span class="deco tr dk">💵</span>
-        <img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/5f3e878c-6300-433c-9c49-84f3391a1d7a_rw_600.png?h=e43067a9096c78ed5973478cf1350840" alt="T-Mobile Money 2">
-        <img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/58ea141d-cfc2-4be3-90fa-8eb38e64a7cf_rw_600.png?h=916f929a6d0d07df4affa026e7b29262" alt="T-Mobile Money 3">
-        <img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/310544d5-745a-4976-956e-147fec257c94_rw_600.png?h=8ba68d9cb8b49c0dc2b6b0151a6790b1" alt="T-Mobile Money 4">
-        <img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/6ef07b73-6bee-4056-8ad8-256244b450bb_rw_600.png?h=a65332cc3af79cda82952549df9e1a6b" alt="T-Mobile Money 5">
-        <img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/095b71b3-0d0b-45f4-86a6-ecc595367e19_rw_600.png?h=11e827504e72489c57da0fbcf673e8f9" alt="T-Mobile Money 8">
-        <img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/bcce895c-7aea-4272-b3bd-af6d55f81388_rw_600.png?h=65241fa2054aed2243a49384a452ee37" alt="T-Mobile Money 10">
-        <span class="cash" style="top:14px; left:18px; font-size:56px;">$</span>
-        <span class="cash" style="top:44px; right:24px; font-size:38px;">¢</span>
-      </div>
-      <div class="body">
-        <p class="name">T-Mobile Money <span class="yr">2017–2019</span></p>
-        <span class="pill xam">Xamarin.Forms · Fintech</span>
-        <p class="desc">Customer-facing Banking-as-a-Service app with 300+ screens — account transfers, perks, CUI notifications, ATM/cash-deposit locators, card activation, and fund management.</p>
-        <p class="tech"><b>Tech:</b> Xamarin.Forms, MVVMCross, Google Maps SDK, REST, Xamarin.Essentials</p>
-        <p class="lnk"><a href="T-Mobile Money.html">✦ View the full case study &rarr;</a></p>
-      </div>
-    </div>
-
     <div class="card" id="marcel">
       <div class="shot" style="background:radial-gradient(240px 150px at 50% -14%, rgba(74,155,255,.30), transparent 60%), radial-gradient(190px 140px at 90% 122%, rgba(255,181,71,.14), transparent 60%), linear-gradient(150deg,#0b1f3a 0%,#16345f 55%,#0a1c34 100%); position:relative; overflow:hidden;">
         <span style="position:absolute; inset:0; background-image:radial-gradient(rgba(255,255,255,.10) 1px, transparent 1px); background-size:18px 18px; opacity:.5; pointer-events:none;"></span>
@@ -915,10 +898,10 @@
         </svg>
         <div style="position:relative; z-index:3; display:flex; align-items:center; justify-content:center; height:230px;">
           <div style="position:absolute; left:50%; top:50%; transform:translate(calc(-50% - 62px), -48%) rotate(-8deg); padding:3px; background:#0a1524; border-radius:13px; box-shadow:0 10px 22px rgba(0,10,30,.5);">
-            <img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/09032beb-b9b3-4435-b59b-05421fb3be03_rw_600.png?h=00e209e46be6e26e68c381533eb09417" alt="Marcel network" style="width:auto; height:130px; display:block; border-radius:10px;" onerror="this.parentNode.style.display='none'">
+            <img src="images/Marcel/people-connect.png" alt="Marcel — People Connect, find anyone in the Groupe" style="width:auto; height:130px; display:block; border-radius:10px;" onerror="this.parentNode.style.display='none'">
           </div>
           <div style="position:relative; padding:4px; background:#0a1524; border-radius:18px; box-shadow:0 18px 40px rgba(0,10,35,.6); z-index:2;">
-            <img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/0e271187-c87f-4f43-9987-40a96d719e48_rw_600.png?h=15cf3b81af0ed0c54e3600935365cbc0" alt="Marcel app" style="width:auto; height:178px; display:block; border-radius:14px;" onerror="this.parentNode.style.display='none'">
+            <img src="images/Marcel/home.png" alt="Marcel intro — connecting 80,000 Publicis Groupe employees" style="width:auto; height:178px; display:block; border-radius:14px;" onerror="this.parentNode.style.display='none'">
           </div>
         </div>
         <div style="position:absolute; z-index:4; left:6%; top:15px; display:flex; align-items:center; gap:7px; background:rgba(255,255,255,.96); border-radius:10px; padding:6px 10px 6px 6px; box-shadow:0 8px 20px rgba(0,10,35,.38);">
@@ -932,28 +915,52 @@
       <div class="body">
         <p class="name">Marcel <span class="yr">2019</span></p>
         <span class="pill xam">Xamarin.Forms · AI · Featured</span>
-        <p class="desc">As a badged Microsoft contractor on the Microsoft campus, helped build the initial release of Marcel — an AI-powered platform connecting 20,000+ employees to find collaborators, schedule meetings, and track deliverables.</p>
+        <p class="desc">As a badged Microsoft contractor on the Microsoft campus, helped build the initial release of Marcel — an AI-powered platform connecting 80,000 employees to find collaborators, schedule meetings, and track deliverables.</p>
         <p class="tech"><b>Tech:</b> Xamarin.Forms, Microsoft AI, Prism, REST · with Publicis.Sapient</p>
         <p class="lnk"><a href="Marcel.html">✦ View the full case study &rarr;</a></p>
       </div>
     </div>
 
-    <div class="card" id="nalco">
-      <div class="shot lock">
-        <span class="deco bl">🔒</span><span class="deco tr">🛢️</span>
-        <div class="pad"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/a629b851-b61f-436e-8b70-66debf751710_rw_600.png?h=1f03f5079bb45d40c84565c96371e3bf" alt="Nalco 1"></div>
-        <div class="pad"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/f47df40b-ad55-46d4-9630-2bff9243eb28_rw_600.png?h=57eca7b2c3181fbd727065b2dcfe5c5b" alt="Nalco 2"></div>
-        <div class="pad"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/3ef50299-0884-49e8-9aaf-29ea7e9f8df6_rw_600.png?h=cb1f029fa6c03ba2b083996d728bf24f" alt="Nalco 3"></div>
-        <div class="pad"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/4e220934-3dfa-47d6-85a3-1adccdbff3fa_rw_600.png?h=cccc5759ba9f74aae4dcfcb3f0809dae" alt="Nalco 4"></div>
-        <div class="pad"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/bc9aaa96-1c04-49eb-9f9d-80b0149b36e8_rw_600.png?h=c8d13d0c3651e88c55a36c5e0eeb8fa7" alt="Nalco 5"></div>
-        <div class="pad"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/9c015bae-4d9c-4a09-ab46-70b3dad9dc32_rw_600.png?h=bbad743b9f33c07e9c683d740fae6804" alt="Nalco 6"></div>
+    <div class="card" id="tmobile">
+      <div class="shot tmo">
+        <a href="T-Mobile Money.html" class="shot-link" aria-label="View the T-Mobile Money case study"></a>
+        <span class="deco bl dk">💳</span><span class="deco tr dk">💵</span>
+        <img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/5f3e878c-6300-433c-9c49-84f3391a1d7a_rw_600.png?h=e43067a9096c78ed5973478cf1350840" alt="T-Mobile Money 2">
+        <img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/58ea141d-cfc2-4be3-90fa-8eb38e64a7cf_rw_600.png?h=916f929a6d0d07df4affa026e7b29262" alt="T-Mobile Money 3">
+        <img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/310544d5-745a-4976-956e-147fec257c94_rw_600.png?h=8ba68d9cb8b49c0dc2b6b0151a6790b1" alt="T-Mobile Money 4">
+        <img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/6ef07b73-6bee-4056-8ad8-256244b450bb_rw_600.png?h=a65332cc3af79cda82952549df9e1a6b" alt="T-Mobile Money 5">
+        <img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/095b71b3-0d0b-45f4-86a6-ecc595367e19_rw_600.png?h=11e827504e72489c57da0fbcf673e8f9" alt="T-Mobile Money 8">
+        <img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/bcce895c-7aea-4272-b3bd-af6d55f81388_rw_600.png?h=65241fa2054aed2243a49384a452ee37" alt="T-Mobile Money 10">
+        <span class="cash" style="top:14px; left:18px; font-size:56px;">$</span>
+        <span class="cash" style="top:44px; right:24px; font-size:38px;">¢</span>
       </div>
       <div class="body">
-        <p class="name">Nalco Lock App</p>
-        <span class="pill xam">Xamarin.Forms · Field · Featured</span>
-        <p class="desc">Field tool for installation specialists to fit new tank locks, generate unique combos, and document details via a backend service — built on a condensed timeline to support installation of 28,000 tanks on schedule.</p>
-        <p class="tech"><b>Tech:</b> Xamarin.Forms, MVVM, REST, Microsoft SSO, BarcodeScanner, SimpleAudioPlayer</p>
-        <p class="lnk"><a href="Nalco Lock App.html">✦ View the full case study &rarr;</a></p>
+        <p class="name">T-Mobile Money <span class="yr">2017–2019</span></p>
+        <span class="pill xam">Xamarin.Forms · Fintech</span>
+        <p class="desc">Customer-facing Banking-as-a-Service app with 300+ screens — account transfers, perks, CUI notifications, ATM/cash-deposit locators, card activation, and fund management.</p>
+        <p class="tech"><b>Tech:</b> Xamarin.Forms, MVVMCross, Google Maps SDK, REST, Xamarin.Essentials</p>
+        <p class="lnk"><a href="T-Mobile Money.html">✦ View the full case study &rarr;</a></p>
+      </div>
+    </div>
+
+    <div class="card" id="sherlocktalent">
+      <div class="shot iso mock fan" style="background:linear-gradient(150deg,#1f6fb2,#0f4c81);">
+        <a href="Sherlock Talent.html" class="shot-link" aria-label="View the Sherlock Talent case study" style="position:absolute; inset:0; z-index:20;"></a>
+        <span class="deco tc">🔍</span><span class="deco br">💼</span>
+        <div class="iso-plane tall">
+          <div class="dev"><img src="images/SherlockTalent/st-home.png" alt="Sherlock Talent home" onerror="this.style.display='none'"></div>
+          <div class="dev"><img src="images/SherlockTalent/st-chat.png" alt="Sherlock Talent chat assistant" onerror="this.style.display='none'"></div>
+          <div class="dev"><img src="images/SherlockTalent/st-jobs.png" alt="Sherlock Talent job search" onerror="this.style.display='none'"></div>
+          <div class="dev"><img src="images/SherlockTalent/st-hire.png" alt="Sherlock Talent hire talent" onerror="this.style.display='none'"></div>
+          <div class="dev"><img src="images/SherlockTalent/st-events.png" alt="Sherlock Talent event search" onerror="this.style.display='none'"></div>
+        </div>
+      </div>
+      <div class="body">
+        <p class="name">Sherlock Talent <span class="yr">Xamarin.Forms</span></p>
+        <span class="pill xam">Xamarin.Forms · Job Search · Featured</span>
+        <p class="desc">A set of tools job seekers consider an invaluable resource — offering more than state-of-the-art guidance to find the perfect job. Sherlock Talent acts as a partner, always at the ready to strengthen trust and build a long-term relationship as your career goals grow with you.</p>
+        <p class="tech"><b>Tech:</b> Xamarin.Forms, REST APIs, Xamarin.Essentials, Conversational UI, iOS &amp; Android</p>
+        <p class="lnk"><a href="Sherlock Talent.html">✦ View the full case study &rarr;</a></p>
       </div>
     </div>
 
@@ -971,25 +978,6 @@
         <p class="desc">Empowers custom Unmanned Aerial Systems to locate, track, and follow radio-frequency personal locator beacons attached to people engaged in risk-prone activities.</p>
         <p class="tech"><b>Tech:</b> Xamarin.Forms, Google Maps SDK, Microsoft Azure Cloud Services</p>
         <p class="lnk"><a href="UAS Trakker.html">✦ View the full case study &rarr;</a></p>
-      </div>
-    </div>
-
-    <div class="card" id="b4ufly">
-      <div class="shot fly">
-        <span class="deco tl">🛰️</span><span class="deco bl">📡</span>
-        <div class="zone"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/fd2b9654-f8af-44b7-987e-efd11cbcdd42_rw_600.png?h=0d959e65df588e61ebec45df7b073f59" alt="B4UFly 1"></div>
-        <div class="zone"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/540c4eb6-6d8a-4b73-91b3-24ed1a1b8537_rw_600.png?h=585095f3d4a561f3dc2f652c595ebbfa" alt="B4UFly 2"></div>
-        <div class="zone"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/9d511488-5438-434c-a288-f2a91bf3de0b_rw_600.png?h=05b5202760ba21ea44a1d209e5f67d59" alt="B4UFly 3"></div>
-        <div class="zone"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/57a930ed-4d9e-4a19-b5d7-89ab4f7c1c62_rw_600.png?h=d949335d08d5b4453e226c8f750e286a" alt="B4UFly 4"></div>
-        <div class="zone"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/0b0d9989-cd77-44ef-8b91-6123f1209b99_rw_600.png?h=d465bdc8b125352143d153647a5e5f11" alt="B4UFly 5"></div>
-        <div class="zone"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/1639ff9c-be8b-4c38-b3f5-5734db1d33c6_rw_600.png?h=a306ef514b834865e466f5026ea75399" alt="B4UFly 6"></div>
-      </div>
-      <div class="body">
-        <p class="name">B4UFly</p>
-        <span class="pill xam">Xamarin.Forms · Drone · Featured</span>
-        <p class="desc">Helps unmanned-aircraft operators determine whether airspace restrictions or requirements are in effect at a chosen flight location.</p>
-        <p class="tech"><b>Tech:</b> Xamarin.Forms, iOS &amp; Android</p>
-        <p class="lnk"><a href="B4UFly.html">✦ View the full case study &rarr;</a></p>
       </div>
     </div>
 
@@ -1012,66 +1000,53 @@
       </div>
     </div>
 
-    <div class="card" id="salon">
-      <div class="shot salon">
-        <span class="deco bl dk">💇</span><span class="deco mr dk">✂️</span>
-        <img src="images/SalonScheduler/SSMCalendar.png" alt="Salon Scheduler daily calendar" style="left:3%; top:20px;">
-        <img src="images/SalonScheduler/SSAppointmentDate.png" alt="Salon Scheduler add appointment" style="left:28%; top:38px;">
-        <img src="images/SalonScheduler/SSCommissions.png" alt="Salon Scheduler commissions" style="left:50%; top:12px;">
-        <img src="images/SalonScheduler/SSEmployeeMessage.png" alt="Salon Scheduler employee settings" style="left:72%; top:32px;">
+    <div class="card" id="realgreen">
+      <div class="shot lawn">
+        <span class="deco tr dk">🌱</span>
+        <div class="stake" style="left:9%; top:26px;"><img src="images/RealGreen/Login.png" alt="Real Green login by company and employee ID" onerror="this.style.display='none'"></div>
+        <div class="stake" style="left:40%; top:52px;"><img src="images/RealGreen/JobList.png" alt="Real Green daily job list with in-progress timer" onerror="this.style.display='none'"></div>
+        <div class="stake" style="left:71%; top:20px;"><img src="images/RealGreen/ClockOut.png" alt="Real Green crew timesheets with clock out" onerror="this.style.display='none'"></div>
       </div>
       <div class="body">
-        <p class="name">Salon Scheduler <span class="yr">2016–2017</span></p>
-        <span class="pill xam">Clover POS · Featured</span>
-        <p class="desc">Clover POS app for salon professionals — appointment scheduling, SMS reminders, notes, and order history, with unlimited employees/stations syncing across all stations.</p>
-        <p class="tech"><b>Tech:</b> Clover POS, Xamarin.Forms</p>
-        <p class="lnk"><a href="Salon Scheduler.html">✦ View the full case study &rarr;</a></p>
+        <p class="name">Real Green Systems <span class="yr">by WorkWave</span></p>
+        <span class="pill xam">Xamarin.Forms · Field Service</span>
+        <p class="desc">Productivity app connecting lawn care and landscaping field technicians with the back office. Crews clock in, load the day's route, review customer history and service codes, navigate between stops and the depot, time every job, and document work offline — syncing back to the office whenever a signal allows.</p>
+        <p class="tech"><b>Tech:</b> Xamarin.Forms, MVVM, Offline-first Sync, SQLite, RESTful Services, Maps &amp; Navigation, Xamarin.Essentials</p>
+        <p class="lnk"><a href="Real Green Systems.html">✦ View the full case study &rarr;</a></p>
       </div>
     </div>
 
-
-    <div class="card" id="moji">
-      <div class="shot moji-social" style="background:radial-gradient(240px 150px at 50% 120%, rgba(255,255,255,.20), transparent 62%), linear-gradient(135deg,#7b2ff7 0%,#e23fb0 52%,#3f8bec 100%); position:relative; overflow:hidden;">
-        <span style="position:absolute; width:170px; height:170px; border-radius:50%; left:-48px; top:-46px; background:radial-gradient(circle at 32% 30%, rgba(255,255,255,.34), rgba(255,255,255,0) 66%); pointer-events:none;"></span>
-        <span style="position:absolute; width:135px; height:135px; border-radius:50%; right:-40px; bottom:-42px; background:radial-gradient(circle at 32% 30%, rgba(255,255,255,.26), rgba(255,255,255,0) 66%); pointer-events:none;"></span>
-        <span style="position:absolute; width:8px; height:8px; border-radius:50%; left:30%; top:40px; background:rgba(255,255,255,.75); pointer-events:none;"></span>
-        <span style="position:absolute; width:6px; height:6px; border-radius:50%; right:32%; bottom:42px; background:rgba(255,255,255,.7); pointer-events:none;"></span>
-        <div style="position:absolute; z-index:2; left:50%; top:50%; transform:translate(-96%,-46%) rotate(-9deg); padding:4px; background:#161233; border-radius:16px; box-shadow:0 12px 26px rgba(20,8,50,.45);">
-          <img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/ceed884367242c2cbeb0deec_rw_1200.jpg?h=66985089ba8d8aeb055c4a9a1bb799f8" alt="Moji spheres" style="width:auto; height:150px; display:block; border-radius:12px;" onerror="this.parentNode.style.display='none'">
-        </div>
-        <div style="position:relative; z-index:3; padding:5px; background:#0e0b26; border-radius:20px; box-shadow:0 18px 42px rgba(30,10,60,.55); transform:rotate(3deg);">
-          <img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/e239d1975f0531581de4136b_rw_1200.jpg?h=fa7355f35fe7a1211c81fe58ffcedc25" alt="Moji app" style="width:auto; height:190px; display:block; border-radius:15px;" onerror="this.parentNode.style.display='none'">
-        </div>
-        <span style="position:absolute; z-index:4; left:10%; top:18px; width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:21px; background:linear-gradient(150deg,#fff,#ffe3f3); box-shadow:0 8px 16px rgba(40,10,50,.35); border:1px solid rgba(255,255,255,.7);">👥</span>
-        <span style="position:absolute; z-index:4; right:12%; top:12px; width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:19px; background:linear-gradient(150deg,#fff,#e3ecff); box-shadow:0 8px 16px rgba(40,10,50,.35); border:1px solid rgba(255,255,255,.7);">💬</span>
-        <span style="position:absolute; z-index:4; left:6%; bottom:18px; width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; background:linear-gradient(150deg,#fff,#fff0d9); box-shadow:0 8px 16px rgba(40,10,50,.35); border:1px solid rgba(255,255,255,.7);">🔔</span>
-        <span style="position:absolute; z-index:4; right:8%; bottom:24px; width:46px; height:46px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:22px; background:linear-gradient(150deg,#fff,#ffe0e6); box-shadow:0 10px 18px rgba(40,10,50,.4); border:1px solid rgba(255,255,255,.75);">❤️</span>
-        <span style="position:absolute; z-index:4; right:23%; top:74px; width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:16px; background:linear-gradient(150deg,#fff,#e0fff0); box-shadow:0 8px 16px rgba(40,10,50,.3); border:1px solid rgba(255,255,255,.7);">🌐</span>
+    <div class="card" id="mvphealthcare">
+      <div class="shot gia">
+        <span class="deco tl">🩺</span><span class="deco br">❤️</span>
+        <div class="giacard"><img src="images/MVPHealthcare/Splash.png" alt="Gia by MVP splash screen" onerror="this.style.display='none'"></div>
+        <div class="giacard"><img src="images/MVPHealthcare/Home.png" alt="Gia home — Get Care and My Plan" onerror="this.style.display='none'"></div>
+        <div class="giacard"><img src="images/MVPHealthcare/VirtualCare.png" alt="Gia virtual care tiers — urgent, everyday, behavioral" onerror="this.style.display='none'"></div>
+        <div class="giacard"><img src="images/MVPHealthcare/Claim.png" alt="Gia claim detail with charges, savings and member cost" onerror="this.style.display='none'"></div>
       </div>
       <div class="body">
-        <p class="name">Moji</p>
-        <span class="pill xam">Xamarin.Forms · Social · Featured</span>
-        <p class="desc">A social networking app built around "spheres" that organize the major areas of your life and simplify grouping and dividing the things that matter to you. Moji centers on an innovative control that gives you full command over access — ranging from broad, sweeping controls down to very small, very specific ones.</p>
-        <p class="tech"><b>Tech:</b> Xamarin.Forms, iOS &amp; Android</p>
-        <p class="lnk"><a href="Moji.html">✦ View the full case study &rarr;</a></p>
+        <p class="name">MVP HealthCare — Gia <span class="yr">NY &amp; VT</span></p>
+        <span class="pill xam">Xamarin.Forms · Healthcare · Featured</span>
+        <p class="desc">Gia by MVP Health Care puts a health plan in the member's pocket — 24/7 virtual care with certified clinicians (urgent care by phone, everyday care by in-app messaging, behavioral health by video), doctor and facility search, digital ID cards, and claims that read like receipts: charges, what MVP saved you, and your actual cost, with the EOB one tap away. Free for most MVP members.</p>
+        <p class="tech"><b>Tech:</b> Xamarin.Forms, MVVM, RESTful Services, Secure Member Auth, PDF (EOB) Viewing</p>
+        <p class="lnk"><a href="MVP HealthCare.html">✦ View the full case study &rarr;</a></p>
       </div>
     </div>
 
-    <div class="card" id="itp2013">
-      <div class="shot" style="background:radial-gradient(180px 120px at 50% -18%, rgba(57,217,255,.30), transparent 60%), linear-gradient(160deg,#0a1226,#111f42); position:relative; overflow:hidden;">
-        <span class="deco tl dk">🎟️</span><span class="deco br dk">🎉</span>
-        <div style="position:relative; z-index:2; display:flex; gap:12px; align-items:center; justify-content:center;">
-          <img src="images/ITPalooza2013/itp13-schedule.png" alt="ITPalooza 2013 schedule" style="width:auto; height:150px; display:block; border-radius:12px; transform:rotate(-6deg); box-shadow:0 10px 22px rgba(0,0,0,.4);" onerror="this.style.display='none'">
-          <img src="images/ITPalooza2013/itp13-sessions.png" alt="ITPalooza 2013 sessions" style="width:auto; height:188px; display:block; border-radius:14px; box-shadow:0 14px 28px rgba(0,0,0,.5);" onerror="this.style.display='none'">
-          <img src="images/ITPalooza2013/itp13-exhibitors.png" alt="ITPalooza 2013 exhibitors" style="width:auto; height:150px; display:block; border-radius:12px; transform:rotate(6deg); box-shadow:0 10px 22px rgba(0,0,0,.4);" onerror="this.style.display='none'">
-        </div>
+    <div class="card" id="clubholiday">
+      <div class="shot fuel">
+        <span class="deco tr dk">⛽</span><span class="deco bl dk">🎫</span>
+        <div class="topper" style="left:4%; top:56px;"><img src="images/HolidayApp/HomeScreen.png" alt="Club Holiday home screen with points and scannable barcode" onerror="this.style.display='none'"></div>
+        <div class="topper" style="left:29%; top:40px;"><img src="images/HolidayApp/Coupons.png" alt="Club Holiday coupons redeemed with points" onerror="this.style.display='none'"></div>
+        <div class="topper" style="left:54%; top:52px;"><img src="images/HolidayApp/Clubs.png" alt="Club Holiday punch-card clubs" onerror="this.style.display='none'"></div>
+        <div class="topper" style="left:79%; top:36px;"><img src="images/HolidayApp/StoresMap.png" alt="Club Holiday store locator with live fuel prices" onerror="this.style.display='none'"></div>
       </div>
       <div class="body">
-        <p class="name">ITPalooza 2013 <span class="yr">2013</span></p>
-        <span class="pill xam">Xamarin · Event · Featured</span>
-        <p class="desc">Companion app for ITPalooza — South Florida's tech-community conference for networking, learning and charitable giving. Attendees review and select sessions, give session and conference feedback, and build a personal schedule of the day. Architecture, interaction design and UI/UX.</p>
-        <p class="tech"><b>Tech:</b> Xamarin, iOS &amp; Android</p>
-        <p class="lnk"><a href="ITPalooza 2013.html">✦ View the full case study &rarr;</a></p>
+        <p class="name">Club Holiday <span class="yr">Holiday Oil · Utah</span></p>
+        <span class="pill xam">Xamarin.Forms · Loyalty · Featured</span>
+        <p class="desc">The official loyalty app for Holiday Oil's 60+ Utah convenience stores. Members enroll in Club Holiday, earn and track points, scan a register-ready barcode straight from the home screen, redeem points for mobile coupons, fill digital punch cards for the Tornado, Coffee and Slush clubs, and find nearby stores with live fuel prices — plus activate a car wash directly from the vehicle. Built end-to-end as sole mobile developer on Xamarin.Forms, the framework .NET MAUI directly evolved from.</p>
+        <p class="tech"><b>Tech:</b> Xamarin.Forms, MVVM, RESTful Services, Xamarin.Essentials, Maps &amp; Geolocation, Barcode Rendering</p>
+        <p class="lnk"><a href="Club Holiday.html">✦ View the full case study &rarr;</a></p>
       </div>
     </div>
 
@@ -1091,6 +1066,135 @@
         <p class="desc">A learning project I built to get a hands-on feel for what developing a native iOS app requires, compared against Xamarin.Forms — the technology I've long considered my go-to choice for mobile development. A playful pet photo-album app that frames your pets like gallery art.</p>
         <p class="tech"><b>Tech:</b> Native iOS (Swift), for comparison with Xamarin.Forms</p>
         <p class="lnk"><a href="Waggy.html">✦ View the full case study &rarr;</a></p>
+      </div>
+    </div>
+
+    <div class="card" id="b4ufly">
+      <div class="shot fly">
+        <span class="deco tl">🛰️</span><span class="deco bl">📡</span>
+        <div class="zone"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/fd2b9654-f8af-44b7-987e-efd11cbcdd42_rw_600.png?h=0d959e65df588e61ebec45df7b073f59" alt="B4UFly 1"></div>
+        <div class="zone"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/540c4eb6-6d8a-4b73-91b3-24ed1a1b8537_rw_600.png?h=585095f3d4a561f3dc2f652c595ebbfa" alt="B4UFly 2"></div>
+        <div class="zone"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/9d511488-5438-434c-a288-f2a91bf3de0b_rw_600.png?h=05b5202760ba21ea44a1d209e5f67d59" alt="B4UFly 3"></div>
+        <div class="zone"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/57a930ed-4d9e-4a19-b5d7-89ab4f7c1c62_rw_600.png?h=d949335d08d5b4453e226c8f750e286a" alt="B4UFly 4"></div>
+        <div class="zone"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/0b0d9989-cd77-44ef-8b91-6123f1209b99_rw_600.png?h=d465bdc8b125352143d153647a5e5f11" alt="B4UFly 5"></div>
+        <div class="zone"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/1639ff9c-be8b-4c38-b3f5-5734db1d33c6_rw_600.png?h=a306ef514b834865e466f5026ea75399" alt="B4UFly 6"></div>
+      </div>
+      <div class="body">
+        <p class="name">B4UFly</p>
+        <span class="pill xam">Xamarin.Forms · Drone · Featured</span>
+        <p class="desc">Helps unmanned-aircraft operators determine whether airspace restrictions or requirements are in effect at a chosen flight location.</p>
+        <p class="tech"><b>Tech:</b> Xamarin.Forms, iOS &amp; Android</p>
+        <p class="lnk"><a href="B4UFly.html">✦ View the full case study &rarr;</a></p>
+      </div>
+    </div>
+
+    <div class="card" id="viktre">
+      <div class="shot" style="background:radial-gradient(220px 150px at 50% -12%, rgba(255,206,84,.30), transparent 62%), linear-gradient(150deg,#0e1420 0%,#182338 55%,#0b0f18 100%); position:relative; overflow:hidden;">
+        <span style="position:absolute; left:1%; bottom:-10px; font-size:96px; opacity:.09; filter:grayscale(1) brightness(3); pointer-events:none; z-index:0;">🏃</span>
+        <span style="position:absolute; right:2%; bottom:-6px; font-size:70px; opacity:.09; filter:grayscale(1) brightness(3); pointer-events:none; z-index:0;">⚽</span>
+        <span style="position:absolute; right:30%; top:-6px; font-size:60px; opacity:.08; filter:grayscale(1) brightness(3); pointer-events:none; z-index:0;">🏀</span>
+        <span style="position:absolute; left:14px; top:14px; z-index:4; background:#e2334b; color:#fff; font:700 10px/1 Arial,sans-serif; letter-spacing:1.5px; padding:6px 9px; border-radius:5px; display:flex; align-items:center; gap:5px; box-shadow:0 4px 10px rgba(0,0,0,.45);"><span style="width:6px; height:6px; border-radius:50%; background:#fff;"></span>LIVE</span>
+        <span class="deco tr" style="opacity:.85; font-size:30px;">🏆</span>
+        <span style="position:absolute; left:23%; top:22px; color:#ffce54; font-size:11px; z-index:2;">★</span>
+        <span style="position:absolute; right:24%; bottom:24px; color:#ffce54; font-size:14px; z-index:2;">★</span>
+        <div style="position:relative; z-index:3; display:flex; align-items:center; justify-content:center; gap:9px;">
+          <img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/0fc53d7d2412de8fd6497605_rw_600.png?h=b2bf0472cdb4264c0c990c8342af4bad" alt="Viktre athlete feed" style="width:auto; height:150px; display:block; border-radius:12px; transform:rotate(-6deg); filter:drop-shadow(0 8px 16px rgba(0,0,0,.5));" onerror="this.style.display='none'">
+          <img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/b9ea88d808ab58f3d87b8f6c_rw_1200.png?h=d83abbb10a5a2826caa84bff6b9a561c" alt="Viktre profile" style="width:auto; height:190px; display:block; border-radius:15px; filter:drop-shadow(0 14px 28px rgba(0,0,0,.6));" onerror="this.style.display='none'">
+          <img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/6bf610b4c7c2a190f7e193c8_rw_600.png?h=26b380781e0cc3aa3f82e7ad6ba958c9" alt="Viktre streaming" style="width:auto; height:150px; display:block; border-radius:12px; transform:rotate(6deg); filter:drop-shadow(0 8px 16px rgba(0,0,0,.5));" onerror="this.style.display='none'">
+        </div>
+        <span style="position:absolute; bottom:10px; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,rgba(255,206,84,.6),transparent); z-index:1; pointer-events:none;"></span>
+      </div>
+      <div class="body">
+        <p class="name">Viktre <span class="yr">Athletes</span></p>
+        <span class="pill xam">Xamarin.Forms · Sports / Social · Featured</span>
+        <p class="desc">Viktre is all about the athlete — a private social network for athletes to connect and collaborate, a public network for athletes to engage with fans and followers, and a 24/7 streaming page filled with compelling content about the world of the athlete, both in and outside of sports.</p>
+        <p class="tech"><b>Tech:</b> Xamarin.Forms, live streaming, iOS &amp; Android</p>
+        <p class="lnk"><a href="Viktre.html">✦ View the full case study &rarr;</a></p>
+      </div>
+    </div>
+
+    <div class="card" id="bcbs">
+      <div class="shot iso mock fan" style="background:linear-gradient(150deg,#e9f4fb,#dfeaf3);">
+        <a href="BCBS - My BluePrint.html" class="shot-link" aria-label="View the BCBS My BluePrint case study" style="position:absolute; inset:0; z-index:20;"></a>
+        <span class="deco tc">📊</span><span class="deco br">🩺</span>
+        <div class="iso-plane tall">
+          <div class="dev"><img src="images/BCBS/mbp-splash.png" alt="My BluePrint splash" onerror="this.style.display='none'"></div>
+          <div class="dev"><img src="images/BCBS/mbp-settings.png" alt="My BluePrint settings" onerror="this.style.display='none'"></div>
+          <div class="dev"><img src="images/BCBS/mbp-home.png" alt="My BluePrint home menu" onerror="this.style.display='none'"></div>
+          <div class="dev"><img src="images/BCBS/mbp-claims.png" alt="My BluePrint claims center" onerror="this.style.display='none'"></div>
+          <div class="dev"><img src="images/BCBS/mbp-contact.png" alt="My BluePrint contact us" onerror="this.style.display='none'"></div>
+        </div>
+      </div>
+      <div class="body">
+        <p class="name">BCBS - My BluePrint <span class="yr">Analysis &amp; Roadmap</span></p>
+        <span class="pill xam">Xamarin.Forms · Healthcare · Featured</span>
+        <p class="desc">A deep analysis of the Blue Cross Blue Shield My BluePrint member app — covering application performance, App Store feedback, customer engagement, resolution of high-frequency exceptions, and accessibility compliance — delivered as a prioritized roadmap that schedules each identified area by timeframe and order, tackling the highest-priority issues first.</p>
+        <p class="tech"><b>Tech:</b> Xamarin.Forms, Performance Profiling, App Store Analytics, Accessibility, Exception Triage</p>
+        <p class="lnk"><a href="BCBS - My BluePrint.html">✦ View the full case study &rarr;</a></p>
+      </div>
+    </div>
+
+    <div class="card" id="nalco">
+      <div class="shot lock">
+        <span class="deco bl">🔒</span><span class="deco tr">🛢️</span>
+        <div class="pad"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/a629b851-b61f-436e-8b70-66debf751710_rw_600.png?h=1f03f5079bb45d40c84565c96371e3bf" alt="Nalco 1"></div>
+        <div class="pad"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/f47df40b-ad55-46d4-9630-2bff9243eb28_rw_600.png?h=57eca7b2c3181fbd727065b2dcfe5c5b" alt="Nalco 2"></div>
+        <div class="pad"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/3ef50299-0884-49e8-9aaf-29ea7e9f8df6_rw_600.png?h=cb1f029fa6c03ba2b083996d728bf24f" alt="Nalco 3"></div>
+        <div class="pad"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/4e220934-3dfa-47d6-85a3-1adccdbff3fa_rw_600.png?h=cccc5759ba9f74aae4dcfcb3f0809dae" alt="Nalco 4"></div>
+        <div class="pad"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/bc9aaa96-1c04-49eb-9f9d-80b0149b36e8_rw_600.png?h=c8d13d0c3651e88c55a36c5e0eeb8fa7" alt="Nalco 5"></div>
+        <div class="pad"><img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/9c015bae-4d9c-4a09-ab46-70b3dad9dc32_rw_600.png?h=bbad743b9f33c07e9c683d740fae6804" alt="Nalco 6"></div>
+      </div>
+      <div class="body">
+        <p class="name">Nalco Lock App</p>
+        <span class="pill xam">Xamarin.Forms · Field · Featured</span>
+        <p class="desc">Field tool for installation specialists to fit new tank locks, generate unique combos, and document details via a backend service — built on a condensed timeline to support installation of 28,000 tanks on schedule.</p>
+        <p class="tech"><b>Tech:</b> Xamarin.Forms, MVVM, REST, Microsoft SSO, BarcodeScanner, SimpleAudioPlayer</p>
+        <p class="lnk"><a href="Nalco Lock App.html">✦ View the full case study &rarr;</a></p>
+      </div>
+    </div>
+
+    <div class="card" id="salon">
+      <div class="shot salon">
+        <span class="deco bl dk">💇</span><span class="deco mr dk">✂️</span>
+        <img src="images/SalonScheduler/SSMCalendar.png" alt="Salon Scheduler daily calendar" style="left:3%; top:20px;">
+        <img src="images/SalonScheduler/SSAppointmentDate.png" alt="Salon Scheduler add appointment" style="left:28%; top:38px;">
+        <img src="images/SalonScheduler/SSCommissions.png" alt="Salon Scheduler commissions" style="left:50%; top:12px;">
+        <img src="images/SalonScheduler/SSEmployeeMessage.png" alt="Salon Scheduler employee settings" style="left:72%; top:32px;">
+      </div>
+      <div class="body">
+        <p class="name">Salon Scheduler <span class="yr">2016–2017</span></p>
+        <span class="pill xam">Clover POS · Featured</span>
+        <p class="desc">Clover POS app for salon professionals — appointment scheduling, SMS reminders, notes, and order history, with unlimited employees/stations syncing across all stations.</p>
+        <p class="tech"><b>Tech:</b> Clover POS, Xamarin.Forms</p>
+        <p class="lnk"><a href="Salon Scheduler.html">✦ View the full case study &rarr;</a></p>
+      </div>
+    </div>
+
+
+    <div class="card" id="moji">
+      <div class="shot moji-social" style="background:radial-gradient(240px 150px at 50% 120%, rgba(255,255,255,.20), transparent 62%), linear-gradient(135deg,#1e7a72 0%,#3aa79b 52%,#7fd0c3 100%); position:relative; overflow:hidden;">
+        <span style="position:absolute; width:170px; height:170px; border-radius:50%; left:-48px; top:-46px; background:radial-gradient(circle at 32% 30%, rgba(255,255,255,.34), rgba(255,255,255,0) 66%); pointer-events:none;"></span>
+        <span style="position:absolute; width:135px; height:135px; border-radius:50%; right:-40px; bottom:-42px; background:radial-gradient(circle at 32% 30%, rgba(255,255,255,.26), rgba(255,255,255,0) 66%); pointer-events:none;"></span>
+        <span style="position:absolute; width:8px; height:8px; border-radius:50%; left:30%; top:40px; background:rgba(255,255,255,.75); pointer-events:none;"></span>
+        <span style="position:absolute; width:6px; height:6px; border-radius:50%; right:32%; bottom:42px; background:rgba(255,255,255,.7); pointer-events:none;"></span>
+        <div style="position:absolute; z-index:2; left:50%; top:50%; transform:translate(-96%,-46%) rotate(-9deg); padding:4px; background:#0c2b28; border-radius:16px; box-shadow:0 12px 26px rgba(8,40,36,.45);">
+          <img src="images/Moji/spheres.png" alt="Moji spheres — organize life into Work, Connections and Close Friends" style="width:auto; height:150px; display:block; border-radius:12px;" onerror="this.parentNode.style.display='none'">
+        </div>
+        <div style="position:relative; z-index:3; padding:5px; background:#0e3330; border-radius:20px; box-shadow:0 18px 42px rgba(8,45,40,.55); transform:rotate(3deg);">
+          <img src="images/Moji/timeline.png" alt="Moji timeline filtered by sphere with friends list" style="width:auto; height:190px; display:block; border-radius:15px;" onerror="this.parentNode.style.display='none'">
+        </div>
+        <span style="position:absolute; z-index:4; left:10%; top:18px; width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:21px; background:linear-gradient(150deg,#fff,#ffe3f3); box-shadow:0 8px 16px rgba(40,10,50,.35); border:1px solid rgba(255,255,255,.7);">👥</span>
+        <span style="position:absolute; z-index:4; right:12%; top:12px; width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:19px; background:linear-gradient(150deg,#fff,#e3ecff); box-shadow:0 8px 16px rgba(40,10,50,.35); border:1px solid rgba(255,255,255,.7);">💬</span>
+        <span style="position:absolute; z-index:4; left:6%; bottom:18px; width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; background:linear-gradient(150deg,#fff,#fff0d9); box-shadow:0 8px 16px rgba(40,10,50,.35); border:1px solid rgba(255,255,255,.7);">🔔</span>
+        <span style="position:absolute; z-index:4; right:8%; bottom:24px; width:46px; height:46px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:22px; background:linear-gradient(150deg,#fff,#ffe0e6); box-shadow:0 10px 18px rgba(40,10,50,.4); border:1px solid rgba(255,255,255,.75);">❤️</span>
+        <span style="position:absolute; z-index:4; right:23%; top:74px; width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:16px; background:linear-gradient(150deg,#fff,#e0fff0); box-shadow:0 8px 16px rgba(40,10,50,.3); border:1px solid rgba(255,255,255,.7);">🌐</span>
+      </div>
+      <div class="body">
+        <p class="name">Moji</p>
+        <span class="pill xam">Xamarin.Forms · Social · Featured</span>
+        <p class="desc">A social networking app built around "spheres" that organize the major areas of your life and simplify grouping and dividing the things that matter to you. Moji centers on an innovative control that gives you full command over access — ranging from broad, sweeping controls down to very small, very specific ones.</p>
+        <p class="tech"><b>Tech:</b> Xamarin.Forms, iOS &amp; Android</p>
+        <p class="lnk"><a href="Moji.html">✦ View the full case study &rarr;</a></p>
       </div>
     </div>
 
@@ -1119,28 +1223,21 @@
       </div>
     </div>
 
-    <div class="card" id="viktre">
-      <div class="shot" style="background:radial-gradient(220px 150px at 50% -12%, rgba(255,206,84,.30), transparent 62%), linear-gradient(150deg,#0e1420 0%,#182338 55%,#0b0f18 100%); position:relative; overflow:hidden;">
-        <span style="position:absolute; left:1%; bottom:-10px; font-size:96px; opacity:.09; filter:grayscale(1) brightness(3); pointer-events:none; z-index:0;">🏃</span>
-        <span style="position:absolute; right:2%; bottom:-6px; font-size:70px; opacity:.09; filter:grayscale(1) brightness(3); pointer-events:none; z-index:0;">⚽</span>
-        <span style="position:absolute; right:30%; top:-6px; font-size:60px; opacity:.08; filter:grayscale(1) brightness(3); pointer-events:none; z-index:0;">🏀</span>
-        <span style="position:absolute; left:14px; top:14px; z-index:4; background:#e2334b; color:#fff; font:700 10px/1 Arial,sans-serif; letter-spacing:1.5px; padding:6px 9px; border-radius:5px; display:flex; align-items:center; gap:5px; box-shadow:0 4px 10px rgba(0,0,0,.45);"><span style="width:6px; height:6px; border-radius:50%; background:#fff;"></span>LIVE</span>
-        <span class="deco tr" style="opacity:.85; font-size:30px;">🏆</span>
-        <span style="position:absolute; left:23%; top:22px; color:#ffce54; font-size:11px; z-index:2;">★</span>
-        <span style="position:absolute; right:24%; bottom:24px; color:#ffce54; font-size:14px; z-index:2;">★</span>
-        <div style="position:relative; z-index:3; display:flex; align-items:center; justify-content:center; gap:9px;">
-          <img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/0fc53d7d2412de8fd6497605_rw_600.png?h=b2bf0472cdb4264c0c990c8342af4bad" alt="Viktre athlete feed" style="width:auto; height:150px; display:block; border-radius:12px; transform:rotate(-6deg); filter:drop-shadow(0 8px 16px rgba(0,0,0,.5));" onerror="this.style.display='none'">
-          <img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/b9ea88d808ab58f3d87b8f6c_rw_1200.png?h=d83abbb10a5a2826caa84bff6b9a561c" alt="Viktre profile" style="width:auto; height:190px; display:block; border-radius:15px; filter:drop-shadow(0 14px 28px rgba(0,0,0,.6));" onerror="this.style.display='none'">
-          <img src="https://cdn.myportfolio.com/5e18390a8c4168d1496284903074e702/6bf610b4c7c2a190f7e193c8_rw_600.png?h=26b380781e0cc3aa3f82e7ad6ba958c9" alt="Viktre streaming" style="width:auto; height:150px; display:block; border-radius:12px; transform:rotate(6deg); filter:drop-shadow(0 8px 16px rgba(0,0,0,.5));" onerror="this.style.display='none'">
+    <div class="card" id="itp2013">
+      <div class="shot" style="background:radial-gradient(180px 120px at 50% -18%, rgba(57,217,255,.30), transparent 60%), linear-gradient(160deg,#0a1226,#111f42); position:relative; overflow:hidden;">
+        <span class="deco tl dk">🎟️</span><span class="deco br dk">🎉</span>
+        <div style="position:relative; z-index:2; display:flex; gap:12px; align-items:center; justify-content:center;">
+          <img src="images/ITPalooza2013/itp13-schedule.png" alt="ITPalooza 2013 schedule" style="width:auto; height:150px; display:block; border-radius:12px; transform:rotate(-6deg); box-shadow:0 10px 22px rgba(0,0,0,.4);" onerror="this.style.display='none'">
+          <img src="images/ITPalooza2013/itp13-sessions.png" alt="ITPalooza 2013 sessions" style="width:auto; height:188px; display:block; border-radius:14px; box-shadow:0 14px 28px rgba(0,0,0,.5);" onerror="this.style.display='none'">
+          <img src="images/ITPalooza2013/itp13-exhibitors.png" alt="ITPalooza 2013 exhibitors" style="width:auto; height:150px; display:block; border-radius:12px; transform:rotate(6deg); box-shadow:0 10px 22px rgba(0,0,0,.4);" onerror="this.style.display='none'">
         </div>
-        <span style="position:absolute; bottom:10px; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,rgba(255,206,84,.6),transparent); z-index:1; pointer-events:none;"></span>
       </div>
       <div class="body">
-        <p class="name">Viktre <span class="yr">Athletes</span></p>
-        <span class="pill xam">Xamarin.Forms · Sports / Social · Featured</span>
-        <p class="desc">Viktre is all about the athlete — a private social network for athletes to connect and collaborate, a public network for athletes to engage with fans and followers, and a 24/7 streaming page filled with compelling content about the world of the athlete, both in and outside of sports.</p>
-        <p class="tech"><b>Tech:</b> Xamarin.Forms, live streaming, iOS &amp; Android</p>
-        <p class="lnk"><a href="Viktre.html">✦ View the full case study &rarr;</a></p>
+        <p class="name">ITPalooza 2013 <span class="yr">2013</span></p>
+        <span class="pill xam">Xamarin · Event · Featured</span>
+        <p class="desc">Companion app for ITPalooza — South Florida's tech-community conference for networking, learning and charitable giving. Attendees review and select sessions, give session and conference feedback, and build a personal schedule of the day. Architecture, interaction design and UI/UX.</p>
+        <p class="tech"><b>Tech:</b> Xamarin, iOS &amp; Android</p>
+        <p class="lnk"><a href="ITPalooza 2013.html">✦ View the full case study &rarr;</a></p>
       </div>
     </div>
 
@@ -1578,6 +1675,9 @@
     'gmobile':'RamTech gMobile.html',
     'ups':'UPS Mobile Delivery.html',
     'moviebuff':'MovieBuff.html',
+    'clubholiday':'Club Holiday.html',
+    'mvphealthcare':'MVP HealthCare.html',
+    'realgreen':'Real Green Systems.html',
     'safe4dogs':'Safe4Dogs.html',
     'searchmed':'SearchMed.html',
     'pos':'POS Prototype.html',
