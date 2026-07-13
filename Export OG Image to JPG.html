@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Export OG Image → og-david-silverlight-portfolio.jpg</title>
+<style>
+  body{margin:0; background:#111a26; color:#dfe8f2; font-family:"Segoe UI",Arial,sans-serif; display:flex; flex-direction:column; align-items:center; gap:18px; padding:30px;}
+  canvas{max-width:100%; border-radius:10px; box-shadow:0 20px 60px rgba(0,0,0,.5);}
+  button{background:#2c7a7b; color:#fff; border:0; border-radius:8px; padding:12px 26px; font-size:15px; font-weight:600; cursor:pointer;}
+  button:hover{background:#35918f;}
+  p{max-width:640px; text-align:center; color:#9fb2c6; font-size:13.5px; line-height:1.6;}
+</style>
+</head>
+<body>
+<h2>Open Graph image — 1200 × 630</h2>
+<canvas id="c" width="1200" height="630"></canvas>
+<button id="dl">⬇ Download og-david-silverlight-portfolio.jpg</button>
+<p>Save the downloaded file into the <b>images</b> folder of this portfolio (keep the exact filename). It's referenced by the Open Graph and Twitter tags on every page.</p>
+<script>
+const c = document.getElementById('c'), x = c.getContext('2d');
+
+// ---- background ----
+let g = x.createLinearGradient(0,0,1200,630);
+g.addColorStop(0,'#0d2b4e'); g.addColorStop(.55,'#15457a'); g.addColorStop(1,'#0c2340');
+x.fillStyle = g; x.fillRect(0,0,1200,630);
+
+// teal glow top-right
+let r = x.createRadialGradient(1050,80,0,1050,80,500);
+r.addColorStop(0,'rgba(44,122,123,.55)'); r.addColorStop(1,'rgba(44,122,123,0)');
+x.fillStyle = r; x.fillRect(0,0,1200,630);
+
+// subtle dot grid
+x.fillStyle = 'rgba(255,255,255,.05)';
+for(let px=40; px<1200; px+=44) for(let py=40; py<630; py+=44){ x.beginPath(); x.arc(px,py,1.6,0,7); x.fill(); }
+
+// ---- stylized phones (right side) ----
+function phone(px,py,w,h,rot,alpha){
+  x.save(); x.translate(px,py); x.rotate(rot);
+  x.globalAlpha = alpha;
+  x.fillStyle = '#0a1a2e';
+  roundRect(-w/2,-h/2,w,h,26); x.fill();
+  x.strokeStyle = 'rgba(255,255,255,.25)'; x.lineWidth = 2; roundRect(-w/2,-h/2,w,h,26); x.stroke();
+  let sg = x.createLinearGradient(0,-h/2,0,h/2);
+  sg.addColorStop(0,'#2c7a7b'); sg.addColorStop(1,'#15457a');
+  x.fillStyle = sg; roundRect(-w/2+10,-h/2+10,w-20,h-20,18); x.fill();
+  // fake UI lines
+  x.fillStyle = 'rgba(255,255,255,.75)';
+  roundRect(-w/2+26,-h/2+34,w-72,14,7); x.fill();
+  x.fillStyle = 'rgba(255,255,255,.4)';
+  roundRect(-w/2+26,-h/2+62,w-52,10,5); x.fill();
+  roundRect(-w/2+26,-h/2+82,w-90,10,5); x.fill();
+  x.fillStyle = 'rgba(255,255,255,.25)';
+  roundRect(-w/2+26,-h/2+116,w-52,h-160,14); x.fill();
+  x.restore(); x.globalAlpha = 1;
+}
+function roundRect(px,py,w,h,rad){
+  x.beginPath();
+  x.moveTo(px+rad,py);
+  x.arcTo(px+w,py,px+w,py+h,rad);
+  x.arcTo(px+w,py+h,px,py+h,rad);
+  x.arcTo(px,py+h,px,py,rad);
+  x.arcTo(px,py,px+w,py,rad);
+  x.closePath();
+}
+phone(1000,340,190,400,0.10,.55);
+phone(880,390,175,370,-0.08,.8);
+
+// ---- DS badge ----
+x.fillStyle = '#2c7a7b';
+roundRect(70,64,86,86,20); x.fill();
+x.fillStyle = '#ffffff';
+x.font = '800 42px "Segoe UI", Arial, sans-serif';
+x.textAlign = 'center'; x.textBaseline = 'middle';
+x.fillText('DS', 113, 110);
+
+// ---- text ----
+x.textAlign = 'left'; x.textBaseline = 'alphabetic';
+x.fillStyle = '#ffffff';
+x.font = '800 76px "Segoe UI", Arial, sans-serif';
+x.fillText('David Silverlight', 70, 292);
+
+x.fillStyle = '#7fd0c9';
+x.font = '600 40px "Segoe UI", Arial, sans-serif';
+x.fillText('Cross-Platform .NET Application Developer', 70, 352);
+
+x.fillStyle = 'rgba(223,232,242,.9)';
+x.font = '400 27px "Segoe UI", Arial, sans-serif';
+x.fillText('Enterprise .NET MAUI & Xamarin.Forms — real project case studies', 70, 408);
+
+// accent rule
+x.fillStyle = '#c9a35f';
+x.fillRect(70, 432, 96, 5);
+
+// ---- domain chips ----
+const chips = ['Healthcare','GIS / Esri','Fintech','IoT','Logistics','Loyalty','Migration'];
+let cx = 70, cy = 480;
+x.font = '600 21px "Segoe UI", Arial, sans-serif';
+chips.forEach(t=>{
+  const w = x.measureText(t).width + 36;
+  x.fillStyle = 'rgba(255,255,255,.10)';
+  roundRect(cx,cy,w,42,21); x.fill();
+  x.strokeStyle = 'rgba(127,208,201,.45)'; x.lineWidth = 1.5;
+  roundRect(cx,cy,w,42,21); x.stroke();
+  x.fillStyle = '#e8f0f7';
+  x.fillText(t, cx+18, cy+28);
+  cx += w + 14;
+});
+
+// footer url
+x.fillStyle = 'rgba(223,232,242,.55)';
+x.font = '500 22px "Segoe UI", Arial, sans-serif';
+x.fillText('davidsilverlight.github.io/Portfolio', 70, 580);
+
+// ---- download ----
+document.getElementById('dl').addEventListener('click', ()=>{
+  const a = document.createElement('a');
+  a.download = 'og-david-silverlight-portfolio.jpg';
+  a.href = c.toDataURL('image/jpeg', 0.92);
+  a.click();
+});
+</script>
+</body>
+</html>
