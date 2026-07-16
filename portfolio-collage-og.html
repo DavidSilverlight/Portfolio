@@ -1,0 +1,127 @@
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: #060d1c; }
+  .frame {
+    width: 1200px;
+    height: 630px;
+    position: relative;
+    overflow: hidden;
+    background: #060d1c;
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  .grid {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 3px;
+  }
+  .grid img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.9) saturate(1.06);
+  }
+  .overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 90% at 50% 50%, rgba(6,13,28,0.30) 0%, rgba(6,13,28,0.55) 45%, rgba(6,13,28,0.90) 100%),
+      linear-gradient(180deg, rgba(7,15,36,0.55) 0%, rgba(12,42,58,0.15) 50%, rgba(7,15,36,0.70) 100%);
+  }
+  .border {
+    position: absolute;
+    inset: 14px;
+    border: 1.5px solid rgba(55,224,214,0.35);
+    border-radius: 10px;
+    pointer-events: none;
+  }
+  .card {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding: 34px 60px;
+    background: rgba(9,20,38,0.62);
+    border: 1px solid rgba(111,233,255,0.30);
+    border-radius: 16px;
+    backdrop-filter: blur(3px);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.45);
+  }
+  .accent {
+    width: 78px;
+    height: 4px;
+    margin: 0 auto 20px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, #6FE9D6, #BFE0FF);
+  }
+  .name {
+    font-size: 62px;
+    font-weight: 300;
+    color: #FFFFFF;
+    letter-spacing: 0.5px;
+    line-height: 1.05;
+  }
+  .tag {
+    margin-top: 12px;
+    font-size: 26px;
+    font-weight: 600;
+    color: #8FE6DD;
+    letter-spacing: 0.3px;
+  }
+  .sub {
+    margin-top: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #7F9BC0;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .url {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #FFD34E;
+    letter-spacing: 0.3px;
+  }
+</style>
+
+<div class="frame">
+  <div class="grid">
+    <img src="images/BankMobile/SplashScreen.png" alt="">
+    <img src="images/PetPixie/HaveFun_iOS.png" alt="">
+    <img src="images/B4UFly/MapMode.png" alt="">
+    <img src="images/BCBS/mpb-home.png" alt="">
+    <img src="images/Marcel/daily-digest.png" alt="">
+    <img src="images/MovieBuff/SelectShow1New.png" alt="">
+
+    <img src="images/SearchMed/SearchMap.png" alt="">
+    <img src="images/KinshipNavigator/kn-landing.png" alt="">
+    <img src="images/UASTrakker/Opening.png" alt="">
+    <img src="images/Viktre/Viktre1.png" alt="">
+    <img src="images/SalonScheduler/SSMCalendar.png" alt="">
+    <img src="images/ASTech/ASTech1.png" alt="">
+
+    <img src="images/BankMobile/MultipleAccounts.png" alt="">
+    <img src="images/PetPixie/LoginiOS.png" alt="">
+    <img src="images/UASTrakker/FireRescue.png" alt="">
+    <img src="images/Marcel/breakthrough-work.png" alt="">
+    <img src="images/SearchMed/SearchResults.png" alt="">
+    <img src="images/Waggy/waggy-home.png" alt="">
+  </div>
+
+  <div class="overlay"></div>
+  <div class="border"></div>
+
+  <div class="card">
+    <div class="accent"></div>
+    <div class="name">David Silverlight</div>
+    <div class="tag">Cross-Platform .NET &amp; Mobile App Developer</div>
+    <div class="sub">.NET MAUI &middot; Xamarin.Forms &middot; iOS &middot; Android</div>
+    <div class="url">www.DavidSilverlight.com</div>
+  </div>
+</div>

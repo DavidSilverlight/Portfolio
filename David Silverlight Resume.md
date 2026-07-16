@@ -64,7 +64,7 @@ Delivered UX improvements, performance optimizations, and .NET MAUI-specific "he
 
 ---
 
-**Caffeinated Shark Labs** — Miami, FL | 2014 – Present
+**Caffeinated Shark Labs** — Miami, FL | [Nov 2014 – Dec 2025](https://www.linkedin.com/in/mauigeek/)
 *Principal Mobile Engineer & Founder*
 
 Independent consultancy delivering .NET MAUI and Xamarin.Forms development engagements for clients ranging from startups to enterprises. 30+ shipped apps showcased at DavidSilverlight.com. Selected client engagements (reverse chronological):

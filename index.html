@@ -19,13 +19,39 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "David Silverlight",
-  "jobTitle": "Cross-Platform .NET Application Developer",
+  "@type": "ProfilePage",
+  "name": "David Silverlight — Senior .NET MAUI Developer Portfolio",
   "url": "https://davidsilverlight.github.io/Portfolio/",
-  "email": "mailto:davidsilverlight@gmail.com",
-  "knowsAbout": [".NET MAUI", "Xamarin.Forms", "C#", "MVVM", "Enterprise Mobile Development"],
-  "sameAs": []
+  "mainEntity": {
+    "@type": "Person",
+    "name": "David Silverlight",
+    "jobTitle": "Senior .NET MAUI Developer",
+    "email": "mailto:DavidSilverlight@gmail.com",
+    "telephone": "+1-561-212-5707",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Miami",
+      "addressRegion": "FL",
+      "addressCountry": "US"
+    },
+    "sameAs": [
+      "https://linkedin.com/in/MauiGeek",
+      "https://DavidSilverlight.com"
+    ],
+    "knowsAbout": [
+      ".NET MAUI",
+      "Xamarin.Forms",
+      "Enterprise mobile apps",
+      "Mobile app migration",
+      "Prism.Maui",
+      "CommunityToolkit.Maui",
+      "SQLite",
+      "Esri ArcGIS Maps SDK",
+      "Healthcare mobile apps",
+      "GIS field inspection apps",
+      "IoT mobile apps"
+    ]
+  }
 }
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -354,7 +380,7 @@
     body.nav-open::after{content:""; position:fixed; inset:0; background:rgba(10,15,25,.45); z-index:998;}
     .layout .wrap{max-width:none; padding-top:60px;}
   }
-  .sidenav .navtop{display:block; font-size:14px; font-weight:700; color:var(--accent); text-decoration:none; padding:7px 10px; border-radius:5px; margin:2px 2px; border-left:3px solid transparent;}
+  .sidenav .navtop{display:block; font-size:14px; font-weight:700; color:var(--accent); text-decoration:none; padding:7px 10px; border-radius:5px; margin:2px 2px; border-left:3px solid var(--accent2); background:var(--pill);}
   .sidenav .navtop:hover{background:var(--pill);}
   .sidenav .navtop.active{background:var(--pill); border-left-color:var(--accent2);}
   /* ===== Overview & XML Journal text sections ===== */
@@ -362,12 +388,21 @@
   .panel{background:var(--card); border:1px solid var(--rule); border-radius:10px; padding:18px 22px;
     box-shadow:0 1px 3px rgba(20,40,80,.06); font-size:14.5px; color:#33404f; line-height:1.6;}
   .panel p{margin:0 0 12px;} .panel p:last-child{margin-bottom:0;}
+  #faq h3{font-size:15px; font-weight:700; color:var(--accent); margin:16px 0 4px;} #faq h3:first-of-type{margin-top:0;}
   .panel a{color:var(--accent); text-decoration:none; font-weight:600;}
   .panel .promo{background:var(--pill); border-left:4px solid var(--accent2); padding:12px 14px; border-radius:6px;}
   .panel .contact{font-weight:600; color:var(--accent); font-size:14px;}
   .aboutme{max-width:880px; margin:6px 0 26px; font-size:17px; line-height:1.6; color:#3a4655;}
   .aboutme .hi{font-size:20px; font-weight:800; color:var(--accent); margin-right:6px;}
   .aboutme b{color:var(--accent2); font-weight:700;}
+  .ctarow{display:flex; flex-wrap:wrap; gap:10px; margin:14px 0 2px;}
+  .cta{display:inline-block; padding:10px 18px; border-radius:8px; font-weight:700; font-size:13.5px; text-decoration:none; border:1.5px solid var(--accent); color:var(--accent); background:#fff; transition:transform .15s, box-shadow .15s;}
+  .cta:hover{transform:translateY(-2px); box-shadow:0 6px 16px rgba(20,40,80,.18);}
+  .cta.primary{background:linear-gradient(90deg,var(--accent),var(--accent2)); color:#fff; border-color:transparent;}
+  .position{font-size:15.5px; font-weight:700; color:var(--accent); margin:0 0 8px;}
+  .services{font-size:13.5px; font-weight:600; color:var(--accent2); margin:0 0 12px;}
+  .trustbar{display:flex; flex-wrap:wrap; gap:8px 22px; font-size:12.5px; color:var(--muted); border-top:1px solid var(--rule); padding-top:10px; margin-top:2px;}
+  .trustbar b{color:var(--ink);}
   .artgrid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:16px;}
   .art{display:flex; flex-direction:column; gap:9px; background:var(--card); border:1px solid var(--rule); border-radius:10px;
     padding:12px; cursor:zoom-in; box-shadow:0 1px 3px rgba(20,40,80,.06);
@@ -533,7 +568,7 @@
     <a class="brand" href="#top">David Silverlight<small>Cross-Platform .NET Application Developer</small></a>
     <hr class="navsep">
 
-    <a class="navtop" href="#overview">Shameless Self-Promotion</a>
+    <a class="navtop" href="#how-i-help">How I Help</a>
     <hr class="navsep">
 
     <a class="cat" href="#maui">.NET MAUI Apps</a>
@@ -601,6 +636,9 @@
       <li><a href="#web-realtechheroes">RealTechnologyHeroes.com</a></li>
     </ul>
 
+    <a class="navtop" href="#faq">Frequently Asked Questions</a>
+    <hr class="navsep">
+
     <div class="ext">
       <a href="David Silverlight Resume.html">David Silverlight's Resume &rarr;</a>
       <a href="David Silverlight — Cross-Platform .NET Application Developer.pdf" download>Download Resume (PDF) &darr;</a>
@@ -616,13 +654,22 @@
   </header>
 
   <section class="prose" id="about">
+    <div class="panel">
     <p class="aboutme"><span class="hi">👋 Hi, I'm David —</span> a developer who genuinely loves this stuff. I've spent years happily building apps across a parade of technologies — spent some time authoring a <b>monthly Q&amp;A column for <i>XML Journal</i></b> back in my XML-geek days, through Silverlight and Xamarin.Forms, to <b>.Net MAUI</b> as an early adopter where I have been laser focused from day one. I'm endlessly curious, love to learn and lately I'm having a blast exploring how <b>AI</b> can help me build better and faster.</p>
+    </div>
   </section>
 
-  <section class="prose" id="overview">
-    <h2 class="section">Shameless Self-Promotion</h2>
+  <section class="prose" id="how-i-help">
+    <h2 class="section">How I Help</h2>
     <div class="panel">
-      <p>Here I can showcase some of my proudest accomplishments as a computer geek, showing mobile and web apps in various technologies and a few articles from a monthly column I used to write, as well as apps that I have created for the development community and for fun. I'm always interested in new projects. Whether you need help meeting a tight deadline or a dependable hand to carry a mission-critical deliverable from start to finish, I'd welcome the conversation.</p>
+      <p>Whether you or your team needs help meeting a tight deadline, someone to help with heavy lifting, modernizing a legacy Xamarin.Forms app, or a dependable hand to carry a mission-critical deliverable from start to finish, I'd welcome the conversation.</p>
+      <p>Feel free to <a href="tel:+15612125707">call me at 561-212-5707</a> or <a href="mailto:DavidSilverlight@gmail.com">email me at DavidSilverlight@gmail.com</a> — I'm always glad to talk through how I can help.</p>
+      <div class="ctarow">
+        <a href="mailto:DavidSilverlight@gmail.com" class="cta primary">Hire David</a>
+        <a href="tel:+15612125707" class="cta">Call David</a>
+        <a href="David Silverlight Resume.html" class="cta">View Resume</a>
+        <a href="#maui" class="cta">View .NET MAUI Work</a>
+      </div>
     </div>
   </section>
 
@@ -633,12 +680,12 @@
       <div class="shot gmap" style="height:225px;">
         <span class="deco bl">🗺️</span><span class="deco tr">📡</span>
         <div class="compass"></div>
-        <div class="pin" style="left:1%; top:8px;"><img src="images/gMobile/LeftMenu.png" alt="gMobile menu"></div>
-        <div class="pin" style="left:37%; top:88px;"><img src="images/gMobile/MapTools.png" alt="gMobile map tools"></div>
-        <div class="pin" style="left:73%; top:38px;"><img src="images/gMobile/DroppedPin.png" alt="gMobile dropped pin"></div>
+        <div class="pin" style="left:1%; top:8px;"><img loading="lazy" decoding="async" src="images/gMobile/LeftMenu.png" alt="RamTech gMobile side navigation menu in .NET MAUI GIS field app"></div>
+        <div class="pin" style="left:37%; top:88px;"><img loading="lazy" decoding="async" src="images/gMobile/MapTools.png" alt="RamTech gMobile Esri ArcGIS map tools for field inspection"></div>
+        <div class="pin" style="left:73%; top:38px;"><img loading="lazy" decoding="async" src="images/gMobile/DroppedPin.png" alt="RamTech gMobile dropped map pin for asset inspection"></div>
       </div>
       <div class="body">
-        <p class="name">RamTech gMobile <span class="yr">2025–2026</span></p>
+        <h3 class="name">RamTech gMobile <span class="yr">2025–2026</span></h3>
         <span class="pill mig">.NET MAUI · Esri/GIS · Featured</span>
         <p class="desc">Esri/ArcGIS field-inspection app for damage assessment, leak survey, and gas-insight inspections. Delivered UX/performance work, then re-architected workflows into a vNext release with a single centralized mapping surface — ~30% fewer clicks per feature and ~20s of load-time initializations eliminated.</p>
         <p class="tech"><b>Tech:</b> .NET MAUI, Prism, Esri ArcGIS Maps SDK, Telerik UI for .NET MAUI, SQLite</p>
@@ -663,14 +710,14 @@
         <span class="paw" style="bottom:30px; left:300px; transform:rotate(-12deg);">🐾</span>
         <span class="paw" style="top:360px; right:180px; transform:rotate(28deg);">🐾</span>
         <div class="pups">
-          <div class="pol"><img src="images/Safe4Dogs/Safe4Dogs1.png" alt="Safe4Dogs — browse foods A to Z" onerror="this.style.display='none'"></div>
-          <div class="pol"><img src="images/Safe4Dogs/Safe4Dogs2.png" alt="Safe4Dogs — yes/no verdicts per food" onerror="this.style.display='none'"></div>
-          <div class="pol"><img src="images/Safe4Dogs/Safe4Dog3.png" alt="Safe4Dogs — Bread: no, with safety description" onerror="this.style.display='none'"></div>
-          <div class="pol"><img src="images/Safe4Dogs/Safe4Dog4.png" alt="Safe4Dogs — Apricot: yes, with precautions" onerror="this.style.display='none'"></div>
+          <div class="pol"><img loading="lazy" decoding="async" src="images/Safe4Dogs/Safe4Dogs1.png" alt="Safe4Dogs — browse foods A to Z" onerror="this.style.display='none'"></div>
+          <div class="pol"><img loading="lazy" decoding="async" src="images/Safe4Dogs/Safe4Dogs2.png" alt="Safe4Dogs — yes/no verdicts per food" onerror="this.style.display='none'"></div>
+          <div class="pol"><img loading="lazy" decoding="async" src="images/Safe4Dogs/Safe4Dog3.png" alt="Safe4Dogs — Bread: no, with safety description" onerror="this.style.display='none'"></div>
+          <div class="pol"><img loading="lazy" decoding="async" src="images/Safe4Dogs/Safe4Dog4.png" alt="Safe4Dogs — Apricot: yes, with precautions" onerror="this.style.display='none'"></div>
         </div>
       </div>
       <div class="body">
-        <p class="name">Safe4Dogs</p>
+        <h3 class="name">Safe4Dogs</h3>
         <span class="pill">.NET MAUI · Open Source · Featured</span>
         <p class="desc">Determines whether foods are safe for dogs, and doubles as a teaching codebase for mentoring developers across core .NET MAUI concepts — MVVM, handlers, Shell, DI, converters, behaviors, and localization.</p>
         <p class="tech"><b>Tech:</b> .NET MAUI, MVVM, SQLite, REST, CommunityToolkit.Maui, CommunityToolkit.Mvvm</p>
@@ -681,13 +728,13 @@
     <div class="card" id="ups">
       <div class="shot ups">
         <span class="deco tr dk">📦</span><span class="deco br dk">📍</span>
-        <div class="parcel" style="left:2%; top:96px;"><img src="images/UPS/ups-1.png" alt="UPS DIAD 6 — driver login" onerror="this.style.display='none'"></div>
-        <div class="parcel" style="left:27%; top:66px;"><img src="images/UPS/ups-2.png" alt="UPS DIAD 6 — splash and Microsoft login" onerror="this.style.display='none'"></div>
-        <div class="parcel" style="left:52%; top:46px;"><img src="images/UPS/ups-3.png" alt="UPS DIAD 6 — assignment details with route navigation" onerror="this.style.display='none'"></div>
-        <div class="parcel" style="left:76%; top:20px;"><img src="images/UPS/ups-4.png" alt="UPS DIAD 6 — delivery decision screen" onerror="this.style.display='none'"></div>
+        <div class="parcel" style="left:2%; top:96px;"><img loading="lazy" decoding="async" src="images/UPS/ups-1.png" alt="UPS DIAD 6 — driver login" onerror="this.style.display='none'"></div>
+        <div class="parcel" style="left:27%; top:66px;"><img loading="lazy" decoding="async" src="images/UPS/ups-2.png" alt="UPS DIAD 6 — splash and Microsoft login" onerror="this.style.display='none'"></div>
+        <div class="parcel" style="left:52%; top:46px;"><img loading="lazy" decoding="async" src="images/UPS/ups-3.png" alt="UPS DIAD 6 — assignment details with route navigation" onerror="this.style.display='none'"></div>
+        <div class="parcel" style="left:76%; top:20px;"><img loading="lazy" decoding="async" src="images/UPS/ups-4.png" alt="UPS DIAD 6 — delivery decision screen" onerror="this.style.display='none'"></div>
       </div>
       <div class="body">
-        <p class="name">UPS Mobile Delivery <span class="yr">2023–2024</span></p>
+        <h3 class="name">UPS Mobile Delivery <span class="yr">2023–2024</span></h3>
         <span class="pill mig">.NET MAUI · Enterprise · Featured</span>
         <p class="desc">.NET MAUI feasibility spike for the UPS driver app on the DIAD 6 handheld. Validated Trimble Maps and barcode scanning under .NET MAUI, rebuilt the in-house component library, and removed Prism in response to licensing changes.</p>
         <p class="tech"><b>Tech:</b> .NET MAUI, Trimble Maps, MAUI Essentials, CommunityToolkit.Mvvm, SQLite</p>
@@ -698,15 +745,15 @@
     <div class="card" id="atrack">
       <div class="shot chart" style="height:225px;">
         <span class="deco tr">📈</span><span class="deco bl">🎯</span>
-        <div class="pt" style="left:1%; top:66px;"><img src="images/Atrack/LoginScreen.png" alt="ATrack login"></div>
-        <div class="pt" style="left:17%; top:54px;"><img src="images/Atrack/HomeScreen.png" alt="ATrack home"></div>
-        <div class="pt" style="left:33%; top:42px;"><img src="images/Atrack/CasesScreen.png" alt="ATrack cases"></div>
-        <div class="pt" style="left:49%; top:30px;"><img src="images/Atrack/ViewProgram.png" alt="ATrack view program"></div>
-        <div class="pt" style="left:65%; top:18px;"><img src="images/Atrack/Targets3Screen.png" alt="ATrack session trial"></div>
-        <div class="pt" style="left:81%; top:6px;"><img src="images/Atrack/ChatWithSupport.png" alt="ATrack support chat"></div>
+        <div class="pt" style="left:1%; top:66px;"><img loading="lazy" decoding="async" src="images/Atrack/LoginScreen.png" alt="ATrack Mobile login screen for ABA therapy clinical data collection"></div>
+        <div class="pt" style="left:17%; top:54px;"><img loading="lazy" decoding="async" src="images/Atrack/HomeScreen.png" alt="ATrack Mobile home dashboard for ABA therapy providers"></div>
+        <div class="pt" style="left:33%; top:42px;"><img loading="lazy" decoding="async" src="images/Atrack/CasesScreen.png" alt="ATrack Mobile client cases list for behavior therapy"></div>
+        <div class="pt" style="left:49%; top:30px;"><img loading="lazy" decoding="async" src="images/Atrack/ViewProgram.png" alt="ATrack Mobile program view for behavior treatment plans"></div>
+        <div class="pt" style="left:65%; top:18px;"><img loading="lazy" decoding="async" src="images/Atrack/Targets3Screen.png" alt="ATrack Mobile session data-collection trial screen"></div>
+        <div class="pt" style="left:81%; top:6px;"><img loading="lazy" decoding="async" src="images/Atrack/ChatWithSupport.png" alt="ATrack Mobile in-app support chat"></div>
       </div>
       <div class="body">
-        <p class="name">ATrack Mobile <span class="yr">2026</span></p>
+        <h3 class="name">ATrack Mobile <span class="yr">2026</span></h3>
         <span class="pill mig">.NET MAUI · Clinical · Featured</span>
         <p class="desc">All-in-one data-collection and clinical-practice platform for Applied Behavior Analysis (ABA) therapy and autism providers. Cleared a large defect backlog, shipped new features, fixed migration defects, and designed a configurable Sentry/UXCam crash-and-analytics layer.</p>
         <p class="tech"><b>Tech:</b> .NET MAUI, Prism.Maui, CommunityToolkit.Maui, DevExpress, Sentry.Maui, Sharpnado, SQLite, UXCam</p>
@@ -718,16 +765,16 @@
       <div class="shot iso mock fan">
         <span class="deco tc">🗺️</span><span class="deco br">⏱️</span>
         <div class="iso-plane tall">
-          <div class="dev"><img src="images/KudurruStone/kud-new-dashboard.png" alt="Kudurru Stone dashboard" onerror="this.style.display='none'"></div>
-          <div class="dev"><img src="images/KudurruStone/kud-new-schedule.png" alt="Kudurru Stone schedule" onerror="this.style.display='none'"></div>
-          <div class="dev"><img src="images/KudurruStone/kud-new-scheduledetail.png" alt="Kudurru Stone detail" onerror="this.style.display='none'"></div>
-          <div class="dev"><img src="images/KudurruStone/kud-new-employeetime.png" alt="Kudurru Stone time" onerror="this.style.display='none'"></div>
-          <div class="dev"><img src="images/KudurruStone/kud-new-map.png" alt="Kudurru Stone map" onerror="this.style.display='none'"></div>
-          <div class="dev"><img src="images/KudurruStone/kud-new-timedetails.png" alt="Kudurru Stone time detail" onerror="this.style.display='none'"></div>
+          <div class="dev"><img loading="lazy" decoding="async" src="images/KudurruStone/kud-new-dashboard.png" alt="Kudurru Stone dashboard" onerror="this.style.display='none'"></div>
+          <div class="dev"><img loading="lazy" decoding="async" src="images/KudurruStone/kud-new-schedule.png" alt="Kudurru Stone schedule" onerror="this.style.display='none'"></div>
+          <div class="dev"><img loading="lazy" decoding="async" src="images/KudurruStone/kud-new-scheduledetail.png" alt="Kudurru Stone detail" onerror="this.style.display='none'"></div>
+          <div class="dev"><img loading="lazy" decoding="async" src="images/KudurruStone/kud-new-employeetime.png" alt="Kudurru Stone time" onerror="this.style.display='none'"></div>
+          <div class="dev"><img loading="lazy" decoding="async" src="images/KudurruStone/kud-new-map.png" alt="Kudurru Stone map" onerror="this.style.display='none'"></div>
+          <div class="dev"><img loading="lazy" decoding="async" src="images/KudurruStone/kud-new-timedetails.png" alt="Kudurru Stone time detail" onerror="this.style.display='none'"></div>
         </div>
       </div>
       <div class="body">
-        <p class="name">Kudurru Stone <span class="yr">UX Refresh</span></p>
+        <h3 class="name">Kudurru Stone <span class="yr">UX Refresh</span></h3>
         <span class="pill mig">.NET MAUI · UX · Featured</span>
         <p class="desc">A mobile UX refresh for the Kudurru Stone land-surveying field app — modernizing the look and streamlining navigation across login, schedule, job details, maps and time tracking. A full before → after redesign.</p>
         <p class="tech"><b>Tech:</b> .NET MAUI, MVVM, Shell, Maps &amp; Geolocation</p>
@@ -739,16 +786,16 @@
       <div class="shot iso mock fan" style="background:linear-gradient(150deg,#e8f2fb,#f7ecd9);">
         <span class="deco tc">👵</span><span class="deco br">💙</span>
         <div class="iso-plane tall">
-          <div class="dev"><img src="images/KinshipNavigator/kn-landing.png" alt="Kinship Navigator welcome" onerror="this.style.display='none'"></div>
-          <div class="dev"><img src="images/KinshipNavigator/kn-programs.png" alt="Kinship Navigator program selection" onerror="this.style.display='none'"></div>
-          <div class="dev"><img src="images/KinshipNavigator/kn-apply.png" alt="Kinship Navigator apply for caregiver subsidy" onerror="this.style.display='none'"></div>
-          <div class="dev"><img src="images/KinshipNavigator/kn-contact.png" alt="Kinship Navigator contact step" onerror="this.style.display='none'"></div>
-          <div class="dev"><img src="images/KinshipNavigator/kn-address.png" alt="Kinship Navigator address step" onerror="this.style.display='none'"></div>
-          <div class="dev"><img src="images/KinshipNavigator/kn-signin.png" alt="Kinship Navigator sign in or register" onerror="this.style.display='none'"></div>
+          <div class="dev"><img loading="lazy" decoding="async" src="images/KinshipNavigator/kn-landing.png" alt="Kinship Navigator welcome" onerror="this.style.display='none'"></div>
+          <div class="dev"><img loading="lazy" decoding="async" src="images/KinshipNavigator/kn-programs.png" alt="Kinship Navigator program selection" onerror="this.style.display='none'"></div>
+          <div class="dev"><img loading="lazy" decoding="async" src="images/KinshipNavigator/kn-apply.png" alt="Kinship Navigator apply for caregiver subsidy" onerror="this.style.display='none'"></div>
+          <div class="dev"><img loading="lazy" decoding="async" src="images/KinshipNavigator/kn-contact.png" alt="Kinship Navigator contact step" onerror="this.style.display='none'"></div>
+          <div class="dev"><img loading="lazy" decoding="async" src="images/KinshipNavigator/kn-address.png" alt="Kinship Navigator address step" onerror="this.style.display='none'"></div>
+          <div class="dev"><img loading="lazy" decoding="async" src="images/KinshipNavigator/kn-signin.png" alt="Kinship Navigator sign in or register" onerror="this.style.display='none'"></div>
         </div>
       </div>
       <div class="body">
-        <p class="name">Kinship Navigator <span class="yr">Washington, DC</span></p>
+        <h3 class="name">Kinship Navigator <span class="yr">Washington, DC</span></h3>
         <span class="pill mig">.NET MAUI · Gov / Social · Featured</span>
         <p class="desc">A .NET MAUI application providing tools for users to apply for subsidies and Emergency Financial Assistance for caretakers of children in need — funding food, housing and essentials. Architected on .NET MAUI, MAUI Essentials, CommunityToolkit.MVVM and RESTful services communicating with a Dynamics back end. Most notably, it was delivered within an extremely tight timeframe tied to payment terms that could have meant catastrophe for the client if missed — and through a steadfast focus on the MVP requirements, the app shipped successfully inside the deadline.</p>
         <p class="tech"><b>Tech:</b> .NET MAUI, MAUI Essentials, CommunityToolkit.MVVM, RESTful Services, Dynamics</p>
@@ -766,7 +813,7 @@
         </div>
       </div>
       <div class="body">
-        <p class="name">SmartCard <span class="yr">2026</span></p>
+        <h3 class="name">SmartCard <span class="yr">2026</span></h3>
         <span class="pill mig">.NET MAUI · Featured</span>
         <p class="desc">A feature-rich .NET MAUI app that simplifies access to the business, social and scheduling details that matter most. I led the codebase transition and review, built the infrastructure that let new team members advance the codebase, delivered the MVP feature set, and architected for future roadmap milestones — as development pushed forward at an impressive velocity.</p>
         <p class="tech"><b>Tech:</b> .NET MAUI, MVVM, Shell, Clean Architecture</p>
@@ -804,7 +851,7 @@
         <span style="position:absolute; z-index:2; left:14px; top:12px; font:700 10px/1 'Segoe UI',Arial; letter-spacing:1px; color:#7a3a12; background:rgba(255,255,255,.85); border:1px solid #f0d9c8; padding:4px 9px; border-radius:20px;">🔥 FLOOR HEAT MAP</span>
       </div>
       <div class="body">
-        <p class="name">DCPro <span class="yr">.NET MAUI</span></p>
+        <h3 class="name">DCPro <span class="yr">.NET MAUI</span></h3>
         <span class="pill mig">.NET MAUI · Featured</span>
         <p class="desc">A .NET MAUI tool that turns a dry-cleaning facility's floor plan into a live heat map — revealing high-traffic paths and equipment zones so owners can pinpoint problem areas and act on the hottest spots.</p>
         <p class="tech"><b>Tech:</b> .NET MAUI, MVVM, Custom Graphics / Heat Map</p>
@@ -816,16 +863,16 @@
       <div class="shot iso mock fan">
         <span class="deco tc">🎬</span><span class="deco br">🍿</span>
         <div class="iso-plane tall">
-          <div class="dev"><img src="images/MovieBuff/SendOTP.png" alt="MovieBuff login / OTP"></div>
-          <div class="dev"><img src="images/MovieBuff/SelectShow1New.png" alt="MovieBuff select show"></div>
-          <div class="dev"><img src="images/MovieBuff/SelectShow2New.png" alt="MovieBuff booking & ratings"></div>
-          <div class="dev"><img src="images/MovieBuff/SelectShow1.png" alt="MovieBuff calendar"></div>
-          <div class="dev"><img src="images/MovieBuff/SelectShow2.png" alt="MovieBuff showtimes"></div>
-          <div class="dev"><img src="images/MovieBuff/UserProfile.png" alt="MovieBuff profile"></div>
+          <div class="dev"><img loading="lazy" decoding="async" src="images/MovieBuff/SendOTP.png" alt="MovieBuff login / OTP"></div>
+          <div class="dev"><img loading="lazy" decoding="async" src="images/MovieBuff/SelectShow1New.png" alt="MovieBuff select show"></div>
+          <div class="dev"><img loading="lazy" decoding="async" src="images/MovieBuff/SelectShow2New.png" alt="MovieBuff booking & ratings"></div>
+          <div class="dev"><img loading="lazy" decoding="async" src="images/MovieBuff/SelectShow1.png" alt="MovieBuff calendar"></div>
+          <div class="dev"><img loading="lazy" decoding="async" src="images/MovieBuff/SelectShow2.png" alt="MovieBuff showtimes"></div>
+          <div class="dev"><img loading="lazy" decoding="async" src="images/MovieBuff/UserProfile.png" alt="MovieBuff profile"></div>
         </div>
       </div>
       <div class="body">
-        <p class="name">MovieBuff</p>
+        <h3 class="name">MovieBuff</h3>
         <span class="pill">.NET MAUI · Featured</span>
         <p class="desc">Movie & show ticketing app MVP — ticket purchasing, text/MRU search, OTP authentication, and a discussion system with threaded replies and emoji reactions. Integrated an existing REST API and implemented a Figma-based UX.</p>
         <p class="tech"><b>Tech:</b> .NET MAUI, Telerik UI for .NET MAUI, MVVM, REST, CommunityToolkit.Mvvm, SQLite</p>
@@ -836,15 +883,15 @@
     <div class="card" id="searchmed">
       <div class="shot med">
         <span class="deco bl">🔍</span><span class="deco tr">💊</span>
-        <div class="res"><img src="images/SearchMed/SearchFields.png" alt="SearchMed search"></div>
-        <div class="res"><img src="images/SearchMed/SearchList.png" alt="SearchMed results list"></div>
-        <div class="res"><img src="images/SearchMed/SearchMap.png" alt="SearchMed map"></div>
-        <div class="res"><img src="images/SearchMed/SearchResults.png" alt="SearchMed results"></div>
-        <div class="res"><img src="images/SearchMed/SearchDetails.png" alt="SearchMed provider detail"></div>
-        <div class="res"><img src="images/SearchMed/UpdateSearch.png" alt="SearchMed update search"></div>
+        <div class="res"><img loading="lazy" decoding="async" src="images/SearchMed/SearchFields.png" alt="SearchMed search"></div>
+        <div class="res"><img loading="lazy" decoding="async" src="images/SearchMed/SearchList.png" alt="SearchMed results list"></div>
+        <div class="res"><img loading="lazy" decoding="async" src="images/SearchMed/SearchMap.png" alt="SearchMed map"></div>
+        <div class="res"><img loading="lazy" decoding="async" src="images/SearchMed/SearchResults.png" alt="SearchMed results"></div>
+        <div class="res"><img loading="lazy" decoding="async" src="images/SearchMed/SearchDetails.png" alt="SearchMed provider detail"></div>
+        <div class="res"><img loading="lazy" decoding="async" src="images/SearchMed/UpdateSearch.png" alt="SearchMed update search"></div>
       </div>
       <div class="body">
-        <p class="name">SearchMed</p>
+        <h3 class="name">SearchMed</h3>
         <span class="pill">.NET MAUI · Featured</span>
         <p class="desc">A .NET MAUI app for customers to search for medical professionals. Improved app performance by ~30% and reduced load times by ~50%.</p>
         <p class="tech"><b>Tech:</b> .NET MAUI, Firebase, MVVM, CommunityToolkit.MVVM, CommunityToolkit.Maui, SQLite</p>
@@ -855,13 +902,13 @@
     <div class="card" id="pos">
       <div class="shot pos">
         <span class="deco tl">🧾</span><span class="deco br">💳</span>
-        <div class="win" style="left:3%; top:14px;"><img src="images/POS/admin-login.png" alt="POS Prototype — admin login" onerror="this.style.display='none'"></div>
-        <div class="win" style="left:15%; top:56px;"><img src="images/POS/create-order.png" alt="POS Prototype — product grid and create order" onerror="this.style.display='none'"></div>
-        <div class="win" style="left:27%; top:98px;"><img src="images/POS/order-screen.png" alt="POS Prototype — order with discounts and payment" onerror="this.style.display='none'"></div>
-        <div class="win" style="left:39%; top:140px;"><img src="images/POS/settings.png" alt="POS Prototype — register and order settings" onerror="this.style.display='none'"></div>
+        <div class="win" style="left:3%; top:14px;"><img loading="lazy" decoding="async" src="images/POS/admin-login.png" alt="POS Prototype — admin login" onerror="this.style.display='none'"></div>
+        <div class="win" style="left:15%; top:56px;"><img loading="lazy" decoding="async" src="images/POS/create-order.png" alt="POS Prototype — product grid and create order" onerror="this.style.display='none'"></div>
+        <div class="win" style="left:27%; top:98px;"><img loading="lazy" decoding="async" src="images/POS/order-screen.png" alt="POS Prototype — order with discounts and payment" onerror="this.style.display='none'"></div>
+        <div class="win" style="left:39%; top:140px;"><img loading="lazy" decoding="async" src="images/POS/settings.png" alt="POS Prototype — register and order settings" onerror="this.style.display='none'"></div>
       </div>
       <div class="body">
-        <p class="name">POS Prototype</p>
+        <h3 class="name">POS Prototype</h3>
         <span class="pill">.NET MAUI · Windows · Featured</span>
         <p class="desc">Windows-based point-of-sale prototype demonstrating user/admin login, category and product display, swipe navigation, purchasing, discounts, and configurable payment/receipt/order settings.</p>
         <p class="tech"><b>Tech:</b> .NET MAUI, MVVM, CommunityToolkit.Maui, CommunityToolkit.Mvvm, InAppBilling, Sentry, Telerik</p>
@@ -875,15 +922,15 @@
         <span class="digit" style="top:-16px; left:8px;">7</span>
         <span class="digit" style="top:96px; right:34%;">9</span>
         <span class="digit" style="bottom:-12px; right:12px;">3</span>
-        <div class="s"><img src="images/Numbers/MUTypes.png" alt="Numbers type traits"></div>
-        <div class="s"><img src="images/Numbers/MUProfileInstagram.png" alt="Numbers profile & instagram"></div>
-        <div class="s"><img src="images/Numbers/Screenshot%202023-03-03%20095056.png" alt="Numbers screen"></div>
-        <div class="s"><img src="images/Numbers/Screenshot%202023-03-07%20071258%20-%20Copy.png" alt="Numbers profile"></div>
-        <div class="s"><img src="images/Numbers/Screenshot%202023-03-10%20000554.png" alt="Numbers interests"></div>
-        <div class="s"><img src="images/Numbers/Screenshot%202023-03-15%20124617%20-%20Copy.png" alt="Numbers likes"></div>
+        <div class="s"><img loading="lazy" decoding="async" src="images/Numbers/MUTypes.png" alt="Numbers type traits"></div>
+        <div class="s"><img loading="lazy" decoding="async" src="images/Numbers/MUProfileInstagram.png" alt="Numbers profile & instagram"></div>
+        <div class="s"><img loading="lazy" decoding="async" src="images/Numbers/Screenshot%202023-03-03%20095056.png" alt="Numbers screen"></div>
+        <div class="s"><img loading="lazy" decoding="async" src="images/Numbers/Screenshot%202023-03-07%20071258%20-%20Copy.png" alt="Numbers profile"></div>
+        <div class="s"><img loading="lazy" decoding="async" src="images/Numbers/Screenshot%202023-03-10%20000554.png" alt="Numbers interests"></div>
+        <div class="s"><img loading="lazy" decoding="async" src="images/Numbers/Screenshot%202023-03-15%20124617%20-%20Copy.png" alt="Numbers likes"></div>
       </div>
       <div class="body">
-        <p class="name">Numbers</p>
+        <h3 class="name">Numbers</h3>
         <span class="pill">.NET MAUI · Featured</span>
         <p class="desc">Completed development of the initial release under a critical deadline tied to a scheduled social event.</p>
         <p class="tech"><b>Tech:</b> .NET MAUI, MVVM, SQLite, Newtonsoft, InAppBilling, Telerik, CommunityToolkit.Maui, CommunityToolkit.MVVM</p>
@@ -923,10 +970,10 @@
         </svg>
         <div style="position:relative; z-index:3; display:flex; align-items:center; justify-content:center; height:230px;">
           <div style="position:absolute; left:50%; top:50%; transform:translate(calc(-50% - 62px), -48%) rotate(-8deg); padding:3px; background:#0a1524; border-radius:13px; box-shadow:0 10px 22px rgba(0,10,30,.5); overflow:hidden;">
-            <img src="images/Marcel/people-connect.png" alt="Marcel — People Connect, find anyone in the Groupe" style="width:auto; height:130px; display:block; border-radius:10px; transform:scale(1.06);" onerror="this.parentNode.style.display='none'">
+            <img loading="lazy" decoding="async" src="images/Marcel/people-connect.png" alt="Marcel — People Connect, find anyone in the Groupe" style="width:auto; height:130px; display:block; border-radius:10px; transform:scale(1.06);" onerror="this.parentNode.style.display='none'">
           </div>
           <div style="position:relative; padding:4px; background:#0a1524; border-radius:18px; box-shadow:0 18px 40px rgba(0,10,35,.6); z-index:2; overflow:hidden;">
-            <img src="images/Marcel/home.png" alt="Marcel intro — connecting 80,000 Publicis Groupe employees" style="width:auto; height:178px; display:block; border-radius:14px; transform:scale(1.06);" onerror="this.parentNode.style.display='none'">
+            <img loading="lazy" decoding="async" src="images/Marcel/home.png" alt="Marcel intro — connecting 80,000 Publicis Groupe employees" style="width:auto; height:178px; display:block; border-radius:14px; transform:scale(1.06);" onerror="this.parentNode.style.display='none'">
           </div>
         </div>
         <div style="position:absolute; z-index:4; left:6%; top:15px; display:flex; align-items:center; gap:7px; background:rgba(255,255,255,.96); border-radius:10px; padding:6px 10px 6px 6px; box-shadow:0 8px 20px rgba(0,10,35,.38);">
@@ -938,7 +985,7 @@
         </div>
       </div>
       <div class="body">
-        <p class="name">Marcel <span class="yr">2019</span></p>
+        <h3 class="name">Marcel <span class="yr">2019</span></h3>
         <span class="pill xam">Xamarin.Forms · AI · Featured</span>
         <p class="desc">As a badged Microsoft contractor on the Microsoft campus, helped build the initial release of Marcel — an AI-powered platform connecting 80,000 employees to find collaborators, schedule meetings, and track deliverables.</p>
         <p class="tech"><b>Tech:</b> Xamarin.Forms, Microsoft AI, Prism, REST · with Publicis.Sapient</p>
@@ -950,17 +997,17 @@
       <div class="shot tmo">
         <a href="T-Mobile Money.html" class="shot-link" aria-label="View the T-Mobile Money case study"></a>
         <span class="deco bl dk">💳</span><span class="deco tr dk">💵</span>
-        <img src="images/BankMobile/SplashScreen.png" alt="T-Mobile Money splash screen" onerror="this.style.display='none'">
-        <img src="images/BankMobile/MultipleAccounts.png" alt="T-Mobile Money multiple accounts" onerror="this.style.display='none'">
-        <img src="images/BankMobile/AccountDetails.png" alt="T-Mobile Money account details" onerror="this.style.display='none'">
-        <img src="images/BankMobile/AddMoney.png" alt="T-Mobile Money add money" onerror="this.style.display='none'">
-        <img src="images/BankMobile/Map.png" alt="T-Mobile Money ATM and cash deposit locator" onerror="this.style.display='none'">
-        <img src="images/BankMobile/PerksDetails.png" alt="T-Mobile Money perks details" onerror="this.style.display='none'">
+        <img loading="lazy" decoding="async" src="images/BankMobile/SplashScreen.png" alt="T-Mobile Money splash screen" onerror="this.style.display='none'">
+        <img loading="lazy" decoding="async" src="images/BankMobile/MultipleAccounts.png" alt="T-Mobile Money multiple accounts" onerror="this.style.display='none'">
+        <img loading="lazy" decoding="async" src="images/BankMobile/AccountDetails.png" alt="T-Mobile Money account details" onerror="this.style.display='none'">
+        <img loading="lazy" decoding="async" src="images/BankMobile/AddMoney.png" alt="T-Mobile Money add money" onerror="this.style.display='none'">
+        <img loading="lazy" decoding="async" src="images/BankMobile/Map.png" alt="T-Mobile Money ATM and cash deposit locator" onerror="this.style.display='none'">
+        <img loading="lazy" decoding="async" src="images/BankMobile/PerksDetails.png" alt="T-Mobile Money perks details" onerror="this.style.display='none'">
         <span class="cash" style="top:14px; left:18px; font-size:56px;">$</span>
         <span class="cash" style="top:44px; right:24px; font-size:38px;">¢</span>
       </div>
       <div class="body">
-        <p class="name">T-Mobile Money <span class="yr">2017–2019</span></p>
+        <h3 class="name">T-Mobile Money <span class="yr">2017–2019</span></h3>
         <span class="pill xam">Xamarin.Forms · Fintech</span>
         <p class="desc">Customer-facing Banking-as-a-Service app with 300+ screens — account transfers, perks, CUI notifications, ATM/cash-deposit locators, card activation, and fund management.</p>
         <p class="tech"><b>Tech:</b> Xamarin.Forms, MVVMCross, Google Maps SDK, REST, Xamarin.Essentials</p>
@@ -973,15 +1020,15 @@
         <a href="Sherlock Talent.html" class="shot-link" aria-label="View the Sherlock Talent case study" style="position:absolute; inset:0; z-index:20;"></a>
         <span class="deco tc">🔍</span><span class="deco br">💼</span>
         <div class="iso-plane tall">
-          <div class="dev"><img src="images/SherlockTalent/st-home.png" alt="Sherlock Talent home" onerror="this.style.display='none'"></div>
-          <div class="dev"><img src="images/SherlockTalent/st-chat.png" alt="Sherlock Talent chat assistant" onerror="this.style.display='none'"></div>
-          <div class="dev"><img src="images/SherlockTalent/st-jobs.png" alt="Sherlock Talent job search" onerror="this.style.display='none'"></div>
-          <div class="dev"><img src="images/SherlockTalent/st-hire.png" alt="Sherlock Talent hire talent" onerror="this.style.display='none'"></div>
-          <div class="dev"><img src="images/SherlockTalent/st-events.png" alt="Sherlock Talent event search" onerror="this.style.display='none'"></div>
+          <div class="dev"><img loading="lazy" decoding="async" src="images/SherlockTalent/st-home.png" alt="Sherlock Talent home" onerror="this.style.display='none'"></div>
+          <div class="dev"><img loading="lazy" decoding="async" src="images/SherlockTalent/st-chat.png" alt="Sherlock Talent chat assistant" onerror="this.style.display='none'"></div>
+          <div class="dev"><img loading="lazy" decoding="async" src="images/SherlockTalent/st-jobs.png" alt="Sherlock Talent job search" onerror="this.style.display='none'"></div>
+          <div class="dev"><img loading="lazy" decoding="async" src="images/SherlockTalent/st-hire.png" alt="Sherlock Talent hire talent" onerror="this.style.display='none'"></div>
+          <div class="dev"><img loading="lazy" decoding="async" src="images/SherlockTalent/st-events.png" alt="Sherlock Talent event search" onerror="this.style.display='none'"></div>
         </div>
       </div>
       <div class="body">
-        <p class="name">Sherlock Talent <span class="yr">Xamarin.Forms</span></p>
+        <h3 class="name">Sherlock Talent <span class="yr">Xamarin.Forms</span></h3>
         <span class="pill xam">Xamarin.Forms · Job Search · Featured</span>
         <p class="desc">A set of tools job seekers consider an invaluable resource — offering more than state-of-the-art guidance to find the perfect job. Sherlock Talent acts as a partner, always at the ready to strengthen trust and build a long-term relationship as your career goals grow with you.</p>
         <p class="tech"><b>Tech:</b> Xamarin.Forms, REST APIs, Xamarin.Essentials, Conversational UI, iOS &amp; Android</p>
@@ -992,13 +1039,13 @@
     <div class="card" id="uas">
       <div class="shot sky">
         <span class="deco bl">🚁</span><span class="deco mr">📡</span>
-        <div class="wp" style="left:4%; top:40px;"><img src="images/UASTrakker/Opening.png" alt="UAS Trakker — mission overview with mission list and map" onerror="this.style.display='none'"></div>
-        <div class="wp" style="left:52%; top:22px;"><img src="images/UASTrakker/WaterRescue.png" alt="UAS Trakker — mission tools: target beacon, change aircraft, select route" onerror="this.style.display='none'"></div>
-        <div class="wp" style="left:10%; top:148px;"><img src="images/UASTrakker/ManOverboard.png" alt="UAS Trakker — beacon coordinates with live drone feed" onerror="this.style.display='none'"></div>
-        <div class="wp" style="left:56%; top:150px;"><img src="images/UASTrakker/FireRescue.png" alt="UAS Trakker — waypoint route on snow rescue mission" onerror="this.style.display='none'"></div>
+        <div class="wp" style="left:4%; top:40px;"><img loading="lazy" decoding="async" src="images/UASTrakker/Opening.png" alt="UAS Trakker — mission overview with mission list and map" onerror="this.style.display='none'"></div>
+        <div class="wp" style="left:52%; top:22px;"><img loading="lazy" decoding="async" src="images/UASTrakker/WaterRescue.png" alt="UAS Trakker — mission tools: target beacon, change aircraft, select route" onerror="this.style.display='none'"></div>
+        <div class="wp" style="left:10%; top:148px;"><img loading="lazy" decoding="async" src="images/UASTrakker/ManOverboard.png" alt="UAS Trakker — beacon coordinates with live drone feed" onerror="this.style.display='none'"></div>
+        <div class="wp" style="left:56%; top:150px;"><img loading="lazy" decoding="async" src="images/UASTrakker/FireRescue.png" alt="UAS Trakker — waypoint route on snow rescue mission" onerror="this.style.display='none'"></div>
       </div>
       <div class="body">
-        <p class="name">UAS Trakker</p>
+        <h3 class="name">UAS Trakker</h3>
         <span class="pill xam">Xamarin.Forms · Drone/GIS · Featured</span>
         <p class="desc">Empowers custom Unmanned Aerial Systems to locate, track, and follow radio-frequency personal locator beacons attached to people engaged in risk-prone activities.</p>
         <p class="tech"><b>Tech:</b> Xamarin.Forms, Google Maps SDK, Microsoft Azure Cloud Services</p>
@@ -1009,15 +1056,15 @@
     <div class="card" id="petpixie">
       <div class="shot cork">
         <span class="deco bl">🐾</span><span class="deco tr">🧚</span>
-        <div class="snap"><img src="images/PetPixie/LoginTour1of4_iOS.png" alt="Pet Pixie — welcome tour" onerror="this.style.display='none'"></div>
-        <div class="snap"><img src="images/PetPixie/MyPack_iOS.png" alt="Pet Pixie — My Pack pet profiles" onerror="this.style.display='none'"></div>
-        <div class="snap"><img src="images/PetPixie/ios_DiscoverSearch.png" alt="Pet Pixie — discover and search" onerror="this.style.display='none'"></div>
-        <div class="snap"><img src="images/PetPixie/HaveFun_iOS.png" alt="Pet Pixie — photo fun" onerror="this.style.display='none'"></div>
-        <div class="snap"><img src="images/PetPixie/Notifications_iOS.png" alt="Pet Pixie — notifications and reminders" onerror="this.style.display='none'"></div>
-        <div class="snap"><img src="images/PetPixie/MyVets_iOS.png" alt="Pet Pixie — my vets" onerror="this.style.display='none'"></div>
+        <div class="snap"><img loading="lazy" decoding="async" src="images/PetPixie/LoginTour1of4_iOS.png" alt="Pet Pixie — welcome tour" onerror="this.style.display='none'"></div>
+        <div class="snap"><img loading="lazy" decoding="async" src="images/PetPixie/MyPack_iOS.png" alt="Pet Pixie — My Pack pet profiles" onerror="this.style.display='none'"></div>
+        <div class="snap"><img loading="lazy" decoding="async" src="images/PetPixie/ios_DiscoverSearch.png" alt="Pet Pixie — discover and search" onerror="this.style.display='none'"></div>
+        <div class="snap"><img loading="lazy" decoding="async" src="images/PetPixie/HaveFun_iOS.png" alt="Pet Pixie — photo fun" onerror="this.style.display='none'"></div>
+        <div class="snap"><img loading="lazy" decoding="async" src="images/PetPixie/Notifications_iOS.png" alt="Pet Pixie — notifications and reminders" onerror="this.style.display='none'"></div>
+        <div class="snap"><img loading="lazy" decoding="async" src="images/PetPixie/MyVets_iOS.png" alt="Pet Pixie — my vets" onerror="this.style.display='none'"></div>
       </div>
       <div class="body">
-        <p class="name">Pet Pixie</p>
+        <h3 class="name">Pet Pixie</h3>
         <span class="pill xam">Xamarin.Forms · Social · Featured</span>
         <p class="desc">Social-sharing app for pet parents to share photos, receive reminders, and store vet info — released on iOS and Android.</p>
         <p class="tech"><b>Tech:</b> Xamarin.Forms, MVVMCross</p>
@@ -1028,12 +1075,12 @@
     <div class="card" id="realgreen">
       <div class="shot lawn">
         <span class="deco tr dk">🌱</span>
-        <div class="stake" style="left:9%; top:26px;"><img src="images/RealGreen/Login.png" alt="Real Green login by company and employee ID" onerror="this.style.display='none'"></div>
-        <div class="stake" style="left:40%; top:52px;"><img src="images/RealGreen/JobList.png" alt="Real Green daily job list with in-progress timer" onerror="this.style.display='none'"></div>
-        <div class="stake" style="left:71%; top:20px;"><img src="images/RealGreen/ClockOut.png" alt="Real Green crew timesheets with clock out" onerror="this.style.display='none'"></div>
+        <div class="stake" style="left:9%; top:26px;"><img loading="lazy" decoding="async" src="images/RealGreen/Login.png" alt="Real Green login by company and employee ID" onerror="this.style.display='none'"></div>
+        <div class="stake" style="left:40%; top:52px;"><img loading="lazy" decoding="async" src="images/RealGreen/JobList.png" alt="Real Green daily job list with in-progress timer" onerror="this.style.display='none'"></div>
+        <div class="stake" style="left:71%; top:20px;"><img loading="lazy" decoding="async" src="images/RealGreen/ClockOut.png" alt="Real Green crew timesheets with clock out" onerror="this.style.display='none'"></div>
       </div>
       <div class="body">
-        <p class="name">Real Green Systems <span class="yr">by WorkWave</span></p>
+        <h3 class="name">Real Green Systems <span class="yr">by WorkWave</span></h3>
         <span class="pill xam">Xamarin.Forms · Field Service</span>
         <p class="desc">Productivity app connecting lawn care and landscaping field technicians with the back office. Crews clock in, load the day's route, review customer history and service codes, navigate between stops and the depot, time every job, and document work offline — syncing back to the office whenever a signal allows.</p>
         <p class="tech"><b>Tech:</b> Xamarin.Forms, MVVM, Offline-first Sync, SQLite, RESTful Services, Maps &amp; Navigation, Xamarin.Essentials</p>
@@ -1044,13 +1091,13 @@
     <div class="card" id="mvphealthcare">
       <div class="shot gia">
         <span class="deco tl">🩺</span><span class="deco br">❤️</span>
-        <div class="giacard"><img src="images/MVPHealthcare/Splash.png" alt="Gia by MVP splash screen" onerror="this.style.display='none'"></div>
-        <div class="giacard"><img src="images/MVPHealthcare/Home.png" alt="Gia home — Get Care and My Plan" onerror="this.style.display='none'"></div>
-        <div class="giacard"><img src="images/MVPHealthcare/VirtualCare.png" alt="Gia virtual care tiers — urgent, everyday, behavioral" onerror="this.style.display='none'"></div>
-        <div class="giacard"><img src="images/MVPHealthcare/Claim.png" alt="Gia claim detail with charges, savings and member cost" onerror="this.style.display='none'"></div>
+        <div class="giacard"><img loading="lazy" decoding="async" src="images/MVPHealthcare/Splash.png" alt="Gia by MVP splash screen" onerror="this.style.display='none'"></div>
+        <div class="giacard"><img loading="lazy" decoding="async" src="images/MVPHealthcare/Home.png" alt="Gia home — Get Care and My Plan" onerror="this.style.display='none'"></div>
+        <div class="giacard"><img loading="lazy" decoding="async" src="images/MVPHealthcare/VirtualCare.png" alt="Gia virtual care tiers — urgent, everyday, behavioral" onerror="this.style.display='none'"></div>
+        <div class="giacard"><img loading="lazy" decoding="async" src="images/MVPHealthcare/Claim.png" alt="Gia claim detail with charges, savings and member cost" onerror="this.style.display='none'"></div>
       </div>
       <div class="body">
-        <p class="name">MVP HealthCare — Gia <span class="yr">NY &amp; VT</span></p>
+        <h3 class="name">MVP HealthCare — Gia <span class="yr">NY &amp; VT</span></h3>
         <span class="pill xam">Xamarin.Forms · Healthcare · Featured</span>
         <p class="desc">Gia by MVP Health Care puts a health plan in the member's pocket — 24/7 virtual care with certified clinicians (urgent care by phone, everyday care by in-app messaging, behavioral health by video), doctor and facility search, digital ID cards, and claims that read like receipts: charges, what MVP saved you, and your actual cost, with the EOB one tap away. Free for most MVP members.</p>
         <p class="tech"><b>Tech:</b> Xamarin.Forms, MVVM, RESTful Services, Secure Member Auth, PDF (EOB) Viewing</p>
@@ -1061,13 +1108,13 @@
     <div class="card" id="clubholiday">
       <div class="shot fuel">
         <span class="deco tr dk">⛽</span><span class="deco bl dk">🎫</span>
-        <div class="topper" style="left:4%; top:56px;"><img src="images/HolidayApp/HomeScreen.png" alt="Club Holiday home screen with points and scannable barcode" onerror="this.style.display='none'"></div>
-        <div class="topper" style="left:29%; top:40px;"><img src="images/HolidayApp/Coupons.png" alt="Club Holiday coupons redeemed with points" onerror="this.style.display='none'"></div>
-        <div class="topper" style="left:54%; top:52px;"><img src="images/HolidayApp/Clubs.png" alt="Club Holiday punch-card clubs" onerror="this.style.display='none'"></div>
-        <div class="topper" style="left:79%; top:36px;"><img src="images/HolidayApp/StoresMap.png" alt="Club Holiday store locator with live fuel prices" onerror="this.style.display='none'"></div>
+        <div class="topper" style="left:4%; top:56px;"><img loading="lazy" decoding="async" src="images/HolidayApp/HomeScreen.png" alt="Club Holiday home screen with points and scannable barcode" onerror="this.style.display='none'"></div>
+        <div class="topper" style="left:29%; top:40px;"><img loading="lazy" decoding="async" src="images/HolidayApp/Coupons.png" alt="Club Holiday coupons redeemed with points" onerror="this.style.display='none'"></div>
+        <div class="topper" style="left:54%; top:52px;"><img loading="lazy" decoding="async" src="images/HolidayApp/Clubs.png" alt="Club Holiday punch-card clubs" onerror="this.style.display='none'"></div>
+        <div class="topper" style="left:79%; top:36px;"><img loading="lazy" decoding="async" src="images/HolidayApp/StoresMap.png" alt="Club Holiday store locator with live fuel prices" onerror="this.style.display='none'"></div>
       </div>
       <div class="body">
-        <p class="name">Club Holiday <span class="yr">Holiday Oil · Utah</span></p>
+        <h3 class="name">Club Holiday <span class="yr">Holiday Oil · Utah</span></h3>
         <span class="pill xam">Xamarin.Forms · Loyalty · Featured</span>
         <p class="desc">The official loyalty app for Holiday Oil's 60+ Utah convenience stores. Members enroll in Club Holiday, earn and track points, scan a register-ready barcode straight from the home screen, redeem points for mobile coupons, fill digital punch cards for the Tornado, Coffee and Slush clubs, and find nearby stores with live fuel prices — plus activate a car wash directly from the vehicle. Built end-to-end as sole mobile developer on Xamarin.Forms, the framework .NET MAUI directly evolved from.</p>
         <p class="tech"><b>Tech:</b> Xamarin.Forms, MVVM, RESTful Services, Xamarin.Essentials, Maps &amp; Geolocation, Barcode Rendering</p>
@@ -1080,13 +1127,13 @@
         <span class="deco tr dk">🖼️</span><span class="deco bl dk">🐶</span>
         <span style="position:absolute; top:0; left:0; right:0; height:1px; background:rgba(38,34,29,.14);"></span>
         <div style="display:flex; gap:14px; align-items:center; justify-content:center;">
-          <img src="images/Waggy/waggy-christmas.png" alt="Waggy Smokey Christmas" style="height:148px; width:auto; padding:3px; background:#fff; border:3px solid #26221d; box-shadow:0 10px 22px rgba(40,34,28,.28);" onerror="this.style.display='none'">
-          <img src="images/Waggy/waggy-home.png" alt="Waggy home gallery" style="height:180px; width:auto; padding:3px; background:#fff; border:3px solid #26221d; box-shadow:0 14px 28px rgba(40,34,28,.32);" onerror="this.style.display='none'">
-          <img src="images/Waggy/waggy-corkboard.png" alt="Waggy Gizmo Favorites" style="height:148px; width:auto; padding:3px; background:#fff; border:3px solid #26221d; box-shadow:0 10px 22px rgba(40,34,28,.28);" onerror="this.style.display='none'">
+          <img loading="lazy" decoding="async" src="images/Waggy/waggy-christmas.png" alt="Waggy Smokey Christmas" style="height:148px; width:auto; padding:3px; background:#fff; border:3px solid #26221d; box-shadow:0 10px 22px rgba(40,34,28,.28);" onerror="this.style.display='none'">
+          <img loading="lazy" decoding="async" src="images/Waggy/waggy-home.png" alt="Waggy home gallery" style="height:180px; width:auto; padding:3px; background:#fff; border:3px solid #26221d; box-shadow:0 14px 28px rgba(40,34,28,.32);" onerror="this.style.display='none'">
+          <img loading="lazy" decoding="async" src="images/Waggy/waggy-corkboard.png" alt="Waggy Gizmo Favorites" style="height:148px; width:auto; padding:3px; background:#fff; border:3px solid #26221d; box-shadow:0 10px 22px rgba(40,34,28,.28);" onerror="this.style.display='none'">
         </div>
       </div>
       <div class="body">
-        <p class="name">Waggy</p>
+        <h3 class="name">Waggy</h3>
         <span class="pill xam">Native iOS · Learning · Featured</span>
         <p class="desc">A learning project I built to get a hands-on feel for what developing a native iOS app requires, compared against Xamarin.Forms — the technology I've long considered my go-to choice for mobile development. A playful pet photo-album app that frames your pets like gallery art.</p>
         <p class="tech"><b>Tech:</b> Native iOS (Swift), for comparison with Xamarin.Forms</p>
@@ -1097,15 +1144,15 @@
     <div class="card" id="b4ufly">
       <div class="shot fly">
         <span class="deco tl">🛰️</span><span class="deco bl">📡</span>
-        <div class="zone"><img src="images/B4UFly/b4ufly cover.png" alt="B4UFly cover" onerror="this.style.display='none'"></div>
-        <div class="zone"><img src="images/B4UFly/MapMode.png" alt="B4UFly map mode with airspace zones" onerror="this.style.display='none'"></div>
-        <div class="zone"><img src="images/B4UFly/ActionRequired.png" alt="B4UFly action required airspace status" onerror="this.style.display='none'"></div>
-        <div class="zone"><img src="images/B4UFly/NearbyAirports.png" alt="B4UFly nearby airports" onerror="this.style.display='none'"></div>
-        <div class="zone"><img src="images/B4UFly/PlannerMode.png" alt="B4UFly planner mode" onerror="this.style.display='none'"></div>
-        <div class="zone"><img src="images/B4UFly/PlannerScreen.png" alt="B4UFly flight planner" onerror="this.style.display='none'"></div>
+        <div class="zone"><img loading="lazy" decoding="async" src="images/B4UFly/b4ufly cover.png" alt="B4UFly cover" onerror="this.style.display='none'"></div>
+        <div class="zone"><img loading="lazy" decoding="async" src="images/B4UFly/MapMode.png" alt="B4UFly map mode with airspace zones" onerror="this.style.display='none'"></div>
+        <div class="zone"><img loading="lazy" decoding="async" src="images/B4UFly/ActionRequired.png" alt="B4UFly action required airspace status" onerror="this.style.display='none'"></div>
+        <div class="zone"><img loading="lazy" decoding="async" src="images/B4UFly/NearbyAirports.png" alt="B4UFly nearby airports" onerror="this.style.display='none'"></div>
+        <div class="zone"><img loading="lazy" decoding="async" src="images/B4UFly/PlannerMode.png" alt="B4UFly planner mode" onerror="this.style.display='none'"></div>
+        <div class="zone"><img loading="lazy" decoding="async" src="images/B4UFly/PlannerScreen.png" alt="B4UFly flight planner" onerror="this.style.display='none'"></div>
       </div>
       <div class="body">
-        <p class="name">B4UFly</p>
+        <h3 class="name">B4UFly</h3>
         <span class="pill xam">Xamarin.Forms · Drone · Featured</span>
         <p class="desc">Helps unmanned-aircraft operators determine whether airspace restrictions or requirements are in effect at a chosen flight location.</p>
         <p class="tech"><b>Tech:</b> Xamarin.Forms, iOS &amp; Android</p>
@@ -1123,14 +1170,14 @@
         <span style="position:absolute; left:23%; top:22px; color:#ffce54; font-size:11px; z-index:2;">★</span>
         <span style="position:absolute; right:24%; bottom:24px; color:#ffce54; font-size:14px; z-index:2;">★</span>
         <div style="position:relative; z-index:3; display:flex; align-items:center; justify-content:center; gap:9px;">
-          <img src="images/Viktre/Viktre3.png" alt="Viktre activity feed with news posts" style="width:auto; height:150px; display:block; border-radius:12px; transform:rotate(-6deg); filter:drop-shadow(0 8px 16px rgba(0,0,0,.5));" onerror="this.style.display='none'">
-          <img src="images/Viktre/Viktre2.png" alt="Viktre athlete stream" style="width:auto; height:190px; display:block; border-radius:15px; filter:drop-shadow(0 14px 28px rgba(0,0,0,.6));" onerror="this.style.display='none'">
-          <img src="images/Viktre/ViktreScreen1.png" alt="Viktre athlete story — The Dirt" style="width:auto; height:150px; display:block; border-radius:12px; transform:rotate(6deg); filter:drop-shadow(0 8px 16px rgba(0,0,0,.5));" onerror="this.style.display='none'">
+          <img loading="lazy" decoding="async" src="images/Viktre/Viktre3.png" alt="Viktre activity feed with news posts" style="width:auto; height:150px; display:block; border-radius:12px; transform:rotate(-6deg); filter:drop-shadow(0 8px 16px rgba(0,0,0,.5));" onerror="this.style.display='none'">
+          <img loading="lazy" decoding="async" src="images/Viktre/Viktre2.png" alt="Viktre athlete stream" style="width:auto; height:190px; display:block; border-radius:15px; filter:drop-shadow(0 14px 28px rgba(0,0,0,.6));" onerror="this.style.display='none'">
+          <img loading="lazy" decoding="async" src="images/Viktre/ViktreScreen1.png" alt="Viktre athlete story — The Dirt" style="width:auto; height:150px; display:block; border-radius:12px; transform:rotate(6deg); filter:drop-shadow(0 8px 16px rgba(0,0,0,.5));" onerror="this.style.display='none'">
         </div>
         <span style="position:absolute; bottom:10px; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,rgba(255,206,84,.6),transparent); z-index:1; pointer-events:none;"></span>
       </div>
       <div class="body">
-        <p class="name">Viktre <span class="yr">Athletes</span></p>
+        <h3 class="name">Viktre <span class="yr">Athletes</span></h3>
         <span class="pill xam">Xamarin.Forms · Sports / Social · Featured</span>
         <p class="desc">Viktre is all about the athlete — a private social network for athletes to connect and collaborate, a public network for athletes to engage with fans and followers, and a 24/7 streaming page filled with compelling content about the world of the athlete, both in and outside of sports.</p>
         <p class="tech"><b>Tech:</b> Xamarin.Forms, live streaming, iOS &amp; Android</p>
@@ -1143,15 +1190,15 @@
         <a href="BCBS - My BluePrint.html" class="shot-link" aria-label="View the BCBS My BluePrint case study" style="position:absolute; inset:0; z-index:20;"></a>
         <span class="deco tc">📊</span><span class="deco br">🩺</span>
         <div class="iso-plane tall">
-          <div class="dev"><img src="images/BCBS/mbp-splash.png" alt="My BluePrint splash" onerror="this.style.display='none'"></div>
-          <div class="dev"><img src="images/BCBS/mbp-settings.png" alt="My BluePrint settings" onerror="this.style.display='none'"></div>
-          <div class="dev"><img src="images/BCBS/mbp-home.png" alt="My BluePrint home menu" onerror="this.style.display='none'"></div>
-          <div class="dev"><img src="images/BCBS/mbp-claims.png" alt="My BluePrint claims center" onerror="this.style.display='none'"></div>
-          <div class="dev"><img src="images/BCBS/mbp-contact.png" alt="My BluePrint contact us" onerror="this.style.display='none'"></div>
+          <div class="dev"><img loading="lazy" decoding="async" src="images/BCBS/mbp-splash.png" alt="My BluePrint splash" onerror="this.style.display='none'"></div>
+          <div class="dev"><img loading="lazy" decoding="async" src="images/BCBS/mbp-settings.png" alt="My BluePrint settings" onerror="this.style.display='none'"></div>
+          <div class="dev"><img loading="lazy" decoding="async" src="images/BCBS/mbp-home.png" alt="My BluePrint home menu" onerror="this.style.display='none'"></div>
+          <div class="dev"><img loading="lazy" decoding="async" src="images/BCBS/mbp-claims.png" alt="My BluePrint claims center" onerror="this.style.display='none'"></div>
+          <div class="dev"><img loading="lazy" decoding="async" src="images/BCBS/mbp-contact.png" alt="My BluePrint contact us" onerror="this.style.display='none'"></div>
         </div>
       </div>
       <div class="body">
-        <p class="name">BCBS - My BluePrint <span class="yr">Analysis &amp; Roadmap</span></p>
+        <h3 class="name">BCBS - My BluePrint <span class="yr">Analysis &amp; Roadmap</span></h3>
         <span class="pill xam">Xamarin.Forms · Healthcare · Featured</span>
         <p class="desc">A deep analysis of the Blue Cross Blue Shield My BluePrint member app — covering application performance, App Store feedback, customer engagement, resolution of high-frequency exceptions, and accessibility compliance — delivered as a prioritized roadmap that schedules each identified area by timeframe and order, tackling the highest-priority issues first.</p>
         <p class="tech"><b>Tech:</b> Xamarin.Forms, Performance Profiling, App Store Analytics, Accessibility, Exception Triage</p>
@@ -1162,15 +1209,15 @@
     <div class="card" id="nalco">
       <div class="shot lock">
         <span class="deco bl">🔒</span><span class="deco tr">🛢️</span>
-        <div class="pad"><img src="images/Nalco/signin.png" alt="Nalco Lock App — sign in" onerror="this.style.display='none'"></div>
-        <div class="pad"><img src="images/Nalco/scan-tank-label.png" alt="Nalco Lock App — scan tank label" onerror="this.style.display='none'"></div>
-        <div class="pad"><img src="images/Nalco/scanned-code-validation.png" alt="Nalco Lock App — scanned code validation" onerror="this.style.display='none'"></div>
-        <div class="pad"><img src="images/Nalco/combination.png" alt="Nalco Lock App — generated lock combination" onerror="this.style.display='none'"></div>
-        <div class="pad"><img src="images/Nalco/lock-already-installed.png" alt="Nalco Lock App — lock already installed" onerror="this.style.display='none'"></div>
-        <div class="pad"><img src="images/Nalco/installation-complete.png" alt="Nalco Lock App — installation complete" onerror="this.style.display='none'"></div>
+        <div class="pad"><img loading="lazy" decoding="async" src="images/Nalco/signin.png" alt="Nalco Lock App — sign in" onerror="this.style.display='none'"></div>
+        <div class="pad"><img loading="lazy" decoding="async" src="images/Nalco/scan-tank-label.png" alt="Nalco Lock App — scan tank label" onerror="this.style.display='none'"></div>
+        <div class="pad"><img loading="lazy" decoding="async" src="images/Nalco/scanned-code-validation.png" alt="Nalco Lock App — scanned code validation" onerror="this.style.display='none'"></div>
+        <div class="pad"><img loading="lazy" decoding="async" src="images/Nalco/combination.png" alt="Nalco Lock App — generated lock combination" onerror="this.style.display='none'"></div>
+        <div class="pad"><img loading="lazy" decoding="async" src="images/Nalco/lock-already-installed.png" alt="Nalco Lock App — lock already installed" onerror="this.style.display='none'"></div>
+        <div class="pad"><img loading="lazy" decoding="async" src="images/Nalco/installation-complete.png" alt="Nalco Lock App — installation complete" onerror="this.style.display='none'"></div>
       </div>
       <div class="body">
-        <p class="name">Nalco Lock App</p>
+        <h3 class="name">Nalco Lock App</h3>
         <span class="pill xam">Xamarin.Forms · Field · Featured</span>
         <p class="desc">Field tool for installation specialists to fit new tank locks, generate unique combos, and document details via a backend service — built on a condensed timeline to support installation of 28,000 tanks on schedule.</p>
         <p class="tech"><b>Tech:</b> Xamarin.Forms, MVVM, REST, Microsoft SSO, BarcodeScanner, SimpleAudioPlayer</p>
@@ -1181,13 +1228,13 @@
     <div class="card" id="salon">
       <div class="shot salon">
         <span class="deco bl dk">💇</span><span class="deco mr dk">✂️</span>
-        <img src="images/SalonScheduler/SSMCalendar.png" alt="Salon Scheduler daily calendar" style="left:3%; top:20px;">
-        <img src="images/SalonScheduler/SSAppointmentDate.png" alt="Salon Scheduler add appointment" style="left:28%; top:38px;">
-        <img src="images/SalonScheduler/SSCommissions.png" alt="Salon Scheduler commissions" style="left:50%; top:12px;">
-        <img src="images/SalonScheduler/SSEmployeeMessage.png" alt="Salon Scheduler employee settings" style="left:72%; top:32px;">
+        <img loading="lazy" decoding="async" src="images/SalonScheduler/SSMCalendar.png" alt="Salon Scheduler daily calendar" style="left:3%; top:20px;">
+        <img loading="lazy" decoding="async" src="images/SalonScheduler/SSAppointmentDate.png" alt="Salon Scheduler add appointment" style="left:28%; top:38px;">
+        <img loading="lazy" decoding="async" src="images/SalonScheduler/SSCommissions.png" alt="Salon Scheduler commissions" style="left:50%; top:12px;">
+        <img loading="lazy" decoding="async" src="images/SalonScheduler/SSEmployeeMessage.png" alt="Salon Scheduler employee settings" style="left:72%; top:32px;">
       </div>
       <div class="body">
-        <p class="name">Salon Scheduler <span class="yr">2016–2017</span></p>
+        <h3 class="name">Salon Scheduler <span class="yr">2016–2017</span></h3>
         <span class="pill xam">Clover POS · Featured</span>
         <p class="desc">Clover POS app for salon professionals — appointment scheduling, SMS reminders, notes, and order history, with unlimited employees/stations syncing across all stations.</p>
         <p class="tech"><b>Tech:</b> Clover POS, Xamarin.Forms</p>
@@ -1203,10 +1250,10 @@
         <span style="position:absolute; width:8px; height:8px; border-radius:50%; left:30%; top:40px; background:rgba(255,255,255,.75); pointer-events:none;"></span>
         <span style="position:absolute; width:6px; height:6px; border-radius:50%; right:32%; bottom:42px; background:rgba(255,255,255,.7); pointer-events:none;"></span>
         <div style="position:absolute; z-index:2; left:50%; top:50%; transform:translate(-96%,-46%) rotate(-9deg); padding:4px; background:#0c2b28; border-radius:16px; box-shadow:0 12px 26px rgba(8,40,36,.45);">
-          <img src="images/Moji/spheres.png" alt="Moji spheres — organize life into Work, Connections and Close Friends" style="width:auto; height:150px; display:block; border-radius:12px;" onerror="this.parentNode.style.display='none'">
+          <img loading="lazy" decoding="async" src="images/Moji/spheres.png" alt="Moji spheres — organize life into Work, Connections and Close Friends" style="width:auto; height:150px; display:block; border-radius:12px;" onerror="this.parentNode.style.display='none'">
         </div>
         <div style="position:relative; z-index:3; padding:5px; background:#0e3330; border-radius:20px; box-shadow:0 18px 42px rgba(8,45,40,.55); transform:rotate(3deg);">
-          <img src="images/Moji/timeline.png" alt="Moji timeline filtered by sphere with friends list" style="width:auto; height:190px; display:block; border-radius:15px;" onerror="this.parentNode.style.display='none'">
+          <img loading="lazy" decoding="async" src="images/Moji/timeline.png" alt="Moji timeline filtered by sphere with friends list" style="width:auto; height:190px; display:block; border-radius:15px;" onerror="this.parentNode.style.display='none'">
         </div>
         <span style="position:absolute; z-index:4; left:10%; top:18px; width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:21px; background:linear-gradient(150deg,#fff,#ffe3f3); box-shadow:0 8px 16px rgba(40,10,50,.35); border:1px solid rgba(255,255,255,.7);">👥</span>
         <span style="position:absolute; z-index:4; right:12%; top:12px; width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:19px; background:linear-gradient(150deg,#fff,#e3ecff); box-shadow:0 8px 16px rgba(40,10,50,.35); border:1px solid rgba(255,255,255,.7);">💬</span>
@@ -1215,7 +1262,7 @@
         <span style="position:absolute; z-index:4; right:23%; top:74px; width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:16px; background:linear-gradient(150deg,#fff,#e0fff0); box-shadow:0 8px 16px rgba(40,10,50,.3); border:1px solid rgba(255,255,255,.7);">🌐</span>
       </div>
       <div class="body">
-        <p class="name">Moji</p>
+        <h3 class="name">Moji</h3>
         <span class="pill xam">Xamarin.Forms · Social · Featured</span>
         <p class="desc">A social networking app built around "spheres" that organize the major areas of your life and simplify grouping and dividing the things that matter to you. Moji centers on an innovative control that gives you full command over access — ranging from broad, sweeping controls down to very small, very specific ones.</p>
         <p class="tech"><b>Tech:</b> Xamarin.Forms, iOS &amp; Android</p>
@@ -1233,14 +1280,14 @@
         <span class="deco br dk" style="opacity:.5;">🔧</span>
         <span style="position:absolute; left:0; right:0; top:50%; height:2px; background:linear-gradient(90deg,transparent,rgba(60,200,180,.55),transparent); z-index:1; pointer-events:none;"></span>
         <div style="position:relative; z-index:3; display:flex; align-items:center; justify-content:center; gap:10px;">
-          <img src="images/ASTech/ASTech2.png" alt="AsTech create work order" style="width:auto; height:148px; display:block; border-radius:11px; transform:rotate(-6deg);" onerror="this.style.display='none'">
-          <img src="images/ASTech/ASTech1.png" alt="AsTech vehicle damage recording diagram" style="width:auto; height:188px; display:block; border-radius:14px; z-index:2;" onerror="this.style.display='none'">
-          <img src="images/ASTech/ASTech3.png" alt="AsTech navigation menu" style="width:auto; height:148px; display:block; border-radius:11px; transform:rotate(6deg);" onerror="this.style.display='none'">
+          <img loading="lazy" decoding="async" src="images/ASTech/ASTech2.png" alt="AsTech create work order" style="width:auto; height:148px; display:block; border-radius:11px; transform:rotate(-6deg);" onerror="this.style.display='none'">
+          <img loading="lazy" decoding="async" src="images/ASTech/ASTech1.png" alt="AsTech vehicle damage recording diagram" style="width:auto; height:188px; display:block; border-radius:14px; z-index:2;" onerror="this.style.display='none'">
+          <img loading="lazy" decoding="async" src="images/ASTech/ASTech3.png" alt="AsTech navigation menu" style="width:auto; height:148px; display:block; border-radius:11px; transform:rotate(6deg);" onerror="this.style.display='none'">
         </div>
         <span style="position:absolute; bottom:12px; left:50%; transform:translateX(-50%); width:58%; border-top:3px dashed rgba(255,255,255,.28); z-index:1; pointer-events:none;"></span>
       </div>
       <div class="body">
-        <p class="name">AsTech 2.0 <span class="yr">Automotive</span></p>
+        <h3 class="name">AsTech 2.0 <span class="yr">Automotive</span></h3>
         <span class="pill xam">Xamarin.Forms · Automotive · Featured</span>
         <p class="desc">Cloud-based companion app for asTech, the leader in remote diagnostic solutions for automotive shops. It brings the convenience of asTech's patented remote-scanning device and staff of master technicians into a mobile experience — view scan reports, submit new scan requests, and review important documents to improve shop cycle time, wherever you go.</p>
         <p class="tech"><b>Tech:</b> Xamarin.Forms, REST / Cloud, iOS &amp; Android</p>
@@ -1252,13 +1299,13 @@
       <div class="shot" style="background:radial-gradient(180px 120px at 50% -18%, rgba(57,217,255,.30), transparent 60%), linear-gradient(160deg,#0a1226,#111f42); position:relative; overflow:hidden;">
         <span class="deco tl dk">🎟️</span><span class="deco br dk">🎉</span>
         <div style="position:relative; z-index:2; display:flex; gap:12px; align-items:center; justify-content:center;">
-          <img src="images/ITPalooza2013/itp13-schedule.png" alt="ITPalooza 2013 schedule" style="width:auto; height:150px; display:block; border-radius:12px; transform:rotate(-6deg); box-shadow:0 10px 22px rgba(0,0,0,.4);" onerror="this.style.display='none'">
-          <img src="images/ITPalooza2013/itp13-sessions.png" alt="ITPalooza 2013 sessions" style="width:auto; height:188px; display:block; border-radius:14px; box-shadow:0 14px 28px rgba(0,0,0,.5);" onerror="this.style.display='none'">
-          <img src="images/ITPalooza2013/itp13-exhibitors.png" alt="ITPalooza 2013 exhibitors" style="width:auto; height:150px; display:block; border-radius:12px; transform:rotate(6deg); box-shadow:0 10px 22px rgba(0,0,0,.4);" onerror="this.style.display='none'">
+          <img loading="lazy" decoding="async" src="images/ITPalooza2013/itp13-schedule.png" alt="ITPalooza 2013 schedule" style="width:auto; height:150px; display:block; border-radius:12px; transform:rotate(-6deg); box-shadow:0 10px 22px rgba(0,0,0,.4);" onerror="this.style.display='none'">
+          <img loading="lazy" decoding="async" src="images/ITPalooza2013/itp13-sessions.png" alt="ITPalooza 2013 sessions" style="width:auto; height:188px; display:block; border-radius:14px; box-shadow:0 14px 28px rgba(0,0,0,.5);" onerror="this.style.display='none'">
+          <img loading="lazy" decoding="async" src="images/ITPalooza2013/itp13-exhibitors.png" alt="ITPalooza 2013 exhibitors" style="width:auto; height:150px; display:block; border-radius:12px; transform:rotate(6deg); box-shadow:0 10px 22px rgba(0,0,0,.4);" onerror="this.style.display='none'">
         </div>
       </div>
       <div class="body">
-        <p class="name">ITPalooza 2013 <span class="yr">2013</span></p>
+        <h3 class="name">ITPalooza 2013 <span class="yr">2013</span></h3>
         <span class="pill xam">Xamarin · Event · Featured</span>
         <p class="desc">Companion app for ITPalooza — South Florida's tech-community conference for networking, learning and charitable giving. Attendees review and select sessions, give session and conference feedback, and build a personal schedule of the day. Architecture, interaction design and UI/UX.</p>
         <p class="tech"><b>Tech:</b> Xamarin, iOS &amp; Android</p>
@@ -1281,7 +1328,7 @@
         </div>
       </div>
       <div class="body">
-        <p class="name">ITPalooza 2016 <span class="yr">2016</span></p>
+        <h3 class="name">ITPalooza 2016 <span class="yr">2016</span></h3>
         <span class="pill xam">Xamarin.Forms · Event · Featured</span>
         <p class="desc">The 5th-annual companion app for ITPalooza — South Florida's tech-community conference. A native, cross-platform experience with a social feed, favoritable and ratable sessions, an events schedule, hands-on Mini-Hacks, and venue, map and sponsor info. Themed "Cloud, Security, IoT &amp; Me."</p>
         <p class="tech"><b>Tech:</b> Xamarin.Forms, iOS &amp; Android</p>
@@ -1301,7 +1348,7 @@
         </div>
       </div>
       <div class="body">
-        <p class="name">South Florida Code Camp <span class="yr">2015</span></p>
+        <h3 class="name">South Florida Code Camp <span class="yr">2015</span></h3>
         <span class="pill xam">Xamarin.Forms · Event · Featured</span>
         <p class="desc">Companion app for South Florida Code Camp — the community conference for networking, learning and giving back. Sessions, speakers, itinerary and feedback, built by a South Florida Xamarin User Group team on the reusable Eventarin codebase. I served as Technical Team Lead.</p>
         <p class="tech"><b>Tech:</b> Xamarin.Forms, Eventarin codebase, iOS &amp; Android</p>
@@ -1318,56 +1365,56 @@
     </div>
     <div class="artgrid">
       <div class="art" data-full="images/XMLJournal/june2001-accelerate-innovation.png">
-        <div class="artthumb"><img src="images/XMLJournal/june2001-accelerate-innovation.png" alt="Accelerate Innovation in the World of Distributed Computing — XML Journal, June 2001" onerror="this.closest('.artthumb').style.display='none'"></div>
+        <div class="artthumb"><img loading="lazy" decoding="async" src="images/XMLJournal/june2001-accelerate-innovation.png" alt="Accelerate Innovation in the World of Distributed Computing — XML Journal, June 2001" onerror="this.closest('.artthumb').style.display='none'"></div>
         <div class="artbody">
           <span class="artdate">XML Journal · June 2001</span>
           <span class="arttitle">Accelerate Innovation in the World of Distributed Computing</span>
         </div>
       </div>
       <div class="art" data-full="images/XMLJournal/july2001-your-own-brain.png">
-        <div class="artthumb"><img src="images/XMLJournal/july2001-your-own-brain.png" alt="When Your Own Brain Isn't Enough — XML Journal, July 2001" onerror="this.closest('.artthumb').style.display='none'"></div>
+        <div class="artthumb"><img loading="lazy" decoding="async" src="images/XMLJournal/july2001-your-own-brain.png" alt="When Your Own Brain Isn't Enough — XML Journal, July 2001" onerror="this.closest('.artthumb').style.display='none'"></div>
         <div class="artbody">
           <span class="artdate">XML Journal · July 2001</span>
           <span class="arttitle">When Your Own Brain Isn't Enough</span>
         </div>
       </div>
       <div class="art" data-full="images/XMLJournal/august2001-dates.png">
-        <div class="artthumb"><img src="images/XMLJournal/august2001-dates.png" alt="Dates Are an Important Area in Any Database Application — XML Journal, August 2001" onerror="this.closest('.artthumb').style.display='none'"></div>
+        <div class="artthumb"><img loading="lazy" decoding="async" src="images/XMLJournal/august2001-dates.png" alt="Dates Are an Important Area in Any Database Application — XML Journal, August 2001" onerror="this.closest('.artthumb').style.display='none'"></div>
         <div class="artbody">
           <span class="artdate">XML Journal · August 2001</span>
           <span class="arttitle">Dates Are an Important Area in Any Database Application</span>
         </div>
       </div>
       <div class="art" data-full="images/XMLJournal/september2001-why-johnny.png">
-        <div class="artthumb"><img src="images/XMLJournal/september2001-why-johnny.png" alt="Why Johnny Can't Read XML — XML Journal, September 2001" onerror="this.closest('.artthumb').style.display='none'"></div>
+        <div class="artthumb"><img loading="lazy" decoding="async" src="images/XMLJournal/september2001-why-johnny.png" alt="Why Johnny Can't Read XML — XML Journal, September 2001" onerror="this.closest('.artthumb').style.display='none'"></div>
         <div class="artbody">
           <span class="artdate">XML Journal · September 2001</span>
           <span class="arttitle">Why Johnny Can't Read XML</span>
         </div>
       </div>
       <div class="art" data-full="images/XMLJournal/october2001-world-wide.png">
-        <div class="artthumb"><img src="images/XMLJournal/october2001-world-wide.png" alt="Getting Ready for When the Internet Becomes World-Wide — XML Journal, October 2001" onerror="this.closest('.artthumb').style.display='none'"></div>
+        <div class="artthumb"><img loading="lazy" decoding="async" src="images/XMLJournal/october2001-world-wide.png" alt="Getting Ready for When the Internet Becomes World-Wide — XML Journal, October 2001" onerror="this.closest('.artthumb').style.display='none'"></div>
         <div class="artbody">
           <span class="artdate">XML Journal · October 2001</span>
           <span class="arttitle">Getting Ready for When the Internet Becomes World-Wide</span>
         </div>
       </div>
       <div class="art" data-full="images/XMLJournal/november2001-recursion.png">
-        <div class="artthumb"><img src="images/XMLJournal/november2001-recursion.png" alt="Recursion Reminds Me of …. Recursion — XML Journal, November 2001" onerror="this.closest('.artthumb').style.display='none'"></div>
+        <div class="artthumb"><img loading="lazy" decoding="async" src="images/XMLJournal/november2001-recursion.png" alt="Recursion Reminds Me of …. Recursion — XML Journal, November 2001" onerror="this.closest('.artthumb').style.display='none'"></div>
         <div class="artbody">
           <span class="artdate">XML Journal · November 2001</span>
           <span class="arttitle">Recursion Reminds Me of …. Recursion</span>
         </div>
       </div>
       <div class="art" data-full="images/XMLJournal/december2001-silverlight-technique.png">
-        <div class="artthumb"><img src="images/XMLJournal/december2001-silverlight-technique.png" alt="The Silverlight Technique, or Ode to Steve Muench — XML Journal, December 2001" onerror="this.closest('.artthumb').style.display='none'"></div>
+        <div class="artthumb"><img loading="lazy" decoding="async" src="images/XMLJournal/december2001-silverlight-technique.png" alt="The Silverlight Technique, or Ode to Steve Muench — XML Journal, December 2001" onerror="this.closest('.artthumb').style.display='none'"></div>
         <div class="artbody">
           <span class="artdate">XML Journal · December 2001</span>
           <span class="arttitle">"The Silverlight Technique," or Ode to Steve Muench</span>
         </div>
       </div>
       <div class="art" data-full="images/XMLJournal/january2002-miss-cleo.png">
-        <div class="artthumb"><img src="images/XMLJournal/january2002-miss-cleo.png" alt="Miss Cleo — Is Your XML Processor Psychic? — XML Journal, January 2002" onerror="this.closest('.artthumb').style.display='none'"></div>
+        <div class="artthumb"><img loading="lazy" decoding="async" src="images/XMLJournal/january2002-miss-cleo.png" alt="Miss Cleo — Is Your XML Processor Psychic? — XML Journal, January 2002" onerror="this.closest('.artthumb').style.display='none'"></div>
         <div class="artbody">
           <span class="artdate">XML Journal · January 2002</span>
           <span class="arttitle">Miss Cleo — Is Your XML Processor Psychic?</span>
@@ -1382,13 +1429,13 @@
     <div class="card" id="sl-nationalworkflow">
       <div class="shot collage">
         <span class="dco tl float" style="--r:-6deg;">🔀</span><span class="dco nwline"></span>
-        <img src="images/NationalWorkflow/workflow-work-order-status.png" alt="National Workflow — Work Order Status" onerror="this.style.display='none'">
-        <img src="images/NationalWorkflow/workflow-attachment-review.png" alt="National Workflow — Attachment Review Queue" onerror="this.style.display='none'">
-        <img src="images/NationalWorkflow/workflow-service-call-lookup.png" alt="National Workflow — Service Call Lookup" onerror="this.style.display='none'">
-        <img src="images/NationalWorkflow/workflow-home.png" alt="National Workflow — Home Queues" onerror="this.style.display='none'">
+        <img loading="lazy" decoding="async" src="images/NationalWorkflow/workflow-work-order-status.png" alt="National Workflow — Work Order Status" onerror="this.style.display='none'">
+        <img loading="lazy" decoding="async" src="images/NationalWorkflow/workflow-attachment-review.png" alt="National Workflow — Attachment Review Queue" onerror="this.style.display='none'">
+        <img loading="lazy" decoding="async" src="images/NationalWorkflow/workflow-service-call-lookup.png" alt="National Workflow — Service Call Lookup" onerror="this.style.display='none'">
+        <img loading="lazy" decoding="async" src="images/NationalWorkflow/workflow-home.png" alt="National Workflow — Home Queues" onerror="this.style.display='none'">
       </div>
       <div class="body">
-        <p class="name">National WorkFlow</p>
+        <h3 class="name">National WorkFlow</h3>
         <span class="pill sl">Silverlight · Featured</span>
         <p class="desc">Mission-critical workflow services used in both daily and month-end processing.</p>
         <p class="tech"><b>Focus:</b> Architecture, UI/UX, Information Architecture</p>
@@ -1399,7 +1446,7 @@
     <div class="card" id="sl-crescendo">
       <div class="shot vidposter" style="background-image:url('https://img.youtube.com/vi/PJWZKYPaT2c/hqdefault.jpg');"><span class="dco tl tw">❤️</span><span class="dco br float">🎵</span><span class="playbtn">&#9654;</span></div>
       <div class="body">
-        <p class="name">Crescendo Patient CRM</p>
+        <h3 class="name">Crescendo Patient CRM</h3>
         <span class="pill sl">Silverlight · Video</span>
         <p class="desc">Home-healthcare customer relationship management (CRM) platform.</p>
         <p class="tech"><b>Focus:</b> Engineering, Visual Effects, Web Development</p>
@@ -1410,7 +1457,7 @@
     <div class="card" id="sl-unbeatablegeek">
       <div class="shot"><div class="ph ug"><span class="dco tl float" style="--r:-10deg;">⚡</span><span class="dco br float">🤓</span><span class="big">🤓⚡ Unbeatable Geek</span><span class="note">Geek Sport · 2009</span></div></div>
       <div class="body">
-        <p class="name">UnbeatableGeek.com</p>
+        <h3 class="name">UnbeatableGeek.com</h3>
         <span class="pill sl">Silverlight · Featured</span>
         <p class="desc">Geeky competition website for organizing fun events at developer conferences.</p>
         <p class="tech"><b>Focus:</b> Interaction Design, Web Design, Web Development</p>
@@ -1421,7 +1468,7 @@
     <div class="card" id="sl-hostinguniversity">
       <div class="shot"><div class="ph mhu"><span class="dco tl">🎓</span><span class="dco br tw">🏆</span><span class="big">🎓 Hosting University</span><span class="note">Est. 2009 · Award Winner</span></div></div>
       <div class="body">
-        <p class="name">Microsoft Hosting University</p>
+        <h3 class="name">Microsoft Hosting University</h3>
         <span class="pill sl">Silverlight · Featured</span>
         <p class="desc">Built the Silverlight user experience for the award-winning Microsoft Hosting University with Merit Mile — rich-media presentations and custom video delivering a self-guided tour of the Microsoft Dynamic Data Center Toolkit (DDCTK). Winner of 3 coveted 2010 Communicator Awards.</p>
         <p class="tech"><b>Focus:</b> Advertising, Web Design, Web Development</p>
@@ -1432,7 +1479,7 @@
     <div class="card" id="sl-propertytax1">
       <div class="shot"><div class="ph pts"><span class="dco tl">⚖️</span><span class="dco br float">📊</span><span class="big">⚖️ Property Tax System</span><span class="note">Assessment &amp; Appeals</span></div></div>
       <div class="body">
-        <p class="name">Property Tax System</p>
+        <h3 class="name">Property Tax System</h3>
         <span class="pill sl">Silverlight · Featured</span>
         <p class="desc">Property tax assessment system developed in Microsoft Silverlight.</p>
         <p class="tech"><b>Focus:</b> Interaction Design, UI/UX, Web Development</p>
@@ -1443,7 +1490,7 @@
     <div class="card" id="sl-starterkit">
       <div class="shot"><div class="ph kit"><span class="dco tl float">🧩</span><span class="dco br caret"></span><span class="big">&lt;/&gt; SL Starter Kit</span><span class="note">MVVM · RIA Services</span></div></div>
       <div class="body">
-        <p class="name">Silverlight User Group Starter Kit</p>
+        <h3 class="name">Silverlight User Group Starter Kit</h3>
         <span class="pill sl">Silverlight · Featured</span>
         <p class="desc">A solid, reusable codebase for Silverlight User Group websites — a fast head start and a reference implementation for how Silverlight, MVVM and RIA Services work together.</p>
         <p class="tech"><b>Tech:</b> Silverlight, MVVM, RIA Services</p>
@@ -1454,7 +1501,7 @@
     <div class="card" id="sl-propertytax2">
       <div class="shot"><div class="ph pts"><span class="dco tl">📈</span><span class="dco br float">🧾</span><span class="big">⚖️ Property Tax System</span><span class="note">Silverlight 5 · RIA</span></div></div>
       <div class="body">
-        <p class="name">Property Tax System <span class="yr">SL5</span></p>
+        <h3 class="name">Property Tax System <span class="yr">SL5</span></h3>
         <span class="pill sl">Silverlight 5 · Featured</span>
         <p class="desc">Tax assessment system built in Silverlight 5, RIA Services, MVVM, .NET and SQL.</p>
         <p class="tech"><b>Tech:</b> Silverlight 5, RIA Services, MVVM, .NET, SQL Server</p>
@@ -1465,7 +1512,7 @@
     <div class="card" id="sl-christmascatalog">
       <div class="shot"><div class="ph xmas"><span class="dco tl tw">❄️</span><span class="dco br float">🎁</span><span class="big">🎄 My Christmas Catalog</span><span class="note">Holiday Commerce</span></div></div>
       <div class="body">
-        <p class="name">My Christmas Catalog</p>
+        <h3 class="name">My Christmas Catalog</h3>
         <span class="pill sl">Silverlight · Featured</span>
         <p class="desc">Advised and consulted for Catalog Enterprises to optimize the installation/deployment experience and user tracking for this visually engaging site.</p>
         <p class="tech"><b>Focus:</b> Web Design, Web Development</p>
@@ -1476,7 +1523,7 @@
     <div class="card" id="sl-polaris">
       <div class="shot"><div class="ph polaris"><span class="dco stars"></span><span class="dco tr tw">✦</span><span class="big">✦ Polaris</span><span class="note">Telecom LOB</span></div></div>
       <div class="body">
-        <p class="name">Polaris</p>
+        <h3 class="name">Polaris</h3>
         <span class="pill sl">Silverlight · Featured</span>
         <p class="desc">Large-scale Silverlight line-of-business (LOB) application for the telecom leasing industry, tracking every aspect of cell-tower ownership across modules with dozens of screens. Owned the Site Administration application.</p>
         <p class="tech"><b>Tech:</b> Silverlight, RIA Services, MVVM, Blend, SQL Server, ADO.NET EF, LINQ</p>
@@ -1487,7 +1534,7 @@
     <div class="card" id="sl-egghead">
       <div class="shot"><div class="ph egg"><span class="dco tl float">☕</span><span class="dco br float">🥚</span><span class="big">☕ Egghead Cafe</span><span class="note">Navigation &amp; Forum UI</span></div></div>
       <div class="body">
-        <p class="name">Egghead Cafe — Silverlight Navigation</p>
+        <h3 class="name">Egghead Cafe — Silverlight Navigation</h3>
         <span class="pill sl">Silverlight · Featured</span>
         <p class="desc">A unique, immersive interface for the Silverlight version of EggheadCafe.com — built the new navigation system and the Forum-section UI.</p>
         <p class="tech"><b>Focus:</b> Web Design, Web Development</p>
@@ -1498,7 +1545,7 @@
     <div class="card" id="sl-materialsdb">
       <div class="shot"><div class="ph md"><span class="dco tl eltile">ρ</span><span class="dco br eltile">E</span><span class="big">⚛ Materials Database</span><span class="note">Engineering · Silverlight</span></div></div>
       <div class="body">
-        <p class="name">Materials Database Application</p>
+        <h3 class="name">Materials Database Application</h3>
         <span class="pill sl">Silverlight · Featured</span>
         <p class="desc">Tracks materials, inventory and scheduling for materials used in mobile devices — schedule requests, search materials, define output templates and customize material details.</p>
         <p class="tech"><b>Tech:</b> Silverlight, MVVM, RIA Services</p>
@@ -1514,7 +1561,7 @@
     <div class="card" id="web-nonprofitways">
       <div class="shot"><div class="ph web"><span class="dco tl float">🤝</span><span class="dco br float">❤️</span><span class="big">🙌 NonProfitWays</span><span class="note">Community for Good</span></div></div>
       <div class="body">
-        <p class="name">NonProfitWays</p>
+        <h3 class="name">NonProfitWays</h3>
         <span class="pill web">ASP.NET · Featured</span>
         <p class="desc">A community site I created pairing new ASP.NET developers with seasoned mentors to build websites for not-for-profit organizations — hands-on experience for newcomers and a high-quality site at no cost for nonprofits.</p>
         <p class="tech"><b>Tech:</b> ASP.NET, .NET</p>
@@ -1525,7 +1572,7 @@
     <div class="card" id="web-communitycredit">
       <div class="shot"><div class="ph cc"><span class="dco tl float">🏆</span><span class="dco br float">🤓</span><span class="big">🏅 Community Credit</span><span class="note">Stupid prizes, smart people</span></div></div>
       <div class="body">
-        <p class="name">Community-Credit.com</p>
+        <h3 class="name">Community-Credit.com</h3>
         <span class="pill web">.NET · Featured</span>
         <p class="desc">A community reward system — "We give stupid prices to smart people" — where users log community work (blogging, speaking, mentoring) to earn points, and top earners win geeky prizes.</p>
         <p class="tech"><b>Focus:</b> Interaction Design, Web Design</p>
@@ -1536,7 +1583,7 @@
     <div class="card" id="web-xmlpitstop">
       <div class="shot"><div class="ph web"><span class="dco tl float">&lt;/&gt;</span><span class="dco br float">📚</span><span class="big">⚙️ XMLPitstop.com</span><span class="note">XML Resources · Head Geek</span></div></div>
       <div class="body">
-        <p class="name">XMLPitstop.com</p>
+        <h3 class="name">XMLPitstop.com</h3>
         <span class="pill web">.NET · XML · Featured</span>
         <p class="desc">Once the largest source of XML-related resources on the web.</p>
         <p class="tech"><b>Focus:</b> Web Development, Writing</p>
@@ -1547,7 +1594,7 @@
     <div class="card" id="web-ineta">
       <div class="shot"><div class="ph in"><span class="dco tl float">👥</span><span class="dco br float">🎉</span><span class="big">🌐 INETA.org</span><span class="note">.NET User Groups</span></div></div>
       <div class="body">
-        <p class="name">Ineta.org</p>
+        <h3 class="name">Ineta.org</h3>
         <span class="pill web">.NET · Featured</span>
         <p class="desc">International .NET Association — a Microsoft-sponsored organization of top speakers and thought leaders supporting the .NET and developer community.</p>
         <p class="tech"><b>Focus:</b> Web Development</p>
@@ -1558,7 +1605,7 @@
     <div class="card" id="web-realtechheroes">
       <div class="shot"><div class="ph rt"><span class="dco tl float">🎙️</span><span class="dco br float">🦸</span><span class="big">🎙️ Real Technology Heroes</span><span class="note">Geek Humor · Audio</span></div></div>
       <div class="body">
-        <p class="name">RealTechnologyHeroes.com</p>
+        <h3 class="name">RealTechnologyHeroes.com</h3>
         <span class="pill web">.NET · Humor · Featured</span>
         <p class="desc">A humor site poking fun at fellow computer geeks, modeled on the "Real American Heroes" Bud Light commercials.</p>
         <p class="tech"><b>Focus:</b> Web Development</p>
@@ -1567,6 +1614,18 @@
     </div>
 
   </div>
+
+  <section class="prose" id="faq">
+    <h2 class="section">Frequently Asked Questions</h2>
+    <div class="panel">
+      <h3>What does David Silverlight specialize in?</h3>
+      <p>Senior .NET MAUI developer for enterprise mobile apps, Xamarin.Forms migrations, project rescue, and high-stakes delivery.</p>
+      <h3>Am I currently available to take on new projects?</h3>
+      <p>Yes, I am, feel free to <a href="tel:+15612125707">call me at 561-212-5707</a> or <a href="mailto:DavidSilverlight@gmail.com">email me at DavidSilverlight@gmail.com</a></p>
+      <h3>Do you use AI tools like Claude Code, and does that affect quality?</h3>
+      <p>Yes — I use AI tools like Claude Code to work faster and explore ideas, but they don't run the show. Years of hands-on development mean I can read a suggested solution and know when it's the right call and when it isn't, so I accept what genuinely improves the code and reject what doesn't. The result is speed without sacrificing quality.</p>
+    </div>
+  </section>
 
   <footer>
     Full portfolio with additional screenshots and write-ups at <a href="https://DavidSilverlight.com" style="color:var(--accent);">DavidSilverlight.com</a> &nbsp;·&nbsp; David Silverlight &nbsp;·&nbsp; 561-212-5707

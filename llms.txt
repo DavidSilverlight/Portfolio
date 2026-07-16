@@ -1,0 +1,34 @@
+# David Silverlight Portfolio
+
+> David Silverlight is a senior .NET MAUI and Xamarin.Forms developer specializing in enterprise mobile apps, Xamarin-to-.NET MAUI migrations, healthcare, GIS, logistics, fintech, IoT, and mobile performance work.
+
+David is based in Miami, Florida and is available for senior mobile development, consulting, modernization, migration, and project rescue work.
+
+## Key Pages
+
+- [Portfolio Home](https://davidsilverlight.github.io/Portfolio/): Overview of David Silverlight's mobile, web, Silverlight, Xamarin.Forms, and .NET MAUI work.
+- [RamTech gMobile Case Study](https://davidsilverlight.github.io/Portfolio/RamTech%20gMobile.html): .NET MAUI Esri/ArcGIS field-inspection app for damage assessment, leak survey, and gas-insight inspections.
+- [ATrack Mobile Case Study](https://davidsilverlight.github.io/Portfolio/ATrack%20Mobile.html): .NET MAUI clinical data-collection platform for ABA therapy providers.
+- [UPS Mobile Delivery Case Study](https://davidsilverlight.github.io/Portfolio/UPS%20Mobile%20Delivery.html): .NET MAUI feasibility and component work for enterprise delivery handhelds.
+- [BCBS My BluePrint Case Study](https://davidsilverlight.github.io/Portfolio/BCBS%20-%20My%20BluePrint.html): Healthcare member app (claims, benefits, contact) built with Xamarin.Forms.
+- [T-Mobile Money Case Study](https://davidsilverlight.github.io/Portfolio/T-Mobile%20Money.html): Fintech mobile banking app built with Xamarin.Forms.
+- [UAS Trakker Case Study](https://davidsilverlight.github.io/Portfolio/UAS%20Trakker.html): GIS/drone search-and-rescue mapping app.
+- [Resume](https://davidsilverlight.github.io/Portfolio/David%20Silverlight%20Resume.html): David Silverlight's resume.
+
+## Expertise
+
+- .NET MAUI
+- Xamarin.Forms
+- Enterprise mobile apps
+- Mobile app modernization
+- Xamarin-to-.NET MAUI migration
+- Prism, CommunityToolkit.Maui, SQLite, REST APIs
+- GIS apps using Esri ArcGIS Maps SDK
+- Healthcare, fintech, logistics, IoT, field inspection
+
+## Contact
+
+- Email: DavidSilverlight@gmail.com
+- Phone: +1-561-212-5707
+- LinkedIn: https://linkedin.com/in/MauiGeek
+- Location: Miami, Florida, USA
